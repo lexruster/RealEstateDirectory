@@ -1,0 +1,5 @@
+syntax: glob
+RealEstateDirectory/_ReSharper.RealEstateDirectory/*
+RealEstateDirectory/RealEstateDirectory/obj/*
+RealEstateDirectory/RealEstateDirectory/bin/*
+RealEstateDirectory/RealEstateDirectory.v11.suo
