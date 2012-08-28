@@ -6,3 +6,4 @@ RealEstateDirectory/RealEstateDirectory.v11.suo
 RealEstateDirectory/RealEstateDirectory.Migrations/obj/*
 RealEstateDirectory/RealEstateDirectory.Migrations/bin/*
 Artefacts/FluentMigrator/*.bat
+RealEstateDirectory/RealEstateDirectory.Data/obj/*

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory", "Real
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory.Migrations", "RealEstateDirectory.Migrations\RealEstateDirectory.Migrations.csproj", "{B7C14CCF-0D88-43E1-B49E-BE70010EFCA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory.Data", "RealEstateDirectory.Data\RealEstateDirectory.Data.csproj", "{DBBCE386-9154-4588-9A61-07F924C651CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{B7C14CCF-0D88-43E1-B49E-BE70010EFCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7C14CCF-0D88-43E1-B49E-BE70010EFCA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7C14CCF-0D88-43E1-B49E-BE70010EFCA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBBCE386-9154-4588-9A61-07F924C651CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBBCE386-9154-4588-9A61-07F924C651CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBBCE386-9154-4588-9A61-07F924C651CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBBCE386-9154-4588-9A61-07F924C651CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
