@@ -9,7 +9,7 @@ using RealEstateDirectory.Data.Entities;
 
 namespace RealEstateDirectory.Data.Mapping
 {
-	class ResidentialMap : JoinedSubclassMapping<Residential>
+	public class ResidentialMap : JoinedSubclassMapping<Residential>
 	{
 		public ResidentialMap()
 		{
@@ -21,7 +21,7 @@ namespace RealEstateDirectory.Data.Mapping
 			Property(x => x.LivingSquare);
 			Property(x => x.TotalSquare);
 			Property(x => x.RoomsCount);
-			Property(x => x.State, m => m.Column("StateId"));
+			ManyToOne(x => x.State, m => m.Column("StateId"));
 			Property(x => x.Number);
 		}
 	}

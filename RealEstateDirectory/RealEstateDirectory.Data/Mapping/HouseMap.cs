@@ -24,7 +24,7 @@ namespace RealEstateDirectory.Data.Mapping
 			Property(x => x.ExtBuilt);
 			Property(x => x.IsElectricityPresent);
 			Property(x => x.IsGasPresent);
-			Property(x => x.Sewage, m => m.Column("SewageId"));
+			ManyToOne(x => x.Sewage, m => m.Column("SewageId"));
 		}
 	}
 }

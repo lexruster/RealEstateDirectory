@@ -20,7 +20,7 @@ namespace RealEstateDirectory.Data.Mapping
 				});
 			Property(x => x.Floor);
 			Property(x => x.TotalFloors);
-			Property(x => x.Layout, m => m.Column("LayoutId"));
+			ManyToOne(x => x.Layout, m => m.Column("LayoutId"));
 			Property(x => x.IsSeparateBathroom);
 		}
 	}
