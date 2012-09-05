@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ED561429-E1ED-4D12-A7E6-B3665AB9F961}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{B705B080-4C52-43B3-B880-7C175EAC660F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RealEstateDirectory.Data.DatabaseCreateByMap</RootNamespace>
-    <AssemblyName>RealEstateDirectory.Data.DatabaseCreateByMap</AssemblyName>
+    <RootNamespace>RealEstateDirectory.Infrastructure.NHibernate</RootNamespace>
+    <AssemblyName>RealEstateDirectory.Infrastructure.NHibernate</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -37,24 +35,21 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\RepositoryBaseDictionary.cs" />
+    <Compile Include="Repositories\RepositoryWithTypedIdBase.cs" />
+    <Compile Include="SessionManager\SessionProvider.cs" />
+    <Compile Include="UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\NHibernateUnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MSSQL.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RealEstateDirectory.Domain.Data\RealEstateDirectory.Domain.Data.csproj">
-      <Project>{dbbce386-9154-4588-9a61-07f924c651cb}</Project>
-      <Name>RealEstateDirectory.Domain.Data</Name>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
+      <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
+      <Name>RealEstateDirectory.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

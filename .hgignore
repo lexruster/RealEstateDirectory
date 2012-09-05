@@ -1,6 +1,7 @@
 syntax: glob
-RealEstateDirectory/_ReSharper.RealEstateDirectory/*
-RealEstateDirectory/RealEstateDirectory.v11.suo
+*/_ReSharper*/*
+*/bin/*
+*/obj/*
+*.suo
+*.user
 Artefacts/FluentMigrator/*.bat
-RealEstateDirectory/*/obj/*
-RealEstateDirectory/*/bin/*
