@@ -21,8 +21,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<IDataService, DataService>();
 			Container.RegisterType<IViewsService, ViewsService>();
 
-			Container.RegisterType<ShellViewModel>(new InjectionMethod("Initialize"));
-			Container.RegisterType<StreetTemplatedDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<ShellViewModel>();
+			Container.RegisterType<StreetDictionaryViewModel>(new InjectionMethod("Initialize"));
 		}
 
 		protected override DependencyObject CreateShell()

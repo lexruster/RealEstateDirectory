@@ -13,21 +13,15 @@ namespace RealEstateDirectory.Shell
 	[NotifyForAll]
 	public class ShellViewModel : NotificationObject
 	{
-		public ShellViewModel(IServiceLocator serviceLocator, IViewsService viewsService)
+		public ShellViewModel(IViewsService viewsService)
 		{
-			_ServiceLocator = serviceLocator;
 			_ViewsService = viewsService;
+
+			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
+			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetDictionaryViewModel>());
 		}
 
 		#region Infrastructure
-
-		public void Initialize()
-		{
-			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
-			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetTemplatedDictionaryViewModel>());
-		}
-
-		private readonly IServiceLocator _ServiceLocator;
 
 		private readonly IViewsService _ViewsService;
 
