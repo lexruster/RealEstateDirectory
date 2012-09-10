@@ -1,4 +1,6 @@
-﻿namespace RealEstateDirectory.Services
+﻿using System.Collections.ObjectModel;
+
+namespace RealEstateDirectory.Services
 {
 	public interface IDataService
 	{
@@ -21,5 +23,7 @@
 		void CreateState(string name);
 		void UpdateState(int id, string name);
 		void DeleteState(int id);
+
+		ObservableCollection<TEntity> GetEntityLink<TEntity>();
 	}
 }

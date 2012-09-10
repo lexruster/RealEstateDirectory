@@ -6,12 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Practices.Unity;
+using RealEstateDirectory.Dictionaries;
+using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
 
 namespace RealEstateDirectory
 {
 	public class Bootstrapper : UnityBootstrapper
 	{
+		protected override void ConfigureContainer()
+		{
+			base.ConfigureContainer();
+
+			Container.RegisterType<IDataService, DataService>();
+			Container.RegisterType<IViewsService, ViewsService>();
+
+			Container.RegisterType<ShellViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<StreetTemplatedDictionaryViewModel>(new InjectionMethod("Initialize"));
+		}
+
 		protected override DependencyObject CreateShell()
 		{
 			return Container.Resolve<ShellView>();
