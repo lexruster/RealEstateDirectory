@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Infrastructure.Entities;
-using RealEstateDirectory.Infrastructure.NHibernate.SessionManager;
 using RealEstateDirectory.Infrastructure.Repositories;
 
 namespace RealEstateDirectory.Infrastructure.NHibernate.Repositories
@@ -11,12 +11,20 @@ namespace RealEstateDirectory.Infrastructure.NHibernate.Repositories
     public class RepositoryWithTypedIdBase<T, TId> : IRepositoryWithTypedId<T, TId>
         where T : Entity<TId>
     {
+        protected readonly IPersistenceContext PersistenceContext;
+
         /// <summary>
         /// Текущая сессия NHibernate
         /// </summary>
         protected ISession CurrentSession
         {
-            get { return SessionProvider.CurrentSession; }
+            get { return PersistenceContext.CurrentSession; }
+        }
+
+        public RepositoryWithTypedIdBase(IPersistenceContext persistenceContext)
+        {
+            PersistenceContext = persistenceContext;
+            PersistenceContext = persistenceContext;
         }
 
         public T Get(TId id)

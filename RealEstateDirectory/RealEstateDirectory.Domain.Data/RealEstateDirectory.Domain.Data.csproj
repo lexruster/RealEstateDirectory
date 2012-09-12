@@ -50,6 +50,10 @@
     <Compile Include="Repository\LayoutRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
+      <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
+      <Name>RealEstateDirectory.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
       <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
       <Name>RealEstateDirectory.Domain</Name>

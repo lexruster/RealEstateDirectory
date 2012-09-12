@@ -46,8 +46,11 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -115,14 +118,32 @@
       <Project>{c51725d0-2851-4599-8ef8-4545863ff365}</Project>
       <Name>RealEstateDirectory.ApplicationServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
+      <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
+      <Name>RealEstateDirectory.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Domain.Data\RealEstateDirectory.Domain.Data.csproj">
+      <Project>{dbbce386-9154-4588-9a61-07f924c651cb}</Project>
+      <Name>RealEstateDirectory.Domain.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
       <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
       <Name>RealEstateDirectory.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure.NHibernate\RealEstateDirectory.Infrastructure.NHibernate.csproj">
+      <Project>{b705b080-4c52-43b3-b880-7c175eac660f}</Project>
+      <Name>RealEstateDirectory.Infrastructure.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
       <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
       <Name>RealEstateDirectory.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

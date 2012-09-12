@@ -37,7 +37,7 @@ namespace RealEstateDirectory.Migrations
 				.WithColumn("Additional").AsString().Nullable();
 
 		    Create.Table("Residential")
-			    .WithColumn("ReaEstateId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_Residential_RealEstate", "RealEstate", "Id")
+			    .WithColumn("RealEstateId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_Residential_RealEstate", "RealEstate", "Id")
 			    .WithColumn("LivingSquare").AsDecimal(3, 10).Nullable()
 			    .WithColumn("TotalSquare").AsDecimal(3, 10).Nullable()
 			    .WithColumn("RoomsCount").AsInt32().Nullable()
@@ -45,14 +45,14 @@ namespace RealEstateDirectory.Migrations
 			    .WithColumn("Number").AsString().Nullable();
 
 		    Create.Table("Apartment")
-			    .WithColumn("ResidentialId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_Apartment_Residential", "Residential", "Id")
+			    .WithColumn("ResidentialId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_Apartment_Residential", "Residential", "RealEstateId")
 				.WithColumn("Floor").AsInt32().Nullable()
 				.WithColumn("TotalFloors").AsInt32().Nullable()
 			    .WithColumn("LayoutId").AsInt32().Nullable().ForeignKey("FK_Apartment_Layout", "Layout", "Id").OnDeleteOrUpdate(Rule.SetNull)
 				.WithColumn("IsSeparateBathroom").AsBoolean().Nullable();
 
 		    Create.Table("House")
-			    .WithColumn("ResidentialId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_House_Residential", "Residential", "Id")
+				.WithColumn("ResidentialId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_House_Residential", "Residential", "RealEstateId")
 				.WithColumn("Floors").AsInt32().Nullable()
 				.WithColumn("Square").AsDecimal(3, 10).Nullable()
 				.WithColumn("WithGarage").AsBoolean().Nullable()

@@ -49,12 +49,20 @@
   <ItemGroup>
     <Content Include="MSSQL.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PostgreSQL.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RealEstateDirectory.Domain.Data\RealEstateDirectory.Domain.Data.csproj">
       <Project>{dbbce386-9154-4588-9a61-07f924c651cb}</Project>
       <Name>RealEstateDirectory.Domain.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure.NHibernate\RealEstateDirectory.Infrastructure.NHibernate.csproj">
+      <Project>{b705b080-4c52-43b3-b880-7c175eac660f}</Project>
+      <Name>RealEstateDirectory.Infrastructure.NHibernate</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,6 +6,7 @@ using NHibernate.Cfg;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 using RealEstateDirectory.Domain.Data.Mapping;
+using RealEstateDirectory.Infrastructure.NHibernate.Config;
 
 namespace RealEstateDirectory.Data.DatabaseCreateByMap
 {
@@ -14,7 +15,11 @@ namespace RealEstateDirectory.Data.DatabaseCreateByMap
 		static void Main(string[] args)
 		{
 			var config = new Configuration();
-			config.Configure("MSSQL.cfg.xml");
+			//config.Configure("MSSQL.cfg.xml");
+			config.Configure("PostgreSQL.cfg.xml");
+            config.Properties.Add("hbm2ddl.keywords", "auto-quote");
+            config.SetNamingStrategy(new PostgresNamingStrategy());
+
 			var mapper = new ModelMapper();
 			mapper.AddMapping<SewageMap>();
 			mapper.AddMapping<StateMap>();
@@ -29,8 +34,10 @@ namespace RealEstateDirectory.Data.DatabaseCreateByMap
 			config.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
 
 			var sc = new SchemaExport(config);
+			sc.SetOutputFile("d.txt");
 			sc.Create(true, true);
-
+            //sc.Drop(true,true);
+			
 			Console.ReadKey();
 		}
 	}

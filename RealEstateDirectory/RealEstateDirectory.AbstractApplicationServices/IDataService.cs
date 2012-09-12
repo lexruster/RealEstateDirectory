@@ -8,7 +8,7 @@ namespace RealEstateDirectory.AbstractApplicationServices
 		void UpdateArea(int id, string name);
 		void DeleteArea(int id);
 
-		void CreateLayout(string name);
+		Layout CreateLayout(string name);
 		void UpdateLayout(int id, string name);
 		void DeleteLayout(int id);
 	    Layout FindLayout(string name);

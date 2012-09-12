@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\Dependencies\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -42,9 +45,17 @@
       <Project>{057d6555-af8e-4f1c-8b76-b0bf0b9a8187}</Project>
       <Name>RealEstateDirectory.AbstractApplicationServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
+      <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
+      <Name>RealEstateDirectory.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
       <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
       <Name>RealEstateDirectory.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure.NHibernate\RealEstateDirectory.Infrastructure.NHibernate.csproj">
+      <Project>{B705B080-4C52-43B3-B880-7C175EAC660F}</Project>
+      <Name>RealEstateDirectory.Infrastructure.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
       <Project>{AD6E8321-C385-4483-9FF1-03B88ABF8AE6}</Project>

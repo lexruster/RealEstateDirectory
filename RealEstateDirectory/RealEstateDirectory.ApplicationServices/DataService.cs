@@ -1,17 +1,22 @@
 using RealEstateDirectory.AbstractApplicationServices;
+using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices
 {
     public class DataService : IDataService
     {
-        private readonly ILayoutRepository _layoutRepository;
+	    //private readonly IUnitOfWorkFactory _UnitOfWorkFactory;
+        private readonly IPersistenceContext _persistenceContext;
+        private readonly ILayoutRepository _LayoutRepository;
 
-        public DataService(ILayoutRepository layoutRepository)
-        {
-            _layoutRepository = layoutRepository;
-        }
+        public DataService(IPersistenceContext persistenceContext, ILayoutRepository layoutRepository)
+		{
+            _persistenceContext = persistenceContext;
+            _LayoutRepository = layoutRepository;
+		}
 
         public void CreateArea(string name)
         {
@@ -28,9 +33,23 @@ namespace RealEstateDirectory.ApplicationServices
             throw new System.NotImplementedException();
         }
 
-        public void CreateLayout(string name)
+        public Layout CreateLayout(string name)
         {
-            throw new System.NotImplementedException();
+            //получить текущую сессию
+            using (new DbSession(_persistenceContext))
+            {
+                //Для записи создать транзакцию
+                using (var transaction = _persistenceContext.CurrentSession.BeginTransaction())
+                {
+                    var layout = new Layout(name);
+
+                    _LayoutRepository.SaveOrUpdate(layout);
+
+                    //Комитить
+                    transaction.Commit();
+                    return layout;
+                }
+            }
         }
 
         public void UpdateLayout(int id, string name)
@@ -45,7 +64,10 @@ namespace RealEstateDirectory.ApplicationServices
 
         public Layout FindLayout(string name)
         {
-            return _layoutRepository.Get(name);
+            using (new DbSession(_persistenceContext))
+            {
+                return _LayoutRepository.Get(name);
+            }
         }
 
         public void CreateSewage(string name)
