@@ -34,25 +34,40 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractRepositories\ILayoutRepository.cs" />
+    <Compile Include="AbstractRepositories\IRealEstateRepository.cs" />
+    <Compile Include="AbstractRepositories\IDictionaryRepository.cs" />
     <Compile Include="Entities\Apartment.cs" />
-    <Compile Include="Entities\Area.cs" />
+    <Compile Include="Entities\Building.cs" />
+    <Compile Include="Entities\Dictionaries\FloorLevel.cs" />
+    <Compile Include="Entities\Dictionaries\Sewage.cs" />
+    <Compile Include="Entities\Dictionaries\Ownership.cs" />
+    <Compile Include="Entities\Dictionaries\WaterSupply.cs" />
+    <Compile Include="Entities\Plot.cs" />
     <Compile Include="Entities\House.cs" />
-    <Compile Include="Entities\Layout.cs" />
+    <Compile Include="Entities\Residence.cs" />
+    <Compile Include="Entities\Room.cs" />
+    <Compile Include="Entities\Dictionaries\ToiletType.cs" />
+    <Compile Include="Entities\Flat.cs" />
+    <Compile Include="Entities\Dictionaries\DealVariant.cs" />
+    <Compile Include="Entities\Dictionaries\Terrace.cs" />
+    <Compile Include="Entities\Dictionaries\Material.cs" />
+    <Compile Include="Entities\Dictionaries\Realtor.cs" />
+    <Compile Include="Entities\Dictionaries\District.cs" />
+    <Compile Include="Entities\Dictionaries\Layout.cs" />
     <Compile Include="Entities\RealEstate.cs" />
-    <Compile Include="Entities\Residential.cs" />
-    <Compile Include="Entities\Sewage.cs" />
-    <Compile Include="Entities\State.cs" />
-    <Compile Include="Entities\Street.cs" />
+    <Compile Include="Entities\Dictionaries\Street.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Entities\DomainModel.cd" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
       <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
       <Name>RealEstateDirectory.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

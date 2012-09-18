@@ -5,26 +5,26 @@ namespace RealEstateDirectory.Domain.Entities
     /// <summary>
     /// Жилые помещения квартирного типа (квартира, комната)
     /// </summary>
-	public class Apartment : Building
+    public class Building : RealEstate
 	{
         /// <summary>
-        /// Общее число комнат
+        /// Этаж
         /// </summary>
-        public virtual int? TotalRoomCount { get; set; }
+        public virtual int? Floor { get; set; }
 
         /// <summary>
-        /// Планировка помещения
+        /// Всего этажей
         /// </summary>
-        public virtual Layout Layout { get; set; }
+        public virtual int? TotalFloor { get; set; }
 
         /// <summary>
-        /// Балкон
+        /// Жилая площадь
         /// </summary>
-        public virtual Terrace Terrace { get; set; }
+        public virtual decimal? TotalSquare { get; set; }
 
         /// <summary>
-        /// Высота этажа
+        /// Материал строения
         /// </summary>
-        public virtual FloorLevel FloorLevel { get; set; }
+        public virtual Material Material { get; set; }
 	}
 }

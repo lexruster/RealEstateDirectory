@@ -1,21 +1,22 @@
+using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices
 {
     public class DataService : IDataService
     {
-	    //private readonly IUnitOfWorkFactory _UnitOfWorkFactory;
+        private readonly IServiceLocator _serviceLocator;
         private readonly IPersistenceContext _persistenceContext;
-        private readonly ILayoutRepository _LayoutRepository;
 
-        public DataService(IPersistenceContext persistenceContext, ILayoutRepository layoutRepository)
+        public DataService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
 		{
+            _serviceLocator = serviceLocator;
             _persistenceContext = persistenceContext;
-            _LayoutRepository = layoutRepository;
 		}
 
         public void CreateArea(string name)
@@ -35,6 +36,7 @@ namespace RealEstateDirectory.ApplicationServices
 
         public Layout CreateLayout(string name)
         {
+            var layoutRepository = _serviceLocator.GetInstance<IDictionaryRepository<Layout>>();
             //получить текущую сессию
             using (new DbSession(_persistenceContext))
             {
@@ -43,7 +45,7 @@ namespace RealEstateDirectory.ApplicationServices
                 {
                     var layout = new Layout(name);
 
-                    _LayoutRepository.SaveOrUpdate(layout);
+                    layoutRepository.SaveOrUpdate(layout);
 
                     //Комитить
                     transaction.Commit();
@@ -66,7 +68,7 @@ namespace RealEstateDirectory.ApplicationServices
         {
             using (new DbSession(_persistenceContext))
             {
-                return _LayoutRepository.Get(name);
+                return _serviceLocator.GetInstance<IDictionaryRepository<Layout>>().Get(name);
             }
         }
 
@@ -85,9 +87,23 @@ namespace RealEstateDirectory.ApplicationServices
             throw new System.NotImplementedException();
         }
 
-        public void CreateStreet(string name)
+        public Street CreateStreet(string name)
         {
-            throw new System.NotImplementedException();
+            //получить текущую сессию
+            using (new DbSession(_persistenceContext))
+            {
+                //Для записи создать транзакцию
+                using (var transaction = _persistenceContext.CurrentSession.BeginTransaction())
+                {
+                    var street = new Street(name);
+
+                    _serviceLocator.GetInstance<IDictionaryRepository<Street>>().SaveOrUpdate(street);
+
+                    //Комитить
+                    transaction.Commit();
+                    return street;
+                }
+            }
         }
 
         public void UpdateStreet(int id, string name)
@@ -113,6 +129,28 @@ namespace RealEstateDirectory.ApplicationServices
         public void DeleteState(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Plot CreatePlot(string descr, Street street)
+        {
+            var plotRepository = _serviceLocator.GetInstance<IRealEstateRepository<Plot>>();
+            var plot = new Plot();
+            plot.Description = descr;
+            plot.Street = street;
+
+            //получить текущую сессию
+            using (new DbSession(_persistenceContext))
+            {
+                //Для записи создать транзакцию
+                using (var transaction = _persistenceContext.CurrentSession.BeginTransaction())
+                {
+                    plotRepository.SaveOrUpdate(plot);
+
+                    //Комитить
+                    transaction.Commit();
+                    return plot;
+                }
+            }
         }
     }
 }

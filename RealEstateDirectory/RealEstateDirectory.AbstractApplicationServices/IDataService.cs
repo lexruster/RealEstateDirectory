@@ -1,4 +1,5 @@
 using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.Domain.Entities.Dictionaries;
 
 namespace RealEstateDirectory.AbstractApplicationServices
 {
@@ -17,12 +18,13 @@ namespace RealEstateDirectory.AbstractApplicationServices
 		void UpdateSewage(int id, string name);
 		void DeleteSewage(int id);
 
-		void CreateStreet(string name);
+		Street CreateStreet(string name);
 		void UpdateStreet(int id, string name);
 		void DeleteStreet(int id);
 
 		void CreateState(string name);
 		void UpdateState(int id, string name);
 		void DeleteState(int id);
+        Plot CreatePlot(string descr, Street street);
 	}
 }

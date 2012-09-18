@@ -1,13 +1,45 @@
+using RealEstateDirectory.Domain.Entities.Dictionaries;
+
 namespace RealEstateDirectory.Domain.Entities
 {
-	public class House : Residential
+    /// <summary>
+    /// Дом
+    /// </summary>
+    public class House : Plot
 	{
-		public virtual int? Floors { get; set; }
-		public virtual decimal? Square { get; set; }
-		public virtual bool? WithGarage { get; set; }
-		public virtual string ExtBuilt { get; set; }
-		public virtual bool? IsElectricityPresent { get; set; }
-		public virtual bool? IsGasPresent { get; set; }
-		public virtual Sewage Sewage { get; set; }
+        /// <summary>
+        /// Этажей в доме
+        /// </summary>
+        public virtual int? TotalFloor { get; set; }
+
+        /// <summary>
+        /// Площадь дома
+        /// </summary>
+        public virtual decimal? HouseSquare { get; set; }
+
+        /// <summary>
+        /// Снабжение водой
+        /// </summary>
+        public virtual WaterSupply WaterSupply { get; set; }
+
+        /// <summary>
+        /// Канализация
+        /// </summary>
+        public virtual Sewage Sewage { get; set; }
+
+        /// <summary>
+        /// Снабжение водой
+        /// </summary>
+        public virtual bool? HasBathhouse { get; set; }
+
+        /// <summary>
+        /// Снабжение водой
+        /// </summary>
+        public virtual bool? HasGarage { get; set; }
+
+        /// <summary>
+        /// Снабжение водой
+        /// </summary>
+        public virtual bool? HasGas{ get; set; }
 	}
 }

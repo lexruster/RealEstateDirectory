@@ -6,20 +6,21 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 {
 	public class HouseMap : JoinedSubclassMapping<House>
 	{
-		public HouseMap()
+        public HouseMap()
 		{
 			Key(k =>
 				{
-					k.Column("ResidentialId");
+					k.Column("PlotId");
 					k.OnDelete(OnDeleteAction.Cascade);
 				});
-			Property(x => x.Floors);
-			Property(x => x.Square);
-			Property(x => x.WithGarage);
-			Property(x => x.ExtBuilt);
-			Property(x => x.IsElectricityPresent);
-			Property(x => x.IsGasPresent);
-			ManyToOne(x => x.Sewage, m => m.Column("SewageId"));
+
+			Property(x => x.TotalFloor);
+			Property(x => x.HouseSquare);
+            ManyToOne(x=>x.WaterSupply);
+            ManyToOne(x => x.Sewage);
+            Property(x => x.HasBathhouse);
+            Property(x => x.HasGarage);
+            Property(x => x.HasGas);
 		}
 	}
 }

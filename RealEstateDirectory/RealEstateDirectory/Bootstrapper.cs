@@ -8,8 +8,11 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.ApplicationServices;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
+using RealEstateDirectory.Domain.Data.Config;
 using RealEstateDirectory.Domain.Data.Mapping;
 using RealEstateDirectory.Domain.Data.Repository;
+using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.NHibernate.Config;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
 using RealEstateDirectory.Shell;
@@ -41,43 +44,33 @@ namespace RealEstateDirectory
             base.ConfigureContainer();
 
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
-                new InjectionFactory(container =>
-                                         {
-                                             var cfg = new Configuration();
-
-                                             cfg.Configure()
-                                                 .CurrentSessionContext<CallSessionContext>()
-                                                 .Cache(c =>
-                                                 {
-                                                     c.UseQueryCache = true;
-                                                     c.UseMinimalPuts = true;
-                                                 });
-
-                                             cfg.Properties.Add("hbm2ddl.keywords", "auto-quote");
-                                             cfg.SetNamingStrategy(new PostgresNamingStrategy());
-
-
-                                             var mapper = new ModelMapper();
-                                             mapper.AddMapping<SewageMap>();
-                                             mapper.AddMapping<StateMap>();
-                                             mapper.AddMapping<StreetMap>();
-                                             mapper.AddMapping<AreaMap>();
-                                             mapper.AddMapping<LayoutMap>();
-                                             mapper.AddMapping<RealEstateMap>();
-                                             mapper.AddMapping<ResidentialMap>();
-                                             mapper.AddMapping<ApartmentMap>();
-                                             mapper.AddMapping<HouseMap>();
-
-                                             cfg.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
-
-
-                                             return cfg;
-                                         }));
+                new InjectionFactory(container => Configurator.GetConfig()));
 
             Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ShellViewModel>();
-            Container.RegisterType<ILayoutRepository, LayoutRepository>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ShellViewModel>(new InjectionMethod("Initialize"));
+
+            Container.RegisterType<IDictionaryRepository<DealVariant>, DictionaryRepository < DealVariant >> (new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Ownership>, DictionaryRepository<Ownership>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Sewage>, DictionaryRepository<Sewage>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<District>, DictionaryRepository<District>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Layout>, DictionaryRepository<Layout>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Material>, DictionaryRepository<Material>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Realtor>, DictionaryRepository<Realtor>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Street>, DictionaryRepository<Street>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<Terrace>, DictionaryRepository<Terrace>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<ToiletType>, DictionaryRepository<ToiletType>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<WaterSupply>, DictionaryRepository<WaterSupply>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDictionaryRepository<FloorLevel>, DictionaryRepository<FloorLevel>>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<IRealEstateRepository<Flat>, RealEstateRepository<Flat>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRealEstateRepository<Room>, RealEstateRepository<Room>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRealEstateRepository<Residence>, RealEstateRepository<Residence>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRealEstateRepository<House>, RealEstateRepository<House>>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IRealEstateRepository<Plot>, RealEstateRepository<Plot>>(new ContainerControlledLifetimeManager());
+            
             Container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
         }
+
+        
     }
 }

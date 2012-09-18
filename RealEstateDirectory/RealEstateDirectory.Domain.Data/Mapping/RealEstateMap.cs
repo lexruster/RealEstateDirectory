@@ -4,16 +4,25 @@ using RealEstateDirectory.Domain.Entities;
 
 namespace RealEstateDirectory.Domain.Data.Mapping
 {
-	public class RealEstateMap : ClassMapping<RealEstate>
-	{
-		public RealEstateMap()
-		{
-			Id(x => x.Id, m => m.Generator(Generators.Identity));
-			Property(x => x.IsSale);
-			Property(x => x.Price);
-			ManyToOne(x => x.Area, m => m.Column("AreaId"));
-			ManyToOne(x => x.Street, m => m.Column("StreetId"));
-			Property(x => x.Additional);
-		}
-	}
+    public class RealEstateMap : ClassMapping<RealEstate>
+    {
+        public RealEstateMap()
+        {
+            Id(x => x.Id, m => m.Generator(Generators.Identity));
+            ManyToOne(x => x.DealVariant);
+            Property(x => x.Description, m => m.Length(4096));
+
+            ManyToOne(x => x.District);
+            Property(x => x.HasVideo);
+            Property(x => x.Price);
+
+            ManyToOne(x => x.Realtor);
+            ManyToOne(x => x.Street);
+            Property(x => x.SubmitToDomino);
+            Property(x => x.SubmitToVDV);
+            Property(x => x.TerritorialNumber);
+            Property(x => x.CreateDate);
+            ManyToOne(x => x.Ownership);
+        }
+    }
 }

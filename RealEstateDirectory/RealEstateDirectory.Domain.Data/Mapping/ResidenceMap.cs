@@ -4,19 +4,19 @@ using RealEstateDirectory.Domain.Entities;
 
 namespace RealEstateDirectory.Domain.Data.Mapping
 {
-	public class ApartmentMap : JoinedSubclassMapping<Apartment>
+	public class ResidenceMap : JoinedSubclassMapping<Residence>
 	{
-        public ApartmentMap()
+        public ResidenceMap()
 		{
 			Key(k =>
 				{
                     k.Column("BuildingId");
 					k.OnDelete(OnDeleteAction.Cascade);
 				});
-			Property(x => x.TotalRoomCount);
-            ManyToOne(x => x.Layout);
-            ManyToOne(x => x.Terrace);
-            ManyToOne(x => x.FloorLevel);
+			Property(x => x.Floor);
+			Property(x => x.TotalFloor);
+			Property(x => x.TotalSquare);
+			ManyToOne(x => x.Material);
 		}
 	}
 }
