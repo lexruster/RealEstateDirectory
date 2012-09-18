@@ -18,8 +18,9 @@ namespace RealEstateDirectory.Data.DatabaseCreateByMap
 
             var sc = new SchemaExport(config);
             sc.SetOutputFile("d.txt");
+            
+            sc.Drop(true, true);
             sc.Create(true, true);
-            //sc.Drop(true, true);
 
             Console.ReadKey();
         }

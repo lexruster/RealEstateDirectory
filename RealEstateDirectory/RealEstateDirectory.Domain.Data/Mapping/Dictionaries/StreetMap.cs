@@ -6,5 +6,12 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
 {
     public class StreetMap : UnionSubclassMapping<Street>
     {
+        public StreetMap()
+        {
+            ManyToOne(x =>  x.District,r=>
+                                           {
+                                               r.NotNullable(true);
+                                           } );
+        }
     }
 }

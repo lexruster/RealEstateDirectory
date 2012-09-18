@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.Domain.Entities.Dictionaries
@@ -7,6 +8,11 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
     /// </summary>
     public class District : BaseDictionary
     {
+        /// <summary>
+        /// Улицы района
+        /// </summary>
+        public virtual IList<Street> Streets { get; set; }
+
         protected District()
         {
         }

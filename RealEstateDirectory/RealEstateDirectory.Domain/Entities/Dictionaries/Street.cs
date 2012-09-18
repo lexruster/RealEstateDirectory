@@ -4,6 +4,11 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
 {
     public class Street : BaseDictionary
     {
+        /// <summary>
+        /// Район
+        /// </summary>
+        public virtual District District { get; set; }
+
         protected Street()
         {
         }
