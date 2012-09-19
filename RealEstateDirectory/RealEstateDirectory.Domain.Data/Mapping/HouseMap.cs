@@ -21,6 +21,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping
             Property(x => x.HasBathhouse);
             Property(x => x.HasGarage);
             Property(x => x.HasGas);
+            ManyToOne(x => x.Material);
 		}
 	}
 }

@@ -40,8 +40,28 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlatService.cs" />
     <Compile Include="DataService.cs" />
+    <Compile Include="HouseService.cs" />
+    <Compile Include="PlotService.cs" />
+    <Compile Include="RealEstateService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Dictionary\DealVariantService.cs" />
+    <Compile Include="Dictionary\DictionaryService.cs" />
+    <Compile Include="Dictionary\DistrictService.cs" />
+    <Compile Include="Dictionary\FloorLevelService.cs" />
+    <Compile Include="Dictionary\LayoutService.cs" />
+    <Compile Include="Dictionary\MaterialService.cs" />
+    <Compile Include="Dictionary\OwnershipService.cs" />
+    <Compile Include="Dictionary\RealtorService.cs" />
+    <Compile Include="Dictionary\SewageService.cs" />
+    <Compile Include="Dictionary\StreetService.cs" />
+    <Compile Include="Dictionary\TerraceService.cs" />
+    <Compile Include="Dictionary\ToiletTypeService.cs" />
+    <Compile Include="Dictionary\WaterSupplyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResidenceService.cs" />
+    <Compile Include="RoomService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RealEstateDirectory.AbstractApplicationServices\RealEstateDirectory.AbstractApplicationServices.csproj">

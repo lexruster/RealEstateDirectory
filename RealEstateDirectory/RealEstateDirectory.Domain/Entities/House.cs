@@ -41,5 +41,10 @@ namespace RealEstateDirectory.Domain.Entities
         /// Снабжение водой
         /// </summary>
         public virtual bool? HasGas{ get; set; }
+
+        /// <summary>
+        /// Материал дома
+        /// </summary>
+        public virtual Material Material { get; set; }
 	}
 }
