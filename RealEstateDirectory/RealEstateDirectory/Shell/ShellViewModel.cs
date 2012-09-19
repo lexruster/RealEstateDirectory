@@ -18,7 +18,7 @@ namespace RealEstateDirectory.Shell
 			_ViewsService = viewsService;
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
-			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetDictionaryViewModel>());
+			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetsDictionaryViewModel>());
 		}
 
 		#region Infrastructure

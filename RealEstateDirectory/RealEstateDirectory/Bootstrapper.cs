@@ -22,7 +22,7 @@ namespace RealEstateDirectory
 			Container.RegisterType<IViewsService, ViewsService>();
 
 			Container.RegisterType<ShellViewModel>();
-			Container.RegisterType<StreetDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<StreetsDictionaryViewModel>(new InjectionMethod("Initialize"));
 		}
 
 		protected override DependencyObject CreateShell()

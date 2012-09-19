@@ -40,8 +40,6 @@ namespace RealEstateDirectory.Dictionaries
 			ChangeCommand.RaiseCanExecuteChanged();
 		}
 
-		public string Name { get; set; }
-
 		public DelegateCommand AddCommand { get; protected set; }
 		public DelegateCommand ChangeCommand { get; protected set; }
 		public DelegateCommand DeleteCommand { get; protected set; }
@@ -57,7 +55,7 @@ namespace RealEstateDirectory.Dictionaries
 
 		protected virtual bool CanChange()
 		{
-			return !String.IsNullOrWhiteSpace(Name);
+		    return true;
 		}
 
 		protected abstract void Delete();

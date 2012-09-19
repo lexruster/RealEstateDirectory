@@ -21,7 +21,7 @@ namespace RealEstateDirectory.Services
 
 		public void OpenView<TViewModel>()
 		{
-			if (typeof (TViewModel) == typeof (StreetDictionaryViewModel))
+			if (typeof (TViewModel) == typeof (StreetsDictionaryViewModel))
 			{
 				var currentView = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (DictionaryView));
 				if (currentView == null)

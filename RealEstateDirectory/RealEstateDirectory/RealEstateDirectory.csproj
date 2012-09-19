@@ -70,12 +70,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dictionaries\DictionaryEntityViewModel.cs" />
     <Compile Include="Dictionaries\DictionaryView.xaml.cs">
       <DependentUpon>DictionaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dictionaries\DictionaryViewModel.cs" />
-    <Compile Include="Dictionaries\TemplatedDictionaryViewModel.cs" />
-    <Compile Include="Dictionaries\StreetDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\StreetsDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\StreetViewModel.cs" />
+    <Compile Include="Services\CollectionChangingEventArgs.cs" />
+    <Compile Include="Services\DataObservableCollection.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\IViewsService.cs" />

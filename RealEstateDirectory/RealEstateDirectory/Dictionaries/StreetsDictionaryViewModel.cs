@@ -4,9 +4,9 @@ using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Dictionaries
 {
-	public class StreetDictionaryViewModel : TemplatedDictionaryViewModel<Street>
+	public class StreetsDictionaryViewModel : DictionaryViewModel<Street>
 	{
-		public StreetDictionaryViewModel(IDataService dataService)
+		public StreetsDictionaryViewModel(IDataService dataService)
 			: base(dataService)
 		{
 		}

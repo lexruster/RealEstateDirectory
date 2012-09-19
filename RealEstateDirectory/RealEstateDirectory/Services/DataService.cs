@@ -1,92 +1,64 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
 using RealEstateDirectory.Data.Entities;
+using RealEstateDirectory.Dictionaries;
 
 namespace RealEstateDirectory.Services
 {
 	public class DataService : IDataService
 	{
-		public void CreateArea(string name)
+		public DataService()
 		{
-			throw new NotImplementedException();
 		}
 
-		public void UpdateArea(int id, string name)
+		private DataObservableCollection<StreetViewModel> _StreetsLink = null;
+
+		private void InitStreetLink()
 		{
-			throw new NotImplementedException();
+			_StreetsLink = new DataObservableCollection<StreetViewModel>();
+			//TODO: Выборка всех Street-ов из базы.
+			Debug.WriteLine("Select all Street from database.");
+			_StreetsLink.CollectionChanging += StreetsLink_CollectionChanging;
 		}
 
-		public void DeleteArea(int id)
+		void StreetsLink_CollectionChanging(object sender, CollectionChangingEventArgs<StreetViewModel> e)
 		{
-			throw new NotImplementedException();
+			switch (e.Action)
+			{
+				case CollectionChangeAction.Add:
+					//TODO: Добавление объекта в сессию и замена на его прокси-версию e.Item.
+					Debug.WriteLine("Remove Street object from session.");
+					break;
+				case CollectionChangeAction.Remove:
+					//TODO: Удаление объекта из сессии.
+					Debug.WriteLine("Remove Street object from session.");
+					break;
+			}
 		}
 
-		public void CreateLayout(string name)
+		public ObservableCollection<StreetViewModel> GetStreetsLink<T>()
 		{
-			throw new NotImplementedException();
+			if (_StreetsLink == null)
+				InitStreetLink();
+			return _StreetsLink;
 		}
 
-		public void UpdateLayout(int id, string name)
+		private T ToProxyReplacer<T>(T entity)
 		{
-			throw new NotImplementedException();
+			//TODO: Добавление в сессию.
+			Debug.WriteLine("Add pure {0} object to session and change it to proxy version.", entity.GetType().Name);
+			return entity;
 		}
 
-		public void DeleteLayout(int id)
+		public bool IsCorrect<T>(T entity, out string validateMessage)
 		{
-			throw new NotImplementedException();
-		}
-
-		public void CreateSewage(string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void UpdateSewage(int id, string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void DeleteSewage(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void CreateStreet(string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void UpdateStreet(int id, string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void DeleteStreet(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void CreateState(string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void UpdateState(int id, string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void DeleteState(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public ObservableCollection<TEntity> GetEntityLink<TEntity>()
-		{
-			if (typeof(TEntity) == typeof(Street))
-				return new ObservableCollection<TEntity>();
-			else
-				throw new NotImplementedException();
+			//TODO: Серьёзная валидация.
+			Debug.WriteLine("Validation {0} object.", entity);
+			validateMessage = String.Empty;
+			return true;
 		}
 	}
 }
