@@ -1,21 +1,25 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Dictionaries
 {
 	[NotifyForAll]
-	public abstract class DictionaryViewModel : NotificationObject
+	public abstract class DictionaryViewModel<TEntityViewModel, TEntity> : NotificationObject
+		where TEntity : class
+		where TEntityViewModel : DictionaryEntityViewModel<TEntity>
 	{
-		protected DictionaryViewModel(IDataService dataService)
+		protected DictionaryViewModel(IServiceLocator serviceLocator, IDataService dataService, IMessageService messageService)
 		{
+			_ServiceLocator = serviceLocator;
 			_DataService = dataService;
-			AddCommand = new DelegateCommand(Add, CanAdd);
-			ChangeCommand = new DelegateCommand(Change, CanChange);
-			DeleteCommand = new DelegateCommand(Delete, CanDelete);
+			_MessageService = messageService;
 		}
 
 		#region Infrastructure
@@ -23,13 +27,55 @@ namespace RealEstateDirectory.Dictionaries
 		public virtual void Initialize()
 		{
 			InitializeEntities();
+			_Entities.CollectionChanging += Entities_CollectionChanging;
 		}
 
+		protected readonly IServiceLocator _ServiceLocator;
+
 		protected readonly IDataService _DataService;
+
+		protected readonly IMessageService _MessageService;
 
 		#endregion
 
 		protected abstract void InitializeEntities();
+
+		protected DataObservableCollection<TEntityViewModel> _Entities;
+
+		private void Entities_CollectionChanging(object sender, CollectionChangingEventArgs<TEntityViewModel> e)
+		{
+			switch (e.Action)
+			{
+				case CollectionChangeAction.Add:
+					string validateError;
+					if (!IsCorrect(e.Item, out validateError))
+					{
+						_MessageService.ShowMessage(validateError, "Ошибка", image: MessageBoxImage.Error);
+						e.Cancel = true;
+					}
+					else
+						AssociateWithModel(e.Item);
+					break;
+				case CollectionChangeAction.Remove:
+					string cantRemoveError;
+					if (!IsCanRemove(e.Item, out cantRemoveError))
+					{
+						_MessageService.ShowMessage(cantRemoveError, "Ошибка", image: MessageBoxImage.Error);
+						e.Cancel = true;
+					}
+					else
+						RemoveEntity(e.Item);
+					break;
+			}
+		}
+
+		protected abstract void AssociateWithModel(TEntityViewModel entity);
+
+		protected abstract bool IsCorrect(TEntityViewModel entity, out string errorText);
+
+		protected abstract bool IsCanRemove(TEntityViewModel entity, out string errorText);
+
+		protected abstract void RemoveEntity(TEntityViewModel entity);
 
 		public ListCollectionView Entities { get; protected set; }
 
@@ -41,21 +87,28 @@ namespace RealEstateDirectory.Dictionaries
 		}
 
 		public DelegateCommand AddCommand { get; protected set; }
-		public DelegateCommand ChangeCommand { get; protected set; }
+		public DelegateCommand<TEntityViewModel> ChangeCommand { get; protected set; }
 		public DelegateCommand DeleteCommand { get; protected set; }
 
 		protected abstract void Add();
 
-		protected virtual bool CanAdd()
+		protected abstract bool CanAdd();
+
+		protected virtual void Change(TEntityViewModel entity)
 		{
-			return true;
+			string validateError;
+			if (!entity.CanSaveChange(out validateError))
+			{
+				_MessageService.ShowMessage(validateError, "Ошибка", image: MessageBoxImage.Error);
+				Entities.CancelEdit();
+			}
+			else
+				Entities.CommitEdit();
 		}
 
-		protected abstract void Change();
-
-		protected virtual bool CanChange()
+		protected virtual bool CanChange(TEntityViewModel entity)
 		{
-		    return true;
+			return entity.CanSaveChange();
 		}
 
 		protected abstract void Delete();

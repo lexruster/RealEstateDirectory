@@ -1,11 +1,18 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using RealEstateDirectory.Data.Entities;
+using RealEstateDirectory.Dictionaries;
 
 namespace RealEstateDirectory.Services
 {
 	public interface IDataService
 	{
-		ObservableCollection<TEntity> GetEntityLink<TEntity>();
+		IEnumerable<Street> GetStreets();
 
-		bool IsCorrect<TEntity>(TEntity entity, out string validateMessage);
+		Street AddNewStreet();
+
+		void RemoveStreet(Street entity);
+
+		bool IsCorrect(Street entity, out string validateMessage);
 	}
 }

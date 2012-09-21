@@ -16,14 +16,6 @@ namespace RealEstateDirectory.Services
 
 		private DataObservableCollection<StreetViewModel> _StreetsLink = null;
 
-		private void InitStreetLink()
-		{
-			_StreetsLink = new DataObservableCollection<StreetViewModel>();
-			//TODO: Выборка всех Street-ов из базы.
-			Debug.WriteLine("Select all Street from database.");
-			_StreetsLink.CollectionChanging += StreetsLink_CollectionChanging;
-		}
-
 		void StreetsLink_CollectionChanging(object sender, CollectionChangingEventArgs<StreetViewModel> e)
 		{
 			switch (e.Action)
@@ -39,7 +31,15 @@ namespace RealEstateDirectory.Services
 			}
 		}
 
-		public ObservableCollection<StreetViewModel> GetStreetsLink<T>()
+		private void InitStreetLink()
+		{
+			_StreetsLink = new DataObservableCollection<StreetViewModel>();
+			//TODO: Выборка всех Street-ов из базы.
+			Debug.WriteLine("Select all Street from database.");
+			_StreetsLink.CollectionChanging += StreetsLink_CollectionChanging;
+		}
+
+		public ObservableCollection<StreetViewModel> GetStreetsLink()
 		{
 			if (_StreetsLink == null)
 				InitStreetLink();
@@ -51,6 +51,12 @@ namespace RealEstateDirectory.Services
 			//TODO: Добавление в сессию.
 			Debug.WriteLine("Add pure {0} object to session and change it to proxy version.", entity.GetType().Name);
 			return entity;
+		}
+
+		public ObservableCollection<T> GetEntityLink<T>() where T : class
+		{
+			if (typeof(T) == typeof(StreetViewModel))
+				return (ObservableCollection<T>) _StreetsLink;
 		}
 
 		public bool IsCorrect<T>(T entity, out string validateMessage)

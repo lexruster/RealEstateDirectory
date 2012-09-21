@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -15,6 +16,12 @@ namespace RealEstateDirectory.Services
 				base.OnCollectionChanged(args);
 			else
 				_IsDirty = true;
+		}
+
+		public void AddRange(IEnumerable<T> items)
+		{
+			foreach (var item in items)
+				Add(item);
 		}
 
 		protected override void InsertItem(int index, T item)
