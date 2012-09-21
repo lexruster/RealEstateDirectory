@@ -9,7 +9,7 @@ using RealEstateDirectory.Infrastructure.Repositories;
 
 namespace RealEstateDirectory.Domain.AbstractRepositories
 {
-    public interface IRealEstateRepository<T> : IRepositoryWithTypedId<T, int> where T : RealEstate
+    public interface IRealEstateRepository : IRepositoryWithTypedId<int>
     {
     }
 }

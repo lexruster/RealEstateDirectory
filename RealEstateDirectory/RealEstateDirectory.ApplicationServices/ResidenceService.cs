@@ -10,9 +10,8 @@ namespace RealEstateDirectory.ApplicationServices
     {
         #region Конструктор
 
-        protected ResidenceService(IPersistenceContext persistenceContext, IRealEstateRepository<Residence> repository, IServiceLocator serviceLocator)
-            :
-                base(persistenceContext, repository,serviceLocator)
+        protected ResidenceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            :base(persistenceContext, serviceLocator)
         {
         }
 

@@ -37,7 +37,6 @@
     <Compile Include="Entities\BaseDictionary.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IRepositoryBaseDictionary.cs" />
     <Compile Include="Repositories\IRepositoryWithTypedId.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

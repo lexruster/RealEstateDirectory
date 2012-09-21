@@ -16,8 +16,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected DealVariantService(IPersistenceContext persistenceContext, IDictionaryRepository<DealVariant> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected DealVariantService(IPersistenceContext persistenceContext,IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -27,7 +27,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(DealVariant entity)
         {
-            return RealEstateService.GetQueryable().Count(x => x.DealVariant == entity) == 0;
+            return Repository.IsPossibleToDeleteDealVariant(entity);
         }
 
         #endregion

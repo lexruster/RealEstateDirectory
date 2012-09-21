@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected ToiletTypeService(IPersistenceContext persistenceContext, IDictionaryRepository<ToiletType> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected ToiletTypeService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(ToiletType entity)
         {
-            return FlatService.GetQueryable().Count(x => x.ToiletType == entity) == 0;
+            return Repository.IsPossibleToDeleteToiletType(entity);
         }
 
         #endregion

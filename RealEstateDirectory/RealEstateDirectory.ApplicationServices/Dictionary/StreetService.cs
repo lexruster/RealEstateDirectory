@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected StreetService(IPersistenceContext persistenceContext, IDictionaryRepository<Street> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected StreetService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(Street entity)
         {
-            return RealEstateService.GetQueryable().Count(x => x.Street == entity) == 0;
+            return Repository.IsPossibleToDeleteStreet(entity);
         }
 
         #endregion

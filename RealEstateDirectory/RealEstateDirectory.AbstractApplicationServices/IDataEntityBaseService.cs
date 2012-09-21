@@ -4,15 +4,13 @@ using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.AbstractApplicationServices
 {
-    public interface IBaseService<T> where T : Entity<int>
+    public interface IDataEntityBaseService<T> where T : Entity<int>
     {
         /// <summary>
         /// Получить все
         /// </summary>
         /// <returns></returns>
         IList<T> GetAll();
-
-        IQueryable<T> GetQueryable();
 
         /// <summary>
         /// Получить по ИД
@@ -26,12 +24,25 @@ namespace RealEstateDirectory.AbstractApplicationServices
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        T Save(T entity);
+        void Save(T entity);
 
         /// <summary>
         /// Удалить сущность
         /// </summary>
         /// <param name="entity"></param>
         void Delete(T entity);
+
+        /// <summary>
+        /// Проверить корректность новой/измененной сущности
+        /// </summary>
+        /// <param name="entity"></param>
+        bool IsValid(T entity);
+
+        /// <summary>
+        /// Проверка возможности удалить сущность.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        bool IsPossibilityToDelete(T entity);
 	}
 }

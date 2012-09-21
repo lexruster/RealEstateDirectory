@@ -53,53 +53,16 @@ namespace RealEstateDirectory
 
             RegisterRepositories();
             RegisterServices();
-
-            Container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
         }
 
         private void RegisterRepositories()
         {
-            Container.RegisterType<IDictionaryRepository<DealVariant>, DictionaryRepository<DealVariant>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Ownership>, DictionaryRepository<Ownership>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Sewage>, DictionaryRepository<Sewage>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<District>, DictionaryRepository<District>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Layout>, DictionaryRepository<Layout>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Material>, DictionaryRepository<Material>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Realtor>, DictionaryRepository<Realtor>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Street>, DictionaryRepository<Street>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<Terrace>, DictionaryRepository<Terrace>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<ToiletType>, DictionaryRepository<ToiletType>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<WaterSupply>, DictionaryRepository<WaterSupply>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDictionaryRepository<FloorLevel>, DictionaryRepository<FloorLevel>>(
+            Container.RegisterType<IDictionaryRepository, DictionaryRepository>(
                 new ContainerControlledLifetimeManager());
 
-            Container.RegisterType<IRealEstateRepository<Flat>, RealEstateRepository<Flat>>(
+            Container.RegisterType<IRealEstateRepository, RealEstateRepository>(
                 new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<Room>, RealEstateRepository<Room>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<Apartment>, RealEstateRepository<Apartment>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<Building>, RealEstateRepository<Building>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<Residence>, RealEstateRepository<Residence>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<House>, RealEstateRepository<House>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<Plot>, RealEstateRepository<Plot>>(
-                new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository<RealEstate>, RealEstateRepository<RealEstate>>(
-                new ContainerControlledLifetimeManager());
+            
         }
 
         private void RegisterServices()

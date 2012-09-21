@@ -41,11 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlatService.cs" />
-    <Compile Include="DataService.cs" />
     <Compile Include="HouseService.cs" />
     <Compile Include="PlotService.cs" />
     <Compile Include="RealEstateService.cs" />
-    <Compile Include="BaseService.cs" />
     <Compile Include="Dictionary\DealVariantService.cs" />
     <Compile Include="Dictionary\DictionaryService.cs" />
     <Compile Include="Dictionary\DistrictService.cs" />

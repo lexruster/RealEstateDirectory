@@ -8,8 +8,7 @@ using RealEstateDirectory.Infrastructure.Repositories;
 
 namespace RealEstateDirectory.Infrastructure.NHibernate.Repositories
 {
-    public class RepositoryWithTypedIdBase<T, TId> : IRepositoryWithTypedId<T, TId>
-        where T : Entity<TId>
+    public class RepositoryWithTypedIdBase<TId> : IRepositoryWithTypedId<TId>
     {
         protected readonly IPersistenceContext PersistenceContext;
 
@@ -24,32 +23,24 @@ namespace RealEstateDirectory.Infrastructure.NHibernate.Repositories
         public RepositoryWithTypedIdBase(IPersistenceContext persistenceContext)
         {
             PersistenceContext = persistenceContext;
-            PersistenceContext = persistenceContext;
         }
 
-        public T Get(TId id)
+        public T Get<T>(TId id)
         {
             return CurrentSession.Get<T>(id);
         }
 
-        public IList<T> GetAll()
+        public IList<T> GetAll<T>()
         {
             return CurrentSession.CreateCriteria(typeof(T)).List<T>();
         }
 
-        public IQueryable<T> AsQueryable()
-        {
-            return CurrentSession.Query<T>();
-        }
-
-        public T SaveOrUpdate(T entity)
+        public void SaveOrUpdate<T>(T entity)
         {
             CurrentSession.SaveOrUpdate(entity);
-
-            return entity;
         }
 
-        public void Delete(T entity)
+        public void Delete<T>(T entity)
         {
             CurrentSession.Delete(entity);
         }

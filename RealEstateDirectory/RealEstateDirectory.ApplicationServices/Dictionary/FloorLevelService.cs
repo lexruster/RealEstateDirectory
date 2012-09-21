@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected FloorLevelService(IPersistenceContext persistenceContext, IDictionaryRepository<FloorLevel> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository,serviceLocator)
+        protected FloorLevelService(IPersistenceContext persistenceContext,IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(FloorLevel entity)
         {
-            return ApartmentService.GetQueryable().Count(x => x.FloorLevel == entity) == 0;
+            return Repository.IsPossibleToDeleteFloorLevel(entity);
         }
 
         #endregion

@@ -34,7 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBaseService.cs" />
+    <Compile Include="IDataEntityBaseService.cs" />
     <Compile Include="IFlatService.cs" />
     <Compile Include="Dictionary\IRealtorService.cs" />
     <Compile Include="Dictionary\IDealVariantService.cs" />
@@ -49,7 +49,6 @@
     <Compile Include="Dictionary\ITerraceService.cs" />
     <Compile Include="Dictionary\IToiletTypeService.cs" />
     <Compile Include="Dictionary\IWaterSupplyService.cs" />
-    <Compile Include="IDataService.cs" />
     <Compile Include="IHouseService.cs" />
     <Compile Include="IPlotService.cs" />
     <Compile Include="IRealEstateService.cs" />

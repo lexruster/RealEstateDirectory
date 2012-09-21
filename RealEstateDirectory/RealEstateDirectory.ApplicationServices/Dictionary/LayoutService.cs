@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected LayoutService(IPersistenceContext persistenceContext, IDictionaryRepository<Layout> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected LayoutService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(Layout entity)
         {
-            return ApartmentService.GetQueryable().Count(x => x.Layout == entity) == 0;
+            return Repository.IsPossibleToDeleteLayout(entity);
         }
 
         #endregion

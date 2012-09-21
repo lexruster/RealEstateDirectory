@@ -10,8 +10,8 @@ namespace RealEstateDirectory.ApplicationServices
     {
         #region Конструктор
 
-        protected RoomService(IPersistenceContext persistenceContext, IRealEstateRepository<Room> repository, IServiceLocator serviceLocator) :
-            base(persistenceContext, repository,serviceLocator)
+        protected RoomService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator) :
+            base(persistenceContext, serviceLocator)
         {
         }
 

@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected DistrictService(IPersistenceContext persistenceContext, IDictionaryRepository<District> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected DistrictService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(District entity)
         {
-            return RealEstateService.GetQueryable().Count(x => x.District == entity) == 0;
+            return Repository.IsPossibleToDeleteDistrict(entity);
         }
 
         #endregion

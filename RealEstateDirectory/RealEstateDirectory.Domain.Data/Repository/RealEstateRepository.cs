@@ -7,8 +7,7 @@ using RealEstateDirectory.Infrastructure.Repositories;
 
 namespace RealEstateDirectory.Domain.Data.Repository
 {
-    public class RealEstateRepository<T> : RepositoryWithTypedIdBase<T, int>, IRealEstateRepository<T>
-        where T : RealEstate
+    public class RealEstateRepository : RepositoryWithTypedIdBase<int>, IRealEstateRepository
     {
         public RealEstateRepository(IPersistenceContext persistentContext)
             : base(persistentContext)

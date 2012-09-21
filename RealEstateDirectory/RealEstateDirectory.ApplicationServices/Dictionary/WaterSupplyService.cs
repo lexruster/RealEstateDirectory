@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected WaterSupplyService(IPersistenceContext persistenceContext, IDictionaryRepository<WaterSupply> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected WaterSupplyService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(WaterSupply entity)
         {
-            return HouseService.GetQueryable().Count(x => x.WaterSupply == entity) == 0;
+            return Repository.IsPossibleToDeleteWaterSupply(entity);
         }
 
         #endregion

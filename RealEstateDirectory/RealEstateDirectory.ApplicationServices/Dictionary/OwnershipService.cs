@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected OwnershipService(IPersistenceContext persistenceContext, IDictionaryRepository<Ownership> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected OwnershipService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(Ownership entity)
         {
-            return RealEstateService.GetQueryable().Count(x => x.Ownership == entity) == 0;
+            return Repository.IsPossibleToDeleteOwnership(entity);
         }
 
         #endregion

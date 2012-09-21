@@ -3,12 +3,11 @@ using System.Linq;
 
 namespace RealEstateDirectory.Infrastructure.Repositories
 {
-    public interface IRepositoryWithTypedId<T, IdT>
+    public interface IRepositoryWithTypedId<IdT>
     {
-        T Get(IdT id);
-        IList<T> GetAll();
-        IQueryable<T> AsQueryable();
-        T SaveOrUpdate(T entity);
-        void Delete(T entity);
+        T Get<T>(IdT id);
+        IList<T> GetAll<T>();
+        void SaveOrUpdate<T>(T entity);
+        void Delete<T>(T entity);
     }
 }

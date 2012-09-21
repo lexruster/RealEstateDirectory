@@ -14,8 +14,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected TerraceService(IPersistenceContext persistenceContext, IDictionaryRepository<Terrace> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected TerraceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(Terrace entity)
         {
-            return ApartmentService.GetQueryable().Count(x => x.Terrace == entity) == 0;
+            return Repository.IsPossibleToDeleteTerrace(entity);
         }
 
         #endregion

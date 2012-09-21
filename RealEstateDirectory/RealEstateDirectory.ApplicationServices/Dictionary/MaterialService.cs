@@ -15,8 +15,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected MaterialService(IPersistenceContext persistenceContext, IDictionaryRepository<Material> repository, IServiceLocator serviceLocator)
-            : base(persistenceContext, repository, serviceLocator)
+        protected MaterialService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+            : base(persistenceContext, serviceLocator)
         {
         }
 
@@ -26,7 +26,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public override bool IsPossibilityToDelete(Material entity)
         {
-            return (HouseService.GetQueryable().Count(x => x.Material == entity) == 0) && ((BuildingService.GetQueryable().Count(x => x.Material == entity) == 0));
+            return Repository.IsPossibleToDeleteMaterial(entity);
         }
 
         #endregion
