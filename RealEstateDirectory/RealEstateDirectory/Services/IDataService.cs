@@ -9,10 +9,12 @@ namespace RealEstateDirectory.Services
 	{
 		IEnumerable<Street> GetStreets();
 
-		Street AddNewStreet();
-
 		void RemoveStreet(Street entity);
 
-		bool IsCorrect(Street entity, out string validateMessage);
+		bool IsCanRemove(Street entity, out string errorMessage);
+
+		void SaveStreet(Street entity);
+
+		bool IsCorrect(Street entity, out string errorMessage);
 	}
 }

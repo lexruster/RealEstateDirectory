@@ -1,60 +1,48 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.Data.Entities;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Dictionaries
 {
-	public class StreetsDictionaryViewModel : DictionaryViewModel<StreetViewModel>
+	public class StreetsDictionaryViewModel : DictionaryViewModel<StreetViewModel, Street>
 	{
-		public StreetsDictionaryViewModel(IDataService dataService, IMessageService messageService) : base(dataService, messageService) { }
+		public StreetsDictionaryViewModel(IServiceLocator serviceLocator, IDataService dataService, IMessageService messageService) : base(serviceLocator, dataService, messageService)
+		{
+			PropertyChanged += (sender, args) =>
+				{
+					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => Name))
+						AddCommand.RaiseCanExecuteChanged();
+				};
+		}
+
+		public string Name { get; set; }
 
 		protected override void InitializeEntities()
 		{
-			_Entities = new DataObservableCollection<StreetViewModel>();
-			_Entities.AddRange(_DataService.GetStreets().Select(street =>
-				{
-					var viewModel = _ServiceLocator.GetInstance<StreetViewModel>();
-					viewModel.Initialize(street);
-					return viewModel;
-				}));
+			_Entities.AddRange(_DataService.GetStreets().Select(CreateNewViewModel));
 		}
 
-		protected override void InitEntity(StreetViewModel entity)
+		protected override bool CanAdd()
 		{
-			entity.Initialize(_DataService.AddNewStreet());
+			return !String.IsNullOrWhiteSpace(Name) && _Entities.All(model => model.Name != Name);
 		}
 
-		protected override bool IsCorrect(StreetViewModel entity, out string errorText)
+		protected override Street CreateNewModel()
 		{
-			return _DataService.IsCorrect(entity.DbEntity, out errorText);
+			return new Street {Name = Name};
 		}
 
-		protected override void RemoveEntity(StreetViewModel entity)
+		protected override bool IsCanRemove(StreetViewModel entity, out string errorText)
 		{
-			_DataService.RemoveStreet(entity.DbEntity);
+			return _DataService.IsCanRemove(entity.DbEntity, out errorText);
 		}
 
-		protected override void Entities_CurrentChanged(object sender, EventArgs eventArgs)
+		protected override void RemoveEntityFromDatabase(Street entity)
 		{
-			base.Entities_CurrentChanged(sender, eventArgs);
-
-			var current = Entities.CurrentItem as Street;
-		}
-
-		protected override void Add()
-		{
-			_DataEntities.Add(new Street {Name = Name});
-		}
-
-		protected override void Change()
-		{
-			((Street) Entities.CurrentItem).Name = Name;
-		}
-
-		protected override void Delete()
-		{
-			_DataEntities.Remove((Street) Entities.CurrentItem);
+			_DataService.RemoveStreet(entity);
 		}
 	}
 }

@@ -20,6 +20,24 @@ namespace RealEstateDirectory.Dictionaries
 			_ServiceLocator = serviceLocator;
 			_DataService = dataService;
 			_MessageService = messageService;
+
+			Entities = new ListCollectionView(_Entities);
+
+			AddCommand = new DelegateCommand(() =>
+				{
+					var viewModel = CreateNewViewModel(CreateNewModel());
+					var error = viewModel.Error;
+					if (error == null)
+					{
+						viewModel.SaveToDatabase();
+						_Entities.Add(viewModel);
+					}
+					else
+					{
+						_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
+					}
+					AddCommand.RaiseCanExecuteChanged();
+				}, CanAdd);
 		}
 
 		#region Infrastructure
@@ -40,22 +58,32 @@ namespace RealEstateDirectory.Dictionaries
 
 		protected abstract void InitializeEntities();
 
-		protected DataObservableCollection<TEntityViewModel> _Entities;
+		protected DataObservableCollection<TEntityViewModel> _Entities = new DataObservableCollection<TEntityViewModel>();
+
+		public ListCollectionView Entities { get; protected set; }
+
+		public DelegateCommand AddCommand { get; protected set; }
+
+		protected abstract bool CanAdd();
+
+		protected abstract TEntity CreateNewModel();
+
+		protected virtual TEntityViewModel CreateNewViewModel(TEntity model)
+		{
+			var viewModel = _ServiceLocator.GetInstance<TEntityViewModel>();
+			viewModel.DbEntity = model;
+			viewModel.UpdateValuesFromModel();
+			return viewModel;
+		}
+
+		protected abstract bool IsCanRemove(TEntityViewModel entity, out string errorText);
+
+		protected abstract void RemoveEntityFromDatabase(TEntity entity);
 
 		private void Entities_CollectionChanging(object sender, CollectionChangingEventArgs<TEntityViewModel> e)
 		{
 			switch (e.Action)
 			{
-				case CollectionChangeAction.Add:
-					string validateError;
-					if (!IsCorrect(e.Item, out validateError))
-					{
-						_MessageService.ShowMessage(validateError, "Ошибка", image: MessageBoxImage.Error);
-						e.Cancel = true;
-					}
-					else
-						AssociateWithModel(e.Item);
-					break;
 				case CollectionChangeAction.Remove:
 					string cantRemoveError;
 					if (!IsCanRemove(e.Item, out cantRemoveError))
@@ -64,58 +92,11 @@ namespace RealEstateDirectory.Dictionaries
 						e.Cancel = true;
 					}
 					else
-						RemoveEntity(e.Item);
+					{
+						RemoveEntityFromDatabase(e.Item.DbEntity);
+					}
 					break;
 			}
-		}
-
-		protected abstract void AssociateWithModel(TEntityViewModel entity);
-
-		protected abstract bool IsCorrect(TEntityViewModel entity, out string errorText);
-
-		protected abstract bool IsCanRemove(TEntityViewModel entity, out string errorText);
-
-		protected abstract void RemoveEntity(TEntityViewModel entity);
-
-		public ListCollectionView Entities { get; protected set; }
-
-		protected virtual void Entities_CurrentChanged(object sender, EventArgs eventArgs)
-		{
-			AddCommand.RaiseCanExecuteChanged();
-			DeleteCommand.RaiseCanExecuteChanged();
-			ChangeCommand.RaiseCanExecuteChanged();
-		}
-
-		public DelegateCommand AddCommand { get; protected set; }
-		public DelegateCommand<TEntityViewModel> ChangeCommand { get; protected set; }
-		public DelegateCommand DeleteCommand { get; protected set; }
-
-		protected abstract void Add();
-
-		protected abstract bool CanAdd();
-
-		protected virtual void Change(TEntityViewModel entity)
-		{
-			string validateError;
-			if (!entity.CanSaveChange(out validateError))
-			{
-				_MessageService.ShowMessage(validateError, "Ошибка", image: MessageBoxImage.Error);
-				Entities.CancelEdit();
-			}
-			else
-				Entities.CommitEdit();
-		}
-
-		protected virtual bool CanChange(TEntityViewModel entity)
-		{
-			return entity.CanSaveChange();
-		}
-
-		protected abstract void Delete();
-
-		protected virtual bool CanDelete()
-		{
-			return Entities.CurrentItem != null;
 		}
 	}
 }

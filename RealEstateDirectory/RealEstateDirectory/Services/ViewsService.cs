@@ -23,9 +23,9 @@ namespace RealEstateDirectory.Services
 		{
 			if (typeof (TViewModel) == typeof (StreetsDictionaryViewModel))
 			{
-				var currentView = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (DictionaryView));
+				var currentView = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (StreetsDictionaryView));
 				if (currentView == null)
-					(new DictionaryView {DataContext = _ServiceLocator.GetInstance<TViewModel>()}).Show();
+					(new StreetsDictionaryView {DataContext = _ServiceLocator.GetInstance<TViewModel>()}).Show();
 				else
 					currentView.Activate();
 			}

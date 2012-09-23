@@ -6,29 +6,34 @@ using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Dictionaries
 {
-	public abstract class DictionaryEntityViewModel<T> : NotificationObject, IDataErrorInfo where T: class
+	public abstract class DictionaryEntityViewModel<T> : NotificationObject, IDataErrorInfo, IEditableObject where T: class
 	{
-		protected DictionaryEntityViewModel()
-		{
-			PropertyChanged += (sender, args) =>
-				{
-					if (DbEntity != null)
-						This_PropertyChanged(args.PropertyName);
-				};
-		}
+		public abstract void UpdateValuesFromModel();
 
-		protected abstract void This_PropertyChanged(string propertyName);
-
-		public abstract void AssociateWithModel(T entity);
+		public abstract void UpdateModelFromValues();
 
 		public T DbEntity = null;
 
-		public abstract bool IsValid();
-
-		public abstract bool CanSaveChange(out string errorText);
-
 		public abstract string this[string columnName] { get; }
 
-		public string Error { get; private set; }
+		public abstract string Error { get; }
+
+		public virtual void BeginEdit()
+		{
+			
+		}
+
+		public virtual void EndEdit()
+		{
+			UpdateModelFromValues();
+			SaveToDatabase();
+		}
+
+		public virtual void CancelEdit()
+		{
+			UpdateValuesFromModel();
+		}
+
+		public abstract void SaveToDatabase();
 	}
 }

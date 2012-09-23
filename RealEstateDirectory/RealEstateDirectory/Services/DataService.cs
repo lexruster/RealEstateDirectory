@@ -1,69 +1,50 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using RealEstateDirectory.Data.Entities;
-using RealEstateDirectory.Dictionaries;
 
 namespace RealEstateDirectory.Services
 {
 	public class DataService : IDataService
 	{
-		public DataService()
+		public IEnumerable<Street> GetStreets()
 		{
-		}
-
-		private DataObservableCollection<StreetViewModel> _StreetsLink = null;
-
-		void StreetsLink_CollectionChanging(object sender, CollectionChangingEventArgs<StreetViewModel> e)
-		{
-			switch (e.Action)
-			{
-				case CollectionChangeAction.Add:
-					//TODO: Добавление объекта в сессию и замена на его прокси-версию e.Item.
-					Debug.WriteLine("Remove Street object from session.");
-					break;
-				case CollectionChangeAction.Remove:
-					//TODO: Удаление объекта из сессии.
-					Debug.WriteLine("Remove Street object from session.");
-					break;
-			}
-		}
-
-		private void InitStreetLink()
-		{
-			_StreetsLink = new DataObservableCollection<StreetViewModel>();
 			//TODO: Выборка всех Street-ов из базы.
 			Debug.WriteLine("Select all Street from database.");
-			_StreetsLink.CollectionChanging += StreetsLink_CollectionChanging;
+			return new Street[0];
 		}
 
-		public ObservableCollection<StreetViewModel> GetStreetsLink()
+		public Street CreateNewStreet()
 		{
-			if (_StreetsLink == null)
-				InitStreetLink();
-			return _StreetsLink;
+			return new Street();
 		}
 
-		private T ToProxyReplacer<T>(T entity)
+		public void RemoveStreet(Street entity)
 		{
-			//TODO: Добавление в сессию.
-			Debug.WriteLine("Add pure {0} object to session and change it to proxy version.", entity.GetType().Name);
-			return entity;
+			//TODO: Удаление объекта из базы данных.
+			Debug.WriteLine("Remove Street object from database.");
+			throw new NotImplementedException();
 		}
 
-		public ObservableCollection<T> GetEntityLink<T>() where T : class
+		public void SaveStreet(Street entity)
 		{
-			if (typeof(T) == typeof(StreetViewModel))
-				return (ObservableCollection<T>) _StreetsLink;
+			//TODO: Добавление объекта в базу данных.
+			Debug.WriteLine("Save Street object to database.");
 		}
 
-		public bool IsCorrect<T>(T entity, out string validateMessage)
+		public bool IsCorrect(Street entity, out string errorMessage)
 		{
-			//TODO: Серьёзная валидация.
-			Debug.WriteLine("Validation {0} object.", entity);
-			validateMessage = String.Empty;
+			//TODO: Проверка объекта на правильность.
+			Debug.WriteLine("Check, is Street object correct.");
+			errorMessage = null;
+			return true;
+		}
+
+		public bool IsCanRemove(Street entity, out string validateMessage)
+		{
+			//TODO: Проверка объекта на возможность удаления.
+			Debug.WriteLine("Check, is can we remove Street object from database.");
+			validateMessage = null;
 			return true;
 		}
 	}

@@ -71,9 +71,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Dictionaries\DictionaryEntityViewModel.cs" />
-    <Compile Include="Dictionaries\DictionaryView.xaml.cs">
-      <DependentUpon>DictionaryView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dictionaries\DictionaryViewModel.cs" />
     <Compile Include="Dictionaries\StreetsDictionaryView.xaml.cs">
       <DependentUpon>StreetsDictionaryView.xaml</DependentUpon>
@@ -97,10 +94,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Page Include="Dictionaries\DictionaryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dictionaries\StreetsDictionaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
