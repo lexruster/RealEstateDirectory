@@ -58,7 +58,7 @@ namespace RealEstateDirectory.Dictionaries
 
 		protected abstract void InitializeEntities();
 
-		protected DataObservableCollection<TEntityViewModel> _Entities = new DataObservableCollection<TEntityViewModel>();
+		protected EnhancedObservableCollection<TEntityViewModel> _Entities = new EnhancedObservableCollection<TEntityViewModel>();
 
 		public ListCollectionView Entities { get; protected set; }
 

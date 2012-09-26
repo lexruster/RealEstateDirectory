@@ -78,8 +78,8 @@
     <Compile Include="Dictionaries\StreetsDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\StreetViewModel.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
-    <Compile Include="Services\DataObservableCollection.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\EnhancedObservableCollection.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IViewsService.cs" />

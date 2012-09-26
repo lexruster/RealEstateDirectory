@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace RealEstateDirectory.Services
 {
-	public class DataObservableCollection<T> : ObservableCollection<T>
+	public class EnhancedObservableCollection<T> : ObservableCollection<T>
 	{
 		public event EventHandler<CollectionChangingEventArgs<T>> CollectionChanging = delegate { };
 
@@ -29,29 +29,31 @@ namespace RealEstateDirectory.Services
 			if (IsNotificationsSuspended)
 			{
 				_IsDirty = true;
-				return;
+				base.InsertItem(index, item);
 			}
+			else
+			{
+				var collectionChangingEventArgs = new CollectionChangingEventArgs<T>(item, index, CollectionChangeAction.Add);
+				CollectionChanging(this, collectionChangingEventArgs);
 
-			var collectionChangingEventArgs = new CollectionChangingEventArgs<T>(item, index, CollectionChangeAction.Add);
-			CollectionChanging(this, collectionChangingEventArgs);
-			if (collectionChangingEventArgs.Cancel)
-				return;
+				if (collectionChangingEventArgs.Cancel)
+					return;
 
-			base.InsertItem(index, collectionChangingEventArgs.Item);
+				base.InsertItem(index, collectionChangingEventArgs.Item);
+			}
 		}
 
 		protected override void RemoveItem(int index)
 		{
 			if (IsNotificationsSuspended)
-			{
 				_IsDirty = true;
-				return;
+			else
+			{
+				var collectionChangingEventArgs = new CollectionChangingEventArgs<T>(Items[index], index, CollectionChangeAction.Remove);
+				CollectionChanging(this, collectionChangingEventArgs);
+				if (collectionChangingEventArgs.Cancel)
+					return;
 			}
-
-			var collectionChangingEventArgs = new CollectionChangingEventArgs<T>(Items[index], index, CollectionChangeAction.Remove);
-			CollectionChanging(this, collectionChangingEventArgs);
-			if (collectionChangingEventArgs.Cancel)
-				return;
 
 			base.RemoveItem(index);
 		}
@@ -59,25 +61,28 @@ namespace RealEstateDirectory.Services
 		protected override void ClearItems()
 		{
 			if (IsNotificationsSuspended)
-			{
 				_IsDirty = true;
-				return;
+			else
+			{
+				var collectionChangingEventArgs = new CollectionChangingEventArgs<T>(default(T), 0, CollectionChangeAction.Refresh);
+				CollectionChanging(this, collectionChangingEventArgs);
+				if (collectionChangingEventArgs.Cancel)
+					return;
 			}
-
-			var collectionChangingEventArgs = new CollectionChangingEventArgs<T>(default(T), 0, CollectionChangeAction.Refresh);
-			CollectionChanging(this, collectionChangingEventArgs);
-			if (collectionChangingEventArgs.Cancel)
-				return;
 
 			base.ClearItems();
 		}
 
-		public void SuspendNotification()
+		private bool _IsDirty;
+
+		public bool IsNotificationsSuspended { get; private set; }
+
+		public void SuspendNotifications()
 		{
 			IsNotificationsSuspended = true;
 		}
 
-		public void ResumeNotification()
+		public void ResumeNotifications()
 		{
 			IsNotificationsSuspended = false;
 			if (!_IsDirty)
@@ -87,9 +92,5 @@ namespace RealEstateDirectory.Services
 			OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
-
-		private bool _IsDirty;
-
-		public bool IsNotificationsSuspended { get; private set; }
 	}
 }
