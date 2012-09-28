@@ -1,4 +1,5 @@
-﻿using RealEstateDirectory.Domain.Entities.Dictionaries;
+﻿using System.Collections.Generic;
+using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.Infrastructure.Repositories;
 

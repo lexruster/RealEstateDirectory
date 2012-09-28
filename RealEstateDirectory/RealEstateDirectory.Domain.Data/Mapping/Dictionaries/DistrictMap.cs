@@ -5,27 +5,34 @@ using RealEstateDirectory.Domain.Entities.Dictionaries;
 
 namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
 {
-    public class DistrictMap : UnionSubclassMapping<District>
+    public class DistrictMap : ClassMapping<District>
     {
         public DistrictMap()
         {
-            Set(x => x.Streets, c =>
+            Id(x => x.Id, m => m.Generator(Generators.HighLow));
+            Property(x => x.Name, m =>
+            {
+                m.NotNullable(true);
+                m.Length(2048);
+                m.Unique(true);
+            });
+
+            Bag(x => x.Streets, c =>
                                     {
-                                        c.Cascade(Cascade.All);
                                         c.Inverse(true);
-                                        c.Fetch(CollectionFetchMode.Join);
-                                        c.BatchSize(100);
-                                        c.Lazy(CollectionLazy.Lazy);
-                                    }, r =>
-                                           {
-                                               r.OneToMany(
-                                                   m =>
-                                                   {
-                                                       m.Class(typeof(Street));
-                                                   });
-                                           });
+                                        c.Lazy(CollectionLazy.NoLazy);
+                                        c.Cascade(Cascade.All);
+                                    },
+                r =>
+                    {
+                        r.OneToMany(m =>
+                                        {
+                                            m.Class(typeof (Street));
+                                        }
+                            );
 
-
+                    }
+                );
         }
     }
 }
