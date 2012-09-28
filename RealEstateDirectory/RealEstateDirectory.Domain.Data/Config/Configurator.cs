@@ -16,8 +16,8 @@ namespace RealEstateDirectory.Domain.Data.Config
                 .CurrentSessionContext<CallSessionContext>()
                 .Cache(c =>
                 {
-                    c.UseQueryCache = true;
-                    c.UseMinimalPuts = true;
+                    //c.UseQueryCache = true;
+                    //c.UseMinimalPuts = true;
                 });
 
             InitProperties(cfg);
@@ -36,7 +36,7 @@ namespace RealEstateDirectory.Domain.Data.Config
         public static void InitMapping(Configuration cfg)
         {
             var mapper = new ModelMapper();
-            mapper.AddMapping<BaseDictionaryMap>();
+            //mapper.AddMapping<BaseDictionaryMap>();
             mapper.AddMapping<DealVariantMap>();
             mapper.AddMapping<DistrictMap>();
             mapper.AddMapping<OwnershipMap>();

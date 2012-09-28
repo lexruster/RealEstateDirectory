@@ -5,7 +5,17 @@ using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
 {
-    public class OwnershipMap : UnionSubclassMapping<Ownership>
-	{
-	}
+    public class OwnershipMap : ClassMapping<Ownership>
+    {
+        public OwnershipMap()
+        {
+            Id(x => x.Id, m => m.Generator(Generators.HighLow));
+            Property(x => x.Name, m =>
+                                      {
+                                          m.NotNullable(true);
+                                          m.Length(2048);
+                                          m.Unique(true);
+                                      });
+        }
+    }
 }

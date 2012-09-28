@@ -20,6 +20,13 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
         public District(string name)
             : base(name)
         {
+            Streets=new List<Street>();
+        }
+
+        public virtual void AddStreet(Street street)
+        {
+            street.District = this;
+            Streets.Add(street);
         }
     }
 }

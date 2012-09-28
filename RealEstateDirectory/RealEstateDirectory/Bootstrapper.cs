@@ -36,6 +36,7 @@ namespace RealEstateDirectory
 
         public override void Run(bool runWithDefaultConfiguration)
         {
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             base.Run(runWithDefaultConfiguration);
             Application.Current.MainWindow.Show();
         }

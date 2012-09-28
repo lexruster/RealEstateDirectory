@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
@@ -9,7 +8,6 @@ using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
-using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices.Dictionary
 {
@@ -71,7 +69,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         /// Удалить сущность
         /// </summary>
         /// <param name="entity"></param>
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
             {

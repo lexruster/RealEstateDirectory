@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
 

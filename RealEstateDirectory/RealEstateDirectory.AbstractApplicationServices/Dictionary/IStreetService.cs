@@ -4,6 +4,5 @@ namespace RealEstateDirectory.AbstractApplicationServices.Dictionary
 {
     public interface IStreetService : IDictionaryService<Street>
     {
-
     }
 }

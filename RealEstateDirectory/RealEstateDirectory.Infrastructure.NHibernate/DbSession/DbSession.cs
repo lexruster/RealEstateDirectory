@@ -13,6 +13,8 @@ namespace RealEstateDirectory.Infrastructure.NHibernate.DbSession
         {
             _sessionFactory = persistentContext.SessionFactory;
             CurrentSessionContext.Bind(_sessionFactory.OpenSession());
+            persistentContext.CurrentSession.FlushMode = FlushMode.Commit;
+            persistentContext.CurrentSession.CacheMode = CacheMode.Get;
         }
 
         public void Dispose()

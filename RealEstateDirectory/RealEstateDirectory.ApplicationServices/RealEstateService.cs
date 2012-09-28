@@ -4,8 +4,6 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
-using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
-using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
 
 namespace RealEstateDirectory.ApplicationServices
 {
@@ -32,7 +30,7 @@ namespace RealEstateDirectory.ApplicationServices
 
         #region Методы
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return Repository.GetAll<T>();
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
@@ -13,6 +14,15 @@ namespace RealEstateDirectory.ApplicationServices
         public PlotService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator) :
             base(persistenceContext, serviceLocator)
         {
+        }
+
+        #endregion
+
+        #region Ìועמהû
+
+        public override IEnumerable<Plot> GetAll()
+        {
+            return Repository.GetAllPlot();
         }
 
         #endregion

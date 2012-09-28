@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
@@ -26,6 +25,25 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         public override bool IsPossibilityToDelete(Street entity)
         {
             return Repository.IsPossibleToDeleteStreet(entity);
+        }
+
+        /// <summary>
+        /// Удалить сущность
+        /// </summary>
+        /// <param name="entity"></param>
+        public override void Delete(Street entity)
+        {
+            using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
+            {
+                var distict = entity.District;
+                //Не обязательно удалять из коллекции, но лучше удалить...
+                distict.Streets.Remove(entity);
+                //Необходимо отвязть от района перед удалением
+                entity.District = null;
+                Repository.Delete(entity);
+
+                transaction.Commit();
+            }
         }
 
         #endregion

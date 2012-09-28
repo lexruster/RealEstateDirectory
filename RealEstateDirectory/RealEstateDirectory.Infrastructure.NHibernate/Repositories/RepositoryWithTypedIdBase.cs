@@ -32,18 +32,19 @@ namespace RealEstateDirectory.Infrastructure.NHibernate.Repositories
 
         public IEnumerable<T> GetAll<T>()
         {
-            //return CurrentSession.CreateCriteria(typeof(T)).List<T>();
-            return CurrentSession.Query<T>().ToList();
+            return CurrentSession.Query<T>();
         }
 
         public void SaveOrUpdate<T>(T entity)
         {
             CurrentSession.SaveOrUpdate(entity);
+            CurrentSession.Flush();
         }
 
         public void Delete<T>(T entity)
         {
             CurrentSession.Delete(entity);
+            CurrentSession.Flush();
         }
     }
 }
