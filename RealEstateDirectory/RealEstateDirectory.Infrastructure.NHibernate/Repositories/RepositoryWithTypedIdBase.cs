@@ -30,9 +30,10 @@ namespace RealEstateDirectory.Infrastructure.NHibernate.Repositories
             return CurrentSession.Get<T>(id);
         }
 
-        public IList<T> GetAll<T>()
+        public IEnumerable<T> GetAll<T>()
         {
-            return CurrentSession.CreateCriteria(typeof(T)).List<T>();
+            //return CurrentSession.CreateCriteria(typeof(T)).List<T>();
+            return CurrentSession.Query<T>().ToList();
         }
 
         public void SaveOrUpdate<T>(T entity)

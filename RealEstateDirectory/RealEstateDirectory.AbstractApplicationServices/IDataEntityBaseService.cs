@@ -10,7 +10,7 @@ namespace RealEstateDirectory.AbstractApplicationServices
         /// Получить все
         /// </summary>
         /// <returns></returns>
-        IList<T> GetAll();
+        IEnumerable<T> GetAll();
 
         /// <summary>
         /// Получить по ИД

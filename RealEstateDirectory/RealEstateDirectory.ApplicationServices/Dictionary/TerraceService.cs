@@ -14,7 +14,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected TerraceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public TerraceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             : base(persistenceContext, serviceLocator)
         {
         }

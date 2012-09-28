@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using RealEstateDirectory.DataAccess;
@@ -16,7 +17,6 @@ namespace RealEstateDirectory.Domain.Data.Repository
         public DictionaryRepository(IPersistenceContext persistentContext)
             : base(persistentContext)
         {
-            
         }
 
         public bool IsPossibleToDeleteStreet(Street entity)
@@ -85,6 +85,8 @@ namespace RealEstateDirectory.Domain.Data.Repository
         {
             return CurrentSession.Query<T>().Count(x => x.Name == entity.Name && x.Id != entity.Id) == 0;
         }
+
+        
 
         public T Get<T>(string name) where T:BaseDictionary
         {

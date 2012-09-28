@@ -14,7 +14,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected SewageService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public SewageService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             : base(persistenceContext, serviceLocator)
         {
         }

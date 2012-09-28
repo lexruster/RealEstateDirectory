@@ -14,7 +14,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected ToiletTypeService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public ToiletTypeService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             : base(persistenceContext, serviceLocator)
         {
         }

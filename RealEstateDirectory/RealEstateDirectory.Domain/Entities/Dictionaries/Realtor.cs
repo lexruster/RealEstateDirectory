@@ -15,11 +15,11 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
         {
         }
 
-        protected Realtor(string name)
+        public Realtor(string name)
         {
         }
 
-        protected Realtor(string name, string phone)
+        public Realtor(string name, string phone)
         {
             Name = name;
             Phone = phone;

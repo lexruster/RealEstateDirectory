@@ -6,7 +6,7 @@ namespace RealEstateDirectory.Domain.Entities
     public class Plot : RealEstate
 	{
         /// <summary>
-        /// Жилая площадь
+        /// Площадь участка
         /// </summary>
         public virtual decimal? PlotSquare { get; set; }
 	}

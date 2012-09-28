@@ -14,7 +14,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected StreetService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public StreetService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             : base(persistenceContext, serviceLocator)
         {
         }

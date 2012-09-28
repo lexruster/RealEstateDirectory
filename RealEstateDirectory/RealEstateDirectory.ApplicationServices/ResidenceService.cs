@@ -10,7 +10,7 @@ namespace RealEstateDirectory.ApplicationServices
     {
         #region Конструктор
 
-        protected ResidenceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public ResidenceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             :base(persistenceContext, serviceLocator)
         {
         }

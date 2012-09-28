@@ -6,17 +6,19 @@ using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
+using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices.Dictionary
 {
-    public class DealVariantService: DictionaryService<DealVariant> , IDealVariantService
+    public class DealVariantService : DictionaryService<DealVariant>, IDealVariantService
     {
         #region Поля
+
         #endregion
 
         #region Конструктор
 
-        protected DealVariantService(IPersistenceContext persistenceContext,IServiceLocator serviceLocator)
+        public DealVariantService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             : base(persistenceContext, serviceLocator)
         {
         }

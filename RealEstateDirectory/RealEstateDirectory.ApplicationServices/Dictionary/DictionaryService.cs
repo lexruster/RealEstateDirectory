@@ -26,7 +26,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected DictionaryService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public DictionaryService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
         {
             PersistenceContext = persistenceContext;
             ServiceLocator = serviceLocator;
@@ -37,8 +37,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
-
-        public IList<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return Repository.GetAll<T>();
         }
@@ -50,10 +49,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         /// <returns></returns>
         public T Get(int id)
         {
-            using (new DbSession(PersistenceContext))
-            {
-                return Repository.Get<T>(id);
-            }
+            return Repository.Get<T>(id);
         }
 
         /// <summary>
@@ -63,14 +59,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         /// <returns></returns>
         public virtual void Save(T entity)
         {
-            using (new DbSession(PersistenceContext))
+            using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
             {
-                using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
-                {
-                    Repository.SaveOrUpdate(entity);
+                Repository.SaveOrUpdate(entity);
 
-                    transaction.Commit();
-                }
+                transaction.Commit();
             }
         }
 
@@ -80,13 +73,10 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         /// <param name="entity"></param>
         public void Delete(T entity)
         {
-            using (new DbSession(PersistenceContext))
+            using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
             {
-                using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
-                {
-                    Repository.Delete(entity);
-                    transaction.Commit();
-                }
+                Repository.Delete(entity);
+                transaction.Commit();
             }
         }
 
@@ -104,10 +94,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         public bool IsValid(T entity)
         {
             //Пока проверяем просто уникальность имени
-            using (new DbSession(PersistenceContext))
-            {
-                return IsNameUniquenessInner(entity);
-            }
+            return IsNameUniquenessInner(entity);
         }
 
         #endregion

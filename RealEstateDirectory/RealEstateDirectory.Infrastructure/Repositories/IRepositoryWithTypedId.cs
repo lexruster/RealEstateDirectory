@@ -6,7 +6,7 @@ namespace RealEstateDirectory.Infrastructure.Repositories
     public interface IRepositoryWithTypedId<IdT>
     {
         T Get<T>(IdT id);
-        IList<T> GetAll<T>();
+        IEnumerable<T> GetAll<T>();
         void SaveOrUpdate<T>(T entity);
         void Delete<T>(T entity);
     }

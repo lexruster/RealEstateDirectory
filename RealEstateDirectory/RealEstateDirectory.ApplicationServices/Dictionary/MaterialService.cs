@@ -15,7 +15,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Конструктор
 
-        protected MaterialService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+        public MaterialService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             : base(persistenceContext, serviceLocator)
         {
         }

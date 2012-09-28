@@ -13,9 +13,10 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
         {
         }
 
-        public Street(string name)
+        public Street(string name, District district)
             : base(name)
         {
+            District = district;
         }
     }
 }
