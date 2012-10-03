@@ -36,7 +36,6 @@ namespace RealEstateDirectory
 
         public override void Run(bool runWithDefaultConfiguration)
         {
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             base.Run(runWithDefaultConfiguration);
             Application.Current.MainWindow.Show();
         }
@@ -63,7 +62,6 @@ namespace RealEstateDirectory
 
         private void RegisterServices()
         {
-            Container.RegisterType<IDealVariantService, DealVariantService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDealVariantService, DealVariantService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDistrictService, DistrictService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFloorLevelService, FloorLevelService>(new ContainerControlledLifetimeManager());
