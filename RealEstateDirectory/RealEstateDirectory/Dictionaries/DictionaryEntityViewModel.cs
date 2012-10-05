@@ -1,0 +1,39 @@
+﻿using System;
+using System.ComponentModel;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.ViewModel;
+using RealEstateDirectory.Services;
+
+namespace RealEstateDirectory.Dictionaries
+{
+	public abstract class DictionaryEntityViewModel<T> : NotificationObject, IDataErrorInfo, IEditableObject where T: class
+	{
+		public abstract void UpdateValuesFromModel();
+
+		public abstract void UpdateModelFromValues();
+
+		public T DbEntity = null;
+
+		public abstract string this[string columnName] { get; }
+
+		public abstract string Error { get; }
+
+		public virtual void BeginEdit()
+		{
+			
+		}
+
+		public virtual void EndEdit()
+		{
+			UpdateModelFromValues();
+			SaveToDatabase();
+		}
+
+		public virtual void CancelEdit()
+		{
+			UpdateValuesFromModel();
+		}
+
+		public abstract void SaveToDatabase();
+	}
+}

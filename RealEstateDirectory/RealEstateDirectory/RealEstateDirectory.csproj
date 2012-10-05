@@ -37,6 +37,9 @@
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Interactivity">
+      <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
       <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
     </Reference>
@@ -55,7 +58,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -71,6 +77,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dictionaries\DictionaryEntityViewModel.cs" />
+    <Compile Include="Dictionaries\DictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\StreetsDictionaryView.xaml.cs">
+      <DependentUpon>StreetsDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\StreetsDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\StreetViewModel.cs" />
+    <Compile Include="Services\CollectionChangingEventArgs.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\EnhancedObservableCollection.cs" />
+    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\IViewsService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\ViewsService.cs" />
     <Compile Include="Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -80,6 +101,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dictionaries\StreetsDictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,8 +181,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <UsingTask TaskName="NotifyPropertyWeaverMsBuildTask.WeavingTask" AssemblyFile="$(SolutionDir)..\Dependencies\NotifyPropertyWeaver\NotifyPropertyWeaverMsBuildTask.dll" />
   <Target Name="AfterCompile">
     <NotifyPropertyWeaverMsBuildTask.WeavingTask />
   </Target>
+  <UsingTask TaskName="NotifyPropertyWeaverMsBuildTask.WeavingTask" AssemblyFile="$(SolutionDir)..\Dependencies\NotifyPropertyWeaver\NotifyPropertyWeaverMsBuildTask.dll" />
 </Project>

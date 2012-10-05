@@ -1,7 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
+using System.Diagnostics;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.Dictionaries;
+using RealEstateDirectory.Services;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices.Dictionary;
@@ -12,22 +18,27 @@ using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.Shell
 {
-    [NotifyForAll]
-    public class ShellViewModel : NotificationObject
-    {
-        public ShellViewModel(IServiceLocator serviceLocator)
-        {
-            _serviceLocator = serviceLocator;
-        }
+	[NotifyForAll]
+	public class ShellViewModel : NotificationObject
+	{
+		public ShellViewModel(IViewsService viewsService)
+		{
+			_ServiceLocator = serviceLocator;
+			_ViewsService = viewsService;
 
-        #region Infrastructure
+			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
+			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetsDictionaryViewModel>());
+		}
 
-        private readonly IServiceLocator _serviceLocator;
+		#region Infrastructure
 
-        public void Initialize()
-        {
-        }
+		private readonly IServiceLocator _ServiceLocator;
+		private readonly IViewsService _ViewsService;
 
-        #endregion
-    }
+		#endregion
+
+		public ICommand ExitCommand { get; private set; }
+
+		public ICommand StreetsDictionaryCommand { get; private set; }
+	}
 }

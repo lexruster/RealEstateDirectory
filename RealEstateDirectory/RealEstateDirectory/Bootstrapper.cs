@@ -16,43 +16,46 @@ using RealEstateDirectory.Domain.Data.Repository;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
+using RealEstateDirectory.Dictionaries;
+using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
 
 namespace RealEstateDirectory
 {
-    public class Bootstrapper : UnityBootstrapper
-    {
-        protected override DependencyObject CreateShell()
-        {
-            return Container.Resolve<ShellView>();
-        }
+	public class Bootstrapper : UnityBootstrapper
+	{
+		protected override void ConfigureContainer()
+		{
+			base.ConfigureContainer();
 
-        protected override void InitializeShell()
-        {
-            base.InitializeShell();
-            ((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
-            Application.Current.MainWindow = (Window) Shell;
-        }
-
-        public override void Run(bool runWithDefaultConfiguration)
-        {
-            base.Run(runWithDefaultConfiguration);
-            Application.Current.MainWindow.Show();
-        }
-
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
-
+			Container.RegisterType<IDataService, DataService>();
+			Container.RegisterType<IViewsService, ViewsService>();
+			Container.RegisterType<IMessageService, MessageService>();
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
                                                   new InjectionFactory(container => Configurator.GetConfig()));
 
             Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ShellViewModel>(new InjectionMethod("Initialize"));
-
             RegisterRepositories();
             RegisterServices();
-        }
+		}
+
+		protected override DependencyObject CreateShell()
+		{
+			return Container.Resolve<ShellView>();
+		}
+
+		protected override void InitializeShell()
+		{
+			base.InitializeShell();
+			((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
+			Application.Current.MainWindow = (Window) Shell;
+		}
+
+		public override void Run(bool runWithDefaultConfiguration)
+		{
+			base.Run(runWithDefaultConfiguration);
+			Application.Current.MainWindow.Show();
+		}
 
         private void RegisterRepositories()
         {
@@ -81,5 +84,5 @@ namespace RealEstateDirectory
             Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
         }
-    }
+	}
 }
