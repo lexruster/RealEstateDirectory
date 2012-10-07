@@ -28,7 +28,6 @@ namespace RealEstateDirectory
 		{
 			base.ConfigureContainer();
 
-			Container.RegisterType<IDataService, DataService>();
 			Container.RegisterType<IViewsService, ViewsService>();
 			Container.RegisterType<IMessageService, MessageService>();
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),

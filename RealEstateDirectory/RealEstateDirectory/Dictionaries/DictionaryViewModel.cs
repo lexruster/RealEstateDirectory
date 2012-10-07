@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
@@ -15,10 +15,9 @@ namespace RealEstateDirectory.Dictionaries
 		where TEntity : class
 		where TEntityViewModel : DictionaryEntityViewModel<TEntity>
 	{
-		protected DictionaryViewModel(IServiceLocator serviceLocator, IDataService dataService, IMessageService messageService)
+		protected DictionaryViewModel(IServiceLocator serviceLocator, IMessageService messageService)
 		{
 			_ServiceLocator = serviceLocator;
-			_DataService = dataService;
 			_MessageService = messageService;
 
 			Entities = new ListCollectionView(_Entities);
@@ -49,8 +48,6 @@ namespace RealEstateDirectory.Dictionaries
 		}
 
 		protected readonly IServiceLocator _ServiceLocator;
-
-		protected readonly IDataService _DataService;
 
 		protected readonly IMessageService _MessageService;
 

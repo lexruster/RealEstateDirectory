@@ -1,20 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using System.Diagnostics;
 using Microsoft.Practices.Prism.ViewModel;
-using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.Dictionaries;
 using RealEstateDirectory.Services;
-using RealEstateDirectory.AbstractApplicationServices;
-using RealEstateDirectory.AbstractApplicationServices.Dictionary;
-using RealEstateDirectory.ApplicationServices.Dictionary;
-using RealEstateDirectory.DataAccess;
-using RealEstateDirectory.Domain.Entities;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
-using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.Shell
 {
@@ -23,7 +13,6 @@ namespace RealEstateDirectory.Shell
 	{
 		public ShellViewModel(IViewsService viewsService)
 		{
-			_ServiceLocator = serviceLocator;
 			_ViewsService = viewsService;
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
@@ -32,7 +21,6 @@ namespace RealEstateDirectory.Shell
 
 		#region Infrastructure
 
-		private readonly IServiceLocator _ServiceLocator;
 		private readonly IViewsService _ViewsService;
 
 		#endregion

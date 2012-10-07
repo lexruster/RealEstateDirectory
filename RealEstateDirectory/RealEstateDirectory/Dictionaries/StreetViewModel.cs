@@ -1,22 +1,22 @@
 ﻿using System;
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
-using RealEstateDirectory.Data.Entities;
-using RealEstateDirectory.Services;
+using RealEstateDirectory.AbstractApplicationServices.Dictionary;
+using RealEstateDirectory.Domain.Entities.Dictionaries;
 
 namespace RealEstateDirectory.Dictionaries
 {
 	[NotifyForAll]
 	public class StreetViewModel : DictionaryEntityViewModel<Street>
 	{
-		public StreetViewModel(IDataService dataService)
+		public StreetViewModel(IStreetService streetService)
 		{
-			_DataService = dataService;
+			_StreetService = streetService;
 		}
 
 		#region Infrastructure
 
-		private readonly IDataService _DataService;
+		private readonly IStreetService _StreetService;
 
 		#endregion
 
@@ -52,15 +52,13 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			get
 			{
-				string errorMessage;
-				_DataService.IsCorrect(new Street {Name = Name}, out errorMessage);
-				return errorMessage;
+				return _StreetService.IsValid(new Street(Name)) ? null : "Улица некорректна";
 			}
 		}
 
 		public override void SaveToDatabase()
 		{
-			_DataService.SaveStreet(DbEntity);
+			_StreetService.Save(DbEntity);
 		}
 	}
 }
