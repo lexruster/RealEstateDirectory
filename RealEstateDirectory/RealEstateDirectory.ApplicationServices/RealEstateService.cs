@@ -4,6 +4,7 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices
 {
@@ -12,6 +13,7 @@ namespace RealEstateDirectory.ApplicationServices
         protected readonly IPersistenceContext PersistenceContext;
         protected readonly IRealEstateRepository Repository;
         protected readonly IServiceLocator ServiceLocator;
+        private static DbSession Session;
 
         #region Поля
 
@@ -29,6 +31,16 @@ namespace RealEstateDirectory.ApplicationServices
         #endregion
 
         #region Методы
+
+        public void StartSession()
+        {
+            Session = new DbSession(ServiceLocator.GetInstance<IPersistenceContext>());
+        }
+
+        public void StopSession()
+        {
+            Session.Dispose();
+        }
 
         public virtual IEnumerable<T> GetAll()
         {

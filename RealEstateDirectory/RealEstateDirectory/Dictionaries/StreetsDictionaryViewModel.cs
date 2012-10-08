@@ -19,6 +19,7 @@ namespace RealEstateDirectory.Dictionaries
 					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => Name))
 						AddCommand.RaiseCanExecuteChanged();
 				};
+            streetService.StartSession();
 		}
 
 		#region Infrastructure

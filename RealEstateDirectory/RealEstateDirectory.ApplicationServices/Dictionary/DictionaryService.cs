@@ -8,6 +8,7 @@ using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
+using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices.Dictionary
 {
@@ -17,6 +18,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         protected readonly IPersistenceContext PersistenceContext;
         protected readonly IDictionaryRepository Repository;
         protected readonly IServiceLocator ServiceLocator;
+        private static DbSession Session;
 
         #region Поля
 
@@ -34,6 +36,16 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         #endregion
 
         #region Методы
+
+        public void StartSession()
+        {
+            Session = new DbSession(ServiceLocator.GetInstance<IPersistenceContext>());
+        }
+
+        public void StopSession()
+        {
+            Session.Dispose();
+        }
 
         public IEnumerable<T> GetAll()
         {
