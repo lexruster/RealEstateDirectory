@@ -1,4 +1,5 @@
-﻿using NHibernate.Cfg;
+﻿using System;
+using NHibernate.Cfg;
 using NHibernate.Context;
 using NHibernate.Mapping.ByCode;
 using RealEstateDirectory.Domain.Data.Mapping;
@@ -13,7 +14,7 @@ namespace RealEstateDirectory.Domain.Data.Config
             var cfg = new Configuration();
 
             cfg.Configure()
-                .CurrentSessionContext<CallSessionContext>()
+                .CurrentSessionContext<ThreadStaticSessionContext>()
                 .Cache(c =>
                 {
                     //c.UseQueryCache = true;
