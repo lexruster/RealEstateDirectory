@@ -3,7 +3,7 @@ using RealEstateDirectory.Infrastructure.Entities;
 namespace RealEstateDirectory.Domain.Entities.Dictionaries
 {
     /// <summary>
-    /// Вариант  сделки
+    /// Вариант сделки
     /// </summary>
     public class DealVariant : BaseDictionary
     {

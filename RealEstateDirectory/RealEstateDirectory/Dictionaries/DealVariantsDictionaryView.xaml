@@ -1,7 +1,7 @@
-﻿<Window x:Class="RealEstateDirectory.Dictionaries.StreetsDictionaryView"
+﻿<Window x:Class="RealEstateDirectory.Dictionaries.DealVariantsDictionaryView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Улицы" Height="300" Width="300">
+        Title="Варианты сделок" Height="300" Width="300">
 	<ContentControl Template="{StaticResource CommonDictionaryViewTemplate}">
 		<DataGrid Grid.Row="0" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False">
 			<DataGrid.Columns>

@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using Microsoft.Practices.Prism.Commands;
+﻿using System.ComponentModel;
 using Microsoft.Practices.Prism.ViewModel;
-using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Dictionaries
 {
