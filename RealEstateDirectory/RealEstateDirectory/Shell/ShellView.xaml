@@ -17,7 +17,8 @@
 			</MenuItem>
 			<MenuItem Header="Справочники">
 				<MenuItem Header="Улицы" Command="{Binding StreetsDictionaryCommand}" />
-			</MenuItem>
+				<MenuItem Header="Виды сделок" Command="{Binding DealVariantsDictionaryCommand}" />
+		</MenuItem>
 		</Menu>
 	</Grid>
 </Window>

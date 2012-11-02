@@ -29,6 +29,14 @@ namespace RealEstateDirectory.Services
 				else
 					currentView.Activate();
 			}
+			else if (typeof (TViewModel) == typeof (DealVariantsDictionaryViewModel))
+			{
+				var currentView = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (DealVariantsDictionaryView));
+				if (currentView == null)
+					(new DealVariantsDictionaryView {DataContext = _ServiceLocator.GetInstance<TViewModel>()}).Show();
+				else
+					currentView.Activate();
+			}
 			else
 				throw new NotImplementedException();
 		}

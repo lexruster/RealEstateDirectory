@@ -74,6 +74,7 @@
     <Compile Include="Dictionaries\DealVariantsDictionaryView.xaml.cs">
       <DependentUpon>DealVariantsDictionaryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dictionaries\DealVariantsDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\DealVariantViewModel.cs" />
     <Compile Include="Dictionaries\DictionaryEntityViewModel.cs" />
     <Compile Include="Dictionaries\DictionaryViewModel.cs" />

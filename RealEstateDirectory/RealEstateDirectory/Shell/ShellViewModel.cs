@@ -17,6 +17,7 @@ namespace RealEstateDirectory.Shell
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
 			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetsDictionaryViewModel>());
+			DealVariantsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DealVariantsDictionaryViewModel>());
 		}
 
 		#region Infrastructure
@@ -28,5 +29,7 @@ namespace RealEstateDirectory.Shell
 		public ICommand ExitCommand { get; private set; }
 
 		public ICommand StreetsDictionaryCommand { get; private set; }
+
+		public ICommand DealVariantsDictionaryCommand { get; private set; }
 	}
 }
