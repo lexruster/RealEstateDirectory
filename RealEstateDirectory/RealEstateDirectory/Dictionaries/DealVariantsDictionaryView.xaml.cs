@@ -17,7 +17,7 @@ namespace RealEstateDirectory.Dictionaries
 	/// <summary>
 	/// Interaction logic for DealVariantsDictionaryView.xaml
 	/// </summary>
-	public partial class DealVariantsDictionaryView : Window
+	public partial class DealVariantsDictionaryView : DictionaryWindow
 	{
 		public DealVariantsDictionaryView()
 		{

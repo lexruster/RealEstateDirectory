@@ -55,5 +55,15 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			_StreetService.Delete(entity);
 		}
+
+		public override void OpenSession()
+		{
+			_StreetService.StartSession();
+		}
+
+		public override void CloseSession()
+		{
+			_StreetService.StopSession();
+		}
 	}
 }

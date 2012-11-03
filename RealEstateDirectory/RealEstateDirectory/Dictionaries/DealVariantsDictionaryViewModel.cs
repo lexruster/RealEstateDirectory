@@ -55,5 +55,15 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			_DealVariantService.Delete(entity);
 		}
+
+		public override void OpenSession()
+		{
+			_DealVariantService.StartSession();
+		}
+
+		public override void CloseSession()
+		{
+			_DealVariantService.StopSession();
+		}
 	}
 }

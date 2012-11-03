@@ -78,12 +78,14 @@
     <Compile Include="Dictionaries\DealVariantViewModel.cs" />
     <Compile Include="Dictionaries\DictionaryEntityViewModel.cs" />
     <Compile Include="Dictionaries\DictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\DictionaryWindow.cs" />
     <Compile Include="Dictionaries\DistrictViewModel.cs" />
     <Compile Include="Dictionaries\StreetsDictionaryView.xaml.cs">
       <DependentUpon>StreetsDictionaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dictionaries\StreetsDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\StreetViewModel.cs" />
+    <Compile Include="Interfaces\ISessionedViewModel.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
     <Compile Include="Services\EnhancedObservableCollection.cs" />
     <Compile Include="Services\IMessageService.cs" />

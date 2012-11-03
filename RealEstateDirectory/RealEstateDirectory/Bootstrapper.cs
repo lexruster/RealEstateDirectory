@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
@@ -28,14 +29,13 @@ namespace RealEstateDirectory
 		{
 			base.ConfigureContainer();
 
-			Container.RegisterType<IViewsService, ViewsService>();
-			Container.RegisterType<IMessageService, MessageService>();
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
                                                   new InjectionFactory(container => Configurator.GetConfig()));
 
             Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
             RegisterRepositories();
             RegisterServices();
+			RegisterViewModels();
 		}
 
 		protected override DependencyObject CreateShell()
@@ -56,13 +56,13 @@ namespace RealEstateDirectory
 			Application.Current.MainWindow.Show();
 		}
 
-        private void RegisterRepositories()
+		private void RegisterRepositories()
         {
             Container.RegisterType<IDictionaryRepository, DictionaryRepository>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IRealEstateRepository, RealEstateRepository>(new ContainerControlledLifetimeManager());
         }
 
-        private void RegisterServices()
+		private void RegisterServices()
         {
             Container.RegisterType<IDealVariantService, DealVariantService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IDistrictService, DistrictService>(new ContainerControlledLifetimeManager());
@@ -76,12 +76,19 @@ namespace RealEstateDirectory
             Container.RegisterType<ITerraceService, TerraceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IToiletTypeService, ToiletTypeService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IWaterSupplyService, WaterSupplyService>(new ContainerControlledLifetimeManager());
-
             Container.RegisterType<IFlatService, FlatService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IRoomService, RoomService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IResidenceService, ResidenceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
-        }
+
+			Container.RegisterType<IViewsService, ViewsService>();
+			Container.RegisterType<IMessageService, MessageService>();
+		}
+
+		private void RegisterViewModels()
+		{
+			Container.RegisterType<DealVariantsDictionaryViewModel>(new InjectionMethod("Initialize"));
+		}
 	}
 }

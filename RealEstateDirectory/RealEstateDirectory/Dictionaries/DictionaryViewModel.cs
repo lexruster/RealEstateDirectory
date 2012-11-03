@@ -6,12 +6,13 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.Interfaces;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Dictionaries
 {
 	[NotifyForAll]
-	public abstract class DictionaryViewModel<TEntityViewModel, TEntity> : NotificationObject
+	public abstract class DictionaryViewModel<TEntityViewModel, TEntity> : NotificationObject, ISessionedViewModel
 		where TEntity : class
 		where TEntityViewModel : DictionaryEntityViewModel<TEntity>
 	{
@@ -43,6 +44,7 @@ namespace RealEstateDirectory.Dictionaries
 
 		public virtual void Initialize()
 		{
+			OpenSession();
 			InitializeEntities();
 			_Entities.CollectionChanging += Entities_CollectionChanging;
 		}
@@ -95,5 +97,9 @@ namespace RealEstateDirectory.Dictionaries
 					break;
 			}
 		}
+
+		public abstract void OpenSession();
+
+		public abstract void CloseSession();
 	}
 }
