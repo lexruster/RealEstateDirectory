@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities;
@@ -95,10 +96,10 @@ namespace RealEstateDirectory.ApplicationServices
         /// Удалить сущность
         /// </summary>
         /// <param name="entity"></param>
-        public bool IsValid(T entity)
+        public ValidationResult IsValid(T entity)
         {
             //Пока вводить можно все
-            return true;
+            return new ValidationResult();
         }
 
         #endregion

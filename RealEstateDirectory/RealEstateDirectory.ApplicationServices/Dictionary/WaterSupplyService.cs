@@ -22,6 +22,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        public override string DictionaryName
+        {
+            get { return "Водоснабжение"; }
+        }
+
         public override bool IsPossibilityToDelete(WaterSupply entity)
         {
             return Repository.IsPossibleToDeleteWaterSupply(entity);

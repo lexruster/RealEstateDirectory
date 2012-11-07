@@ -2,21 +2,21 @@
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
+using RealEstateDirectory.Infrastructure.Entities;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.CommonDictionary
 {
 	[NotifyForAll]
-	public class DealVariantViewModel : DictionaryEntityViewModel<DealVariant>
+	public class CommonViewModel<T> : DictionaryEntityViewModel<T> where T : BaseDictionary
 	{
-		public DealVariantViewModel(IDealVariantService dealVariantService)
+        public CommonViewModel(IDictionaryService<T> dictionaryService)
 		{
-			_DealVariantService = dealVariantService;
+            _DictionaryService = dictionaryService;
 		}
 
 		#region Infrastructure
 
-		private readonly IDealVariantService _DealVariantService;
+        private readonly IDictionaryService<T> _DictionaryService;
 
 		#endregion
 
@@ -42,7 +42,7 @@ namespace RealEstateDirectory.Dictionaries
 				if (columnName == PropertySupport.ExtractPropertyName(() => Name))
 				{
 					if (String.IsNullOrWhiteSpace(Name))
-						return "Наименование варианта сделки не должно быть пустым";
+						return String.Format("Значение элемента справочника \"{0}\" не может быть пустым.", _DictionaryService.DictionaryName);
 				}
 				return null;
 			}
@@ -52,8 +52,9 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			get
 			{
-                string error = null;
-                var validation=_DealVariantService.IsValid(new DealVariant(Name));
+			    string error = null;
+                var dictElement = (T)Activator.CreateInstance(typeof(T), Name);
+                var validation=_DictionaryService.IsValid(dictElement);
 			    error = validation.IsValid ? null : validation.GetReasons();
 			    return error;
 			}
@@ -61,7 +62,7 @@ namespace RealEstateDirectory.Dictionaries
 
 		public override void SaveToDatabase()
 		{
-			_DealVariantService.Save(DbEntity);
+            _DictionaryService.Save(DbEntity);
 		}
 	}
 }

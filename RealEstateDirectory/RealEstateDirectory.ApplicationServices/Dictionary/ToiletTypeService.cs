@@ -22,6 +22,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Ìועמהû
 
+        public override string DictionaryName
+        {
+            get { return "Òףאכוע"; }
+        }
+
         public override bool IsPossibilityToDelete(ToiletType entity)
         {
             return Repository.IsPossibleToDeleteToiletType(entity);

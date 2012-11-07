@@ -52,7 +52,11 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			get
 			{
-				return _StreetService.IsValid(new Street(Name)) ? null : "Улица некорректна";
+                string error = null;
+                var validation = _StreetService.IsValid(new Street(Name));
+                error = validation.IsValid ? null : validation.GetReasons();
+                return error;
+
 			}
 		}
 

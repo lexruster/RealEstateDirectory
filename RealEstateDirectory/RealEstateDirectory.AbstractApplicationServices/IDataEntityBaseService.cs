@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.AbstractApplicationServices
@@ -35,7 +36,7 @@ namespace RealEstateDirectory.AbstractApplicationServices
         /// Проверить корректность новой/измененной сущности
         /// </summary>
         /// <param name="entity"></param>
-        bool IsValid(T entity);
+        ValidationResult IsValid(T entity);
 
         /// <summary>
         /// Проверка возможности удалить сущность.

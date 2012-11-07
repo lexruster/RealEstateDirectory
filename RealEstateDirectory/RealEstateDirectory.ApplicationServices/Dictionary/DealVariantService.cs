@@ -25,6 +25,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        public override string DictionaryName
+        {
+            get { return "Варианты сделок"; }
+        }
+
         public override bool IsPossibilityToDelete(DealVariant entity)
         {
             return Repository.IsPossibleToDeleteDealVariant(entity);

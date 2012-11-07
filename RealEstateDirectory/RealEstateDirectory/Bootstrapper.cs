@@ -82,6 +82,8 @@ namespace RealEstateDirectory
             Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
 
+            Container.RegisterType<IDictionaryService<Layout>, LayoutService>(new ContainerControlledLifetimeManager());
+
 			Container.RegisterType<IViewsService, ViewsService>();
 			Container.RegisterType<IMessageService, MessageService>();
 		}

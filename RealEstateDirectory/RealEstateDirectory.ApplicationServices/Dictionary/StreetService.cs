@@ -27,6 +27,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return Repository.IsPossibleToDeleteStreet(entity);
         }
 
+        public override string DictionaryName
+        {
+            get { return "Улицы"; }
+        }
+
         /// <summary>
         /// Удалить сущность
         /// </summary>

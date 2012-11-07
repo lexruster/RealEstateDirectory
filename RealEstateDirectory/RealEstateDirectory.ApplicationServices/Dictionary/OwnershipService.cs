@@ -22,6 +22,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        public override string DictionaryName
+        {
+            get { return "Собственность"; }
+        }
+
         public override bool IsPossibilityToDelete(Ownership entity)
         {
             return Repository.IsPossibleToDeleteOwnership(entity);

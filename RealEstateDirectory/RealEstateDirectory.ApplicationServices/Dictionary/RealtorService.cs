@@ -22,6 +22,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        public override string DictionaryName
+        {
+            get { return "Риэлторы"; }
+        }
+
         public override bool IsPossibilityToDelete(Realtor entity)
         {
             return Repository.IsPossibleToDeleteRealtor(entity);

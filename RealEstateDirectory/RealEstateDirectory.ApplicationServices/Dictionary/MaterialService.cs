@@ -23,6 +23,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        public override string DictionaryName
+        {
+            get { return "Материал"; }
+        }
+
         public override bool IsPossibilityToDelete(Material entity)
         {
             return Repository.IsPossibleToDeleteMaterial(entity);

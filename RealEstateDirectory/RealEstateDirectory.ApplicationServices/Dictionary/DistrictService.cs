@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class DistrictService : DictionaryService<District>, IDistrictService
     {
         #region Поля
+
+        public override string DictionaryName
+        {
+            get { return "Районы"; }
+        }
+
         #endregion
 
         #region Конструктор

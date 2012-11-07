@@ -22,6 +22,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        public override string DictionaryName
+        {
+            get { return "Балкон"; }
+        }
+
         public override bool IsPossibilityToDelete(Terrace entity)
         {
             return Repository.IsPossibleToDeleteTerrace(entity);

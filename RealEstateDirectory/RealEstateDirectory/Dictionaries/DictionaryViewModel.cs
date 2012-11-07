@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.Interfaces;
 using RealEstateDirectory.Services;
 
@@ -13,7 +14,7 @@ namespace RealEstateDirectory.Dictionaries
 {
 	[NotifyForAll]
 	public abstract class DictionaryViewModel<TEntityViewModel, TEntity> : NotificationObject, ISessionedViewModel
-		where TEntity : class
+		where TEntity : BaseDictionary
 		where TEntityViewModel : DictionaryEntityViewModel<TEntity>
 	{
 		protected DictionaryViewModel(IServiceLocator serviceLocator, IMessageService messageService)

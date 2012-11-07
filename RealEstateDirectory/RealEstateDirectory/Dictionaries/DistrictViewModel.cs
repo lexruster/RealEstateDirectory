@@ -52,7 +52,10 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			get
 			{
-				return _DistrictService.IsValid(new District(Name)) ? null : "Наименование района некорректно";
+                string error = null;
+                var validation = _DistrictService.IsValid(new District(Name));
+                error = validation.IsValid ? null : validation.GetReasons();
+                return error;
 			}
 		}
 

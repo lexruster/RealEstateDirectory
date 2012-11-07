@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using Microsoft.Practices.Prism.ViewModel;
+using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.Dictionaries
 {
-	public abstract class DictionaryEntityViewModel<T> : NotificationObject, IDataErrorInfo, IEditableObject where T: class
+	public abstract class DictionaryEntityViewModel<T> : NotificationObject, IDataErrorInfo, IEditableObject where T: BaseDictionary
 	{
 		public abstract void UpdateValuesFromModel();
 
