@@ -1,23 +1,18 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
-using NHibernate.Context;
-using NHibernate.Mapping.ByCode;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices;
 using RealEstateDirectory.ApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
+using RealEstateDirectory.Dictionaries.DealVariantDictionary;
+using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Data.Config;
-using RealEstateDirectory.Domain.Data.Mapping;
 using RealEstateDirectory.Domain.Data.Repository;
-using RealEstateDirectory.Domain.Entities;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
-using RealEstateDirectory.Dictionaries;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
 
@@ -82,8 +77,6 @@ namespace RealEstateDirectory
             Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
 
-            Container.RegisterType<IDictionaryService<Layout>, LayoutService>(new ContainerControlledLifetimeManager());
-
 			Container.RegisterType<IViewsService, ViewsService>();
 			Container.RegisterType<IMessageService, MessageService>();
 		}
@@ -91,6 +84,7 @@ namespace RealEstateDirectory
 		private void RegisterViewModels()
 		{
 			Container.RegisterType<DealVariantsDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<DistrictsDictionaryViewModel>(new InjectionMethod("Initialize"));
 		}
 	}
 }

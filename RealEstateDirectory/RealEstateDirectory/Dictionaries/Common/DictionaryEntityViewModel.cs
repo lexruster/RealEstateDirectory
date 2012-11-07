@@ -2,7 +2,7 @@
 using Microsoft.Practices.Prism.ViewModel;
 using RealEstateDirectory.Infrastructure.Entities;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.Common
 {
 	public abstract class DictionaryEntityViewModel<T> : NotificationObject, IDataErrorInfo, IEditableObject where T: BaseDictionary
 	{

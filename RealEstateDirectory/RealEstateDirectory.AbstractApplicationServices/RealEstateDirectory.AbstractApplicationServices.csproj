@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ValidationResult.cs" />
+    <Compile Include="Dictionary\IDictionaryWithOnlyNameEntitiesService.cs" />
     <Compile Include="IDataEntityBaseService.cs" />
     <Compile Include="IFlatService.cs" />
     <Compile Include="Dictionary\IRealtorService.cs" />

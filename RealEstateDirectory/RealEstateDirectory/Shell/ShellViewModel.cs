@@ -3,8 +3,8 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
-using RealEstateDirectory.Dictionaries;
-using RealEstateDirectory.Dictionaries.CommonDictionary;
+using RealEstateDirectory.Dictionaries.DealVariantDictionary;
+using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Services;
 
@@ -18,12 +18,8 @@ namespace RealEstateDirectory.Shell
 			_ViewsService = viewsService;
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
-			StreetsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetsDictionaryViewModel>());
 			DealVariantsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DealVariantsDictionaryViewModel>());
-            LayoutDictionaryCommand = new DelegateCommand(
-                () => 
-                    _ViewsService.OpenView<CommonDictionaryViewModel<Layout>>()
-                    );
+			DistrictsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DistrictsDictionaryViewModel>());
 		}
 
 		#region Infrastructure
@@ -33,11 +29,7 @@ namespace RealEstateDirectory.Shell
 		#endregion
 
 		public ICommand ExitCommand { get; private set; }
-
-		public ICommand StreetsDictionaryCommand { get; private set; }
-
 		public ICommand DealVariantsDictionaryCommand { get; private set; }
-
-        public ICommand LayoutDictionaryCommand { get; private set; }
+		public ICommand DistrictsDictionaryCommand { get; private set; }
 	}
 }

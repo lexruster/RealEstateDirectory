@@ -2,21 +2,21 @@
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
+using RealEstateDirectory.Infrastructure.Entities;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.Common
 {
 	[NotifyForAll]
-	public class DealVariantViewModel : DictionaryEntityViewModel<DealVariant>
+	public class DictionaryWithOnlyNameEntityViewModel<T> : DictionaryEntityViewModel<T> where T : BaseDictionary
 	{
-		public DealVariantViewModel(IDealVariantService dealVariantService)
+		public DictionaryWithOnlyNameEntityViewModel(IDictionaryWithOnlyNameEntitiesService<T> dictionaryService)
 		{
-			_DealVariantService = dealVariantService;
+			_DictionaryService = dictionaryService;
 		}
 
 		#region Infrastructure
 
-		private readonly IDealVariantService _DealVariantService;
+		private readonly IDictionaryWithOnlyNameEntitiesService<T> _DictionaryService;
 
 		#endregion
 
@@ -42,7 +42,7 @@ namespace RealEstateDirectory.Dictionaries
 				if (columnName == PropertySupport.ExtractPropertyName(() => Name))
 				{
 					if (String.IsNullOrWhiteSpace(Name))
-						return "Наименование варианта сделки не должно быть пустым";
+						return String.Format("Значение элемента справочника \"{0}\" не может быть пустым.", _DictionaryService.DictionaryName);
 				}
 				return null;
 			}
@@ -52,16 +52,15 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			get
 			{
-                string error = null;
-                var validation=_DealVariantService.IsValid(new DealVariant(Name));
-			    error = validation.IsValid ? null : validation.GetReasons();
-			    return error;
+				var dictElement = _DictionaryService.Create(Name);
+				var validation = _DictionaryService.IsValid(dictElement);
+				return validation.IsValid ? null : validation.GetReasons();
 			}
 		}
 
 		public override void SaveToDatabase()
 		{
-			_DealVariantService.Save(DbEntity);
+			_DictionaryService.Save(DbEntity);
 		}
 	}
 }

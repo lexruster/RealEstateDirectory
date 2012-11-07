@@ -2,7 +2,7 @@ using RealEstateDirectory.Domain.Entities.Dictionaries;
 
 namespace RealEstateDirectory.AbstractApplicationServices.Dictionary
 {
-    public interface IDistrictService : IDictionaryService<District>
+    public interface IDistrictService : IDictionaryWithOnlyNameEntitiesService<District>
     {
     }
 }

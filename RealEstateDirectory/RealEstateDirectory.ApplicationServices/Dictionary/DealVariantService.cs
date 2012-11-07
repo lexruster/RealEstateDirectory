@@ -35,6 +35,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return Repository.IsPossibleToDeleteDealVariant(entity);
         }
 
+		public DealVariant Create(string name)
+		{
+			return new DealVariant(name);
+		}
+
         #endregion
     }
 }

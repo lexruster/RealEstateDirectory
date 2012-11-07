@@ -3,30 +3,31 @@ using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.Domain.Entities.Dictionaries
 {
-    /// <summary>
-    /// Район, регион
-    /// </summary>
-    public class District : BaseDictionary
-    {
-        /// <summary>
-        /// Улицы района
-        /// </summary>
-        public virtual IList<Street> Streets { get; set; }
+	/// <summary>
+	/// Район, регион
+	/// </summary>
+	public class District : BaseDictionary
+	{
+		/// <summary>
+		/// Улицы района
+		/// </summary>
+		public virtual IList<Street> Streets { get; set; }
 
-        protected District()
-        {
-        }
+#warning Не создаётся список
+		protected District()
+		{
+		}
 
-        public District(string name)
-            : base(name)
-        {
-            Streets=new List<Street>();
-        }
+		public District(string name)
+			: base(name)
+		{
+			Streets = new List<Street>();
+		}
 
-        public virtual void AddStreet(Street street)
-        {
-            street.District = this;
-            Streets.Add(street);
-        }
-    }
+		public virtual void AddStreet(Street street)
+		{
+			street.District = this;
+			Streets.Add(street);
+		}
+	}
 }

@@ -2,7 +2,7 @@
 using System.Windows;
 using RealEstateDirectory.Interfaces;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.Common
 {
 	public class DictionaryWindow : Window
 	{

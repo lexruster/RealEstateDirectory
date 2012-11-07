@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.Commands;
@@ -10,7 +9,7 @@ using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.Interfaces;
 using RealEstateDirectory.Services;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.Common
 {
 	[NotifyForAll]
 	public abstract class DictionaryViewModel<TEntityViewModel, TEntity> : NotificationObject, ISessionedViewModel

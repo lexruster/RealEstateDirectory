@@ -16,10 +16,9 @@
 				<MenuItem Header="Выход" Command="{Binding ExitCommand}" />
 			</MenuItem>
 			<MenuItem Header="Справочники">
-				<MenuItem Header="Улицы" Command="{Binding StreetsDictionaryCommand}" />
 				<MenuItem Header="Виды сделок" Command="{Binding DealVariantsDictionaryCommand}" />
-                <MenuItem Header="Планироваки Layout экспериментальные" Command="{Binding LayoutDictionaryCommand}" />
-		</MenuItem>
+				<MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
+			</MenuItem>
 		</Menu>
 	</Grid>
 </Window>
