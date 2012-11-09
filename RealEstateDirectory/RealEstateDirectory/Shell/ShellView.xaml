@@ -5,20 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Shell="clr-namespace:RealEstateDirectory.Shell"
         mc:Ignorable="d" Title="ShellView" Height="300" Width="300"
-        d:DataContext="{d:DesignInstance Shell:ShellViewModel}">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Menu Grid.Row="0">
-			<MenuItem Header="Файл">
-				<MenuItem Header="Выход" Command="{Binding ExitCommand}" />
-			</MenuItem>
-			<MenuItem Header="Справочники">
-				<MenuItem Header="Виды сделок" Command="{Binding DealVariantsDictionaryCommand}" />
-				<MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
-			</MenuItem>
-		</Menu>
-	</Grid>
+        d:DataContext="{d:DesignInstance Shell:ShellViewModel}"
+        Background="{DynamicResource WindowBackgroundBrush}" >
+    <Window.Resources>
+        <ResourceDictionary Source="../Themes/ShinyRed.xaml" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" Command="{Binding ExitCommand}" />
+            </MenuItem>
+            <MenuItem Header="Справочники">
+                <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />
+                <MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
+            </MenuItem>
+        </Menu>
+    </Grid>
 </Window>

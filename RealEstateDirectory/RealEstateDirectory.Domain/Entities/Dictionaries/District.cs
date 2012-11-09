@@ -13,7 +13,6 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
 		/// </summary>
 		public virtual IList<Street> Streets { get; set; }
 
-#warning Не создаётся список
 		protected District()
 		{
 		}

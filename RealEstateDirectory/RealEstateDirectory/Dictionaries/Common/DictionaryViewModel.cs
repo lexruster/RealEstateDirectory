@@ -59,6 +59,8 @@ namespace RealEstateDirectory.Dictionaries.Common
 
 		protected EnhancedObservableCollection<TEntityViewModel> _Entities = new EnhancedObservableCollection<TEntityViewModel>();
 
+        public abstract string DictionaryName { get; }
+
 		public ListCollectionView Entities { get; protected set; }
 
 		public DelegateCommand AddCommand { get; protected set; }

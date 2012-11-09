@@ -35,6 +35,11 @@ namespace RealEstateDirectory.Dictionaries.Common
 
 		public string Name { get; set; }
 
+        public override string DictionaryName
+	    {
+	        get { return _DictionaryService.DictionaryName; }
+	    }
+
 		protected override void InitializeEntities()
 		{
 			_Entities.AddRange(_DictionaryService.GetAll().Select(CreateNewViewModel));
