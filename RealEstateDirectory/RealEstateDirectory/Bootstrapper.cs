@@ -15,6 +15,7 @@ using RealEstateDirectory.Dictionaries.MaterialDictionary;
 using RealEstateDirectory.Dictionaries.OwnershipDictionary;
 using RealEstateDirectory.Dictionaries.RealtorDictionary;
 using RealEstateDirectory.Dictionaries.SewageDictionary;
+using RealEstateDirectory.Dictionaries.StreetDictionary;
 using RealEstateDirectory.Dictionaries.TerraceDictionary;
 using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
@@ -100,7 +101,7 @@ namespace RealEstateDirectory
 			Container.RegisterType<OwnershipDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RealtorDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<SewageDictionaryViewModel>(new InjectionMethod("Initialize"));
-			//Container.RegisterType<StreetDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<StreetDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<TerraceDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));

@@ -5,37 +5,37 @@ using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Dictionaries.Common;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 
-namespace RealEstateDirectory.Dictionaries.RealtorDictionary
+namespace RealEstateDirectory.Dictionaries.StreetDictionary
 {
 	[NotifyForAll]
-	public class RealtorViewModel : DictionaryEntityViewModel<Realtor>
+	public class StreetViewModel : DictionaryEntityViewModel<Street>
 	{
-		public RealtorViewModel(IRealtorService service)
+		public StreetViewModel(IStreetService service)
 		{
 			_DictionaryService = service;
 		}
 
 		#region Infrastructure
 
-		private readonly IRealtorService _DictionaryService;
+		private readonly IStreetService _DictionaryService;
 
 		#endregion
 
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Phone { get; set; }
+		public District District { get; set; }
 
 		public override void UpdateValuesFromModel()
 		{
 			Id = DbEntity.Id;
 			Name = DbEntity.Name;
-			Phone = DbEntity.Phone;
+			District = DbEntity.District;
 		}
 
 		public override void UpdateModelFromValues()
 		{
 			DbEntity.Name = Name;
-			DbEntity.Phone = Phone;
+			DbEntity.District = District;
 		}
 
 		public override string this[string columnName]
@@ -47,6 +47,11 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 					if (String.IsNullOrWhiteSpace(Name))
 						return String.Format("Значение элемента справочника \"{0}\" не может быть пустым.", _DictionaryService.DictionaryName);
 				}
+				if (columnName == PropertySupport.ExtractPropertyName(() => District))
+				{
+					if (String.IsNullOrWhiteSpace(Name))
+						return String.Format("Должен быть указан район.");
+				}
 				return null;
 			}
 		}
@@ -55,11 +60,22 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 		{
 			get
 			{
-				var dictElement = new Realtor(Name);
+				var dictElement = new Street(Name);
+				dictElement.District = District;
 				var validation = _DictionaryService.IsValid(dictElement);
 				return validation.IsValid ? null : validation.GetReasons();
 			}
 		}
+
+		//public string CanChange
+		//{
+		//	get
+		//	{
+		//		var validation = _DictionaryService.IsValid(DbEntity.Id, Name, District);
+		//		return validation.IsValid ? null : validation.GetReasons();
+		//	}
+
+		//}
 
 		public override void SaveToDatabase()
 		{

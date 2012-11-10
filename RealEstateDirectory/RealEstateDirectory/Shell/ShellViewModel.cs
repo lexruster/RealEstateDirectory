@@ -11,6 +11,7 @@ using RealEstateDirectory.Dictionaries.MaterialDictionary;
 using RealEstateDirectory.Dictionaries.OwnershipDictionary;
 using RealEstateDirectory.Dictionaries.RealtorDictionary;
 using RealEstateDirectory.Dictionaries.SewageDictionary;
+using RealEstateDirectory.Dictionaries.StreetDictionary;
 using RealEstateDirectory.Dictionaries.TerraceDictionary;
 using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
@@ -36,7 +37,7 @@ namespace RealEstateDirectory.Shell
 			OwnershipDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<OwnershipDictionaryViewModel>());
 			RealtorDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<RealtorDictionaryViewModel>());
 			SewageDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<SewageDictionaryViewModel>());
-			//StreetDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetDictionaryViewModel>());
+			StreetDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<StreetDictionaryViewModel>());
 			TerraceDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<TerraceDictionaryViewModel>());
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
@@ -60,7 +61,7 @@ namespace RealEstateDirectory.Shell
 		public ICommand OwnershipDictionaryCommand { get; private set; }
 		public ICommand RealtorDictionaryCommand { get; private set; }
 		public ICommand SewageDictionaryCommand { get; private set; }
-		//public ICommand StreetDictionaryCommand { get; private set; }
+		public ICommand StreetDictionaryCommand { get; private set; }
 		public ICommand TerraceDictionaryCommand { get; private set; }
 		public ICommand ToiletTypeDictionaryCommand { get; private set; }
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }

@@ -73,6 +73,11 @@
     </ApplicationDefinition>
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntitiesViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntityViewModel.cs" />
+    <Compile Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml.cs">
+      <DependentUpon>StreetDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\StreetDictionary\StreetDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\StreetDictionary\StreetViewModel.cs" />
     <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryView.xaml.cs">
       <DependentUpon>WaterSupplyDictionaryView.xaml</DependentUpon>
     </Compile>
@@ -147,6 +152,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -13,6 +13,7 @@ using RealEstateDirectory.Dictionaries.MaterialDictionary;
 using RealEstateDirectory.Dictionaries.OwnershipDictionary;
 using RealEstateDirectory.Dictionaries.RealtorDictionary;
 using RealEstateDirectory.Dictionaries.SewageDictionary;
+using RealEstateDirectory.Dictionaries.StreetDictionary;
 using RealEstateDirectory.Dictionaries.TerraceDictionary;
 using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
@@ -43,7 +44,7 @@ namespace RealEstateDirectory.Services
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(OwnershipDictionaryViewModel), typeof(OwnershipDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(RealtorDictionaryViewModel), typeof(RealtorDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(SewageDictionaryViewModel), typeof(SewageDictionaryView)));
-			//_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(StreetDictionaryViewModel), typeof(StreetDictionaryView)));
+			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(StreetDictionaryViewModel), typeof(StreetDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(TerraceDictionaryViewModel), typeof(TerraceDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(ToiletTypeDictionaryViewModel), typeof(ToiletTypeDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(WaterSupplyDictionaryViewModel), typeof(WaterSupplyDictionaryView)));

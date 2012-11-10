@@ -25,7 +25,7 @@
                 <MenuItem Header="Собственность" Command="{Binding OwnershipDictionaryCommand}" />
                 <MenuItem Header="Риэлторы" Command="{Binding RealtorDictionaryCommand}" />
                 <MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />
-                <!--<MenuItem Header="Улицы" Command="{Binding StreetDictionaryCommand}" />-->
+                <MenuItem Header="Улицы" Command="{Binding StreetDictionaryCommand}" />
                 <MenuItem Header="Тип балкона" Command="{Binding TerraceDictionaryCommand}" />
                 <MenuItem Header="Сан. узел" Command="{Binding ToiletTypeDictionaryCommand}" />
                 <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />

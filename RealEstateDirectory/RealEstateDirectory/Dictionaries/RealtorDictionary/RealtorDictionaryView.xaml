@@ -13,7 +13,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="3" Padding="5" Text="{Binding DictionaryName, ValidatesOnDataErrors=True}" FontWeight="Bold" ></TextBlock>
+                <TextBlock Grid.Row="0" Margin="3" Padding="5" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
                 <DataGrid Grid.Row="1" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True}" Header="Наименование" Width="Auto"/>
