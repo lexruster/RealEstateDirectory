@@ -33,6 +33,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 		#endregion
 
 		public string Name { get; set; }
+		public string Phone { get; set; }
 
         public override string DictionaryName
 	    {
@@ -52,11 +53,12 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 		protected override void ClearProperties()
 		{
 			Name = String.Empty;
+			Phone = String.Empty;
 		}
 
 		protected override Realtor CreateNewModel()
 		{
-			return new Realtor(Name);
+			return new Realtor(Name, Phone);
 		}
 
 		protected override bool IsCanRemove(RealtorViewModel entityViewModel, out string errorText)

@@ -25,15 +25,19 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 
 		public string Name { get; set; }
 
+		public string Phone { get; set; }
+
 		public override void UpdateValuesFromModel()
 		{
 			Id = DbEntity.Id;
 			Name = DbEntity.Name;
+			Phone = DbEntity.Phone;
 		}
 
 		public override void UpdateModelFromValues()
 		{
 			DbEntity.Name = Name;
+			DbEntity.Phone = Phone;
 		}
 
 		public override string this[string columnName]
