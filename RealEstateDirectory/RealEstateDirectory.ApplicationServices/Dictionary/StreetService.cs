@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class StreetService : DictionaryService<Street>, IStreetService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Улицы"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -27,10 +33,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return Repository.IsPossibleToDeleteStreet(entity);
         }
 
-        public override string DictionaryName
-        {
-            get { return "Улицы"; }
-        }
+        
 
         /// <summary>
         /// Удалить сущность

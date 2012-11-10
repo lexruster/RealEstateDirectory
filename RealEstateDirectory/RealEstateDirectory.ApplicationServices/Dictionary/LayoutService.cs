@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class LayoutService : DictionaryService<Layout>, ILayoutService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Планировка"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -22,15 +28,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
-        public override string DictionaryName
-        {
-            get { return "Планировка"; }
-        }
-
         public override bool IsPossibilityToDelete(Layout entity)
         {
             return Repository.IsPossibleToDeleteLayout(entity);
         }
+
+		public Layout Create(string name)
+		{
+			return new Layout(name);
+		}
 
         #endregion
     }

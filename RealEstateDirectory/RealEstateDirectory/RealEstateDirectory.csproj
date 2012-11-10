@@ -73,6 +73,51 @@
     </ApplicationDefinition>
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntitiesViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntityViewModel.cs" />
+    <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryView.xaml.cs">
+      <DependentUpon>WaterSupplyDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyViewModel.cs" />
+    <Compile Include="Dictionaries\ToiletTypeDictionary\ToiletTypeDictionaryView.xaml.cs">
+      <DependentUpon>ToiletTypeDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\ToiletTypeDictionary\ToiletTypeDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\ToiletTypeDictionary\ToiletTypeViewModel.cs" />
+    <Compile Include="Dictionaries\TerraceDictionary\TerraceDictionaryView.xaml.cs">
+      <DependentUpon>TerraceDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\TerraceDictionary\TerraceDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\TerraceDictionary\TerraceViewModel.cs" />
+    <Compile Include="Dictionaries\SewageDictionary\SewageDictionaryView.xaml.cs">
+      <DependentUpon>SewageDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\SewageDictionary\SewageDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\SewageDictionary\SewageViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorDictionary\RealtorDictionaryView.xaml.cs">
+      <DependentUpon>RealtorDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\RealtorDictionary\RealtorDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorDictionary\RealtorViewModel.cs" />
+    <Compile Include="Dictionaries\OwnershipDictionary\OwnershipDictionaryView.xaml.cs">
+      <DependentUpon>OwnershipDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\OwnershipDictionary\OwnershipDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\OwnershipDictionary\OwnershipViewModel.cs" />
+    <Compile Include="Dictionaries\MaterialDictionary\MaterialDictionaryView.xaml.cs">
+      <DependentUpon>MaterialDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\MaterialDictionary\MaterialDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\MaterialDictionary\MaterialViewModel.cs" />
+    <Compile Include="Dictionaries\LayoutDictionary\LayoutDictionaryView.xaml.cs">
+      <DependentUpon>LayoutDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\LayoutDictionary\LayoutDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\LayoutDictionary\LayoutViewModel.cs" />
+    <Compile Include="Dictionaries\FloorLevelDictionary\FloorLevelDictionaryView.xaml.cs">
+      <DependentUpon>FloorLevelDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\FloorLevelDictionary\FloorLevelDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\FloorLevelDictionary\FloorLevelViewModel.cs" />
     <Compile Include="Dictionaries\DealVariantDictionary\DealVariantsDictionaryView.xaml.cs">
       <DependentUpon>DealVariantsDictionaryView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +147,42 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\ToiletTypeDictionary\ToiletTypeDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\TerraceDictionary\TerraceDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\SewageDictionary\SewageDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\RealtorDictionary\RealtorDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\OwnershipDictionary\OwnershipDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\MaterialDictionary\MaterialDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\LayoutDictionary\LayoutDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\FloorLevelDictionary\FloorLevelDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dictionaries\DealVariantDictionary\DealVariantsDictionaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

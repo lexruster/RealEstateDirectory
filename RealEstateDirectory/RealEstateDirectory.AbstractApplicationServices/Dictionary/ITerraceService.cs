@@ -2,7 +2,7 @@ using RealEstateDirectory.Domain.Entities.Dictionaries;
 
 namespace RealEstateDirectory.AbstractApplicationServices.Dictionary
 {
-    public interface ITerraceService : IDictionaryService<Terrace>
+	public interface ITerraceService : IDictionaryWithOnlyNameEntitiesService<Terrace>
     {
 
     }

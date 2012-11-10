@@ -22,7 +22,7 @@ namespace RealEstateDirectory.Dictionaries.Common
 			_MessageService = messageService;
 
 			Entities = new ListCollectionView(_Entities);
-
+			
 			AddCommand = new DelegateCommand(() =>
 				{
 					var viewModel = CreateNewViewModel(CreateNewModel());
@@ -57,9 +57,10 @@ namespace RealEstateDirectory.Dictionaries.Common
 
 		protected abstract void InitializeEntities();
 
-		protected EnhancedObservableCollection<TEntityViewModel> _Entities = new EnhancedObservableCollection<TEntityViewModel>();
+		protected EnhancedObservableCollection<TEntityViewModel> _Entities =
+			new EnhancedObservableCollection<TEntityViewModel>();
 
-        public abstract string DictionaryName { get; }
+		public abstract string DictionaryName { get; }
 
 		public ListCollectionView Entities { get; protected set; }
 

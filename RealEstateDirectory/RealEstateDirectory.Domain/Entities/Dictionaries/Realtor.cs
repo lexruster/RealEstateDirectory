@@ -15,13 +15,14 @@ namespace RealEstateDirectory.Domain.Entities.Dictionaries
         {
         }
 
-        public Realtor(string name)
-        {
-        }
+		public Realtor(string name)
+			: base(name)
+		{
+		}
 
-        public Realtor(string name, string phone)
+		public Realtor(string name, string phone)
+			: base(name)
         {
-            Name = name;
             Phone = phone;
         }
 

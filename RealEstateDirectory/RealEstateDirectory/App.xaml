@@ -4,7 +4,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Templates.xaml" />
-                <ResourceDictionary Source="Themes\ShinyRed.xaml" />
+                <ResourceDictionary Source="Themes\BureauBlue.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

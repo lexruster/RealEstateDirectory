@@ -12,6 +12,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     {
         #region Поля
 
+		public override string DictionaryName
+		{
+			get { return "Варианты сделок"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -24,11 +29,6 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         #endregion
 
         #region Методы
-
-        public override string DictionaryName
-        {
-            get { return "Варианты сделок"; }
-        }
 
         public override bool IsPossibilityToDelete(DealVariant entity)
         {

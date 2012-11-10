@@ -6,10 +6,7 @@
         xmlns:Shell="clr-namespace:RealEstateDirectory.Shell"
         mc:Ignorable="d" Title="ShellView" Height="300" Width="300"
         d:DataContext="{d:DesignInstance Shell:ShellViewModel}"
-        Background="{DynamicResource WindowBackgroundBrush}" >
-    <Window.Resources>
-        <ResourceDictionary Source="../Themes/ShinyRed.xaml" />
-    </Window.Resources>
+        Background="{DynamicResource NormalBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,6 +19,16 @@
             <MenuItem Header="Справочники">
                 <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />
                 <MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
+                <MenuItem Header="Виды потолков" Command="{Binding FloorLevelDictionaryCommand}" />
+                <MenuItem Header="Планировка" Command="{Binding LayoutDictionaryCommand}" />
+                <MenuItem Header="Материалы" Command="{Binding MaterialDictionaryCommand}" />
+                <MenuItem Header="Собственность" Command="{Binding OwnershipDictionaryCommand}" />
+                <MenuItem Header="Риэлторы" Command="{Binding RealtorDictionaryCommand}" />
+                <MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />
+                <!--<MenuItem Header="Улицы" Command="{Binding StreetDictionaryCommand}" />-->
+                <MenuItem Header="Тип балкона" Command="{Binding TerraceDictionaryCommand}" />
+                <MenuItem Header="Сан. узел" Command="{Binding ToiletTypeDictionaryCommand}" />
+                <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
             </MenuItem>
         </Menu>
     </Grid>

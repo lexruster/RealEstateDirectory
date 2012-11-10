@@ -9,7 +9,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class FloorLevelService : DictionaryService<FloorLevel>, IFloorLevelService
     {
         #region Поля
-
+		
+		public override string DictionaryName
+		{
+			get { return "Тип потолка"; }
+		}
 
         #endregion
 
@@ -24,15 +28,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
-        public override string DictionaryName
-        {
-            get { return "Высота потолков"; }
-        }
-
         public override bool IsPossibilityToDelete(FloorLevel entity)
         {
             return Repository.IsPossibleToDeleteFloorLevel(entity);
         }
+
+		public FloorLevel Create(string name)
+		{
+			return new FloorLevel(name);
+		}
 
         #endregion
     }

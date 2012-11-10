@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class WaterSupplyService : DictionaryService<WaterSupply>, IWaterSupplyService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Водоснабжение"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -22,15 +28,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
-        public override string DictionaryName
-        {
-            get { return "Водоснабжение"; }
-        }
-
         public override bool IsPossibilityToDelete(WaterSupply entity)
         {
             return Repository.IsPossibleToDeleteWaterSupply(entity);
         }
+
+		public WaterSupply Create(string name)
+		{
+			return new WaterSupply(name);
+		}
 
         #endregion
     }
