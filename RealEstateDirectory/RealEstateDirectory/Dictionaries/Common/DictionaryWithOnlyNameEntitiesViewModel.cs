@@ -50,6 +50,11 @@ namespace RealEstateDirectory.Dictionaries.Common
 			return !String.IsNullOrWhiteSpace(Name) && _Entities.All(model => model.Name != Name);
 		}
 
+		protected override void ClearProperties()
+		{
+			Name = String.Empty;
+		}
+
 		protected override TEntity CreateNewModel()
 		{
 			return _DictionaryService.Create(Name);

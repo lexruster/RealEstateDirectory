@@ -31,6 +31,7 @@ namespace RealEstateDirectory.Dictionaries.Common
 					{
 						viewModel.SaveToDatabase();
 						_Entities.Add(viewModel);
+						ClearProperties();
 					}
 					else
 					{
@@ -67,6 +68,8 @@ namespace RealEstateDirectory.Dictionaries.Common
 		public DelegateCommand AddCommand { get; protected set; }
 
 		protected abstract bool CanAdd();
+
+		protected abstract void ClearProperties();
 
 		protected abstract TEntity CreateNewModel();
 

@@ -49,6 +49,11 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 			return !String.IsNullOrWhiteSpace(Name) && _Entities.All(model => model.Name != Name);
 		}
 
+		protected override void ClearProperties()
+		{
+			Name = String.Empty;
+		}
+
 		protected override Realtor CreateNewModel()
 		{
 			return new Realtor(Name);
