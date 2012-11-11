@@ -8,6 +8,12 @@ namespace RealEstateDirectory.ApplicationServices
 {
     public class FlatService : RealEstateService<Flat>, IFlatService
     {
+
+		public override string RealEstateName
+		{
+			get { return "Квартиры"; }
+		}
+
         #region Конструктор
 
         public FlatService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator) :

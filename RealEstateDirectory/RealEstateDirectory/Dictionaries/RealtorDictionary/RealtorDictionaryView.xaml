@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:Common="clr-namespace:RealEstateDirectory.Dictionaries.Common"
         Style="{StaticResource DictionaryWindow}"
-		Title="Редактирование элементов справочника" 
+		Title="Справочник" 
         Width="500">
     <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource NormalBrush}" >
         <AdornerDecorator>

@@ -79,5 +79,31 @@ namespace RealEstateDirectory.Services
 				_ServiceLocator.GetInstance<IMessageService>().ShowMessage("Не найден справочник","Ошибка");
 			}
 		}
+
+		public object GetView<TViewModel>()
+		{
+			var needViewType = _viewModelViewMap.First(x => x.Key == typeof(TViewModel)).Value;
+			object needView = null;
+			if (needViewType != null)
+			{
+				var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == needViewType);
+				if (view == null)
+				{
+					var newView = Activator.CreateInstance(needViewType);
+					(newView as DictionaryWindow).DataContext = _ServiceLocator.GetInstance<TViewModel>();
+					needView=newView;
+				}
+				else
+				{
+					needView=view;
+				}
+			}
+			else
+			{
+				_ServiceLocator.GetInstance<IMessageService>().ShowMessage("Не найден справочник", "Ошибка");
+			}
+
+			return needView;
+		}
 	}
 }

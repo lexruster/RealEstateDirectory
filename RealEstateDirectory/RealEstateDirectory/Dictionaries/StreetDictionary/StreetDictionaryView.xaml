@@ -4,7 +4,7 @@
 		xmlns:Common="clr-namespace:RealEstateDirectory.Dictionaries.Common"
                          xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
                          Style="{StaticResource DictionaryWindow}"
-		Title="Редактирование элементов справочника" 
+		Title="Справочник" 
         Width="500">
 
     <Window.Resources>

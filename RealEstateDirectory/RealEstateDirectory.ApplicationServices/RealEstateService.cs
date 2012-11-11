@@ -9,7 +9,7 @@ using RealEstateDirectory.Infrastructure.NHibernate.DbSession;
 
 namespace RealEstateDirectory.ApplicationServices
 {
-    public class RealEstateService<T> : IRealEstateService<T> where T : RealEstate
+    public abstract class RealEstateService<T> : IRealEstateService<T> where T : RealEstate
     {
         protected readonly IPersistenceContext PersistenceContext;
         protected readonly IRealEstateRepository Repository;
@@ -17,6 +17,8 @@ namespace RealEstateDirectory.ApplicationServices
         private static DbSession Session;
 
         #region Поля
+
+		public abstract string RealEstateName { get; }
 
         #endregion
 
@@ -103,5 +105,7 @@ namespace RealEstateDirectory.ApplicationServices
         }
 
         #endregion
+
+	    
     }
 }

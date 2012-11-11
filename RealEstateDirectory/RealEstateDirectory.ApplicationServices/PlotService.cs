@@ -9,6 +9,11 @@ namespace RealEstateDirectory.ApplicationServices
 {
     public class PlotService : RealEstateService<Plot>, IPlotService
     {
+		public override string RealEstateName
+		{
+			get { return "Участки"; }
+		}
+
         #region Конструктор
 
         public PlotService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator) :

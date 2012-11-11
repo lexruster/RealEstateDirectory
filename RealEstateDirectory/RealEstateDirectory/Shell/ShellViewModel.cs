@@ -42,7 +42,7 @@ namespace RealEstateDirectory.Shell
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
 
-
+			FlatCommand = new DelegateCommand(() => _ViewsService.GetView<FloorLevelDictionaryViewModel>());
 		}
 
 		#region Infrastructure
@@ -65,6 +65,13 @@ namespace RealEstateDirectory.Shell
 		public ICommand TerraceDictionaryCommand { get; private set; }
 		public ICommand ToiletTypeDictionaryCommand { get; private set; }
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
+
+		public ICommand FlatCommand { get; private set; }
+		public ICommand RoomCommand { get; private set; }
+		public ICommand ResidenceCommand { get; private set; }
+		public ICommand PlotCommand { get; private set; }
+		public ICommand HouseCommand { get; private set; }
+
 
 	}
 }

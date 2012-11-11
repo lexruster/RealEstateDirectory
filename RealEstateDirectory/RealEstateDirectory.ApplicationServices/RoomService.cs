@@ -7,10 +7,15 @@ using RealEstateDirectory.Domain.Entities;
 namespace RealEstateDirectory.ApplicationServices
 {
     public class RoomService : RealEstateService<Room>, IRoomService
-    {
-        #region Конструктор
+	{
+		public override string RealEstateName
+		{
+			get { return "Команты"; }
+		}
 
-        public RoomService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator) :
+		#region Конструктор
+
+		public RoomService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator) :
             base(persistenceContext, serviceLocator)
         {
         }

@@ -71,6 +71,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dictionaries\Common\RealEstateEntityViewModel.cs" />
+    <Compile Include="Dictionaries\Common\RealEstateListViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntitiesViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntityViewModel.cs" />
     <Compile Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml.cs">
@@ -136,6 +138,11 @@
     </Compile>
     <Compile Include="Dictionaries\DistrictDictionary\DistrictsDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\DistrictDictionary\DistrictViewModel.cs" />
+    <Compile Include="Entities\Flat\FlatListViewModel.cs" />
+    <Compile Include="Entities\Flat\FlatListView.xaml.cs">
+      <DependentUpon>FlatListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Flat\FlatViewModel.cs" />
     <Compile Include="Interfaces\ISessionedViewModel.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
     <Compile Include="Services\EnhancedObservableCollection.cs" />
@@ -197,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Entities\Flat\FlatListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
