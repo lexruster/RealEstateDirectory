@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Shell="clr-namespace:RealEstateDirectory.Shell"
-        mc:Ignorable="d" Title="ShellView" Height="300" Width="300"
+        mc:Ignorable="d" Title="Справочник недвижимости" Height="300" Width="300"
         d:DataContext="{d:DesignInstance Shell:ShellViewModel}"
         Background="{DynamicResource NormalBrush}">
     <Grid>

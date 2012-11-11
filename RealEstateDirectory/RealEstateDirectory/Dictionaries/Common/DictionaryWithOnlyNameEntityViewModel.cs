@@ -53,7 +53,7 @@ namespace RealEstateDirectory.Dictionaries.Common
 			get
 			{
 				var dictElement = _DictionaryService.Create(Name);
-				var validation = _DictionaryService.IsValid(dictElement);
+				var validation = _DictionaryService.IsValid(dictElement, Id);
 				return validation.IsValid ? null : validation.GetReasons();
 			}
 		}
@@ -61,6 +61,7 @@ namespace RealEstateDirectory.Dictionaries.Common
 		public override void SaveToDatabase()
 		{
 			_DictionaryService.Save(DbEntity);
+			UpdateValuesFromModel();
 		}
 	}
 }

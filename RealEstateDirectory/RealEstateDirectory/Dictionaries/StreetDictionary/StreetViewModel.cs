@@ -61,8 +61,7 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 		{
 			get
 			{
-				var dictElement = new Street(Name);
-				dictElement.District = District;
+				var dictElement = new Street(Name) {District = District};
 				var validation = _DictionaryService.IsValid(dictElement, Id);
 				return validation.IsValid ? null : validation.GetReasons();
 			}
@@ -71,6 +70,7 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 		public override void SaveToDatabase()
 		{
 			_DictionaryService.Save(DbEntity);
+			UpdateValuesFromModel();
 		}
 	}
 }

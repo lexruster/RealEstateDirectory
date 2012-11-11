@@ -56,7 +56,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 			get
 			{
 				var dictElement = new Realtor(Name);
-				var validation = _DictionaryService.IsValid(dictElement);
+				var validation = _DictionaryService.IsValid(dictElement, Id);
 				return validation.IsValid ? null : validation.GetReasons();
 			}
 		}
@@ -64,6 +64,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 		public override void SaveToDatabase()
 		{
 			_DictionaryService.Save(DbEntity);
+			UpdateValuesFromModel();
 		}
 	}
 }

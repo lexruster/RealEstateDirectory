@@ -76,6 +76,7 @@ namespace RealEstateDirectory.Dictionaries.Common
 		protected virtual TEntityViewModel CreateNewViewModel(TEntity model)
 		{
 			var viewModel = _ServiceLocator.GetInstance<TEntityViewModel>();
+			viewModel.InitMessageService(_MessageService);
 			viewModel.DbEntity = model;
 			viewModel.UpdateValuesFromModel();
 			return viewModel;

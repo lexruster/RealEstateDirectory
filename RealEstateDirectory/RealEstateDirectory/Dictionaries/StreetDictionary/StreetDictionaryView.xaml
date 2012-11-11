@@ -58,10 +58,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="3" Grid.Column="0" Grid.Row="0" Text="Название:" FontWeight="Bold"></TextBlock>
                     <TextBlock Margin="3" Grid.Column="0" Grid.Row="1" Text="Район:" FontWeight="Bold" ></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Path=SelectedStreet.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"  Text="{Binding NameChanged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <ComboBox Margin="3" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding DistrictList}"
-                          SelectedItem="{Binding Path=SelectedStreet.District, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-
+                          SelectedItem="{Binding DistrictChanged, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                     <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  Width="Auto" Command="{Binding ChangeCommand}">Изменить улицу</Button>
                 </Grid>
             </Grid>
