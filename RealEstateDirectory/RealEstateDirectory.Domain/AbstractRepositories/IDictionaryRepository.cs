@@ -20,6 +20,6 @@ namespace RealEstateDirectory.Domain.AbstractRepositories
         bool IsPossibleToDeleteLayout(Layout entity);
         bool IsPossibleToDeleteFloorLevel(FloorLevel entity);
 
-        bool IsNameUniqueness<T>(T entity) where T : BaseDictionary;
+        bool IsNameUniqueness<T>(T entity, int id = 0) where T : BaseDictionary;
     }
 }

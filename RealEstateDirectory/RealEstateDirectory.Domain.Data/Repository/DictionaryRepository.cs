@@ -81,15 +81,15 @@ namespace RealEstateDirectory.Domain.Data.Repository
             return CurrentSession.Query<Apartment>().Count(x => x.FloorLevel == entity) == 0;
         }
 
-        public bool IsNameUniqueness<T>(T entity) where T:BaseDictionary
+        public bool IsNameUniqueness<T>(T entity, int id = 0) where T : BaseDictionary
         {
-            return CurrentSession.Query<T>().Count(x => x.Name == entity.Name && x.Id != entity.Id) == 0;
+            var localId = id == 0 ? entity.Id : id;
+            return CurrentSession.Query<T>().Count(x => x.Name == entity.Name && x.Id != localId) == 0;
         }
 
-        public T Get<T>(string name) where T:BaseDictionary
+        public T Get<T>(string name) where T : BaseDictionary
         {
             return CurrentSession.Query<T>().FirstOrDefault(x => x.Name == name);
         }
     }
 }
-

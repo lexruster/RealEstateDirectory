@@ -33,10 +33,12 @@ namespace RealEstateDirectory.AbstractApplicationServices
         void Delete(T entity);
 
         /// <summary>
-        /// Проверить корректность новой/измененной сущности
+        /// Проверить корректность новой/измененной сущности.
+        /// Проверить корректность измененной можно без изменения, надо создать новую сузность, но указать в другом поле id старой.
         /// </summary>
         /// <param name="entity"></param>
-        ValidationResult IsValid(T entity);
+        /// <param name="id">id если надо проверить изменение сущности</param>
+        ValidationResult IsValid(T entity, int id = 0);
 
         /// <summary>
         /// Проверка возможности удалить сущность.

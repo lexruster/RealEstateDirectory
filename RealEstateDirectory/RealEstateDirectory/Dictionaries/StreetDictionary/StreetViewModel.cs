@@ -38,44 +38,35 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 			DbEntity.District = District;
 		}
 
-		public override string this[string columnName]
-		{
-			get
-			{
-				if (columnName == PropertySupport.ExtractPropertyName(() => Name))
-				{
-					if (String.IsNullOrWhiteSpace(Name))
-						return String.Format("Значение элемента справочника \"{0}\" не может быть пустым.", _DictionaryService.DictionaryName);
-				}
-				if (columnName == PropertySupport.ExtractPropertyName(() => District))
-				{
-					if (String.IsNullOrWhiteSpace(Name))
-						return String.Format("Должен быть указан район.");
-				}
-				return null;
-			}
-		}
+	    public override string this[string columnName]
+	    {
+	        get
+	        {
+	            if (columnName == PropertySupport.ExtractPropertyName(() => Name))
+	            {
+	                if (String.IsNullOrWhiteSpace(Name))
+	                    return String.Format("Значение элемента справочника \"{0}\" не может быть пустым.",
+	                                         _DictionaryService.DictionaryName);
+	            }
+	            if (columnName == PropertySupport.ExtractPropertyName(() => District))
+	            {
+	                if (District == null)
+	                    return String.Format("Должен быть указан район.");
+	            }
+	            return null;
+	        }
+	    }
 
-		public override string Error
+	    public override string Error
 		{
 			get
 			{
 				var dictElement = new Street(Name);
 				dictElement.District = District;
-				var validation = _DictionaryService.IsValid(dictElement);
+				var validation = _DictionaryService.IsValid(dictElement, Id);
 				return validation.IsValid ? null : validation.GetReasons();
 			}
 		}
-
-		//public string CanChange
-		//{
-		//	get
-		//	{
-		//		var validation = _DictionaryService.IsValid(DbEntity.Id, Name, District);
-		//		return validation.IsValid ? null : validation.GetReasons();
-		//	}
-
-		//}
 
 		public override void SaveToDatabase()
 		{

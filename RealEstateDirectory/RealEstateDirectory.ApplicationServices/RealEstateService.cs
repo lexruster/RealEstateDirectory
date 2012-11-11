@@ -96,7 +96,7 @@ namespace RealEstateDirectory.ApplicationServices
         /// Удалить сущность
         /// </summary>
         /// <param name="entity"></param>
-        public ValidationResult IsValid(T entity)
+        public ValidationResult IsValid(T entity, int id = 0)
         {
             //Пока вводить можно все
             return new ValidationResult();

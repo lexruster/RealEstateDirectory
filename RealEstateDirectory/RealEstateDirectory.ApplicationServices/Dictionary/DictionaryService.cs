@@ -99,16 +99,17 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return true;
         }
 
-        protected bool IsNameUniquenessInner(T entity)
+        protected bool IsNameUniquenessInner(T entity, int id=0)
         {
-            return Repository.IsNameUniqueness(entity);
+            return Repository.IsNameUniqueness(entity, id);
         }
 
-        public ValidationResult IsValid(T entity)
+        public virtual ValidationResult IsValid(T entity, int id=0)
         {
             var result = new ValidationResult();
+
             //Пока проверяем просто уникальность имени
-            if(!IsNameUniquenessInner(entity))
+            if(!IsNameUniquenessInner(entity, id))
             {
                 result.FailValidation(String.Format("Элемент справочника \"{0}\" со значением \"{1}\" уже существует.",
                                                     DictionaryName, entity.Name));
@@ -118,7 +119,5 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         }
 
         #endregion
-
-        
     }
 }

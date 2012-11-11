@@ -27,27 +27,33 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => Name))
 						AddCommand.RaiseCanExecuteChanged();
 
+                    if (args.PropertyName == PropertySupport.ExtractPropertyName(() => SelectedStreet.Name))
+                        ChangeCommand.RaiseCanExecuteChanged();
+
+                    if (args.PropertyName == PropertySupport.ExtractPropertyName(() => SelectedStreet.District))
+                        ChangeCommand.RaiseCanExecuteChanged();
+
 					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => SelectedDistrict))
 						UpdateCollection();
 				};
 			_DictionaryService.StartSession();
 
-			ChangeCommand = new DelegateCommand(() =>
-				{
-					var error = SelectedStreet.Error;
-					if (error == null)
-					{
-						SelectedStreet.UpdateModelFromValues();
-						SelectedStreet.SaveToDatabase();
-						ClearProperties();
-						UpdateCollection();
-					}
-					else
-					{
-						_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
-					}
-					ChangeCommand.RaiseCanExecuteChanged();
-				}, () => true);
+		    ChangeCommand = new DelegateCommand(() =>
+		        {
+		            var error = SelectedStreet.Error;
+		            if (error == null)
+		            {
+		                SelectedStreet.UpdateModelFromValues();
+		                SelectedStreet.SaveToDatabase();
+		                ClearProperties();
+		                UpdateCollection();
+		            }
+		            else
+		            {
+		                _MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
+		            }
+		            ChangeCommand.RaiseCanExecuteChanged();
+		        }, CanEdit);
 		}
 
 		#region Infrastructure
@@ -86,7 +92,12 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 			return !String.IsNullOrWhiteSpace(Name) && _Entities.All(model => model.Name != Name) && SelectedDistrict != null;
 		}
 
-		protected override void ClearProperties()
+        protected bool CanEdit()
+        {
+            return SelectedStreet!=null && SelectedStreet.Error == null;
+        }
+
+	    protected override void ClearProperties()
 		{
 			Name = String.Empty;
 		}
