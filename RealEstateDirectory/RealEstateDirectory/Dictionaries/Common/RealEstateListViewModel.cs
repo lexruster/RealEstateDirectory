@@ -1,27 +1,29 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.Infrastructure.Entities;
+using RealEstateDirectory.Interfaces;
 using RealEstateDirectory.Services;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.Common
 {
 	[NotifyForAll]
-	public abstract class DictionaryViewModel<TEntityViewModel, TEntity> : NotificationObject
-		where TEntity : class
-		where TEntityViewModel : DictionaryEntityViewModel<TEntity>
+	public abstract class RealEstateListViewModel<TEntityViewModel, TEntity> : NotificationObject, ISessionedViewModel
+		where TEntity : RealEstate
+		where TEntityViewModel : RealEstateEntityViewModel<TEntity>
 	{
-		protected DictionaryViewModel(IServiceLocator serviceLocator, IMessageService messageService)
+		protected RealEstateListViewModel(IServiceLocator serviceLocator, IMessageService messageService)
 		{
 			_ServiceLocator = serviceLocator;
 			_MessageService = messageService;
 
 			Entities = new ListCollectionView(_Entities);
-
+			
 			AddCommand = new DelegateCommand(() =>
 				{
 					var viewModel = CreateNewViewModel(CreateNewModel());
@@ -30,6 +32,7 @@ namespace RealEstateDirectory.Dictionaries
 					{
 						viewModel.SaveToDatabase();
 						_Entities.Add(viewModel);
+						ClearProperties();
 					}
 					else
 					{
@@ -43,6 +46,7 @@ namespace RealEstateDirectory.Dictionaries
 
 		public virtual void Initialize()
 		{
+			OpenSession();
 			InitializeEntities();
 			_Entities.CollectionChanging += Entities_CollectionChanging;
 		}
@@ -55,7 +59,10 @@ namespace RealEstateDirectory.Dictionaries
 
 		protected abstract void InitializeEntities();
 
-		protected EnhancedObservableCollection<TEntityViewModel> _Entities = new EnhancedObservableCollection<TEntityViewModel>();
+		protected EnhancedObservableCollection<TEntityViewModel> _Entities =
+			new EnhancedObservableCollection<TEntityViewModel>();
+
+		public abstract string RealEstateListName { get; }
 
 		public ListCollectionView Entities { get; protected set; }
 
@@ -63,11 +70,14 @@ namespace RealEstateDirectory.Dictionaries
 
 		protected abstract bool CanAdd();
 
+		protected abstract void ClearProperties();
+
 		protected abstract TEntity CreateNewModel();
 
 		protected virtual TEntityViewModel CreateNewViewModel(TEntity model)
 		{
 			var viewModel = _ServiceLocator.GetInstance<TEntityViewModel>();
+			viewModel.InitMessageService(_MessageService);
 			viewModel.DbEntity = model;
 			viewModel.UpdateValuesFromModel();
 			return viewModel;
@@ -95,5 +105,9 @@ namespace RealEstateDirectory.Dictionaries
 					break;
 			}
 		}
+
+		public abstract void OpenSession();
+
+		public abstract void CloseSession();
 	}
 }

@@ -2,37 +2,40 @@
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
+using RealEstateDirectory.Dictionaries.Common;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 
-namespace RealEstateDirectory.Dictionaries
+namespace RealEstateDirectory.Dictionaries.RealtorDictionary
 {
 	[NotifyForAll]
-	public class StreetViewModel : DictionaryEntityViewModel<Street>
+	public class RealtorViewModel : DictionaryEntityViewModel<Realtor>
 	{
-		public StreetViewModel(IStreetService streetService)
+		public RealtorViewModel(IRealtorService service)
 		{
-			_StreetService = streetService;
+			_DictionaryService = service;
 		}
 
 		#region Infrastructure
 
-		private readonly IStreetService _StreetService;
+		private readonly IRealtorService _DictionaryService;
 
 		#endregion
 
 		public int Id { get; set; }
-
 		public string Name { get; set; }
+		public string Phone { get; set; }
 
 		public override void UpdateValuesFromModel()
 		{
 			Id = DbEntity.Id;
 			Name = DbEntity.Name;
+			Phone = DbEntity.Phone;
 		}
 
 		public override void UpdateModelFromValues()
 		{
 			DbEntity.Name = Name;
+			DbEntity.Phone = Phone;
 		}
 
 		public override string this[string columnName]
@@ -42,7 +45,7 @@ namespace RealEstateDirectory.Dictionaries
 				if (columnName == PropertySupport.ExtractPropertyName(() => Name))
 				{
 					if (String.IsNullOrWhiteSpace(Name))
-						return "Имя улицы не должно быть пустым";
+						return String.Format("Значение элемента справочника \"{0}\" не может быть пустым.", _DictionaryService.DictionaryName);
 				}
 				return null;
 			}
@@ -52,13 +55,16 @@ namespace RealEstateDirectory.Dictionaries
 		{
 			get
 			{
-				return _StreetService.IsValid(new Street(Name)) ? null : "Улица некорректна";
+				var dictElement = new Realtor(Name);
+				var validation = _DictionaryService.IsValid(dictElement, Id);
+				return validation.IsValid ? null : validation.GetReasons();
 			}
 		}
 
 		public override void SaveToDatabase()
 		{
-			_StreetService.Save(DbEntity);
+			_DictionaryService.Save(DbEntity);
+			UpdateValuesFromModel();
 		}
 	}
 }

@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class OwnershipService : DictionaryService<Ownership>, IOwnershipService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Собственность"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -22,10 +28,17 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
+        
+
         public override bool IsPossibilityToDelete(Ownership entity)
         {
             return Repository.IsPossibleToDeleteOwnership(entity);
         }
+
+		public Ownership Create(string name)
+		{
+			return new Ownership(name);
+		}
 
         #endregion
     }

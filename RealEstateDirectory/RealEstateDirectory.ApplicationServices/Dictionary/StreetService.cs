@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -9,6 +11,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class StreetService : DictionaryService<Street>, IStreetService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Улицы"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -25,6 +33,24 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         public override bool IsPossibilityToDelete(Street entity)
         {
             return Repository.IsPossibleToDeleteStreet(entity);
+        }
+
+        public override ValidationResult IsValid(Street entity, int id = 0)
+        {
+            var result = new ValidationResult();
+
+            if (entity.District==null)
+            {
+                result.FailValidation("Нужно указать район.");
+            }
+            
+            if (!IsNameUniquenessInner(entity, id))
+            {
+                result.FailValidation(String.Format("Элемент справочника \"{0}\" со значением \"{1}\" уже существует.",
+                                                    DictionaryName, entity.Name));
+            }
+
+            return result;
         }
 
         /// <summary>

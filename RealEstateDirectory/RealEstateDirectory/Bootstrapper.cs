@@ -2,21 +2,27 @@
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
-using NHibernate.Context;
-using NHibernate.Mapping.ByCode;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices;
 using RealEstateDirectory.ApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
+using RealEstateDirectory.Dictionaries.DealVariantDictionary;
+using RealEstateDirectory.Dictionaries.DistrictDictionary;
+using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
+using RealEstateDirectory.Dictionaries.LayoutDictionary;
+using RealEstateDirectory.Dictionaries.MaterialDictionary;
+using RealEstateDirectory.Dictionaries.OwnershipDictionary;
+using RealEstateDirectory.Dictionaries.RealtorDictionary;
+using RealEstateDirectory.Dictionaries.SewageDictionary;
+using RealEstateDirectory.Dictionaries.StreetDictionary;
+using RealEstateDirectory.Dictionaries.TerraceDictionary;
+using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
+using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Data.Config;
-using RealEstateDirectory.Domain.Data.Mapping;
 using RealEstateDirectory.Domain.Data.Repository;
-using RealEstateDirectory.Domain.Entities;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
-using RealEstateDirectory.Dictionaries;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
 
@@ -28,14 +34,13 @@ namespace RealEstateDirectory
 		{
 			base.ConfigureContainer();
 
-			Container.RegisterType<IViewsService, ViewsService>();
-			Container.RegisterType<IMessageService, MessageService>();
-            Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
-                                                  new InjectionFactory(container => Configurator.GetConfig()));
+			Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
+			                                      new InjectionFactory(container => Configurator.GetConfig()));
 
-            Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
-            RegisterRepositories();
-            RegisterServices();
+			Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
+			RegisterRepositories();
+			RegisterServices();
+			RegisterViewModels();
 		}
 
 		protected override DependencyObject CreateShell()
@@ -56,32 +61,50 @@ namespace RealEstateDirectory
 			Application.Current.MainWindow.Show();
 		}
 
-        private void RegisterRepositories()
-        {
-            Container.RegisterType<IDictionaryRepository, DictionaryRepository>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealEstateRepository, RealEstateRepository>(new ContainerControlledLifetimeManager());
-        }
+		private void RegisterRepositories()
+		{
+			Container.RegisterType<IDictionaryRepository, DictionaryRepository>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IRealEstateRepository, RealEstateRepository>(new ContainerControlledLifetimeManager());
+		}
 
-        private void RegisterServices()
-        {
-            Container.RegisterType<IDealVariantService, DealVariantService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IDistrictService, DistrictService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IFloorLevelService, FloorLevelService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ILayoutService, LayoutService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IMaterialService, MaterialService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IOwnershipService, OwnershipService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRealtorService, RealtorService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ISewageService, SewageService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IStreetService, StreetService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<ITerraceService, TerraceService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IToiletTypeService, ToiletTypeService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IWaterSupplyService, WaterSupplyService>(new ContainerControlledLifetimeManager());
+		private void RegisterServices()
+		{
+			Container.RegisterType<IDealVariantService, DealVariantService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IDistrictService, DistrictService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IFloorLevelService, FloorLevelService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<ILayoutService, LayoutService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IMaterialService, MaterialService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IOwnershipService, OwnershipService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IRealtorService, RealtorService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<ISewageService, SewageService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IStreetService, StreetService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<ITerraceService, TerraceService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IToiletTypeService, ToiletTypeService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IWaterSupplyService, WaterSupplyService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IFlatService, FlatService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IRoomService, RoomService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IResidenceService, ResidenceService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
 
-            Container.RegisterType<IFlatService, FlatService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IRoomService, RoomService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IResidenceService, ResidenceService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
-        }
+			Container.RegisterType<IViewsService, ViewsService>();
+			Container.RegisterType<IMessageService, MessageService>();
+		}
+
+		private void RegisterViewModels()
+		{
+			Container.RegisterType<DealVariantsDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<DistrictsDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<FloorLevelDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<LayoutDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<MaterialDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<OwnershipDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<RealtorDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<SewageDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<StreetDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<TerraceDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
+		}
 	}
 }

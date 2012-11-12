@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -21,6 +22,8 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         private static DbSession Session;
 
         #region Поля
+
+        public abstract string DictionaryName { get; }
 
         #endregion
 
@@ -96,15 +99,23 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return true;
         }
 
-        protected bool IsNameUniquenessInner(T entity)
+        protected bool IsNameUniquenessInner(T entity, int id=0)
         {
-            return Repository.IsNameUniqueness(entity);
+            return Repository.IsNameUniqueness(entity, id);
         }
 
-        public bool IsValid(T entity)
+        public virtual ValidationResult IsValid(T entity, int id=0)
         {
+            var result = new ValidationResult();
+
             //Пока проверяем просто уникальность имени
-            return IsNameUniquenessInner(entity);
+            if(!IsNameUniquenessInner(entity, id))
+            {
+                result.FailValidation(String.Format("Элемент справочника \"{0}\" со значением \"{1}\" уже существует.",
+                                                    DictionaryName, entity.Name));
+            }
+
+            return result;
         }
 
         #endregion

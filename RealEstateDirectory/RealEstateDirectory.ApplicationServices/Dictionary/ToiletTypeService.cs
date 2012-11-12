@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class ToiletTypeService : DictionaryService<ToiletType>, IToiletTypeService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Сан. узел"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -26,6 +32,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         {
             return Repository.IsPossibleToDeleteToiletType(entity);
         }
+
+		public ToiletType Create(string name)
+		{
+			return new ToiletType(name);
+		}
 
         #endregion
     }

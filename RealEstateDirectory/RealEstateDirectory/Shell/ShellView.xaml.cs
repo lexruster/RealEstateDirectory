@@ -21,6 +21,8 @@ namespace RealEstateDirectory.Shell
 		public ShellView()
 		{
 			InitializeComponent();
+
+			Closing += (sender, args) => Application.Current.Shutdown();
 		}
 	}
 }

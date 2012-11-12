@@ -15,7 +15,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
                 m.Length(2048);
                 m.Unique(true);
             });
-            Property(x=>x.Phone);
+            Property(x=>x.Phone, m=>m.NotNullable(false));
         }
     }
 }

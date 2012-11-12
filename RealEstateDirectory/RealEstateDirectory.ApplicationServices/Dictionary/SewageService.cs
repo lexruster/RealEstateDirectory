@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class SewageService : DictionaryService<Sewage>, ISewageService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Канализация"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -26,6 +32,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         {
             return Repository.IsPossibleToDeleteSewage(entity);
         }
+
+		public Sewage Create(string name)
+		{
+			return new Sewage(name);
+		}
 
         #endregion
     }

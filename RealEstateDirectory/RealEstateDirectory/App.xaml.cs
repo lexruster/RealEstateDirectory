@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
+//using WPF.Themes;
 using System.Windows;
 
 namespace RealEstateDirectory
@@ -15,7 +16,7 @@ namespace RealEstateDirectory
 		{
 			base.OnStartup(e);
 
-			var bootstrapper = new Bootstrapper();
+            var bootstrapper = new Bootstrapper();
 			bootstrapper.Run();
 		}
 	}

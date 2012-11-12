@@ -1,7 +1,6 @@
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
-using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 
 namespace RealEstateDirectory.ApplicationServices.Dictionary
@@ -9,6 +8,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class DistrictService : DictionaryService<District>, IDistrictService
     {
         #region Поля
+
+        public override string DictionaryName
+        {
+            get { return "Районы"; }
+        }
+
         #endregion
 
         #region Конструктор
@@ -27,6 +32,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return Repository.IsPossibleToDeleteDistrict(entity);
         }
 
-        #endregion
+	    public District Create(string name)
+	    {
+		    return new District(name);
+	    }
+
+	    #endregion
     }
 }

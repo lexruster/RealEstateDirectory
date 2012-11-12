@@ -9,6 +9,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class TerraceService : DictionaryService<Terrace>, ITerraceService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Балкон"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -26,6 +32,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         {
             return Repository.IsPossibleToDeleteTerrace(entity);
         }
+
+		public Terrace Create(string name)
+		{
+			return new Terrace(name);
+		}
 
         #endregion
     }

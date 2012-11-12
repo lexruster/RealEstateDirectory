@@ -7,10 +7,15 @@ using RealEstateDirectory.Domain.Entities;
 namespace RealEstateDirectory.ApplicationServices
 {
     public class ResidenceService : RealEstateService<Residence>, IResidenceService
-    {
-        #region Конструктор
+	{
+		public override string RealEstateName
+		{
+			get { return "Помещения"; }
+		}
+		
+		#region Конструктор
 
-        public ResidenceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
+		public ResidenceService(IPersistenceContext persistenceContext, IServiceLocator serviceLocator)
             :base(persistenceContext, serviceLocator)
         {
         }

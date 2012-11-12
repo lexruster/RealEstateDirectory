@@ -10,6 +10,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
     public class MaterialService : DictionaryService<Material>, IMaterialService
     {
         #region Поля
+
+		public override string DictionaryName
+		{
+			get { return "Материалы"; }
+		}
+
         #endregion
 
         #region Конструктор
@@ -27,6 +33,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
         {
             return Repository.IsPossibleToDeleteMaterial(entity);
         }
+
+		public Material Create(string name)
+		{
+			return new Material(name);
+		}
 
         #endregion
     }
