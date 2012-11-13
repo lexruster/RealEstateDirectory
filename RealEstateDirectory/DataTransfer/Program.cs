@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Linq;
@@ -18,7 +16,7 @@ namespace DataTransfer
 	{
 		private static Dictionary<Type, List<IdMap>> _idDictionaryMaps;
 
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			var config = new Configuration();
 			config.Configure("hibernate.cfg.xml");
@@ -34,10 +32,16 @@ namespace DataTransfer
 			{
 				var tran = session.BeginTransaction(IsolationLevel.Serializable);
 				DeleteData(session);
-				MoveDictionary(session, db);
-				MoveEntitie(session, db);
-
 				tran.Commit();
+				session.Flush();
+
+
+				var tran2 = session.BeginTransaction(IsolationLevel.Serializable);
+				MoveDictionary(session, db);
+				MoveEntity(session, db);
+
+				tran2.Commit();
+				session.Flush();
 			}
 			//}
 			//catch (Exception ex)
@@ -45,23 +49,46 @@ namespace DataTransfer
 			//	succes = false;
 			//	Console.WriteLine(ex.Message);
 			//	if (ex.InnerException != null)
+			//	{
 			//		Console.WriteLine(ex.InnerException.Message);
+			//		if (ex.InnerException.InnerException != null)
+			//			Console.WriteLine(ex.InnerException.InnerException.Message);
+			//	}
 			//}
 
-			Console.WriteLine("Результат переноса: {0}", succes);
+			Console.WriteLine("Результат переноса: {0}", succes ? "успешен" : "ОШИБКА");
 			Console.ReadKey();
 		}
 
 		private static void DeleteData(ISession hb)
 		{
+			foreach (var ent in hb.Query<Flat>().ToList())
+			{
+				hb.Delete(ent);
+			}
+			foreach (var ent in hb.Query<House>().ToList())
+			{
+				hb.Delete(ent);
+			}
+			foreach (var ent in hb.Query<Plot>().ToList())
+			{
+				hb.Delete(ent);
+			}
+			foreach (var ent in hb.Query<Residence>().ToList())
+			{
+				hb.Delete(ent);
+			}
+			foreach (var ent in hb.Query<Room>().ToList())
+			{
+				hb.Delete(ent);
+			}
+
+
 			foreach (var ent in hb.Query<DealVariant>().ToList())
 			{
 				hb.Delete(ent);
 			}
-			foreach (var ent in hb.Query<RealEstateDirectory.Domain.Entities.Dictionaries.District>().ToList())
-			{
-				hb.Delete(ent);
-			}
+			
 			foreach (var ent in hb.Query<FloorLevel>().ToList())
 			{
 				hb.Delete(ent);
@@ -90,6 +117,10 @@ namespace DataTransfer
 			{
 				hb.Delete(ent);
 			}
+			foreach (var ent in hb.Query<RealEstateDirectory.Domain.Entities.Dictionaries.District>().ToList())
+			{
+				hb.Delete(ent);
+			}
 			foreach (var ent in hb.Query<Terrace>().ToList())
 			{
 				hb.Delete(ent);
@@ -103,33 +134,12 @@ namespace DataTransfer
 				hb.Delete(ent);
 			}
 
-			foreach (var ent in hb.Query<Flat>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<House>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<Plot>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<Residence>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<Room>().ToList())
-			{
-				hb.Delete(ent);
-			}
-
 			Console.WriteLine("Удаление старого - готово");
 		}
 
-		private static void AddMapForDictionary<T>(int lId, ISession hb, T entitie) where T : BaseDictionary
+		private static void AddMapForDictionary<T>(int lId, ISession hb, T entity) where T : BaseDictionary
 		{
-			var exist = _idDictionaryMaps[typeof (T)].FirstOrDefault(x => x.Name == entitie.Name);
+			var exist = _idDictionaryMaps[typeof (T)].FirstOrDefault(x => x.Name == entity.Name);
 			if (exist != null)
 			{
 				//есть такие
@@ -137,8 +147,8 @@ namespace DataTransfer
 			}
 			else
 			{
-				hb.SaveOrUpdate(entitie);
-				_idDictionaryMaps[typeof (T)].Add(new IdMap(lId, entitie.Id, entitie.Name));
+				hb.SaveOrUpdate(entity);
+				_idDictionaryMaps[typeof (T)].Add(new IdMap(lId, entity.Id, entity.Name));
 			}
 		}
 
@@ -154,8 +164,8 @@ namespace DataTransfer
 			_idDictionaryMaps.Add(typeof (DealVariant), new List<IdMap>());
 			foreach (var curEnitie in linq.Variants)
 			{
-				var hbEntitie = new DealVariant(curEnitie.vcVariant);
-				AddMapForDictionary(curEnitie.idVariant, hb, hbEntitie);
+				var hbEntity = new DealVariant(curEnitie.vcVariant);
+				AddMapForDictionary(curEnitie.idVariant, hb, hbEntity);
 			}
 			Console.WriteLine("Сделки - готово");
 
@@ -163,8 +173,8 @@ namespace DataTransfer
 			_idDictionaryMaps.Add(typeof (RealEstateDirectory.Domain.Entities.Dictionaries.District), new List<IdMap>());
 			foreach (var curEnitie in linq.Districts)
 			{
-				var hbEntitie = new RealEstateDirectory.Domain.Entities.Dictionaries.District(curEnitie.vcDistrict);
-				AddMapForDictionary(curEnitie.idDistrict, hb, hbEntitie);
+				var hbEntity = new RealEstateDirectory.Domain.Entities.Dictionaries.District(curEnitie.vcDistrict);
+				AddMapForDictionary(curEnitie.idDistrict, hb, hbEntity);
 			}
 			Console.WriteLine("Районы - готово");
 
@@ -172,8 +182,8 @@ namespace DataTransfer
 			_idDictionaryMaps.Add(typeof (Layout), new List<IdMap>());
 			foreach (var curEnitie in linq.Planings)
 			{
-				var hbEntitie = new Layout(curEnitie.vcPlaning);
-				AddMapForDictionary(curEnitie.idPlaning, hb, hbEntitie);
+				var hbEntity = new Layout(curEnitie.vcPlaning);
+				AddMapForDictionary(curEnitie.idPlaning, hb, hbEntity);
 
 			}
 			Console.WriteLine("Планировки - готово");
@@ -182,8 +192,8 @@ namespace DataTransfer
 			_idDictionaryMaps.Add(typeof (Material), new List<IdMap>());
 			foreach (var curEnitie in linq.WallMatherials)
 			{
-				var hbEntitie = new Material(curEnitie.vcWallMatherial);
-				AddMapForDictionary(curEnitie.idWallMatherial, hb, hbEntitie);
+				var hbEntity = new Material(curEnitie.vcWallMatherial);
+				AddMapForDictionary(curEnitie.idWallMatherial, hb, hbEntity);
 			}
 			Console.WriteLine("Материалы - готово");
 
@@ -191,33 +201,38 @@ namespace DataTransfer
 			_idDictionaryMaps.Add(typeof (Realtor), new List<IdMap>());
 			foreach (var curEnitie in linq.Rielters)
 			{
-				var hbEntitie = new Realtor(curEnitie.vcName, curEnitie.vcContacts);
-				AddMapForDictionary(curEnitie.idRielter, hb, hbEntitie);
+				var hbEntity = new Realtor(curEnitie.vcName, curEnitie.vcContacts);
+				AddMapForDictionary(curEnitie.idRielter, hb, hbEntity);
 			}
 			Console.WriteLine("Риэлторы - готово");
 
 			//Street
 			_idDictionaryMaps.Add(typeof (RealEstateDirectory.Domain.Entities.Dictionaries.Street), new List<IdMap>());
-			foreach (var curEnitie in linq.Streets)
+			using (var helper = new DataResolveHelper(hb))
 			{
-				if (curEnitie.idDistrict.HasValue)
+				helper.IdDictionaryMaps = _idDictionaryMaps;
+				foreach (var curEnitie in linq.Streets)
 				{
-					var hbEntitie = new RealEstateDirectory.Domain.Entities.Dictionaries.Street(curEnitie.vcStreet);
-					var hDistrictId = ResolveHbId<RealEstateDirectory.Domain.Entities.Dictionaries.District>(curEnitie.idDistrict.Value);
+					if (curEnitie.idDistrict.HasValue)
+					{
+						var hbEntity = new RealEstateDirectory.Domain.Entities.Dictionaries.Street(curEnitie.vcStreet);
+						var hDistrictId =
+							helper.ResolveHbId<RealEstateDirectory.Domain.Entities.Dictionaries.District>(curEnitie.idDistrict.Value);
 
-					var distictH = hb.Get<RealEstateDirectory.Domain.Entities.Dictionaries.District>(hDistrictId);
-					hbEntitie.District = distictH;
-					AddMapForDictionary(curEnitie.idStreet, hb, hbEntitie);
+						var distictH = hb.Get<RealEstateDirectory.Domain.Entities.Dictionaries.District>(hDistrictId);
+						hbEntity.District = distictH;
+						AddMapForDictionary(curEnitie.idStreet, hb, hbEntity);
+					}
 				}
+				Console.WriteLine("Улицы - готово");
 			}
-			Console.WriteLine("Улицы - готово");
 
 			//Terrace
 			_idDictionaryMaps.Add(typeof (Terrace), new List<IdMap>());
 			foreach (var curEnitie in linq.Balconies)
 			{
-				var hbEntitie = new Terrace(curEnitie.vcBalcony);
-				AddMapForDictionary(curEnitie.idBalcony, hb, hbEntitie);
+				var hbEntity = new Terrace(curEnitie.vcBalcony);
+				AddMapForDictionary(curEnitie.idBalcony, hb, hbEntity);
 			}
 			Console.WriteLine("Балконы - готово");
 
@@ -225,89 +240,163 @@ namespace DataTransfer
 			_idDictionaryMaps.Add(typeof (ToiletType), new List<IdMap>());
 			foreach (var curEnitie in linq.SanUsels)
 			{
-				var hbEntitie = new ToiletType(curEnitie.vcSanUsel);
-				AddMapForDictionary(curEnitie.idSanUsel, hb, hbEntitie);
+				var hbEntity = new ToiletType(curEnitie.vcSanUsel);
+				AddMapForDictionary(curEnitie.idSanUsel, hb, hbEntity);
 			}
 			Console.WriteLine("Сан узел - готово");
 		}
 
-		private static void MoveEntitie(ISession hb, DataClassesDataContext linq)
+		private static void MoveEntity(ISession hb, DataClassesDataContext linq)
 		{
+			var helper = new DataResolveHelper(hb);
+			helper.IdDictionaryMaps = _idDictionaryMaps;
 			//IFlatService
 			foreach (var l in linq.AppartmentForSales)
 			{
-				var hbEntitie = new Flat
+				var hbEntity = new Flat
 					{
 						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
-						DealVariant = ResolveHbEntitie<DealVariant>(l.Variant.idVariant, hb),
+						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
 						Description = l.vcComment,
-						District = ResolveHbEntitie<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant.idVariant, hb),
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
 						Floor = l.iFloor,
 						FloorLevel = null,
 						HasVideo = l.bVideo ?? false,
 						KitchenSquare = l.iKitchenArea,
-						Layout = ResolveHbEntitie<Layout>(l.Planing.idPlaning, hb),
-						Material = ResolveHbEntitie<Material>(l.WallMatherial.idWallMatherial, hb),
+						Layout = helper.ResolveHbEntity<Layout>(l.Planing),
+						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
 						Ownership = null,
 						Price = l.iPrice,
-						Realtor = ResolveHbEntitie<Realtor>(l.Rielter.idRielter, hb),
+						Realtor = helper.ResolveHbEntity<Realtor>(l.Rielter),
 						ResidentialSquare = l.iLivArea,
-						Street = ResolveHbEntitie<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street.idStreet, hb),
+						Street = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street),
 						SubmitToDomino = l.bDominoReclam ?? false,
 						SubmitToVDV = l.bVdvReclam ?? false,
-						Terrace = ResolveHbEntitie<Terrace>(l.Balcony.idBalcony, hb),
+						Terrace = helper.ResolveHbEntity<Terrace>(l.Balcony),
 						TerritorialNumber = l.vcHouseNumber,
-						ToiletType = ResolveHbEntitie<ToiletType>(l.SanUsel.idSanUsel, hb),
+						ToiletType = helper.ResolveHbEntity<ToiletType>(l.SanUsel),
 						TotalFloor = l.iFloors,
 						TotalRoomCount = l.iRoomsAmount,
-						TotalSquare = l.iAllArea,
+						TotalSquare = l.iAllArea
 					};
-				hb.SaveOrUpdate(hbEntitie);
+				hb.SaveOrUpdate(hbEntity);
 			}
 
 			Console.WriteLine("Квартиры - готово");
 
 			//IHouseService
+			foreach (var l in linq.HousesForSales)
+			{
+				var hbEntity = new House
+					{
+						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
+						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
+						Description = l.vcComment,
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						HasVideo = l.bVideo ?? false,
+						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
+						Ownership = null,
+						Price = l.iPrice,
+						Realtor = helper.ResolveHbEntity<Realtor>(l.Rielter),
+						Street = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street),
+						SubmitToDomino = l.bDominoReclam ?? false,
+						SubmitToVDV = l.bVdvReclam ?? false,
+						TerritorialNumber = l.vcHouseNumber,
+						TotalFloor = l.iFloors,
+						HasBathhouse = false,
+						HasGarage = false,
+						HasGas = false,
+						HouseSquare = l.iHouseArea,
+						PlotSquare = l.iLandArea,
+						Sewage = null,
+						WaterSupply = null
+					};
+				hb.SaveOrUpdate(hbEntity);
+			}
+
+			Console.WriteLine("Дома - готово");
+
 			//IPlotService
+			foreach (var l in linq.HomestadForSales)
+			{
+				var hbEntity = new Plot
+					{
+						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
+						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
+						Description = l.vcComment,
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						HasVideo = l.bVideo ?? false,
+						Ownership = null,
+						Price = l.iPrice,
+						Realtor = helper.ResolveHbEntity<Realtor>(l.Rielter),
+						Street = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street),
+						SubmitToDomino = l.bDominoReclam ?? false,
+						SubmitToVDV = l.bVdvReclam ?? false,
+						TerritorialNumber = l.vcHouseNumber,
+						PlotSquare = l.iArea
+					};
+				hb.SaveOrUpdate(hbEntity);
+			}
+			Console.WriteLine("Участки - готово");
+
 			//IResidenceService
+			foreach (var l in linq.PlacementForSales)
+			{
+				var hbEntity = new Residence
+					{
+						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
+						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
+						Description = l.vcComment,
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						HasVideo = l.bVideo ?? false,
+						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
+						Ownership = null,
+						Price = l.iPrice,
+						Realtor = helper.ResolveHbEntity<Realtor>(l.Rielter),
+						Street = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street),
+						SubmitToDomino = l.bDominoReclam ?? false,
+						SubmitToVDV = l.bVdvReclam ?? false,
+						TerritorialNumber = l.vcHouseNumber,
+						TotalFloor = l.iFloors,
+						Floor = l.iFloor,
+						TotalSquare = l.iPlaceArea
+					};
+				hb.SaveOrUpdate(hbEntity);
+			}
+
+			Console.WriteLine("Помещения - готово");
+
 			//IRoomService
+			foreach (var l in linq.RoomsForSales)
+			{
+				var hbEntity = new Room
+					{
+						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
+						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
+						Description = l.vcComment,
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						HasVideo = l.bVideo ?? false,
+						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
+						Ownership = null,
+						Price = l.iPrice,
+						Realtor = helper.ResolveHbEntity<Realtor>(l.Rielter),
+						Street = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street),
+						SubmitToDomino = l.bDominoReclam ?? false,
+						SubmitToVDV = l.bVdvReclam ?? false,
+						TerritorialNumber = l.vcHouseNumber,
+						TotalFloor = l.iFloors,
+						Floor = l.iFloor,
+						FloorLevel = null,
+						Layout = helper.ResolveHbEntity<Layout>(l.Planing),
+						RoomCount = l.iRoomsAmount,
+						TotalRoomCount = l.iRoomsAll,
+						Terrace = helper.ResolveHbEntity<Terrace>(l.Balcony),
+						TotalSquare = l.iAllArea
+					};
+				hb.SaveOrUpdate(hbEntity);
+			}
 
-		}
-
-		private static T ResolveHbEntitie<T>(int lId, ISession hb) where T : BaseDictionary
-		{
-			var hbId = ResolveHbId<T>(lId);
-			var en = hb.Get<T>(hbId);
-
-			return en;
-		}
-
-		private static int ResolveHbId<T>(int linqId) where T : BaseDictionary
-		{
-			return _idDictionaryMaps[typeof (T)].Single(x => x.LinqIds.Contains(linqId)).HbId;
-		}
-	}
-
-	public class IdMap
-	{
-		/// <summary>
-		/// id элемента в базе linq 
-		/// </summary>
-		public List<int> LinqIds;
-		/// <summary>
-		/// id нового элемента в хибере
-		/// </summary>
-		public int HbId;
-		/// <summary>
-		/// имя для поиска дублей
-		/// </summary>
-		public string Name;
-
-		public IdMap(int l, int h, string name)
-		{
-			LinqIds = new List<int> {l};
-			HbId = h;
-			Name = name;
+			Console.WriteLine("Комнаты - готово");
 		}
 	}
 }
