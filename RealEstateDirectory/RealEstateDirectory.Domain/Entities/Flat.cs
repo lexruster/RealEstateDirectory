@@ -13,7 +13,7 @@ namespace RealEstateDirectory.Domain.Entities
         public virtual ToiletType ToiletType { get; set; }
 
         /// <summary>
-        /// Общая площадь
+        /// Жилая площадь
         /// </summary>
         public virtual decimal? ResidentialSquare { get; set; }
 

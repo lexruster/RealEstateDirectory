@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="E8Realtyes" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=E8Realtyes;Integrated Security=True" SettingsObjectName="DataTransfer.Properties.Settings" SettingsPropertyName="E8RealtyesConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Agency" Member="Agencies">
+    <Type Name="Agency">
+      <Column Name="idAgency" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="vcAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vcDirectorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="vcContacts" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vcComments" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WallMatherial" Member="WallMatherials">
+    <Type Name="WallMatherial">
+      <Column Name="idWallMatherial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcWallMatherial" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="WallMatherial_AppartmentForSale" Member="AppartmentForSales" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="AppartmentForSale" />
+      <Association Name="WallMatherial_HousesForSale" Member="HousesForSales" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="HousesForSale" />
+      <Association Name="WallMatherial_PlacementForSale" Member="PlacementForSales" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="PlacementForSale" />
+      <Association Name="WallMatherial_RoomsForSale" Member="RoomsForSales" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="RoomsForSale" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AppartmentForSale" Member="AppartmentForSales">
+    <Type Name="AppartmentForSale">
+      <Column Name="idAppartmentForSale" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iRoomsAmount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idStreet" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcHouseNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="iFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iFloors" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPlane" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idWallMatherial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iAllArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="iLivArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="iKitchenArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="idBalcony" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idSanUsel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcComment" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idRielter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bActual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateOfAdd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idVariant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bVideo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bVdvReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bDominoReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="cHightFloor" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Association Name="WallMatherial_AppartmentForSale" Member="WallMatherial" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="WallMatherial" IsForeignKey="true" />
+      <Association Name="Balcony_AppartmentForSale" Member="Balcony" ThisKey="idBalcony" OtherKey="idBalcony" Type="Balcony" IsForeignKey="true" />
+      <Association Name="District_AppartmentForSale" Member="District" ThisKey="idDistrict" OtherKey="idDistrict" Type="District" IsForeignKey="true" />
+      <Association Name="Planing_AppartmentForSale" Member="Planing" ThisKey="idPlane" OtherKey="idPlaning" Type="Planing" IsForeignKey="true" />
+      <Association Name="Rielter_AppartmentForSale" Member="Rielter" ThisKey="idRielter" OtherKey="idRielter" Type="Rielter" IsForeignKey="true" />
+      <Association Name="SanUsel_AppartmentForSale" Member="SanUsel" ThisKey="idSanUsel" OtherKey="idSanUsel" Type="SanUsel" IsForeignKey="true" />
+      <Association Name="Street_AppartmentForSale" Member="Street" ThisKey="idStreet" OtherKey="idStreet" Type="Street" IsForeignKey="true" />
+      <Association Name="Variant_AppartmentForSale" Member="Variant" ThisKey="idVariant" OtherKey="idVariant" Type="Variant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Balcony" Member="Balconies">
+    <Type Name="Balcony">
+      <Column Name="idBalcony" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcBalcony" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Balcony_AppartmentForSale" Member="AppartmentForSales" ThisKey="idBalcony" OtherKey="idBalcony" Type="AppartmentForSale" />
+      <Association Name="Balcony_RoomsForSale" Member="RoomsForSales" ThisKey="idBalcony" OtherKey="idBalcony" Type="RoomsForSale" />
+    </Type>
+  </Table>
+  <Table Name="dbo.District" Member="Districts">
+    <Type Name="District">
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcDistrict" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="District_AppartmentForSale" Member="AppartmentForSales" ThisKey="idDistrict" OtherKey="idDistrict" Type="AppartmentForSale" />
+      <Association Name="District_HomestadForSale" Member="HomestadForSales" ThisKey="idDistrict" OtherKey="idDistrict" Type="HomestadForSale" />
+      <Association Name="District_HousesForSale" Member="HousesForSales" ThisKey="idDistrict" OtherKey="idDistrict" Type="HousesForSale" />
+      <Association Name="District_PlacementForSale" Member="PlacementForSales" ThisKey="idDistrict" OtherKey="idDistrict" Type="PlacementForSale" />
+      <Association Name="District_RoomsForSale" Member="RoomsForSales" ThisKey="idDistrict" OtherKey="idDistrict" Type="RoomsForSale" />
+      <Association Name="District_Street" Member="Streets" ThisKey="idDistrict" OtherKey="idDistrict" Type="Street" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HomestadForSale" Member="HomestadForSales">
+    <Type Name="HomestadForSale">
+      <Column Name="idHomestadForSale" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idStreet" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcHouseNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="iArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="vcComment" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idRielter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bActual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateOfAdd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idVariant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bVideo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bVdvReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bDominoReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="District_HomestadForSale" Member="District" ThisKey="idDistrict" OtherKey="idDistrict" Type="District" IsForeignKey="true" />
+      <Association Name="Rielter_HomestadForSale" Member="Rielter" ThisKey="idRielter" OtherKey="idRielter" Type="Rielter" IsForeignKey="true" />
+      <Association Name="Street_HomestadForSale" Member="Street" ThisKey="idStreet" OtherKey="idStreet" Type="Street" IsForeignKey="true" />
+      <Association Name="Variant_HomestadForSale" Member="Variant" ThisKey="idVariant" OtherKey="idVariant" Type="Variant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HousesForSale" Member="HousesForSales">
+    <Type Name="HousesForSale">
+      <Column Name="idHousesForSale" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idStreet" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcHouseNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="iFloors" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idWallMatherial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iHouseArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="iLandArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="vcComment" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idRielter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bActual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateOfAdd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idVariant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bVideo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bVdvReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bDominoReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="District_HousesForSale" Member="District" ThisKey="idDistrict" OtherKey="idDistrict" Type="District" IsForeignKey="true" />
+      <Association Name="WallMatherial_HousesForSale" Member="WallMatherial" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="WallMatherial" IsForeignKey="true" />
+      <Association Name="Rielter_HousesForSale" Member="Rielter" ThisKey="idRielter" OtherKey="idRielter" Type="Rielter" IsForeignKey="true" />
+      <Association Name="Street_HousesForSale" Member="Street" ThisKey="idStreet" OtherKey="idStreet" Type="Street" IsForeignKey="true" />
+      <Association Name="Variant_HousesForSale" Member="Variant" ThisKey="idVariant" OtherKey="idVariant" Type="Variant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlacementForSale" Member="PlacementForSales">
+    <Type Name="PlacementForSale">
+      <Column Name="idPlacementForSale" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idStreet" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcHouseNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="iFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iFloors" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idWallMatherial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iPlaceArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="vcComment" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idRielter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bActual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateOfAdd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idVariant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bVideo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bVdvReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bDominoReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="District_PlacementForSale" Member="District" ThisKey="idDistrict" OtherKey="idDistrict" Type="District" IsForeignKey="true" />
+      <Association Name="WallMatherial_PlacementForSale" Member="WallMatherial" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="WallMatherial" IsForeignKey="true" />
+      <Association Name="Rielter_PlacementForSale" Member="Rielter" ThisKey="idRielter" OtherKey="idRielter" Type="Rielter" IsForeignKey="true" />
+      <Association Name="Street_PlacementForSale" Member="Street" ThisKey="idStreet" OtherKey="idStreet" Type="Street" IsForeignKey="true" />
+      <Association Name="Variant_PlacementForSale" Member="Variant" ThisKey="idVariant" OtherKey="idVariant" Type="Variant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Planing" Member="Planings">
+    <Type Name="Planing">
+      <Column Name="idPlaning" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcPlaning" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Planing_AppartmentForSale" Member="AppartmentForSales" ThisKey="idPlaning" OtherKey="idPlane" Type="AppartmentForSale" />
+      <Association Name="Planing_RoomsForSale" Member="RoomsForSales" ThisKey="idPlaning" OtherKey="idPlane" Type="RoomsForSale" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rielter" Member="Rielters">
+    <Type Name="Rielter">
+      <Column Name="idRielter" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="vcContacts" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Rielter_AppartmentForSale" Member="AppartmentForSales" ThisKey="idRielter" OtherKey="idRielter" Type="AppartmentForSale" />
+      <Association Name="Rielter_HomestadForSale" Member="HomestadForSales" ThisKey="idRielter" OtherKey="idRielter" Type="HomestadForSale" />
+      <Association Name="Rielter_HousesForSale" Member="HousesForSales" ThisKey="idRielter" OtherKey="idRielter" Type="HousesForSale" />
+      <Association Name="Rielter_PlacementForSale" Member="PlacementForSales" ThisKey="idRielter" OtherKey="idRielter" Type="PlacementForSale" />
+      <Association Name="Rielter_RoomsForSale" Member="RoomsForSales" ThisKey="idRielter" OtherKey="idRielter" Type="RoomsForSale" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomsForSale" Member="RoomsForSales">
+    <Type Name="RoomsForSale">
+      <Column Name="idRoomsForSale" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iRoomsAmount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iRoomsAll" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idStreet" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcHouseNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="iFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iFloors" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPlane" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idWallMatherial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iAllArea" Type="System.Decimal" DbType="Decimal(10,1)" CanBeNull="true" />
+      <Column Name="idBalcony" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcComment" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idRielter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bActual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateOfAdd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idVariant" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bVideo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bVdvReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bDominoReclam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Balcony_RoomsForSale" Member="Balcony" ThisKey="idBalcony" OtherKey="idBalcony" Type="Balcony" IsForeignKey="true" />
+      <Association Name="District_RoomsForSale" Member="District" ThisKey="idDistrict" OtherKey="idDistrict" Type="District" IsForeignKey="true" />
+      <Association Name="Planing_RoomsForSale" Member="Planing" ThisKey="idPlane" OtherKey="idPlaning" Type="Planing" IsForeignKey="true" />
+      <Association Name="Rielter_RoomsForSale" Member="Rielter" ThisKey="idRielter" OtherKey="idRielter" Type="Rielter" IsForeignKey="true" />
+      <Association Name="WallMatherial_RoomsForSale" Member="WallMatherial" ThisKey="idWallMatherial" OtherKey="idWallMatherial" Type="WallMatherial" IsForeignKey="true" />
+      <Association Name="Street_RoomsForSale" Member="Street" ThisKey="idStreet" OtherKey="idStreet" Type="Street" IsForeignKey="true" />
+      <Association Name="Variant_RoomsForSale" Member="Variant" ThisKey="idVariant" OtherKey="idVariant" Type="Variant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SanUsel" Member="SanUsels">
+    <Type Name="SanUsel">
+      <Column Name="idSanUsel" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcSanUsel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="SanUsel_AppartmentForSale" Member="AppartmentForSales" ThisKey="idSanUsel" OtherKey="idSanUsel" Type="AppartmentForSale" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Street" Member="Streets">
+    <Type Name="Street">
+      <Column Name="idStreet" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idDistrict" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vcStreet" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="Street_AppartmentForSale" Member="AppartmentForSales" ThisKey="idStreet" OtherKey="idStreet" Type="AppartmentForSale" />
+      <Association Name="Street_HomestadForSale" Member="HomestadForSales" ThisKey="idStreet" OtherKey="idStreet" Type="HomestadForSale" />
+      <Association Name="Street_HousesForSale" Member="HousesForSales" ThisKey="idStreet" OtherKey="idStreet" Type="HousesForSale" />
+      <Association Name="Street_PlacementForSale" Member="PlacementForSales" ThisKey="idStreet" OtherKey="idStreet" Type="PlacementForSale" />
+      <Association Name="Street_RoomsForSale" Member="RoomsForSales" ThisKey="idStreet" OtherKey="idStreet" Type="RoomsForSale" />
+      <Association Name="District_Street" Member="District" ThisKey="idDistrict" OtherKey="idDistrict" Type="District" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Variant" Member="Variants">
+    <Type Name="Variant">
+      <Column Name="idVariant" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vcVariant" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Variant_AppartmentForSale" Member="AppartmentForSales" ThisKey="idVariant" OtherKey="idVariant" Type="AppartmentForSale" />
+      <Association Name="Variant_HomestadForSale" Member="HomestadForSales" ThisKey="idVariant" OtherKey="idVariant" Type="HomestadForSale" />
+      <Association Name="Variant_HousesForSale" Member="HousesForSales" ThisKey="idVariant" OtherKey="idVariant" Type="HousesForSale" />
+      <Association Name="Variant_PlacementForSale" Member="PlacementForSales" ThisKey="idVariant" OtherKey="idVariant" Type="PlacementForSale" />
+      <Association Name="Variant_RoomsForSale" Member="RoomsForSales" ThisKey="idVariant" OtherKey="idVariant" Type="RoomsForSale" />
+    </Type>
+  </Table>
+</Database>

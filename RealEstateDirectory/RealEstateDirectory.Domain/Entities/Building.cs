@@ -18,7 +18,7 @@ namespace RealEstateDirectory.Domain.Entities
         public virtual int? TotalFloor { get; set; }
 
         /// <summary>
-        /// Жилая площадь
+        /// Общая площадь (жилая для комнат)
         /// </summary>
         public virtual decimal? TotalSquare { get; set; }
 
