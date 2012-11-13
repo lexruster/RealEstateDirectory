@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DBBCE386-9154-4588-9A61-07F924C651CB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C6955C49-4F68-4DB7-9FA0-4617DE4D7271}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RealEstateDirectory.Domain.Data</RootNamespace>
-    <AssemblyName>RealEstateDirectory.Domain.Data</AssemblyName>
+    <RootNamespace>DataTransfer</RootNamespace>
+    <AssemblyName>DataTransfer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,43 +32,64 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HibernatingRhinos.Profiler.Appender.v4.0">
+      <HintPath>..\..\..\..\..\..\NHibernate.Profiler-Build-940\HibernatingRhinos.Profiler.Appender.v4.0.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\Dependencies\NHibernate\NHibernate.dll</HintPath>
+      <HintPath>..\RealEstateDirectory\bin\Debug\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Configurator.cs" />
-    <Compile Include="Config\PostgresNamingStrategy.cs" />
-    <Compile Include="Mapping\ApartmentMap.cs" />
-    <Compile Include="Mapping\Dictionaries\FloorLevelMap.cs" />
-    <Compile Include="Mapping\Dictionaries\SewageMap.cs" />
-    <Compile Include="Mapping\Dictionaries\OwnershipMap.cs" />
-    <Compile Include="Mapping\Dictionaries\WaterSupplyMap.cs" />
-    <Compile Include="Mapping\FlatMap.cs" />
-    <Compile Include="Mapping\HouseMap.cs" />
-    <Compile Include="Mapping\PlotMap.cs" />
-    <Compile Include="Mapping\ResidenceMap.cs" />
-    <Compile Include="Mapping\RoomMap.cs" />
-    <Compile Include="Mapping\Dictionaries\LayoutMap.cs" />
-    <Compile Include="Mapping\Dictionaries\MaterialMap.cs" />
-    <Compile Include="Mapping\Dictionaries\RealtorMap.cs" />
-    <Compile Include="Mapping\Dictionaries\StreetMap.cs" />
-    <Compile Include="Mapping\Dictionaries\TerraceMap.cs" />
-    <Compile Include="Mapping\Dictionaries\ToiletTypeMap.cs" />
-    <Compile Include="Mapping\Dictionaries\DealVariantMap.cs" />
-    <Compile Include="Mapping\Dictionaries\DistrictMap.cs" />
-    <Compile Include="Mapping\RealEstateMap.cs" />
-    <Compile Include="Mapping\BuildingMap.cs" />
+    <Compile Include="DataClasses.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\RealEstateRepository.cs" />
-    <Compile Include="Repository\DictionaryRepository.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="DataClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
       <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
       <Name>RealEstateDirectory.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Domain.Data\RealEstateDirectory.Domain.Data.csproj">
+      <Project>{dbbce386-9154-4588-9a61-07f924c651cb}</Project>
+      <Name>RealEstateDirectory.Domain.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
       <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
@@ -81,7 +104,14 @@
       <Name>RealEstateDirectory.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataClasses.dbml.layout">
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
