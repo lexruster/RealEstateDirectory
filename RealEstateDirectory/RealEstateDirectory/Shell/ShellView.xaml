@@ -25,6 +25,7 @@
                 <MenuItem Header="Участки" Command="{Binding PlotCommand}" />
             </MenuItem>
             <MenuItem Header="Справочники">
+                <MenuItem Header="Агентства" Command="{Binding RealtorAgencyDictionaryCommand}" />
                 <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />
                 <MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
                 <MenuItem Header="Виды потолков" Command="{Binding FloorLevelDictionaryCommand}" />

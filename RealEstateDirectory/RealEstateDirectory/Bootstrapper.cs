@@ -13,6 +13,7 @@ using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
 using RealEstateDirectory.Dictionaries.LayoutDictionary;
 using RealEstateDirectory.Dictionaries.MaterialDictionary;
 using RealEstateDirectory.Dictionaries.OwnershipDictionary;
+using RealEstateDirectory.Dictionaries.RealtorAgencyDictionary;
 using RealEstateDirectory.Dictionaries.RealtorDictionary;
 using RealEstateDirectory.Dictionaries.SewageDictionary;
 using RealEstateDirectory.Dictionaries.StreetDictionary;
@@ -86,6 +87,7 @@ namespace RealEstateDirectory
 			Container.RegisterType<IResidenceService, ResidenceService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IPlotService, PlotService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IHouseService, HouseService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IRealtorAgencyService, RealtorAgencyService>(new ContainerControlledLifetimeManager());
 
 			Container.RegisterType<IViewsService, ViewsService>();
 			Container.RegisterType<IMessageService, MessageService>();
@@ -105,6 +107,7 @@ namespace RealEstateDirectory
 			Container.RegisterType<TerraceDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
 		}
 	}
 }

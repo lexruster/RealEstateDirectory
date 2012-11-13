@@ -38,6 +38,7 @@
     <Compile Include="AbstractRepositories\IDictionaryRepository.cs" />
     <Compile Include="Entities\Apartment.cs" />
     <Compile Include="Entities\Building.cs" />
+    <Compile Include="Entities\Dictionaries\RealtorAgency.cs" />
     <Compile Include="Entities\Dictionaries\FloorLevel.cs" />
     <Compile Include="Entities\Dictionaries\Sewage.cs" />
     <Compile Include="Entities\Dictionaries\Ownership.cs" />

@@ -9,6 +9,7 @@ using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
 using RealEstateDirectory.Dictionaries.LayoutDictionary;
 using RealEstateDirectory.Dictionaries.MaterialDictionary;
 using RealEstateDirectory.Dictionaries.OwnershipDictionary;
+using RealEstateDirectory.Dictionaries.RealtorAgencyDictionary;
 using RealEstateDirectory.Dictionaries.RealtorDictionary;
 using RealEstateDirectory.Dictionaries.SewageDictionary;
 using RealEstateDirectory.Dictionaries.StreetDictionary;
@@ -28,6 +29,7 @@ namespace RealEstateDirectory.Shell
 			_ViewsService = viewsService;
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
+			RealtorAgencyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<RealtorAgencyDictionaryViewModel>());
 			DealVariantsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DealVariantsDictionaryViewModel>());
 			DistrictsDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DistrictsDictionaryViewModel>());
 
@@ -52,6 +54,8 @@ namespace RealEstateDirectory.Shell
 		#endregion
 
 		public ICommand ExitCommand { get; private set; }
+
+		public ICommand RealtorAgencyDictionaryCommand { get; private set; }
 		public ICommand DealVariantsDictionaryCommand { get; private set; }
 		public ICommand DistrictsDictionaryCommand { get; private set; }
 

@@ -87,7 +87,12 @@ namespace RealEstateDirectory.Domain.Data.Repository
             return CurrentSession.Query<T>().Count(x => x.Name == entity.Name && x.Id != localId) == 0;
         }
 
-        public T Get<T>(string name) where T : BaseDictionary
+	    public bool IsPossibleToDeleteRealtorAgency(RealtorAgency entity)
+	    {
+			return true;
+	    }
+
+	    public T Get<T>(string name) where T : BaseDictionary
         {
             return CurrentSession.Query<T>().FirstOrDefault(x => x.Name == name);
         }

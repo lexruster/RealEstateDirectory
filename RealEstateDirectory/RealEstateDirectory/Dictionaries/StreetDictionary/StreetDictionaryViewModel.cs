@@ -132,13 +132,6 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 			return newStreet;
 		}
 
-		protected Street CreateChangedModel()
-		{
-			var newStreet = new Street(Name) {District = SelectedDistrict};
-
-			return newStreet;
-		}
-
 		protected override bool IsCanRemove(StreetViewModel entityViewModel, out string errorText)
 		{
 			errorText = null;

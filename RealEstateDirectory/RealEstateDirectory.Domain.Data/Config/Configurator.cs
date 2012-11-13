@@ -50,6 +50,7 @@ namespace RealEstateDirectory.Domain.Data.Config
             mapper.AddMapping<TerraceMap>();
             mapper.AddMapping<ToiletTypeMap>();
             mapper.AddMapping<FloorLevelMap>();
+			mapper.AddMapping<RealtorAgencyMap>();
 
             mapper.AddMapping<RealEstateMap>();
             mapper.AddMapping<PlotMap>();

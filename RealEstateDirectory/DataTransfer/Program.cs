@@ -134,6 +134,11 @@ namespace DataTransfer
 				hb.Delete(ent);
 			}
 
+			foreach (var ent in hb.Query<RealtorAgency>().ToList())
+			{
+				hb.Delete(ent);
+			}
+
 			Console.WriteLine("Удаление старого - готово");
 		}
 
@@ -244,6 +249,22 @@ namespace DataTransfer
 				AddMapForDictionary(curEnitie.idSanUsel, hb, hbEntity);
 			}
 			Console.WriteLine("Сан узел - готово");
+
+			//Агентства
+			_idDictionaryMaps.Add(typeof(RealtorAgency), new List<IdMap>());
+			foreach (var curEnitie in linq.Agencies)
+			{
+				var hbEntity = new RealtorAgency(curEnitie.vcName)
+					{
+						Address = curEnitie.vcAddress,
+						Contacts = curEnitie.vcContacts,
+						Description = curEnitie.vcComments,
+						Director = curEnitie.vcDirectorName
+					};
+
+				AddMapForDictionary(curEnitie.idAgency, hb, hbEntity);
+			}
+			Console.WriteLine("Агентства - готово");
 		}
 
 		private static void MoveEntity(ISession hb, DataClassesDataContext linq)

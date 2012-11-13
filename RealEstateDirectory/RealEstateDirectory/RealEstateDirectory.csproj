@@ -75,6 +75,11 @@
     <Compile Include="Dictionaries\Common\RealEstateListViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntitiesViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntityViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryView.xaml.cs">
+      <DependentUpon>RealtorAgencyDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyViewModel.cs" />
     <Compile Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml.cs">
       <DependentUpon>StreetDictionaryView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +164,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

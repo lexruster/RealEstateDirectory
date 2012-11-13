@@ -25,7 +25,8 @@
                 <TextBlock Grid.Row="0" Margin="3" Padding="5" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
                 <ComboBox Grid.Row="1" Margin="3" Padding="5" ItemsSource="{Binding DistrictList}"
                           SelectedItem="{Binding SelectedDistrict, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                <DataGrid Grid.Row="2" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedStreet, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid Grid.Row="2" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False"
+                          SelectedItem="{Binding SelectedStreet, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Название" Width="*"/>
                     </DataGrid.Columns>
@@ -60,7 +61,7 @@
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"  Text="{Binding NameChanged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <ComboBox Margin="3" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding DistrictList}"
                           SelectedItem="{Binding DistrictChanged, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                    <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  Width="Auto" Command="{Binding ChangeCommand}">Изменить улицу</Button>
+                    <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="Auto" Command="{Binding ChangeCommand}">Изменить улицу</Button>
                 </Grid>
             </Grid>
         </AdornerDecorator>

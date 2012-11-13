@@ -11,6 +11,7 @@ using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
 using RealEstateDirectory.Dictionaries.LayoutDictionary;
 using RealEstateDirectory.Dictionaries.MaterialDictionary;
 using RealEstateDirectory.Dictionaries.OwnershipDictionary;
+using RealEstateDirectory.Dictionaries.RealtorAgencyDictionary;
 using RealEstateDirectory.Dictionaries.RealtorDictionary;
 using RealEstateDirectory.Dictionaries.SewageDictionary;
 using RealEstateDirectory.Dictionaries.StreetDictionary;
@@ -33,6 +34,8 @@ namespace RealEstateDirectory.Services
 		private void Initialize()
 		{
 			_viewModelViewMap = new List<KeyValuePair<Type, Type>>();
+			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(RealtorAgencyDictionaryViewModel),
+															   typeof(RealtorAgencyDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DealVariantsDictionaryViewModel),
 			                                                   typeof (DealVariantsDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DistrictsDictionaryViewModel),

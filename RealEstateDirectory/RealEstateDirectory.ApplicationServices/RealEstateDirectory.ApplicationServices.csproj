@@ -40,6 +40,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\RealtorAgencyService.cs" />
     <Compile Include="FlatService.cs" />
     <Compile Include="HouseService.cs" />
     <Compile Include="PlotService.cs" />
