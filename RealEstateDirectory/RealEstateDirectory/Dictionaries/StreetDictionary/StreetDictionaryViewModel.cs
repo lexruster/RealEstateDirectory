@@ -76,7 +76,7 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 
 		public string NameChanged { get; set; }
 		public District DistrictChanged { get; set; }
-
+		
 		public DelegateCommand ChangeCommand { get; protected set; }
 
 		public override string DictionaryName

@@ -14,18 +14,18 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" MinWidth="400"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="370"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Margin="3" Padding="5" Grid.ColumnSpan="2" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
-                <DataGrid Grid.Row="1" Grid.Column="0" Width="Auto"
-                          ItemsSource="{Binding Entities}" 
+                <DataGrid Grid.Row="1" Grid.Column="0" Width="390" 
+                          ItemsSource="{Binding Entities}"  SelectionMode="Single" SelectionUnit="FullRow" 
                           AutoGenerateColumns="False" CanUserAddRows="False" 
                           SelectedItem="{Binding SelectedRealtorAgency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Название" Width="Auto" MinWidth="200"/>
-                        <DataGridTextColumn Binding="{Binding Director, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Директор" Width="*" MinWidth="100"/>
+                        <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Название" Width="190" />
+                        <DataGridTextColumn Binding="{Binding Director, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Директор" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid Grid.Row="1" Grid.Column="1">
@@ -35,30 +35,39 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="70"/>
-                        <ColumnDefinition Width="*" MinWidth="150" />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="0" Text="Название:" FontWeight="Bold"></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding StateStr, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="1" Text="Название:" FontWeight="Bold"></TextBlock>
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}"
+                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="1" Text="Директор:" FontWeight="Bold"></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="2" Text="Директор:" FontWeight="Bold"></TextBlock>
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}"
+                             Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="2" Text="Адрес:" FontWeight="Bold"></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50" HorizontalAlignment="Stretch" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="3" Text="Адрес:" FontWeight="Bold"></TextBlock>
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50"
+                             IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="3" Text="Контакты:" FontWeight="Bold"></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="3"  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50" HorizontalAlignment="Stretch" Text="{Binding Contacts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="4" Text="Контакты:" FontWeight="Bold"></TextBlock>
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="4"  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50" 
+                             IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Contacts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="4" Text="Комментарий:" FontWeight="Bold"></TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="4" Margin="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"  HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="5" Text="Комментарий:" FontWeight="Bold"></TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="5" Margin="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"
+                             IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" VerticalAlignment="Bottom">
-                        <Button  Margin="5" Width="Auto" Command="{Binding AddCommand}">Добавить новое агентство в список</Button>
-                        <Button  Margin="5" Width="Auto" Command="{Binding ChangeCommand}">Изменить выбранное агентство</Button>
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom">
+                        <Button  Margin="5" Width="Auto" Command="{Binding AddCommand}">Добавить новое</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding ChangeCommand}">Изменить выбранное</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding OkCommand}">Ок</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding CancelCommand}">Отмена</Button>
                     </StackPanel>
                 </Grid>
             </Grid>

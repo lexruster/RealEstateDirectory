@@ -16,12 +16,21 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 	[NotifyForAll]
 	public class RealtorAgencyDictionaryViewModel : DictionaryViewModel<RealtorAgencyViewModel, RealtorAgency>
 	{
+		public enum State
+		{
+			View = 1,
+			Add = 2,
+			Edit = 3
+		}
+
+		#region Конструктор
+
 		public RealtorAgencyDictionaryViewModel(IServiceLocator serviceLocator, IRealtorAgencyService dictionaryService,
 		                                        IMessageService messageService)
 			: base(serviceLocator, messageService)
 		{
 			_DictionaryService = dictionaryService;
-
+			UpdateState(State.View);
 			PropertyChanged += (sender, args) =>
 				{
 					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => Name) ||
@@ -29,7 +38,10 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 					    args.PropertyName == PropertySupport.ExtractPropertyName(() => Address) ||
 					    args.PropertyName == PropertySupport.ExtractPropertyName(() => Contacts) ||
 					    args.PropertyName == PropertySupport.ExtractPropertyName(() => Description))
-						ChangeCommand.RaiseCanExecuteChanged();
+					{
+						OkCommand.RaiseCanExecuteChanged();
+						CancelCommand.RaiseCanExecuteChanged();
+					}
 
 					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => SelectedRealtorAgency))
 						UpdateSelectedRealtorAgency();
@@ -38,34 +50,78 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 
 			AddCommand = new DelegateCommand(() =>
 				{
-					var viewModel = CreateNewViewModel(CreateNewModel());
-					_Entities.Add(viewModel);
-					SelectedRealtorAgency = viewModel;
+					ClearProperties();
+					UpdateState(State.Add);
+					ButtonUpdate();
 				}, CanAdd);
 
 			ChangeCommand = new DelegateCommand(() =>
 				{
-					SelectedRealtorAgency.Name = Name;
-					SelectedRealtorAgency.Address = Address;
-					SelectedRealtorAgency.Contacts = Contacts;
-					SelectedRealtorAgency.Description = Description;
-					SelectedRealtorAgency.Director = Director;
-					var error = SelectedRealtorAgency.Error;
+					UpdateState(State.Edit);
+					ButtonUpdate();
+				}, CanEdit);
 
-					if (error == null)
+			OkCommand = new DelegateCommand(() =>
+				{
+					if (StateEnum == State.Add)
 					{
-						SelectedRealtorAgency.UpdateModelFromValues();
-						SelectedRealtorAgency.SaveToDatabase();
+						var viewModel = CreateNewViewModel(CreateNewModel());
+						var error = viewModel.Error;
+						if (error == null)
+						{
+							viewModel.SaveToDatabase();
+							_Entities.Add(viewModel);
+							ClearProperties();
+						}
+						else
+						{
+							_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
+						}
+					}
+
+					if (StateEnum == State.Edit)
+					{
+						SelectedRealtorAgency.Name = Name;
+						SelectedRealtorAgency.Address = Address;
+						SelectedRealtorAgency.Contacts = Contacts;
+						SelectedRealtorAgency.Description = Description;
+						SelectedRealtorAgency.Director = Director;
+						var error = SelectedRealtorAgency.Error;
+
+						if (error == null)
+						{
+							SelectedRealtorAgency.UpdateModelFromValues();
+							SelectedRealtorAgency.SaveToDatabase();
+
+						}
+						else
+						{
+							SelectedRealtorAgency.UpdateValuesFromModel();
+							_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
+						}
+					}
+					UpdateState(State.View);
+					ButtonUpdate();
+				}, CanOk);
+
+			CancelCommand = new DelegateCommand(() =>
+				{
+					if (StateEnum == State.Add)
+					{
 						ClearProperties();
 					}
-					else
+
+					if (StateEnum == State.Edit)
 					{
-						SelectedRealtorAgency.UpdateValuesFromModel();
-						_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
+						UpdateSelectedRealtorAgency();
 					}
-					ChangeCommand.RaiseCanExecuteChanged();
-				}, CanEdit);
+
+					UpdateState(State.View);
+					ButtonUpdate();
+				}, CanCancel);
 		}
+
+		#endregion
 
 		#region Infrastructure
 
@@ -73,23 +129,68 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 
 		#endregion
 
+		#region Свойства  INotifi
+
 		public string Name { get; set; }
 		public string Director { get; set; }
 		public string Description { get; set; }
 		public string Contacts { get; set; }
 		public string Address { get; set; }
 		public RealtorAgencyViewModel SelectedRealtorAgency { get; set; }
+		public bool ReadOnly { get; set; }
+		public bool Enabled { get; set; }
 
-		public DelegateCommand ChangeCommand { get; protected set; }
+		#endregion
 
-		public override string DictionaryName
+		#region Свойства
+
+		protected string StateStr { get; set; }
+		protected State StateEnum { get; set; }
+
+		#endregion
+
+		#region Методы
+
+		private void ButtonUpdate()
 		{
-			get { return _DictionaryService.DictionaryName; }
+			AddCommand.RaiseCanExecuteChanged();
+			ChangeCommand.RaiseCanExecuteChanged();
+			OkCommand.RaiseCanExecuteChanged();
+			CancelCommand.RaiseCanExecuteChanged();
 		}
 
-		protected override void InitializeEntities()
+		private void UpdateState(State st)
 		{
-			_Entities.AddRange(_DictionaryService.GetAll().Select(CreateNewViewModel));
+			StateEnum = st;
+			switch (StateEnum)
+			{
+				case State.View:
+					StateStr = "Просмотр";
+					ReadOnly = true;
+					Enabled = false;
+					break;
+
+				case State.Add:
+					StateStr = "Добавление";
+					ReadOnly = false;
+					Enabled = true;
+					break;
+
+				case State.Edit:
+					StateStr = "Изменение";
+					ReadOnly = false;
+					Enabled = true;
+					break;
+			}
+		}
+
+		private bool ViewModewlIsChanged()
+		{
+			return Name != SelectedRealtorAgency.Name ||
+			       Address != SelectedRealtorAgency.Address ||
+			       Contacts != SelectedRealtorAgency.Contacts ||
+			       Description != SelectedRealtorAgency.Description ||
+			       Director != SelectedRealtorAgency.Director;
 		}
 
 		protected void UpdateSelectedRealtorAgency()
@@ -105,23 +206,62 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 			}
 		}
 
+		#endregion
+
+		#region Команды
+
+		public DelegateCommand ChangeCommand { get; protected set; }
+		public DelegateCommand OkCommand { get; protected set; }
+		public DelegateCommand CancelCommand { get; protected set; }
+
+		#endregion
+
+		#region Методы проверки команд
+
 		protected override bool CanAdd()
 		{
-			return true;
+			return ReadOnly;
 		}
 
 		protected bool CanEdit()
 		{
-			return SelectedRealtorAgency != null && !String.IsNullOrEmpty(Name) && ViewModewlIsChanged();
+			return SelectedRealtorAgency != null && ReadOnly;
 		}
 
-		private bool ViewModewlIsChanged()
+		protected bool CanOk()
 		{
-			return Name != SelectedRealtorAgency.Name ||
-			       Address != SelectedRealtorAgency.Address ||
-			       Contacts != SelectedRealtorAgency.Contacts ||
-			       Description != SelectedRealtorAgency.Description ||
-			       Director != SelectedRealtorAgency.Director;
+			if (!ReadOnly)
+			{
+				if (StateEnum == State.Add)
+				{
+					return !String.IsNullOrEmpty(Name);
+				}
+				if (StateEnum == State.Edit)
+				{
+					return SelectedRealtorAgency != null && !String.IsNullOrEmpty(Name) && ViewModewlIsChanged();
+				}
+			}
+
+			return false;
+		}
+
+		protected bool CanCancel()
+		{
+			return !ReadOnly;
+		}
+
+		#endregion
+
+		#region Перегрузки
+
+		public override string DictionaryName
+		{
+			get { return _DictionaryService.DictionaryName; }
+		}
+
+		protected override void InitializeEntities()
+		{
+			_Entities.AddRange(_DictionaryService.GetAll().Select(CreateNewViewModel));
 		}
 
 		protected override void ClearProperties()
@@ -135,7 +275,13 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 
 		protected override RealtorAgency CreateNewModel()
 		{
-			var newRealtorAgency = new RealtorAgency("Новое агентство");
+			var newRealtorAgency = new RealtorAgency(Name)
+				{
+					Director = Director,
+					Description = Description,
+					Contacts = Contacts,
+					Address = Address,
+				};
 
 			return newRealtorAgency;
 		}
@@ -160,5 +306,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		{
 			_DictionaryService.StopSession();
 		}
+
+		#endregion
 	}
 }
