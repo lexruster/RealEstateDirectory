@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="FlatsView">
-    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource NormalBrush}" >
+    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
         <AdornerDecorator>
             <Grid Margin="5">
                 <Grid.RowDefinitions>

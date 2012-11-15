@@ -53,6 +53,9 @@
     <Reference Include="Npgsql">
       <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="ReuxablesLegacy">
+      <HintPath>..\..\Dependencies\LEGACY\ReuxablesLegacy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />

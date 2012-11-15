@@ -139,12 +139,12 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		public RealtorAgencyViewModel SelectedRealtorAgency { get; set; }
 		public bool ReadOnly { get; set; }
 		public bool Enabled { get; set; }
+		public string StateStr { get; set; }
 
 		#endregion
 
 		#region Свойства
-
-		protected string StateStr { get; set; }
+		
 		protected State StateEnum { get; set; }
 
 		#endregion

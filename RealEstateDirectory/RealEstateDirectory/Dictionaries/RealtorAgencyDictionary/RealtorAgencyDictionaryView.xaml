@@ -6,7 +6,7 @@
         Style="{StaticResource DictionaryWindow}"
 		Title="{Binding DictionaryName}"
         Width="800">
-    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource NormalBrush}" >
+    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
         <AdornerDecorator>
             <Grid Margin="5">
                 <Grid.RowDefinitions>
@@ -17,7 +17,6 @@
                     <ColumnDefinition Width="400" />
                     <ColumnDefinition Width="370"/>
                 </Grid.ColumnDefinitions>
-
                 <TextBlock Grid.Row="0" Margin="3" Padding="5" Grid.ColumnSpan="2" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
                 <DataGrid Grid.Row="1" Grid.Column="0" Width="390" 
                           ItemsSource="{Binding Entities}"  SelectionMode="Single" SelectionUnit="FullRow" 
@@ -64,8 +63,8 @@
                              IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom">
-                        <Button  Margin="5" Width="Auto" Command="{Binding AddCommand}">Добавить новое</Button>
-                        <Button  Margin="5" Width="Auto" Command="{Binding ChangeCommand}">Изменить выбранное</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding AddCommand}">Создать новое агентство</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding ChangeCommand}">Изменить выбранное агентство</Button>
                         <Button  Margin="5" Width="Auto" Command="{Binding OkCommand}">Ок</Button>
                         <Button  Margin="5" Width="Auto" Command="{Binding CancelCommand}">Отмена</Button>
                     </StackPanel>

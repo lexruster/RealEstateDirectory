@@ -12,7 +12,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource NormalBrush}" >
+    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
         <AdornerDecorator>
             <Grid Margin="5">
                 <Grid.RowDefinitions>
