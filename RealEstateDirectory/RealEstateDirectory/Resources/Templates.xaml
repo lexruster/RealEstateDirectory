@@ -6,6 +6,16 @@
         <Setter Property="Height" Value="650"></Setter>
         <Setter Property="Title" Value="{Binding DictionaryName}"></Setter>
     </Style>
+
+    <Style x:Key="SimpleButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="30"></Setter>
+    </Style>
+
+    <Style x:Key="CancelButton" TargetType="{x:Type Button}" BasedOn="{StaticResource SimpleButton}">
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Background" Value="Black"/>
+    </Style>
+
     <ControlTemplate x:Key="DictionaryWithOnlyNameEntitiesViewTemplate" TargetType="{x:Type Window}" >
         <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
             <AdornerDecorator>

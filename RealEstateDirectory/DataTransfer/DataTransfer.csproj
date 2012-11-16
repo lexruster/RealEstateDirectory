@@ -32,11 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HibernatingRhinos.Profiler.Appender.v4.0">
-      <HintPath>..\..\..\..\..\..\NHibernate.Profiler-Build-940\HibernatingRhinos.Profiler.Appender.v4.0.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\RealEstateDirectory\bin\Debug\NHibernate.dll</HintPath>
+      <HintPath>..\..\Dependencies\NHibernate\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>

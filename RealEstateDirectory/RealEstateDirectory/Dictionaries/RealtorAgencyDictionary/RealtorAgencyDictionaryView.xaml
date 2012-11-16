@@ -63,10 +63,10 @@
                              IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom">
-                        <Button  Margin="5" Width="Auto" Command="{Binding AddCommand}">Создать новое агентство</Button>
-                        <Button  Margin="5" Width="Auto" Command="{Binding ChangeCommand}">Изменить выбранное агентство</Button>
-                        <Button  Margin="5" Width="Auto" Command="{Binding OkCommand}">Ок</Button>
-                        <Button  Margin="5" Width="Auto" Command="{Binding CancelCommand}">Отмена</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding AddCommand}" Style="{StaticResource SimpleButton}">Создать новое агентство</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding ChangeCommand}" Style="{StaticResource SimpleButton}">Изменить выбранное агентство</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding OkCommand}" Style="{StaticResource SimpleButton}">Ок</Button>
+                        <Button  Margin="5" Width="Auto" Command="{Binding CancelCommand}" Style="{StaticResource SimpleButton}">Отмена</Button>
                     </StackPanel>
                 </Grid>
             </Grid>

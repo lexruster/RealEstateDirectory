@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
-//using WPF.Themes;
 using System.Windows;
 
 namespace RealEstateDirectory
