@@ -119,6 +119,13 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 					UpdateState(State.View);
 					ButtonUpdate();
 				}, CanCancel);
+
+			SelectAndChangeCommand=new DelegateCommand(()=>
+				{
+					UpdateSelectedRealtorAgency();
+					UpdateState(State.Edit);
+					ButtonUpdate();
+				}, CanSelectAndChange);
 		}
 
 		#endregion
@@ -137,14 +144,35 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		public string Contacts { get; set; }
 		public string Address { get; set; }
 		public RealtorAgencyViewModel SelectedRealtorAgency { get; set; }
-		public bool ReadOnly { get; set; }
-		public bool Enabled { get; set; }
+		
+		/// <summary>
+		/// Текстовое представление состояний формы
+		/// </summary>
 		public string StateStr { get; set; }
+		/// <summary>
+		/// Форма в режиме чтения, грид активен, поля ввода не активны
+		/// </summary>
+		public bool ReadOnly { get; set; }
+		/// <summary>
+		/// Поля ввода автивны
+		/// </summary>
+		public bool Enabled { get; set; }
+		/// <summary>
+		/// Видимост секции управления коллекцией
+		/// </summary>
+		public Visibility CollectionChangeSectionVisibility { get; set; }
+		/// <summary>
+		/// Видимость секции редактирования
+		/// </summary>
+		public Visibility EditSectionVisibility { get; set; }
 
 		#endregion
 
 		#region Свойства
 		
+		/// <summary>
+		/// Текущее состояние формы
+		/// </summary>
 		protected State StateEnum { get; set; }
 
 		#endregion
@@ -157,6 +185,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 			ChangeCommand.RaiseCanExecuteChanged();
 			OkCommand.RaiseCanExecuteChanged();
 			CancelCommand.RaiseCanExecuteChanged();
+			SelectAndChangeCommand.RaiseCanExecuteChanged();
 		}
 
 		private void UpdateState(State st)
@@ -168,18 +197,24 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 					StateStr = "Просмотр";
 					ReadOnly = true;
 					Enabled = false;
+					EditSectionVisibility=Visibility.Hidden;
+					CollectionChangeSectionVisibility=Visibility.Visible;
 					break;
 
 				case State.Add:
 					StateStr = "Добавление";
 					ReadOnly = false;
 					Enabled = true;
+					EditSectionVisibility = Visibility.Visible;
+					CollectionChangeSectionVisibility = Visibility.Hidden;
 					break;
 
 				case State.Edit:
 					StateStr = "Изменение";
 					ReadOnly = false;
 					Enabled = true;
+					EditSectionVisibility = Visibility.Visible;
+					CollectionChangeSectionVisibility = Visibility.Hidden;
 					break;
 			}
 		}
@@ -213,12 +248,18 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		public DelegateCommand ChangeCommand { get; protected set; }
 		public DelegateCommand OkCommand { get; protected set; }
 		public DelegateCommand CancelCommand { get; protected set; }
+		public DelegateCommand SelectAndChangeCommand { get; protected set; }
 
 		#endregion
 
 		#region Методы проверки команд
 
 		protected override bool CanAdd()
+		{
+			return ReadOnly;
+		}
+
+		protected bool CanSelectAndChange()
 		{
 			return ReadOnly;
 		}
