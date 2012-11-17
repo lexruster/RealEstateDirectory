@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Shell="clr-namespace:RealEstateDirectory.Shell"
+        xmlns:MainFormTabs="clr-namespace:RealEstateDirectory.MainFormTabs"
         mc:Ignorable="d" Title="Справочник недвижимости" Height="600" Width="800"
         d:DataContext="{d:DesignInstance Shell:ShellViewModel}"
         Background="{DynamicResource WindowBackgroundBrush}">
@@ -40,5 +41,18 @@
                 <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
             </MenuItem>
         </Menu>
-    </Grid>
+		<TabControl Grid.Row="1">
+			<TabItem Header="Квартиры">
+			</TabItem>
+			<TabItem Header="Комнаты">
+				<MainFormTabs:RoomsView DataContext="{Binding RoomsDataContext}" />
+			</TabItem>
+			<TabItem Header="Дома">
+			</TabItem>
+			<TabItem Header="Помещения">
+			</TabItem>
+			<TabItem Header="Участки">
+			</TabItem>
+		</TabControl>
+	</Grid>
 </Window>

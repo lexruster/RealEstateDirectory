@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
@@ -17,6 +18,7 @@ using RealEstateDirectory.Dictionaries.TerraceDictionary;
 using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
+using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Shell
@@ -24,9 +26,10 @@ namespace RealEstateDirectory.Shell
 	[NotifyForAll]
 	public class ShellViewModel : NotificationObject
 	{
-		public ShellViewModel(IViewsService viewsService)
+		public ShellViewModel(IViewsService viewsService, IServiceLocator serviceLocator)
 		{
 			_ViewsService = viewsService;
+			_ServiceLocator = serviceLocator;
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
 			RealtorAgencyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<RealtorAgencyDictionaryViewModel>());
@@ -45,11 +48,15 @@ namespace RealEstateDirectory.Shell
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
 
 			FlatCommand = new DelegateCommand(() => _ViewsService.GetView<FloorLevelDictionaryViewModel>());
+
+			RoomsDataContext = _ServiceLocator.GetInstance<RoomsViewModel>();
 		}
 
 		#region Infrastructure
 
 		private readonly IViewsService _ViewsService;
+
+		private readonly IServiceLocator _ServiceLocator;
 
 		#endregion
 
@@ -76,6 +83,6 @@ namespace RealEstateDirectory.Shell
 		public ICommand PlotCommand { get; private set; }
 		public ICommand HouseCommand { get; private set; }
 
-
+		public RoomsViewModel RoomsDataContext { get; private set; }
 	}
 }
