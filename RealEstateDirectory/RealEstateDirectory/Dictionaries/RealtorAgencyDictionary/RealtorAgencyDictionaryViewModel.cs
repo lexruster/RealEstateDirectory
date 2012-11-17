@@ -72,6 +72,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 							viewModel.SaveToDatabase();
 							_Entities.Add(viewModel);
 							ClearProperties();
+							UpdateState(State.View);
 						}
 						else
 						{
@@ -92,7 +93,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 						{
 							SelectedRealtorAgency.UpdateModelFromValues();
 							SelectedRealtorAgency.SaveToDatabase();
-
+							UpdateState(State.View);
 						}
 						else
 						{
@@ -100,7 +101,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 							_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
 						}
 					}
-					UpdateState(State.View);
+					
 					ButtonUpdate();
 				}, CanOk);
 

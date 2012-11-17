@@ -4,6 +4,8 @@
         <Setter Property="WindowStyle" Value="ThreeDBorderWindow"></Setter>
         <Setter Property="Width" Value="400"></Setter>
         <Setter Property="Height" Value="650"></Setter>
+        <Setter Property="MinHeight" Value="400"></Setter>
+        <Setter Property="MinWidth" Value="300"></Setter>
         <Setter Property="Title" Value="{Binding DictionaryName}"></Setter>
     </Style>
 

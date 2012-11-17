@@ -5,7 +5,7 @@
         xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
         Style="{StaticResource DictionaryWindow}"
 		Title="{Binding DictionaryName}"
-        Width="500">
+        Width="500" MinWidth="800" MinHeight="600">
     <Window.Resources>
         <DataTemplate DataType="{x:Type Dictionaries:District}">
             <TextBlock Text="{Binding Name}"></TextBlock>
@@ -18,50 +18,73 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="3" Padding="5" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
-                <ComboBox Grid.Row="1" Margin="3" Padding="5" ItemsSource="{Binding DistrictList}"
-                          SelectedItem="{Binding SelectedDistrict, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                <DataGrid Grid.Row="2" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False"
-                          SelectedItem="{Binding SelectedStreet, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Название" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Grid Grid.Row="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="0" Text="Название:" FontWeight="Bold"></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  Width="Auto" Command="{Binding AddCommand}">Добавить в выбранный район</Button>
-                </Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="370"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Margin="3" Padding="5" Grid.ColumnSpan="2" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
 
-                <Grid Grid.Row="4">
+                <ComboBox Grid.Row="1" Grid.Column="0" Margin="3" Padding="5" ItemsSource="{Binding DistrictList}" IsEnabled="{Binding ReadOnly}"
+                          SelectedItem="{Binding SelectedDistrict, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                
+                <DataGrid Grid.Row="2" Grid.Column="0" Width="390" 
+                          ItemsSource="{Binding Entities}"  SelectionMode="Single" SelectionUnit="FullRow" 
+                          AutoGenerateColumns="False" CanUserAddRows="False" IsEnabled="{Binding ReadOnly}"
+                          SelectedItem="{Binding SelectedStreet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Название" Width="*" />
+                    </DataGrid.Columns>
+                    <DataGrid.InputBindings >
+                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding SelectAndChangeCommand}"/>
+                    </DataGrid.InputBindings>
+                </DataGrid>
+                <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="0" Text="Название:" FontWeight="Bold"></TextBlock>
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="1" Text="Район:" FontWeight="Bold" ></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"  Text="{Binding NameChanged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <ComboBox Margin="3" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding DistrictList}"
-                          SelectedItem="{Binding DistrictChanged, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                    <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="Auto" Command="{Binding ChangeCommand}">Изменить улицу</Button>
+                    <TextBlock Margin="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding StateStr, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="1" Text="Название:" FontWeight="Bold"></TextBlock>
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}"
+                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="2" Text="Район:" FontWeight="Bold"></TextBlock>
+
+                    <ComboBox Margin="3" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding DistrictList}" IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}"
+                          SelectedItem="{Binding District, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom" Visibility="{Binding CollectionChangeSectionVisibility}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0"  Margin="5" Width="Auto" Command="{Binding AddCommand}" Height="25">Добавить улицу</Button>
+                        <Button Grid.Row="1" Margin="5" Width="Auto" Command="{Binding ChangeCommand}" Height="25">Изменить выбранную улицу</Button>
+                    </Grid>
+
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom"  Visibility="{Binding EditSectionVisibility}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Margin="5" Command="{Binding OkCommand}" Width="150" Height="25">Ок</Button>
+                        <Button Grid.Column="1" Margin="5" Command="{Binding CancelCommand}" Width="150" Height="25" HorizontalAlignment="Right">Отмена</Button>
+                    </Grid>
+
                 </Grid>
             </Grid>
         </AdornerDecorator>
