@@ -1,68 +1,64 @@
 ﻿using System;
+using System.ComponentModel;
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
-using RealEstateDirectory.AbstractApplicationServices.Dictionary;
-using RealEstateDirectory.Dictionaries.Common;
-using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 
-namespace RealEstateDirectory.Dictionaries.RealtorDictionary
+namespace RealEstateDirectory.MainFormTabs.Room
 {
 	[NotifyForAll]
-	public class RoomViewModel : NotificationObject
+	public class RoomViewModel : NotificationObject, IDataErrorInfo
 	{
 		public RoomViewModel(IRoomService service)
 		{
-			_Service = service;
+			_RoomService = service;
 		}
 
 		#region Infrastructure
 
-		private readonly IRoomService _Service;
+		private readonly IRoomService _RoomService;
 
 		#endregion
 
 		public int Id { get; set; }
-		protected District District { get; set; }
-		protected string Description { get; set; }
-		protected DealVariant DealVariant { get; set; }
 
-		public override void UpdateValuesFromModel()
-		{
-			Id = DbEntity.Id;
-			DealVariant = DbEntity.DealVariant;
-			Description = DbEntity.Description;
-			District = DbEntity.District;
-		}
+		public string Rooms { get; set; }
 
-		public override void UpdateModelFromValues()
-		{
-		}
+		public District District { get; set; }
 
-		public override string this[string columnName]
+		public Street Street { get; set; }
+
+		public string HouseNumber { get; set; }
+
+		public string this[string propertyName]
 		{
 			get
 			{
-				
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Rooms))
+				{
+					int rooms;
+					if (!Int32.TryParse(Rooms, out rooms) || rooms < 1)
+						return "Неверное количество комнат";
+				}
+					
 				return null;
 			}
 		}
 
-		public override string Error
+		public string Error
 		{
 			get
 			{
-				var dictElement = new Room();
-				var validation = _Service.IsValid(dictElement, Id);
+				var validation = _RoomService.IsValid(new Domain.Entities.Room
+					{
+						RoomCount = Int32.Parse(Rooms),
+						District = District,
+						Street = Street,
+						TerritorialNumber = HouseNumber
+					}, Id);
 				return validation.IsValid ? null : validation.GetReasons();
 			}
-		}
-
-		public override void SaveToDatabase()
-		{
-			_Service.Save(DbEntity);
-			UpdateValuesFromModel();
 		}
 	}
 }

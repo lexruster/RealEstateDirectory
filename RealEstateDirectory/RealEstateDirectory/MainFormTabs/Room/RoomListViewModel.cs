@@ -1,6 +1,11 @@
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
@@ -11,14 +16,21 @@ namespace RealEstateDirectory.MainFormTabs.Room
 	[NotifyForAll]
 	public class RoomListViewModel : NotificationObject
 	{
-		public RoomListViewModel(IRoomService roomService, IDistrictService districtService, IStreetService streetService)
+		public RoomListViewModel(IServiceLocator serviceLocator, IRoomService roomService, IDistrictService districtService, IStreetService streetService)
 		{
+			_ServiceLocator = serviceLocator;
 			_RoomService = roomService;
 			_DistrictService = districtService;
 			_StreetService = streetService;
+
+			PopupDataContext = _ServiceLocator.GetInstance<RoomViewModel>();
+
+			AddCommand = new DelegateCommand(Add);
 		}
 
 		#region Infrastructure
+
+		private readonly IServiceLocator _ServiceLocator;
 
 		private readonly IRoomService _RoomService;
 
@@ -47,13 +59,13 @@ namespace RealEstateDirectory.MainFormTabs.Room
 		private void LoadFiltersData()
 		{
 			//_DistrictService.StartSession();
-			Districts = new ListCollectionView((new [] { _AllDistricts, _NoneDistricts }).Concat(
-				_DistrictService.GetAll().OrderBy(district => district.Name)).ToArray());
+			Districts = new ObservableCollection<District>((new [] { _AllDistricts, _NoneDistricts }).Concat(
+				_DistrictService.GetAll().OrderBy(district => district.Name)));
 			//_DistrictService.StopSession();
 
 			//_StreetService.StartSession();
-			Streets = new ListCollectionView((new[] { _AllStreets, _NoneStreets }).Concat(
-				_StreetService.GetAll().OrderBy(street => street.Name)).ToArray());
+			Streets = new ObservableCollection<Street>((new[] { _AllStreets, _NoneStreets }).Concat(
+				_StreetService.GetAll().OrderBy(street => street.Name)));
 			//_StreetService.StopSession();
 		}
 
@@ -61,23 +73,38 @@ namespace RealEstateDirectory.MainFormTabs.Room
 		{
 			var rooms = _RoomService.GetAll();
 
-			if (Districts.CurrentItem != null && Districts.CurrentItem != _AllDistricts)
-				rooms = Districts.CurrentItem == _NoneDistricts
+			if (CurrentDistrict != null && CurrentDistrict != _AllDistricts)
+				rooms = CurrentDistrict == _NoneDistricts
 					? rooms.Where(room => room.District == null)
-					: rooms.Where(room => room.District != null && room.District.Id == ((District) Districts.CurrentItem).Id);
+					: rooms.Where(room => room.District != null && room.District.Id == CurrentDistrict.Id);
 
-			if (Streets.CurrentItem != null && Streets.CurrentItem != _AllStreets)
-				rooms = Streets.CurrentItem == _NoneStreets
+			if (CurrentStreet != null && CurrentStreet != _AllStreets)
+				rooms = CurrentStreet == _NoneStreets
 					? rooms.Where(room => room.Street == null)
-					: rooms.Where(room => room.Street != null && room.Street.Id == ((Street)Streets.CurrentItem).Id);
+					: rooms.Where(room => room.Street != null && room.Street.Id == CurrentStreet.Id);
 
 			Rooms = new ListCollectionView(rooms.ToArray());
 		}
 
-		public ListCollectionView Districts { get; private set; }
+		public ObservableCollection<District> Districts { get; private set; }
 
-		public ListCollectionView Streets { get; private set; }
+		public District CurrentDistrict { get; set; }
+
+		public ObservableCollection<Street> Streets { get; private set; }
+
+		public Street CurrentStreet { get; private set; }
 
 		public ListCollectionView Rooms { get; private set; }
+
+		public RoomViewModel PopupDataContext { get; private set; }
+
+		public bool IsOpenPopup { get; private set; }
+
+		public ICommand AddCommand { get; private set; }
+
+		private void Add()
+		{
+			IsOpenPopup = true;
+		}
 	}
 }

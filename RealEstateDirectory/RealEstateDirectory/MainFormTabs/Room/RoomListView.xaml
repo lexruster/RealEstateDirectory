@@ -2,10 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-	<Grid>
+	<Grid x:Name="MainGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
@@ -13,9 +13,48 @@
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="0, 2, 2, 2">Добавить</Button>
-            <Button Margin="2, 2, 0, 2">Обновить</Button>
+			<Button Margin="0, 2, 2, 2" Content="Добавить" Command="{Binding AddCommand}" />
+            <Button Margin="2, 2, 0, 2" Content="Обновить" Command="{Binding UpdateCommand}" />
 		</StackPanel>
+
+		<Popup Grid.Row="1" IsOpen="{Binding IsOpenPopup}" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
+			<Grid DataContext="{Binding PopupDataContext}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" MinWidth="200" />
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Column="0" Grid.Row="0" Text="Количество комнат" />
+				<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
+
+				<TextBlock Grid.Column="0" Grid.Row="1" Text="Район" />
+				<ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Districts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding District}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<TextBlock Grid.Column="0" Grid.Row="2" Text="Улица" />
+				<ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Streets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Street}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<TextBlock Grid.Column="0" Grid.Row="3" Text="Номер дома" />
+				<TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
+			</Grid>
+		</Popup>
 
 		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
@@ -32,7 +71,7 @@
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
-			<ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}">
+			<ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Name}" />
@@ -41,7 +80,7 @@
 			</ComboBox>
 
 			<TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
-			<ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}">
+			<ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Name}" />
