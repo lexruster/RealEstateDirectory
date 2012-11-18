@@ -1,4 +1,4 @@
-<UserControl x:Class="RealEstateDirectory.MainFormTabs.Room.RoomListView"
+п»ї<UserControl x:Class="RealEstateDirectory.MainFormTabs.Room.RoomListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,8 +13,8 @@
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="0, 2, 2, 2">Добавить</Button>
-            <Button Margin="2, 2, 0, 2">Обновить</Button>
+            <Button Margin="0, 2, 2, 2">Р”РѕР±Р°РІРёС‚СЊ</Button>
+            <Button Margin="2, 2, 0, 2">РћР±РЅРѕРІРёС‚СЊ</Button>
 		</StackPanel>
 
 		<Grid Grid.Row="1">
@@ -31,7 +31,7 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="Р Р°Р№РѕРЅ" Margin="0,2,5,2" />
 			<ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
@@ -40,7 +40,7 @@
 				</ComboBox.ItemTemplate>
 			</ComboBox>
 
-			<TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="РЈР»РёС†Р°" Margin="5,2,5,2" />
 			<ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
@@ -52,20 +52,20 @@
 
 		<DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Rooms}">
 			<DataGrid.Columns>
-				<DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
-				<DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
-				<DataGridTextColumn IsReadOnly="True" Header="Адрес">
+				<DataGridTextColumn IsReadOnly="True" Header="РљРѕРјРЅР°С‚" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
+				<DataGridTextColumn IsReadOnly="True" Header="Р Р°Р№РѕРЅ" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
+				<DataGridTextColumn IsReadOnly="True" Header="РђРґСЂРµСЃ">
 					<DataGridTextColumn.Binding>
 						<MultiBinding StringFormat="{}{0}{1}">
 							<MultiBinding.Bindings>
-								<Binding Path="Street.Name" StringFormat="{}{0} ул., " FallbackValue="" TargetNullValue="" />
+								<Binding Path="Street.Name" StringFormat="{}{0} СѓР»., " FallbackValue="" TargetNullValue="" />
 								<Binding Path="TerritorialNumber" />
 							</MultiBinding.Bindings>
 						</MultiBinding>
 					</DataGridTextColumn.Binding>
 				</DataGridTextColumn>
-				<DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalRoomCount}" />
-				<DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, FallbackValue=''}" />
+				<DataGridTextColumn IsReadOnly="True" Header="Р­С‚Р°Р¶РЅРѕСЃС‚СЊ" Binding="{Binding TotalRoomCount}" />
+				<DataGridTextColumn IsReadOnly="True" Header="РџР»Р°РЅРёСЂРѕРІРєР°" Binding="{Binding Layout.Name, FallbackValue=''}" />
 			</DataGrid.Columns>
 		</DataGrid>
 	</Grid>

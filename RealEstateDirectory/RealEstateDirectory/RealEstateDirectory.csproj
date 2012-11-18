@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Entities\Flat\FlatViewModel.cs" />
     <Compile Include="Interfaces\ISessionedViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomListView.xaml.cs">
       <DependentUpon>RoomListView.xaml</DependentUpon>
     </Compile>
