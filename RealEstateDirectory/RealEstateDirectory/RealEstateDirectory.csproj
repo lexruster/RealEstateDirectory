@@ -153,10 +153,10 @@
     </Compile>
     <Compile Include="Entities\Flat\FlatViewModel.cs" />
     <Compile Include="Interfaces\ISessionedViewModel.cs" />
-    <Compile Include="MainFormTabs\RoomsView.xaml.cs">
-      <DependentUpon>RoomsView.xaml</DependentUpon>
+    <Compile Include="MainFormTabs\Room\RoomListView.xaml.cs">
+      <DependentUpon>RoomListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainFormTabs\RoomsViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomListViewModel.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
     <Compile Include="Services\EnhancedObservableCollection.cs" />
     <Compile Include="Services\IMessageService.cs" />
@@ -228,9 +228,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainFormTabs\RoomsView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="MainFormTabs\Room\RoomListView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Templates.xaml">
       <SubType>Designer</SubType>

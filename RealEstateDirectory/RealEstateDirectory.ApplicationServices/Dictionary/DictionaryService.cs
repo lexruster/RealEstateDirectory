@@ -47,7 +47,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         public void StopSession()
         {
-            Session.Dispose();
+            //Session.Dispose();
         }
 
         public IEnumerable<T> GetAll()

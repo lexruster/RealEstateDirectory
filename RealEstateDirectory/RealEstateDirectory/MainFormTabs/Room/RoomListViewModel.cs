@@ -1,4 +1,4 @@
-ï»¿using System.Linq;
+using System.Linq;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
@@ -6,12 +6,12 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 
-namespace RealEstateDirectory.MainFormTabs
+namespace RealEstateDirectory.MainFormTabs.Room
 {
 	[NotifyForAll]
-	public class RoomsViewModel : NotificationObject
+	public class RoomListViewModel : NotificationObject
 	{
-		public RoomsViewModel(IRoomService roomService, IDistrictService districtService, IStreetService streetService)
+		public RoomListViewModel(IRoomService roomService, IDistrictService districtService, IStreetService streetService)
 		{
 			_RoomService = roomService;
 			_DistrictService = districtService;
@@ -31,29 +31,30 @@ namespace RealEstateDirectory.MainFormTabs
 			_RoomService.StartSession();
 			LoadFiltersData();
 			LoadData();
+			//_RoomService.StopSession();
 		}
 
 		#endregion
 
-		private readonly District _AllDistricts = new District("< Ð²ÑÐµ >");
+		private readonly District _AllDistricts = new District("< âñå >");
 
-		private readonly District _NoneDistricts = new District("< Ð½Ðµ ÑƒÐºÐ°Ð·Ð°Ð½Ð¾ >");
+		private readonly District _NoneDistricts = new District("< íå óêàçàíî >");
 
-		private readonly Street _AllStreets = new Street("< Ð²ÑÐµ >");
+		private readonly Street _AllStreets = new Street("< âñå >");
 
-		private readonly Street _NoneStreets = new Street("< Ð½Ðµ ÑƒÐºÐ°Ð·Ð°Ð½Ð¾ >");
+		private readonly Street _NoneStreets = new Street("< íå óêàçàíî >");
 
 		private void LoadFiltersData()
 		{
-			_DistrictService.StartSession();
+			//_DistrictService.StartSession();
 			Districts = new ListCollectionView((new [] { _AllDistricts, _NoneDistricts }).Concat(
 				_DistrictService.GetAll().OrderBy(district => district.Name)).ToArray());
-			_DistrictService.StopSession();
+			//_DistrictService.StopSession();
 
-			_StreetService.StartSession();
+			//_StreetService.StartSession();
 			Streets = new ListCollectionView((new[] { _AllStreets, _NoneStreets }).Concat(
 				_StreetService.GetAll().OrderBy(street => street.Name)).ToArray());
-			_StreetService.StopSession();
+			//_StreetService.StopSession();
 		}
 
 		private void LoadData()

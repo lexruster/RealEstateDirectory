@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Shell="clr-namespace:RealEstateDirectory.Shell"
-        xmlns:MainFormTabs="clr-namespace:RealEstateDirectory.MainFormTabs"
+        xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room"
         mc:Ignorable="d" Title="Справочник недвижимости" Height="600" Width="800"
-        d:DataContext="{d:DesignInstance Shell:ShellViewModel}"
         Background="{DynamicResource WindowBackgroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
@@ -45,7 +43,7 @@
 			<TabItem Header="Квартиры">
 			</TabItem>
 			<TabItem Header="Комнаты">
-				<MainFormTabs:RoomsView DataContext="{Binding RoomsDataContext}" />
+				<Room:RoomListView DataContext="{Binding RoomsDataContext}" />
 			</TabItem>
 			<TabItem Header="Дома">
 			</TabItem>

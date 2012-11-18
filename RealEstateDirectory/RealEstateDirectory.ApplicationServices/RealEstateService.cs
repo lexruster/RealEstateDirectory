@@ -42,7 +42,7 @@ namespace RealEstateDirectory.ApplicationServices
 
         public void StopSession()
         {
-            Session.Dispose();
+            //Session.Dispose();
         }
 
         public virtual IEnumerable<T> GetAll()

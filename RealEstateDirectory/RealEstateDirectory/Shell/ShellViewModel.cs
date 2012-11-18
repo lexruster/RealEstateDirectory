@@ -19,6 +19,7 @@ using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.MainFormTabs;
+using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.Shell
@@ -49,7 +50,7 @@ namespace RealEstateDirectory.Shell
 
 			FlatCommand = new DelegateCommand(() => _ViewsService.GetView<FloorLevelDictionaryViewModel>());
 
-			RoomsDataContext = _ServiceLocator.GetInstance<RoomsViewModel>();
+			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
 		}
 
 		#region Infrastructure
@@ -83,6 +84,6 @@ namespace RealEstateDirectory.Shell
 		public ICommand PlotCommand { get; private set; }
 		public ICommand HouseCommand { get; private set; }
 
-		public RoomsViewModel RoomsDataContext { get; private set; }
+		public RoomListViewModel RoomsDataContext { get; private set; }
 	}
 }
