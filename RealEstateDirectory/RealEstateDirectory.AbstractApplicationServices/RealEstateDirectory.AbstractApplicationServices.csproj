@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{057D6555-AF8E-4F1C-8B76-B0BF0B9A8187}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RealEstateDirectory.AbstractApplicationServices</RootNamespace>
+    <AssemblyName>RealEstateDirectory.AbstractApplicationServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ValidationResult.cs" />
+    <Compile Include="Dictionary\IRealtorAgencyService.cs" />
+    <Compile Include="Dictionary\IDictionaryWithOnlyNameEntitiesService.cs" />
+    <Compile Include="IDataEntityBaseService.cs" />
+    <Compile Include="IFlatService.cs" />
+    <Compile Include="Dictionary\IRealtorService.cs" />
+    <Compile Include="Dictionary\IDealVariantService.cs" />
+    <Compile Include="Dictionary\IDictionaryService.cs" />
+    <Compile Include="Dictionary\IDistrictService.cs" />
+    <Compile Include="Dictionary\IFloorLevelService.cs" />
+    <Compile Include="Dictionary\ILayoutService.cs" />
+    <Compile Include="Dictionary\IMaterialService.cs" />
+    <Compile Include="Dictionary\IOwnershipService.cs" />
+    <Compile Include="Dictionary\ISewageService.cs" />
+    <Compile Include="Dictionary\IStreetService.cs" />
+    <Compile Include="Dictionary\ITerraceService.cs" />
+    <Compile Include="Dictionary\IToiletTypeService.cs" />
+    <Compile Include="Dictionary\IWaterSupplyService.cs" />
+    <Compile Include="IHouseService.cs" />
+    <Compile Include="IPlotService.cs" />
+    <Compile Include="IRealEstateService.cs" />
+    <Compile Include="IResidenceService.cs" />
+    <Compile Include="IRoomService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
+      <Project>{22BE708C-1BF3-4A52-963B-F397AE709792}</Project>
+      <Name>RealEstateDirectory.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
+      <Project>{AD6E8321-C385-4483-9FF1-03B88ABF8AE6}</Project>
+      <Name>RealEstateDirectory.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

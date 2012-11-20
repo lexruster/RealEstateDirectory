@@ -1,0 +1,56 @@
+﻿<Window x:Class="RealEstateDirectory.Shell.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room"
+        mc:Ignorable="d" Title="Справочник недвижимости" Height="600" Width="800"
+        Background="{DynamicResource WindowBackgroundBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" Command="{Binding ExitCommand}" />
+            </MenuItem>
+            
+            <MenuItem Header="Недвижимость">
+                <MenuItem Header="Квартиры" Command="{Binding FlatCommand}" />
+                <MenuItem Header="Комнаты" Command="{Binding RoomCommand}" />
+                <MenuItem Header="Дома" Command="{Binding HouseCommand}" />
+                <MenuItem Header="Помещения" Command="{Binding ResidenceCommand}" />
+                <MenuItem Header="Участки" Command="{Binding PlotCommand}" />
+            </MenuItem>
+            <MenuItem Header="Справочники">
+                <MenuItem Header="Агентства" Command="{Binding RealtorAgencyDictionaryCommand}" />
+                <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />
+                <MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
+                <MenuItem Header="Виды потолков" Command="{Binding FloorLevelDictionaryCommand}" />
+                <MenuItem Header="Планировка" Command="{Binding LayoutDictionaryCommand}" />
+                <MenuItem Header="Материалы" Command="{Binding MaterialDictionaryCommand}" />
+                <MenuItem Header="Собственность" Command="{Binding OwnershipDictionaryCommand}" />
+                <MenuItem Header="Риэлторы" Command="{Binding RealtorDictionaryCommand}" />
+                <MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />
+                <MenuItem Header="Улицы" Command="{Binding StreetDictionaryCommand}" />
+                <MenuItem Header="Тип балкона" Command="{Binding TerraceDictionaryCommand}" />
+                <MenuItem Header="Сан. узел" Command="{Binding ToiletTypeDictionaryCommand}" />
+                <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
+            </MenuItem>
+        </Menu>
+		<TabControl Grid.Row="1">
+			<TabItem Header="Квартиры">
+			</TabItem>
+			<TabItem Header="Комнаты">
+				<Room:RoomListView DataContext="{Binding RoomsDataContext}" />
+			</TabItem>
+			<TabItem Header="Дома">
+			</TabItem>
+			<TabItem Header="Помещения">
+			</TabItem>
+			<TabItem Header="Участки">
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>
