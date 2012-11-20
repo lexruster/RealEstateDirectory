@@ -102,9 +102,23 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
 		public ICommand AddCommand { get; private set; }
 
+		public ICommand OkCommand { get; private set; }
+
+		protected string result { get; set; }
+
 		private void Add()
 		{
-			IsOpenPopup = true;
+			result = "";
+			OkCommand = new DelegateCommand(() =>
+				{
+					result = "ok";
+				});
+
+			//IsOpenPopup = true;
+			DialogTest dt=new DialogTest();
+			dt.DataContext = this;
+			var y=dt.ShowDialog();
+			var t = y.ToString();
 		}
 	}
 }

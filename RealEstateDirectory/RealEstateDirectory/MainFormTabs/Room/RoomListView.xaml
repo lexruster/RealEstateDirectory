@@ -35,22 +35,10 @@
                     <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Район" />
-                    <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Districts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding District}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Districts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding District}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Улица" />
-                    <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Streets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Street}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Streets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Street}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Номер дома" />
                     <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
@@ -73,22 +61,13 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
-            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}"/>
+               
+           
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
-            <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}"/>
+               
         </Grid>
 
         <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Rooms}">

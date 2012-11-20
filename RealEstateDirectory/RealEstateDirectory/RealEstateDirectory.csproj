@@ -156,6 +156,9 @@
     <Compile Include="Dictionaries\DistrictDictionary\DistrictsDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\DistrictDictionary\DistrictViewModel.cs" />
     <Compile Include="Interfaces\ISessionedViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\DialogTest.xaml.cs">
+      <DependentUpon>DialogTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomListView.xaml.cs">
       <DependentUpon>RoomListView.xaml</DependentUpon>
@@ -225,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\Room\DialogTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
