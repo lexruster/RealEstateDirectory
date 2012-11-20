@@ -47,9 +47,6 @@ namespace RealEstateDirectory.Shell
 			TerraceDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<TerraceDictionaryViewModel>());
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
-
-			FlatCommand = new DelegateCommand(() => _ViewsService.GetView<FloorLevelDictionaryViewModel>());
-
 			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
 		}
 
