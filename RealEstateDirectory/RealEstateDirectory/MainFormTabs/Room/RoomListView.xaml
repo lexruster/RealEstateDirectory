@@ -5,107 +5,109 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-	<Grid x:Name="MainGrid">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<Button Margin="0, 2, 2, 2" Content="Добавить" Command="{Binding AddCommand}" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Margin="0, 2, 2, 2" Content="Добавить" Command="{Binding AddCommand}" />
             <Button Margin="2, 2, 0, 2" Content="Обновить" Command="{Binding UpdateCommand}" />
-		</StackPanel>
+        </StackPanel>
 
-		<Popup Grid.Row="1" IsOpen="{Binding IsOpenPopup}" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
-			<Grid DataContext="{Binding PopupDataContext}">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="Auto" MinWidth="200" />
-				</Grid.ColumnDefinitions>
+        <Popup Margin="10,10,0,13" Grid.Row="1" IsOpen="{Binding IsOpenPopup}" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
+            <Border Width="Auto" Height="Auto" Name="windowFrame">
+                <Grid DataContext="{Binding PopupDataContext}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" MinWidth="200" />
+                    </Grid.ColumnDefinitions>
 
-				<TextBlock Grid.Column="0" Grid.Row="0" Text="Количество комнат" />
-				<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Количество комнат" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
 
-				<TextBlock Grid.Column="0" Grid.Row="1" Text="Район" />
-				<ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Districts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding District}">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding Name}" />
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-				</ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Район" />
+                    <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Districts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding District}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
 
-				<TextBlock Grid.Column="0" Grid.Row="2" Text="Улица" />
-				<ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Streets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Street}">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding Name}" />
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-				</ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Улица" />
+                    <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Streets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Street}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
 
-				<TextBlock Grid.Column="0" Grid.Row="3" Text="Номер дома" />
-				<TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
-			</Grid>
-		</Popup>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Номер дома" />
+                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
+                </Grid>
+            </Border>
+        </Popup>
 
-		<Grid Grid.Row="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
-			<ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Text="{Binding Name}" />
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
-			<TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
-			<ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Text="{Binding Name}" />
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
-		</Grid>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
+            <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
 
-		<DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Rooms}">
-			<DataGrid.Columns>
-				<DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
-				<DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
-				<DataGridTextColumn IsReadOnly="True" Header="Адрес">
-					<DataGridTextColumn.Binding>
-						<MultiBinding StringFormat="{}{0}{1}">
-							<MultiBinding.Bindings>
-								<Binding Path="Street.Name" StringFormat="{}{0} ул., " FallbackValue="" TargetNullValue="" />
-								<Binding Path="TerritorialNumber" />
-							</MultiBinding.Bindings>
-						</MultiBinding>
-					</DataGridTextColumn.Binding>
-				</DataGridTextColumn>
-				<DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalRoomCount}" />
-				<DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, FallbackValue=''}" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Rooms}">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Адрес">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}{1}">
+                            <MultiBinding.Bindings>
+                                <Binding Path="Street.Name" StringFormat="{}{0} ул., " FallbackValue="" TargetNullValue="" />
+                                <Binding Path="TerritorialNumber" />
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalRoomCount}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, FallbackValue=''}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>
