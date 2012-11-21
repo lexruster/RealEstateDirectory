@@ -5,9 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             >
+             xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
+             mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
+                <Setter Property="NoGroupContent" Value="Перетащите сюда заголовок колонки для группировки"/>
+            </Style>
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -49,27 +59,54 @@
                   SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='', TargetNullValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
                 <DataGridTextColumn IsReadOnly="True" Header="Адрес">
                     <DataGridTextColumn.Binding>
                         <MultiBinding StringFormat="{}{0}{1}">
                             <MultiBinding.Bindings>
-                                <Binding Path="Street.Name" StringFormat="{}{0} ул., " Mode="OneWay" UpdateSourceTrigger="PropertyChanged" FallbackValue="" TargetNullValue="" />
+                                <Binding Path="Street.Name" StringFormat="{}{0} ул., " FallbackValue="" TargetNullValue="" />
                                 <Binding Path="TerritorialNumber" />
                             </MultiBinding.Bindings>
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalRoomCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Binding="{Binding RoomCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalFloor}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, FallbackValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Binding="{Binding RoomCount, FallbackValue=''}" />
             </DataGrid.Columns>
         </DataGrid>
-        
-            <xcdg:DataGridControl Grid.Row="3" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  
-                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="True"  >
-            
+
+        <xcdg:DataGridControl Grid.Row="3" ItemsSource="{Binding Rooms}" SelectionMode="Single" AutoCreateColumns="False"
+                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch">
+
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column ReadOnly="True" Title="Улица" FieldName="Street.Name" Width="100"/>
+                <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="100"/>
+
+
+                <xcdg:Column ReadOnly="True" Title="Комнат" Width="50" FieldName="TotalRoomCount" />
+                
+                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="addr" >
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.Street.Name"></Binding>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.TerritorialNumber"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
+                <xcdg:Column ReadOnly="True" Title="Этажность" FieldName="TotalFloor" />
+                <xcdg:Column ReadOnly="True" Title="Планировка" FieldName="Layout.Name" />
+                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" Width="*"/>
+                
+                
+            </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>
 </UserControl>

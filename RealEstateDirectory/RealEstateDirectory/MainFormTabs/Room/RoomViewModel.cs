@@ -95,6 +95,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
 		#region Свойства
 
+        public event Action<EditEndedMode, Domain.Entities.Room> EditEnded;
 		protected int Id { get; set; }
 		public Domain.Entities.Room DbEntity;
 		protected District NullDistrict = new District("");
@@ -169,6 +170,14 @@ namespace RealEstateDirectory.MainFormTabs.Room
 		{
 			return street.Equals(NullStreet) ? null : street;
 		}
+
+        
+
+        public void OnEditEnded(EditEndedMode mode, Domain.Entities.Room room)
+        {
+            Action<EditEndedMode, Domain.Entities.Room> handler = EditEnded;
+            if (handler != null) handler(mode, room);
+        }
 
 		#endregion
 
@@ -252,12 +261,6 @@ namespace RealEstateDirectory.MainFormTabs.Room
 			}
 		}
 
-		public event Action<EditEndedMode, Domain.Entities.Room> EditEnded;
-
-		public void OnEditEnded(EditEndedMode mode, Domain.Entities.Room room)
-		{
-			Action<EditEndedMode, Domain.Entities.Room> handler = EditEnded;
-			if (handler != null) handler(mode, room);
-		}
+		
 	}
 }
