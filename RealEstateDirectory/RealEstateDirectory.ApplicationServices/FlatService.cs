@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using System.Collections.Generic;
+using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -22,5 +23,14 @@ namespace RealEstateDirectory.ApplicationServices
         }
 
         #endregion
+
+		#region Методы
+
+		public override IEnumerable<Flat> GetAll()
+		{
+			return Repository.GetAllFlat();
+		}
+
+		#endregion
     }
 }

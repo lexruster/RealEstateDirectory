@@ -3,48 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             >
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="0, 2, 2, 2" Content="Добавить" Command="{Binding AddCommand}" />
-            <Button Margin="2, 2, 0, 2" Content="Обновить" Command="{Binding UpdateCommand}" />
+            <Button Margin="5" Width="100" Content="Добавить" Command="{Binding AddCommand}" />
+            <Button Margin="5" Width="100" Content="Изменить" Command="{Binding ChangeCommand}" />
+            <Button Margin="5" Width="100" Content="Удалить" Command="{Binding DeleteCommand}" />
+            <Button Margin="5" Width="100" Content="Обновить" Command="{Binding UpdateCommand}" />
         </StackPanel>
-
-        <Popup Margin="10,10,0,13" Grid.Row="1" IsOpen="{Binding IsOpenPopup}" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
-            <Border Width="Auto" Height="Auto" Name="windowFrame">
-                <Grid DataContext="{Binding PopupDataContext}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" MinWidth="200" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Количество комнат" />
-                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
-
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Район" />
-                    <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Districts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding District}"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Улица" />
-                    <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Streets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Street}"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Номер дома" />
-                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Rooms, ValidatesOnDataErrors=True}" />
-                </Grid>
-            </Border>
-        </Popup>
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -62,31 +39,39 @@
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
             <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}"/>
-               
-           
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
             <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}"/>
-               
+
         </Grid>
 
-        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Rooms}">
+        <DataGrid Grid.Row="2" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='', TargetNullValue=''}" />
                 <DataGridTextColumn IsReadOnly="True" Header="Адрес">
                     <DataGridTextColumn.Binding>
                         <MultiBinding StringFormat="{}{0}{1}">
                             <MultiBinding.Bindings>
-                                <Binding Path="Street.Name" StringFormat="{}{0} ул., " FallbackValue="" TargetNullValue="" />
+                                <Binding Path="Street.Name" StringFormat="{}{0} ул., " Mode="OneWay" UpdateSourceTrigger="PropertyChanged" FallbackValue="" TargetNullValue="" />
                                 <Binding Path="TerritorialNumber" />
                             </MultiBinding.Bindings>
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalRoomCount}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, FallbackValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalRoomCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" />
+                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Binding="{Binding RoomCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}" />
             </DataGrid.Columns>
         </DataGrid>
+        
+            <xcdg:DataGridControl Grid.Row="3" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  
+                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="True"  >
+            
+        </xcdg:DataGridControl>
     </Grid>
 </UserControl>
+
+    

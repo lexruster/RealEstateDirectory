@@ -23,5 +23,25 @@ namespace RealEstateDirectory.Domain.Data.Repository
         {
             return CurrentSession.Query<Plot>().Where(x => x is Plot);
         }
+
+		public IEnumerable<Flat> GetAllFlat()
+		{
+			return CurrentSession.Query<Flat>().Where(x => x is Flat);
+		}
+
+		public IEnumerable<Room> GetAllRoom()
+		{
+			return CurrentSession.Query<Room>().Where(x => x is Room);
+		}
+
+		public IEnumerable<Residence> GetAllResidence()
+		{
+			return CurrentSession.Query<Residence>().Where(x => x is Residence);
+		}
+
+		public IEnumerable<House> GetAllHouse()
+		{
+			return CurrentSession.Query<House>().Where(x => x is House);
+		}
     }
 }

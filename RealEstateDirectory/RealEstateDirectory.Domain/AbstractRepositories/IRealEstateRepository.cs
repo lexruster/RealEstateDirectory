@@ -11,5 +11,9 @@ namespace RealEstateDirectory.Domain.AbstractRepositories
     public interface IRealEstateRepository : IRepositoryWithTypedId<int>
     {
         IEnumerable<Plot> GetAllPlot();
+		IEnumerable<Flat> GetAllFlat();
+		IEnumerable<Residence> GetAllResidence();
+		IEnumerable<House> GetAllHouse();
+		IEnumerable<Room> GetAllRoom();
     }
 }

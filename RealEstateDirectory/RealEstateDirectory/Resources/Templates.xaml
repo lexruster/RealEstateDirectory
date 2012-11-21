@@ -10,6 +10,19 @@
         <Setter Property="Title" Value="{Binding DictionaryName}"></Setter>
     </Style>
 
+    <Style x:Key="EntityWindow" TargetType="{x:Type Window}">
+        <Setter Property="WindowStyle" Value="ThreeDBorderWindow"></Setter>
+        <Setter Property="Width" Value="400"></Setter>
+        <Setter Property="Height" Value="650"></Setter>
+        <Setter Property="MinHeight" Value="400"></Setter>
+        <Setter Property="MinWidth" Value="300"></Setter>
+    </Style>
+
+    <Style x:Key="TextBlock"  TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Margin" Value="3"></Setter>
+    </Style>
 
     <DataTemplate DataType="{x:Type Dictionaries:District}">
         <TextBlock Text="{Binding Name}"></TextBlock>
@@ -29,7 +42,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="3" Padding="3" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
+                    <TextBlock Style="{StaticResource TextBlock}" Grid.Row="0"  Padding="3" Text="{Binding DictionaryName}"  ></TextBlock>
                     <DataGrid Grid.Row="1" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True}" Header="Наименование" Width="*"/>

@@ -13,7 +13,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="3" Padding="5" Text="{Binding DictionaryName}" FontWeight="Bold" ></TextBlock>
+                <TextBlock Style="{StaticResource TextBlock}" Grid.Row="0"  Padding="5" Text="{Binding DictionaryName}"  ></TextBlock>
                 <DataGrid Grid.Row="1" ItemsSource="{Binding Entities}" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True}" Header="Наименование" Width="Auto"/>
@@ -30,8 +30,8 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="0" Text="Имя:" FontWeight="Bold"></TextBlock>
-                    <TextBlock Margin="3" Grid.Column="0" Grid.Row="1" Text="Телефон:" FontWeight="Bold" ></TextBlock>
+                    <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="0" Text="Имя:" ></TextBlock>
+                    <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="1" Text="Телефон:"  ></TextBlock>
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  Width="Auto" Command="{Binding AddCommand}">Добавить</Button>

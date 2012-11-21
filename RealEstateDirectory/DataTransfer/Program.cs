@@ -62,27 +62,32 @@ namespace DataTransfer
 
 		private static void DeleteData(ISession hb)
 		{
-			foreach (var ent in hb.Query<Flat>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<House>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<Plot>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<Residence>().ToList())
-			{
-				hb.Delete(ent);
-			}
-			foreach (var ent in hb.Query<Room>().ToList())
-			{
-				hb.Delete(ent);
-			}
+			//foreach (var ent in hb.Query<Flat>().ToList())
+			//{
+			//	hb.Delete(ent);
+			//}
+			//foreach (var ent in hb.Query<House>().ToList())
+			//{
+			//	hb.Delete(ent);
+			//}
+			//foreach (var ent in hb.Query<Plot>().ToList())
+			//{
+			//	hb.Delete(ent);
+			//}
+			//foreach (var ent in hb.Query<Residence>().ToList())
+			//{
+			//	hb.Delete(ent);
+			//}
+			//foreach (var ent in hb.Query<Room>().ToList())
+			//{
+			//	hb.Delete(ent);
+			//}
 
+			foreach (var ent in hb.Query<RealEstate>().ToList())
+			{
+				hb.Delete(ent);
+			}
+			  
 
 			foreach (var ent in hb.Query<DealVariant>().ToList())
 			{
@@ -272,7 +277,7 @@ namespace DataTransfer
 			var helper = new DataResolveHelper(hb);
 			helper.IdDictionaryMaps = _idDictionaryMaps;
 			//IFlatService
-			foreach (var l in linq.AppartmentForSales)
+			foreach (var l in linq.AppartmentForSales.Where(x=>x.bActual.HasValue && x.bActual.Value))
 			{
 				var hbEntity = new Flat
 					{
@@ -306,7 +311,7 @@ namespace DataTransfer
 			Console.WriteLine("Квартиры - готово");
 
 			//IHouseService
-			foreach (var l in linq.HousesForSales)
+			foreach (var l in linq.HousesForSales.Where(x => x.bActual.HasValue && x.bActual.Value))
 			{
 				var hbEntity = new House
 					{
@@ -338,7 +343,7 @@ namespace DataTransfer
 			Console.WriteLine("Дома - готово");
 
 			//IPlotService
-			foreach (var l in linq.HomestadForSales)
+			foreach (var l in linq.HomestadForSales.Where(x => x.bActual.HasValue && x.bActual.Value))
 			{
 				var hbEntity = new Plot
 					{
@@ -361,7 +366,7 @@ namespace DataTransfer
 			Console.WriteLine("Участки - готово");
 
 			//IResidenceService
-			foreach (var l in linq.PlacementForSales)
+			foreach (var l in linq.PlacementForSales.Where(x => x.bActual.HasValue && x.bActual.Value))
 			{
 				var hbEntity = new Residence
 					{
@@ -388,7 +393,7 @@ namespace DataTransfer
 			Console.WriteLine("Помещения - готово");
 
 			//IRoomService
-			foreach (var l in linq.RoomsForSales)
+			foreach (var l in linq.RoomsForSales.Where(x => x.bActual.HasValue && x.bActual.Value))
 			{
 				var hbEntity = new Room
 					{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
@@ -50,12 +51,12 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             //Session.Dispose();
         }
 
-        public IEnumerable<T> GetAll()
-        {
-            return Repository.GetAll<T>();
-        }
+		public IEnumerable<T> GetAll()
+		{
+			return Repository.GetAll<T>().OrderBy(x => x.Name);
+		}
 
-        /// <summary>
+	    /// <summary>
         /// Получить по ИД
         /// </summary>
         /// <param name="id"></param>

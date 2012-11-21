@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Xceed.Wpf.Toolkit;
 using System.Windows.Shapes;
 
 namespace RealEstateDirectory.MainFormTabs.Room
@@ -17,9 +18,9 @@ namespace RealEstateDirectory.MainFormTabs.Room
 	/// <summary>
 	/// Interaction logic for DialogTest.xaml
 	/// </summary>
-	public partial class DialogTest : Window
+	public partial class RoomView : Window
 	{
-		public DialogTest()
+		public RoomView()
 		{
 			InitializeComponent();
 		}

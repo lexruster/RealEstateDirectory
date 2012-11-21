@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
@@ -22,5 +23,15 @@ namespace RealEstateDirectory.ApplicationServices
         }
 
         #endregion
+
+
+		#region Ìועמהû
+
+		public override IEnumerable<House> GetAll()
+		{
+			return Repository.GetAllHouse();
+		}
+
+		#endregion
     }
 }

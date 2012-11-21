@@ -111,6 +111,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
+			
+			Container.RegisterType<RoomViewModel>();
 		}
 	}
 }
