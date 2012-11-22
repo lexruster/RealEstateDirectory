@@ -53,16 +53,7 @@
     <Reference Include="Npgsql">
       <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="PresentationFramework.Aero2" />
-    <Reference Include="PresentationFramework.AeroLite" />
-    <Reference Include="PresentationFramework.Classic" />
-    <Reference Include="PresentationFramework.Luna" />
-    <Reference Include="PresentationFramework.Royale" />
-    <Reference Include="ReachFramework" />
-    <Reference Include="ReuxablesLegacy">
-      <HintPath>..\..\Dependencies\Reuxables\ReuxablesLegacy.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -71,7 +62,6 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="NotifyPropertyWeaver">
       <HintPath>$(SolutionDir)..\Dependencies\NotifyPropertyWeaver\NotifyPropertyWeaver.dll</HintPath>
     </Reference>
@@ -252,6 +242,14 @@
     <Page Include="Shell\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\BureauBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\WhistlerBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

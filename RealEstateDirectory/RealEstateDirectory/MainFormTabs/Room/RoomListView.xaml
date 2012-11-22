@@ -12,7 +12,10 @@
         <ResourceDictionary>
             <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
                 <Setter Property="NoGroupContent" Value="Перетащите сюда заголовок колонки для группировки"/>
+                <Setter Property="Background" Value="white"/>
             </Style>
+
+          
             
         </ResourceDictionary>
     </UserControl.Resources>
@@ -22,8 +25,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
@@ -55,9 +58,9 @@
 
         </Grid>
 
-        <DataGrid Grid.Row="2" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+        <DataGrid Grid.Row="3" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  CanUserAddRows="False" CanUserDeleteRows="False">
+                  CanUserAddRows="False" CanUserDeleteRows="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
                 <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
@@ -77,8 +80,16 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <xcdg:DataGridControl Grid.Row="3" ItemsSource="{Binding Rooms}" SelectionMode="Single" AutoCreateColumns="False"
-                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch">
+        <xcdg:DataGridControl Grid.Row="2" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoCreateColumns="False"
+                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                              ItemScrollingBehavior="Immediate">
+            <xcdg:DataGridControl.View>
+                <xcdg:TableView>
+                    <xcdg:TableView.Theme>
+                        <xcdg:AeroNormalColorTheme/>
+                    </xcdg:TableView.Theme>
+                </xcdg:TableView>
+            </xcdg:DataGridControl.View>
 
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column ReadOnly="True" Title="Улица" FieldName="Street.Name" Width="100"/>

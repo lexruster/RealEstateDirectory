@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Xceed.Wpf.Toolkit;
 using System.Windows.Shapes;
 
 namespace RealEstateDirectory.MainFormTabs.Room

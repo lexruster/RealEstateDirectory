@@ -46,24 +46,24 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding StateStr, Mode=OneWay}"  HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="1" Text="Название:" ></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}"
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" 
                              Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="2" Text="Директор:" ></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}"
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" IsReadOnly="{Binding ReadOnly}" 
                              Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="3" Text="Адрес:" ></TextBlock>
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50"
-                             IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="4" Text="Контакты:" ></TextBlock>
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="4"  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50" 
-                             IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Contacts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Contacts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="5" Text="Комментарий:" ></TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="5" Margin="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"
-                             IsReadOnly="{Binding ReadOnly}" IsEnabled="{Binding Enabled}" HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
                     <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom" Visibility="{Binding CollectionChangeSectionVisibility}">

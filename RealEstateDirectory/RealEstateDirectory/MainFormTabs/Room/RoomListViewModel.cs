@@ -141,7 +141,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 			{
 				//RaisePropertyChanged(PropertySupport.ExtractPropertyName(() => Rooms));
 				var curItem = CurrentRoom;
-				var t=Rooms;
+				var t = Rooms;
 				Rooms = null;
 				Rooms = t;
 				CurrentRoom = curItem;

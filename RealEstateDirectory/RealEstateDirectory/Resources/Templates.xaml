@@ -24,13 +24,13 @@
         <Setter Property="Margin" Value="3"></Setter>
     </Style>
 
-    <!--<DataTemplate DataType="{x:Type Dictionaries:District}">
+    <DataTemplate DataType="{x:Type Dictionaries:District}">
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type Dictionaries:Street}">
         <TextBlock Text="{Binding Name}"></TextBlock>
-    </DataTemplate>-->
+    </DataTemplate>
  
 
     <ControlTemplate x:Key="DictionaryWithOnlyNameEntitiesViewTemplate" TargetType="{x:Type Window}" >
