@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room"
-        mc:Ignorable="d" Title="Справочник недвижимости" Height="600" Width="800"
+        mc:Ignorable="d" Title="Справочник недвижимости"  MinHeight="600" MinWidth="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Background="{DynamicResource WindowBackgroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
@@ -43,7 +43,7 @@
 			<TabItem Header="Квартиры">
 			</TabItem>
 			<TabItem Header="Комнаты">
-				<Room:RoomListView DataContext="{Binding RoomsDataContext}" />
+				<Room:RoomListView DataContext="{Binding RoomsDataContext}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 			</TabItem>
 			<TabItem Header="Дома">
 			</TabItem>

@@ -7,21 +7,16 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
              mc:Ignorable="d" >
-
     <UserControl.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
                 <Setter Property="NoGroupContent" Value="Перетащите сюда заголовок колонки для группировки"/>
                 <Setter Property="Background" Value="white"/>
             </Style>
-
-          
-            
         </ResourceDictionary>
     </UserControl.Resources>
-    
 
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -55,34 +50,12 @@
 
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
             <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}"/>
-
         </Grid>
-
-        <DataGrid Grid.Row="3" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  CanUserAddRows="False" CanUserDeleteRows="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Width="10" Binding="{Binding TotalRoomCount, TargetNullValue=''}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name, FallbackValue='', TargetNullValue=''}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Адрес">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0}{1}">
-                            <MultiBinding.Bindings>
-                                <Binding Path="Street.Name" StringFormat="{}{0} ул., " FallbackValue="" TargetNullValue="" />
-                                <Binding Path="TerritorialNumber" />
-                            </MultiBinding.Bindings>
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="True" Header="Этажность" Binding="{Binding TotalFloor}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Планировка" Binding="{Binding Layout.Name, FallbackValue=''}" />
-                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Binding="{Binding RoomCount, FallbackValue=''}" />
-            </DataGrid.Columns>
-        </DataGrid>
-
+        <!--ItemScrollingBehavior="Immediate"  Loaded="dataGrid_Loaded" -->
         <xcdg:DataGridControl Grid.Row="2" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoCreateColumns="False"
                   SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                              ItemScrollingBehavior="Immediate">
+                              
+                              Name="dataGrid">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView>
                     <xcdg:TableView.Theme>
@@ -92,13 +65,8 @@
             </xcdg:DataGridControl.View>
 
             <xcdg:DataGridControl.Columns>
-                <xcdg:Column ReadOnly="True" Title="Улица" FieldName="Street.Name" Width="100"/>
-                <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="100"/>
-
-
-                <xcdg:Column ReadOnly="True" Title="Комнат" Width="50" FieldName="TotalRoomCount" />
-                
-                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="addr" >
+                <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
+                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Addres"  MinWidth="100" Width="140">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -112,11 +80,50 @@
                         </DataTemplate>
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
-                <xcdg:Column ReadOnly="True" Title="Этажность" FieldName="TotalFloor" />
-                <xcdg:Column ReadOnly="True" Title="Планировка" FieldName="Layout.Name" />
-                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" Width="*"/>
-                
-                
+
+                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="Rooms" Width="40">
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.RoomCount"></Binding>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.TotalRoomCount"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
+
+                <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="Floors" Width="40">
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.Floor"></Binding>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.TotalFloor"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
+
+                <xcdg:Column ReadOnly="True" Title="Планировка"  FieldName="Layout.Name" MinWidth="40" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="50"/>
+                <xcdg:Column ReadOnly="True" Title="Материал" FieldName="Material.Name" MinWidth="60" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Потолки" FieldName="FloorLevel.Name" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40"/>
+                <xcdg:Column ReadOnly="True" Title="Вариант" FieldName="DealVariant.Name" MinWidth="60" Width="80"/>
+                <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>
+                <xcdg:Column ReadOnly="True" Title="Комментарий" FieldName="Description" Width="*"/>
+                <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
+                <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="Realtor.Name" MinWidth="100"/>
+                <xcdg:Column ReadOnly="True" Title="Вид." FieldName="HasVideo" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Дом." FieldName="SubmitToDomino" Width="40"/>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>

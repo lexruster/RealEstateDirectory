@@ -11,256 +11,151 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.MainFormTabs.Room
 {
-	[NotifyForAll]
-	public class RoomEditViewModel : NotificationObject, IDataErrorInfo
-	{
-		public enum EditEndedMode
-		{
-			Cancel = 1,
-			Add = 2,
-			Edit = 3
-		}
+    [NotifyForAll]
+    public class RoomEditViewModel : RealEstateEditViewModel<Domain.Entities.Room>
+    {
 
-		#region Конструктор
+        #region Конструктор
 
-		public RoomEditViewModel(IRoomService service, IMessageService messageService,
-		                     IDistrictService districtService, IViewsService viewsService)
-		{
-			_RoomService = service;
-			_MessageService = messageService;
-			_DistrictService = districtService;
-			_ViewsService = viewsService;
-
-			PropertyChanged += (sender, args) =>
-				{
-					//if (args.PropertyName == PropertySupport.ExtractPropertyName(() => HouseNumber) ||
-					//	args.PropertyName == PropertySupport.ExtractPropertyName(() => StreetList) ||
-					//	args.PropertyName == PropertySupport.ExtractPropertyName(() => DistrictList))
-					//{
-					//	OkCommand.RaiseCanExecuteChanged();
-					//	CancelCommand.RaiseCanExecuteChanged();
-					//}
-				};
-
-			OkCommand = new DelegateCommand(() =>
-				{
-					var mode = Id == 0 ? EditEndedMode.Add : EditEndedMode.Edit;
-					var error = Error;
-					if (error == null)
-					{
-						UpdateModelFromValues();
-						SaveToDatabase();
-						_ViewsService.CloseRoomDialog(this);
-						OnEditEnded(mode, DbEntity);
-					}
-					else
-					{
-						_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
-					}
-				}, CanOk);
-
-			CancelCommand = new DelegateCommand(() =>
-				{
-					UpdateValuesFromModel();
-					_ViewsService.CloseRoomDialog(this);
-					OnEditEnded(EditEndedMode.Cancel, null);
-				}, CanCancel);
-		}
-
-		#endregion
-
-		#region Infrastructure
-
-		private readonly IRoomService _RoomService;
-		private readonly IMessageService _MessageService;
-		private readonly IDistrictService _DistrictService;
-		private readonly IViewsService _ViewsService;
-
-		
-
-		#endregion
-
-		#region Свойства  INotifi
-
-		public ListCollectionView DistrictList { get; private set; }
-		public ListCollectionView StreetList { get; private set; }
-		public int Rooms { get; set; }
-		public string HouseNumber { get; set; }
-
-		#endregion
-
-		#region Свойства
-
-        public event Action<EditEndedMode, Domain.Entities.Room> EditEnded;
-		protected int Id { get; set; }
-		public Domain.Entities.Room DbEntity;
-		protected District NullDistrict = new District("");
-		protected Street NullStreet = new Street("");
-
-		#endregion
-
-		#region Методы
-
-		public virtual void BeginEdit(Domain.Entities.Room room)
-		{
-			DistrictList = new ListCollectionView((new[] { NullDistrict }).Concat(_DistrictService.GetAll()).ToList());
-
-			DbEntity = room;
-			UpdateValuesFromModel();
-
-			DistrictList.CurrentChanged += (sender, args) =>
-			{
-				UpdateStreet();
-			};
-
-			_ViewsService.OpenRoomDialog(this);
-		}
-
-		private void UpdateStreet()
-		{
-			var district = DistrictList.CurrentItem as District;
-			if (district != null)
-			{
-				StreetList = new ListCollectionView((new[] {NullStreet}).Concat(district.Streets).ToList());
-				if (district.Equals(DbEntity.District))
-				{
-					StreetList.MoveCurrentTo(DbEntity.Street);
-				}
-			}
-		}
-
-		protected void UpdateValuesFromModel()
-		{
-			Rooms = DbEntity.RoomCount ?? 0;
-			DistrictList.MoveCurrentTo(DbEntity.District);
-
-			if (DbEntity.District != null)
-			{
-				StreetList = new ListCollectionView((new[] {NullStreet}).Concat(DbEntity.District.Streets).ToList());
-				StreetList.MoveCurrentTo(DbEntity.Street);
-			}
-			HouseNumber = DbEntity.TerritorialNumber;
-			Id = DbEntity.Id;
-		}
-
-		protected void UpdateModelFromValues()
-		{
-			DbEntity.RoomCount = Rooms;
-			DbEntity.District = ResolveDistrict(DistrictList.CurrentItem as District);
-			DbEntity.Street = ResolveStreet(StreetList.CurrentItem as Street);
-			DbEntity.TerritorialNumber = HouseNumber;
-		}
-
-		public void SaveToDatabase()
-		{
-			_RoomService.Save(DbEntity);
-			UpdateValuesFromModel();
-		}
-
-		private District ResolveDistrict(District district)
-		{
-			return district.Equals(NullDistrict) ? null : district;
-		}
-
-		private Street ResolveStreet(Street street)
-		{
-			return street.Equals(NullStreet) ? null : street;
-		}
-
-        
-
-        public void OnEditEnded(EditEndedMode mode, Domain.Entities.Room room)
+        public RoomEditViewModel(IRoomService service, IMessageService messageService,
+                                 IDistrictService districtService, IViewsService viewsService,
+                                 IRealtorService realtorService, IOwnershipService ownershipService,
+                                 IDealVariantService dealVariantService,
+                                 ITerraceService terraceService, IMaterialService materialService,
+                                 ILayoutService layoutService, IFloorLevelService floorLevelService)
+            : base(service, messageService, districtService, realtorService, ownershipService, dealVariantService)
         {
-            Action<EditEndedMode, Domain.Entities.Room> handler = EditEnded;
-            if (handler != null) handler(mode, room);
+            _ViewsService = viewsService;
+            _TerraceService = terraceService;
+            _MaterialService = materialService;
+            _LayoutService = layoutService;
+            _FloorLevelService = floorLevelService;
         }
 
-		#endregion
+        #endregion
 
-		#region Команды
+        #region Infrastructure
 
-		public DelegateCommand OkCommand { get; protected set; }
-		public DelegateCommand CancelCommand { get; protected set; }
+        private readonly IViewsService _ViewsService;
+        private readonly ITerraceService _TerraceService;
+        private readonly IMaterialService _MaterialService;
+        private readonly ILayoutService _LayoutService;
+        private readonly IFloorLevelService _FloorLevelService;
 
-		#endregion
+        #endregion
 
-		#region Методы проверки команд
+        #region Свойства  INotifi
 
-		protected bool CanOk()
-		{
-			return true;
-		}
+        public decimal? TotalSquare { get; set; }
+        public int? TotalRoomCount { get; set; }
+        public int? TotalFloor { get; set; }
+        public ListCollectionView Terrace { get; set; }
+        public int? RoomCount { get; set; }
+        public ListCollectionView Material { get; set; }
+        public ListCollectionView Layout { get; set; }
+        public ListCollectionView FloorLevel { get; set; }
+        public int? Floor { get; set; }
 
-		protected bool CanCancel()
-		{
-			return true;
-		}
+        #endregion
 
-		#endregion
+        #region Свойства
 
-		#region Перегрузки
+        #endregion
 
+        #region Перегрузки
 
-		#region IDataErrorInfo
+        protected override void UpdateValuesFromConcreteModel()
+        {
+            TotalSquare = DbEntity.TotalSquare;
+            TotalRoomCount = DbEntity.TotalRoomCount;
+            TotalFloor = DbEntity.TotalFloor;
+            RoomCount = DbEntity.RoomCount;
+            Floor = DbEntity.Floor;
+            Terrace.MoveCurrentTo(DbEntity.Terrace);
+            Material.MoveCurrentTo(DbEntity.Material);
+            Layout.MoveCurrentTo(DbEntity.Layout);
+            FloorLevel.MoveCurrentTo(DbEntity.FloorLevel);
+        }
 
-		public string this[string propertyName]
-		{
-			get
-			{
-				if (propertyName == PropertySupport.ExtractPropertyName(() => Rooms))
-				{
-					if (Rooms < 1)
-						return "Неверное количество комнат";
-				}
+        protected override void UpdateConcreteModelFromValues()
+        {
+            SetRoomValues(DbEntity);
+        }
 
-				return null;
-			}
-		}
+        protected override void CloseDialog()
+        {
+            _ViewsService.CloseRoomDialog();
+        }
 
-		public string Error
-		{
-			get
-			{
-				var validation = _RoomService.IsValid(new Domain.Entities.Room
-					{
-						RoomCount = Rooms,
-						District = ResolveDistrict(DistrictList.CurrentItem as District),
-						Street = ResolveStreet(StreetList.CurrentItem as Street),
-						TerritorialNumber = HouseNumber
-					}, Id);
-				return validation.IsValid ? null : validation.GetReasons();
-			}
-		}
+        protected override void OpenDialog()
+        {
+            _ViewsService.OpenRoomDialog(this);
+        }
 
-		
+        protected override Domain.Entities.Room CreateNewModel()
+        {
+            var room = new Domain.Entities.Room();
+            SetRoomValues(room);
+            SetRealEstateValues(room);
 
-		#endregion
+            return room;
+        }
 
-		#endregion
+        protected void SetRoomValues(Domain.Entities.Room room)
+        {
+            room.TotalSquare = TotalSquare;
+            room.TotalRoomCount = TotalRoomCount;
+            room.TotalFloor = TotalFloor;
+            room.RoomCount = RoomCount;
+            room.Floor = Floor;
+            room.Terrace = ResolveDictionary<Terrace>(Terrace);
+            room.Material = ResolveDictionary<Material>(Material);
+            room.Layout = ResolveDictionary<Layout>(Layout);
+            room.FloorLevel = ResolveDictionary<FloorLevel>(FloorLevel);
+        }
 
-		public virtual void EndEdisdst()
-		{
-			var error = Error;
+        protected override string ChildDataError(string propertyName)
+        {
+            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
+            {
+                if (TotalSquare < 0)
+                    return "Площадь не может быть отрицательной";
+            }
 
-			if (error == null)
-			{
-				UpdateModelFromValues();
-				SaveToDatabase();
-			}
-			else
-			{
-				UpdateValuesFromModel();
-				if (_MessageService != null)
-				{
-					_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
-				}
-			}
-		}
+            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount))
+            {
+                if (TotalRoomCount < 0)
+                    return "Полное число комнат не может быть отрицательной";
+            }
 
-		
-	}
+            if (propertyName == PropertySupport.ExtractPropertyName(() => RoomCount))
+            {
+                if (RoomCount < 0)
+                    return "Число комнат не может быть отрицательной";
+            }
+
+            if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
+            {
+                if (Floor < 0)
+                    return "Этаж не может быть отрицательным";
+            }
+
+            return null;
+        }
+
+        protected override void InitCollection()
+        {
+            Terrace = new ListCollectionView((new[] {NullTerrace}).Concat(_TerraceService.GetAll()).ToList());
+            Layout = new ListCollectionView((new[] {NullLayout}).Concat(_LayoutService.GetAll()).ToList());
+            Material = new ListCollectionView((new[] {NullMaterial}).Concat(_MaterialService.GetAll()).ToList());
+            FloorLevel = new ListCollectionView((new[] {NullFloorLevel}).Concat(_FloorLevelService.GetAll()).ToList());
+        }
+
+        #endregion
+    }
 }

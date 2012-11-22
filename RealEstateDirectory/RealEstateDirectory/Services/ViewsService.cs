@@ -18,6 +18,8 @@ using RealEstateDirectory.Dictionaries.StreetDictionary;
 using RealEstateDirectory.Dictionaries.TerraceDictionary;
 using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
+using RealEstateDirectory.Domain.Entities;
+using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.MainFormTabs.Room;
 
 namespace RealEstateDirectory.Services
@@ -131,7 +133,7 @@ namespace RealEstateDirectory.Services
 			}
 		}
 
-		public void CloseRoomDialog(RoomEditViewModel roomEditViewModel)
+		public void CloseRoomDialog()
 		{
 			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (RoomView));
 			if (view != null)

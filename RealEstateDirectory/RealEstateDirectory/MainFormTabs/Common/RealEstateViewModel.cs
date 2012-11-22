@@ -34,7 +34,12 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		#region Свойства
 
-		public T DbEntity;
+	    public string PriceString
+	    {
+            get { return String.Format("{0:0,0.00}", Price); }
+	    }
+
+	    public T DbEntity;
 
 		#endregion
 

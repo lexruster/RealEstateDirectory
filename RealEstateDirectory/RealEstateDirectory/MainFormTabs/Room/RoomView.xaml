@@ -34,14 +34,16 @@
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Улица" />
                         <ComboBox ItemsSource="{Binding StreetList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  TextSearch.TextPath = "Name"/>
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Номер дома" />
-                        <TextBox Text="{Binding HouseNumber, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding TerritorialNumber, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header ="Параметры" Grid.Column="2" Grid.Row="0" Margin="3">
                     <StackPanel >
                         <TextBlock Style="{StaticResource TextBlock}" Text="Комнат"  />
-                        <TextBox Text="{Binding Rooms, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding RoomCount, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Style="{StaticResource TextBlock}" Text="Цена"  />
+                        <TextBox Text="{Binding Price, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </GroupBox>
 
