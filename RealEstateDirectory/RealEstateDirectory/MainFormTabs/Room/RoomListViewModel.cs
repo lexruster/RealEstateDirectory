@@ -17,13 +17,12 @@ namespace RealEstateDirectory.MainFormTabs.Room
 	[NotifyForAll]
 	public class RoomListViewModel : NotificationObject
 	{
-		public RoomListViewModel(IServiceLocator serviceLocator, IRoomService roomService, IDistrictService districtService, IStreetService streetService, IViewsService viewsService)
+		public RoomListViewModel(IServiceLocator serviceLocator, IRoomService roomService, IDistrictService districtService, IStreetService streetService)
 		{
 			_ServiceLocator = serviceLocator;
 			_RoomService = roomService;
 			_DistrictService = districtService;
 			_StreetService = streetService;
-			_ViewsService = viewsService;
 
 			AddCommand = new DelegateCommand(Add);
 			ChangeCommand = new DelegateCommand(Change);
@@ -39,14 +38,12 @@ namespace RealEstateDirectory.MainFormTabs.Room
 		private readonly IDistrictService _DistrictService;
 
 		private readonly IStreetService _StreetService;
-		private readonly IViewsService _ViewsService;
 
 		public void Initialize()
 		{
 			_RoomService.StartSession();
 			LoadFiltersData();
 			LoadData();
-			//_RoomService.StopSession();
 		}
 
 		#endregion
@@ -87,7 +84,14 @@ namespace RealEstateDirectory.MainFormTabs.Room
 					? rooms.Where(room => room.Street == null)
 					: rooms.Where(room => room.Street != null && room.Street.Id == CurrentStreet.Id);
 
-			Rooms = new ObservableCollection<Domain.Entities.Room>(rooms.ToArray());
+			Rooms = new ObservableCollection<RoomViewModel>(rooms.Select(CreateNewViewModel));
+		}
+
+		protected RoomViewModel CreateNewViewModel(Domain.Entities.Room model)
+		{
+			var viewModel = _ServiceLocator.GetInstance<RoomViewModel>();
+			viewModel.LoadViewModel(model);
+			return viewModel;
 		}
 
 		public ObservableCollection<District> Districts { get; private set; }
@@ -97,13 +101,8 @@ namespace RealEstateDirectory.MainFormTabs.Room
 		public ObservableCollection<Street> Streets { get; private set; }
 
 		public Street CurrentStreet { get; private set; }
-		public Domain.Entities.Room CurrentRoom { get; private set; }
-		
-		//public ListCollectionView Rooms { get; private set; }
-		public ObservableCollection<Domain.Entities.Room> Rooms { get; private set; }
-		
-
-		public RoomViewModel PopupDataContext { get; private set; }
+		public RoomViewModel CurrentRoom { get; private set; }
+		public ObservableCollection<RoomViewModel> Rooms { get; private set; }
 
 		public ICommand AddCommand { get; private set; }
 		public ICommand ChangeCommand { get; private set; }
@@ -111,40 +110,33 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
 		protected void Add()
 		{
-			var roomViewModel = _ServiceLocator.GetInstance<RoomViewModel>();
+			var roomViewModel = _ServiceLocator.GetInstance<RoomEditViewModel>();
 			roomViewModel.EditEnded += RoomViewModelOnEditEnded;
 			roomViewModel.BeginEdit(new Domain.Entities.Room());
 		}
 
 		protected void Change()
 		{
-			var roomViewModel = _ServiceLocator.GetInstance<RoomViewModel>();
+			var roomViewModel = _ServiceLocator.GetInstance<RoomEditViewModel>();
 			roomViewModel.EditEnded += RoomViewModelOnEditEnded;
-			roomViewModel.BeginEdit(CurrentRoom);
+			roomViewModel.BeginEdit(CurrentRoom.DbEntity);
 		}
 
 		protected void Delete()
 		{
-			_RoomService.Delete(CurrentRoom);
+			_RoomService.Delete(CurrentRoom.DbEntity);
 			Rooms.Remove(CurrentRoom);
 		}
 
-		private void RoomViewModelOnEditEnded(RoomViewModel.EditEndedMode editEndedMode, Domain.Entities.Room room)
+		private void RoomViewModelOnEditEnded(RoomEditViewModel.EditEndedMode editEndedMode, Domain.Entities.Room room)
 		{
-			if(editEndedMode==RoomViewModel.EditEndedMode.Add)
+			if(editEndedMode==RoomEditViewModel.EditEndedMode.Add)
 			{
-				//Rooms.AddNewItem(room);
-				//Rooms.CommitNew();
-				Rooms.Add(room);
+				Rooms.Add(CreateNewViewModel(room));
 			}
-			if(editEndedMode==RoomViewModel.EditEndedMode.Edit)
+			if(editEndedMode==RoomEditViewModel.EditEndedMode.Edit)
 			{
-				//RaisePropertyChanged(PropertySupport.ExtractPropertyName(() => Rooms));
-				var curItem = CurrentRoom;
-				var t = Rooms;
-				Rooms = null;
-				Rooms = t;
-				CurrentRoom = curItem;
+				CurrentRoom.LoadViewModel(room);
 			}
 		}
 	}

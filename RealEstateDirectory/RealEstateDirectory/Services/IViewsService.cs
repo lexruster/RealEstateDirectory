@@ -8,7 +8,7 @@ namespace RealEstateDirectory.Services
 	{
 		void OpenView<TViewModel>();
 		object GetView<T>();
-		void OpenRoomDialog(RoomViewModel roomViewModel);
-		void CloseRoomDialog(RoomViewModel roomViewModel);
+		void OpenRoomDialog(RoomEditViewModel roomEditViewModel);
+		void CloseRoomDialog(RoomEditViewModel roomEditViewModel);
 	}
 }

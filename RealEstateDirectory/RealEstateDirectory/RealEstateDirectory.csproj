@@ -152,10 +152,13 @@
     <Compile Include="Dictionaries\DistrictDictionary\DistrictsDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\DistrictDictionary\DistrictViewModel.cs" />
     <Compile Include="Interfaces\ISessionedViewModel.cs" />
+    <Compile Include="MainFormTabs\Common\CommonEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Common\RealEstateViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomEditViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomListView.xaml.cs">
       <DependentUpon>RoomListView.xaml</DependentUpon>
     </Compile>

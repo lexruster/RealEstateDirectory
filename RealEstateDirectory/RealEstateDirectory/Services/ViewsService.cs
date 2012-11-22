@@ -116,13 +116,13 @@ namespace RealEstateDirectory.Services
 			return needView;
 		}
 
-		public void OpenRoomDialog(RoomViewModel roomViewModel)
+		public void OpenRoomDialog(RoomEditViewModel roomEditViewModel)
 		{
 			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (RoomView));
 			if (view == null)
 			{
 				var newView = new RoomView();
-				newView.DataContext = roomViewModel;
+				newView.DataContext = roomEditViewModel;
 				newView.ShowDialog();
 			}
 			else
@@ -131,7 +131,7 @@ namespace RealEstateDirectory.Services
 			}
 		}
 
-		public void CloseRoomDialog(RoomViewModel roomViewModel)
+		public void CloseRoomDialog(RoomEditViewModel roomEditViewModel)
 		{
 			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (RoomView));
 			if (view != null)
