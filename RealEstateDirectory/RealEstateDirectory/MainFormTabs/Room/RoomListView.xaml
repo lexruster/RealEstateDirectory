@@ -6,55 +6,98 @@
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
-             mc:Ignorable="d" >
+             xmlns:Common="clr-namespace:RealEstateDirectory.MainFormTabs.Common"
+             xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room" mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
     <UserControl.Resources>
         <ResourceDictionary>
+            <!--Стили для грида-->
             <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
                 <Setter Property="NoGroupContent" Value="Перетащите сюда заголовок колонки для группировки"/>
                 <Setter Property="Background" Value="white"/>
             </Style>
+
+            <Style TargetType="{x:Type xcdg:ColumnManagerCell}" >
+                <Setter Property="ToolTip" 
+                  Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+            </Style>
+
+            <Style TargetType="{x:Type xcdg:DataCell}">
+                <Setter Property="ToolTip"
+              Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+            </Style>
+            <DataTemplate DataType="{x:Type Dictionaries:Realtor}">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Name"></Binding>
+                            <Binding Path="Phone"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid" HorizontalAlignment="Stretch">
+    <Grid x:Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition MaxHeight="40" Height="40" />
+            <RowDefinition Height="Auto" MaxHeight="200"/>
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="3">
             <Button Margin="5" Width="100" Content="Добавить" Command="{Binding AddCommand}" />
             <Button Margin="5" Width="100" Content="Изменить" Command="{Binding ChangeCommand}" />
             <Button Margin="5" Width="100" Content="Удалить" Command="{Binding DeleteCommand}" />
             <Button Margin="5" Width="100" Content="Обновить" Command="{Binding UpdateCommand}" />
         </StackPanel>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Expander Header="Фильтр" Grid.Row="1" HorizontalAlignment="Stretch">
+            <WrapPanel>
+                <StackPanel>
+                    <Button Margin="2" Width="100" Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Left"  />
+                    <Button Margin="2" Width="100" Content="Сбросить" Command="{Binding ClearFilterCommand}" HorizontalAlignment="Left"  />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}" Text="Район" />
+                    <ComboBox ItemsSource="{Binding DistrictList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Улица"  />
+                    <ComboBox  ItemsSource="{Binding StreetList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Риэлтор"  />
+                    <ComboBox  ItemsSource="{Binding RealtorList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Собственность"  />
+                    <ComboBox  ItemsSource="{Binding OwnershipList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Вариант сделки"  />
+                    <ComboBox  ItemsSource="{Binding DealVariantList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Число комнат"  />
+                    <xctk:IntegerUpDown   Text="{Binding RoomCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}" Text="Цена от"/>
+                    <xctk:IntegerUpDown  Text="{Binding MinPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Цена до"/>
+                    <xctk:IntegerUpDown  Text="{Binding MaxPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150"/>
+                </StackPanel>
+            </WrapPanel>
+        </Expander>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Район" Margin="0,2,5,2" />
-            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Districts}" SelectedItem="{Binding CurrentDistrict}"/>
-
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="Улица" Margin="5,2,5,2" />
-            <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Streets}" SelectedItem="{Binding CurrentStreet}"/>
-        </Grid>
         <!--ItemScrollingBehavior="Immediate"  Loaded="dataGrid_Loaded" -->
-        <xcdg:DataGridControl Grid.Row="2" ItemsSource="{Binding Rooms,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoCreateColumns="False"
-                  SelectedItem="{Binding CurrentRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                              
+        <xcdg:DataGridControl Grid.Row="2" ItemsSource="{Binding Entities,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="False"
+                  SelectedItem="{Binding CurrentEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            SelectionMode="Single" SelectionUnit="Row"  
                               Name="dataGrid">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView>
@@ -81,7 +124,10 @@
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
 
-                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="Rooms" Width="40">
+                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="40"/>
+
+                <!--<xcdg:Column ReadOnly="True" Title="Комнат" FieldName="Rooms" Width="40">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -94,7 +140,7 @@
                             </TextBlock>
                         </DataTemplate>
                     </xcdg:Column.CellContentTemplate>
-                </xcdg:Column>
+                </xcdg:Column>-->
 
                 <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="Floors" Width="40">
                     <xcdg:Column.CellContentTemplate>
@@ -120,12 +166,56 @@
                 <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Комментарий" FieldName="Description" Width="*"/>
                 <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
-                <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="Realtor.Name" MinWidth="100"/>
+                <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="Realtor" Width="100">
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.Realtor.Name"></Binding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
                 <xcdg:Column ReadOnly="True" Title="Вид." FieldName="HasVideo" Width="40"/>
                 <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="40"/>
                 <xcdg:Column ReadOnly="True" Title="Дом." FieldName="SubmitToDomino" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="40" >
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate DataType="Room:RoomListViewModel">
+                            <Button Content="Ред." Command="{Binding ChangeInGridCommand}" >
+                                <Button.DataContext>
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
+                                </Button.DataContext>
+                                <Button.CommandParameter>
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
+                <xcdg:Column ReadOnly="True" Title="Удалить" FieldName="Delete" Width="40" >
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate DataType="Room:RoomListViewModel">
+                            <Button Content="Уд." Command="{Binding DeleteInGridCommand}" >
+                                <Button.DataContext>
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
+                                </Button.DataContext>
+                                <Button.CommandParameter>
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
+        <TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
+        <!--<Button Content="Ред." Command="{Binding ChangeInGridCommand}">
+            <Button.CommandParameter>
+                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+            </Button.CommandParameter>
+        </Button>-->
     </Grid>
 </UserControl>
 

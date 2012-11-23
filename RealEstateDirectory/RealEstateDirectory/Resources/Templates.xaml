@@ -24,6 +24,7 @@
         <Setter Property="Margin" Value="3"></Setter>
     </Style>
 
+    <!--Отображение сущностей-->
     <DataTemplate DataType="{x:Type Dictionaries:District}">
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
@@ -31,7 +32,14 @@
     <DataTemplate DataType="{x:Type Dictionaries:Street}">
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
- 
+
+    <DataTemplate DataType="{x:Type Dictionaries:Ownership}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type Dictionaries:DealVariant}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
 
     <ControlTemplate x:Key="DictionaryWithOnlyNameEntitiesViewTemplate" TargetType="{x:Type Window}" >
         <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >

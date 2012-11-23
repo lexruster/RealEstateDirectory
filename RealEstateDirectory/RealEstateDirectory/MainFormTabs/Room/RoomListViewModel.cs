@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
@@ -10,134 +11,43 @@ using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
+using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.MainFormTabs.Room
 {
 	[NotifyForAll]
-	public class RoomListViewModel : NotificationObject
+	public class RoomListViewModel : RealEstateListViewModel<Domain.Entities.Room>
 	{
-		public RoomListViewModel(IServiceLocator serviceLocator, IRoomService roomService, IDistrictService districtService, IStreetService streetService)
+		public RoomListViewModel(IRoomService service, IMessageService messageService,
+		                         IDistrictService districtService, IRealtorService realtorService,
+		                         IOwnershipService ownershipService, IDealVariantService dealVariantService,
+		                         IServiceLocator serviceLocator)
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, serviceLocator
+				)
 		{
-			_ServiceLocator = serviceLocator;
-			_RoomService = roomService;
-			_DistrictService = districtService;
-			_StreetService = streetService;
-
-			AddCommand = new DelegateCommand(Add);
-			ChangeCommand = new DelegateCommand(Change);
-			DeleteCommand = new DelegateCommand(Delete);
 		}
 
-		#region Infrastructure
+		public int? RoomCount { get; set; }
 
-		private readonly IServiceLocator _ServiceLocator;
-
-		private readonly IRoomService _RoomService;
-
-		private readonly IDistrictService _DistrictService;
-
-		private readonly IStreetService _StreetService;
-
-		public void Initialize()
+		protected override RealEstateViewModel<Domain.Entities.Room> GetViewEntityViewModel()
 		{
-			_RoomService.StartSession();
-			LoadFiltersData();
-			LoadData();
+			return _ServiceLocator.GetInstance<RoomViewModel>();
 		}
 
-		#endregion
-
-		private readonly District _AllDistricts = new District("< все >");
-
-		private readonly District _NoneDistricts = new District("< не указано >");
-
-		private readonly Street _AllStreets = new Street("< все >");
-
-		private readonly Street _NoneStreets = new Street("< не указано >");
-
-		private void LoadFiltersData()
+		protected override RealEstateEditViewModel<Domain.Entities.Room> GetEditEntityViewModel()
 		{
-			//_DistrictService.StartSession();
-			Districts = new ObservableCollection<District>((new [] { _AllDistricts, _NoneDistricts }).Concat(
-				_DistrictService.GetAll()));
-			//_DistrictService.StopSession();
-
-			//_StreetService.StartSession();
-			Streets = new ObservableCollection<Street>((new[] { _AllStreets, _NoneStreets }).Concat(
-				_StreetService.GetAll()));
-			//_StreetService.StopSession();
+			return _ServiceLocator.GetInstance<RoomEditViewModel>();
 		}
 
-		private void LoadData()
+		protected override IEnumerable<Domain.Entities.Room> UpdateChildFilterData(IEnumerable<Domain.Entities.Room> entities)
 		{
-			var rooms = _RoomService.GetAll();
-
-			var t = rooms.Count();
-			if (CurrentDistrict != null && CurrentDistrict != _AllDistricts)
-				rooms = CurrentDistrict == _NoneDistricts
-					? rooms.Where(room => room.District == null)
-					: rooms.Where(room => room.District != null && room.District.Id == CurrentDistrict.Id);
-
-			if (CurrentStreet != null && CurrentStreet != _AllStreets)
-				rooms = CurrentStreet == _NoneStreets
-					? rooms.Where(room => room.Street == null)
-					: rooms.Where(room => room.Street != null && room.Street.Id == CurrentStreet.Id);
-
-			Rooms = new ObservableCollection<RoomViewModel>(rooms.Select(CreateNewViewModel));
+			return RoomCount.HasValue ? entities.Where(room => room.RoomCount == RoomCount.Value) : entities;
 		}
 
-		protected RoomViewModel CreateNewViewModel(Domain.Entities.Room model)
+		protected override void LoadChildFiltersData()
 		{
-			var viewModel = _ServiceLocator.GetInstance<RoomViewModel>();
-			viewModel.LoadViewModel(model);
-			return viewModel;
-		}
-
-		public ObservableCollection<District> Districts { get; private set; }
-
-		public District CurrentDistrict { get; set; }
-
-		public ObservableCollection<Street> Streets { get; private set; }
-
-		public Street CurrentStreet { get; private set; }
-		public RoomViewModel CurrentRoom { get; private set; }
-		public ObservableCollection<RoomViewModel> Rooms { get; private set; }
-
-		public ICommand AddCommand { get; private set; }
-		public ICommand ChangeCommand { get; private set; }
-		public ICommand DeleteCommand { get; private set; }
-
-		protected void Add()
-		{
-			var roomViewModel = _ServiceLocator.GetInstance<RoomEditViewModel>();
-			roomViewModel.EditEnded += RoomViewModelOnEditEnded;
-			roomViewModel.BeginEdit(new Domain.Entities.Room());
-		}
-
-		protected void Change()
-		{
-			var roomViewModel = _ServiceLocator.GetInstance<RoomEditViewModel>();
-			roomViewModel.EditEnded += RoomViewModelOnEditEnded;
-			roomViewModel.BeginEdit(CurrentRoom.DbEntity);
-		}
-
-		protected void Delete()
-		{
-			_RoomService.Delete(CurrentRoom.DbEntity);
-			Rooms.Remove(CurrentRoom);
-		}
-
-		private void RoomViewModelOnEditEnded(RoomEditViewModel.EditEndedMode editEndedMode, Domain.Entities.Room room)
-		{
-			if(editEndedMode==RoomEditViewModel.EditEndedMode.Add)
-			{
-				Rooms.Add(CreateNewViewModel(room));
-			}
-			if(editEndedMode==RoomEditViewModel.EditEndedMode.Edit)
-			{
-				CurrentRoom.LoadViewModel(room);
-			}
+			RoomCount = null;
 		}
 	}
 }

@@ -15,7 +15,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход" Command="{Binding ExitCommand}" />
             </MenuItem>
-            
+
             <MenuItem Header="Недвижимость">
                 <MenuItem Header="Квартиры" Command="{Binding FlatCommand}" />
                 <MenuItem Header="Комнаты" Command="{Binding RoomCommand}" />
@@ -39,18 +39,20 @@
                 <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
             </MenuItem>
         </Menu>
-		<TabControl Grid.Row="1">
-			<TabItem Header="Квартиры">
-			</TabItem>
-			<TabItem Header="Комнаты">
-				<Room:RoomListView DataContext="{Binding RoomsDataContext}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-			</TabItem>
-			<TabItem Header="Дома">
-			</TabItem>
-			<TabItem Header="Помещения">
-			</TabItem>
-			<TabItem Header="Участки">
-			</TabItem>
-		</TabControl>
-	</Grid>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Квартиры">
+            </TabItem>
+            <TabItem Header="Комнаты" VerticalAlignment="Top">
+                <!--<StackPanel VerticalAlignment="Top">-->
+                    <Room:RoomListView DataContext="{Binding RoomsDataContext}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <!--</StackPanel>-->
+            </TabItem>
+            <TabItem Header="Дома">
+            </TabItem>
+            <TabItem Header="Помещения">
+            </TabItem>
+            <TabItem Header="Участки">
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

@@ -8,7 +8,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 {
 	[NotifyForAll]
 	public abstract class RealEstateViewModel<T> : NotificationObject
-		where T:RealEstate
+		where T : RealEstate
 	{
 		#region Конструктор
 
@@ -34,12 +34,12 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		#region Свойства
 
-	    public string PriceString
-	    {
-            get { return String.Format("{0:0,0.00}", Price); }
-	    }
+		public string PriceString
+		{
+			get { return String.Format("{0:0,0.00}", Price); }
+		}
 
-	    public T DbEntity;
+		public T DbEntity;
 
 		#endregion
 

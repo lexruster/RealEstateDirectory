@@ -154,6 +154,7 @@
     <Compile Include="Interfaces\ISessionedViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateEditViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateViewModel.cs" />
+    <Compile Include="MainFormTabs\Common\RealEstateListViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>

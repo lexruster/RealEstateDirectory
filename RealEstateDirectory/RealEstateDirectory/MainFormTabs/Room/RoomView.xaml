@@ -32,7 +32,7 @@
                         <ComboBox ItemsSource="{Binding DistrictList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
                         
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Улица" />
-                        <ComboBox ItemsSource="{Binding StreetList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  TextSearch.TextPath = "Name"/>
+                        <ComboBox ItemsSource="{Binding StreetList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Номер дома" />
                         <TextBox Text="{Binding TerritorialNumber, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>

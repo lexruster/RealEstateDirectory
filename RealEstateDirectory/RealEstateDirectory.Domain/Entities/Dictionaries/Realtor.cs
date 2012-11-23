@@ -2,6 +2,7 @@ using RealEstateDirectory.Infrastructure.Entities;
 
 namespace RealEstateDirectory.Domain.Entities.Dictionaries
 {
+	//Риэлтор
     public class Realtor : BaseDictionary
 	{
         /// <summary>
