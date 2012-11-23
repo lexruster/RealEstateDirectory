@@ -17,13 +17,11 @@
             </Style>
 
             <Style TargetType="{x:Type xcdg:ColumnManagerCell}" >
-                <Setter Property="ToolTip" 
-                  Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
             </Style>
 
             <Style TargetType="{x:Type xcdg:DataCell}">
-                <Setter Property="ToolTip"
-              Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
             </Style>
             <DataTemplate DataType="{x:Type Dictionaries:Realtor}">
                 <TextBlock>
@@ -128,7 +126,7 @@
             </xcdg:DataGridControl.View>
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
-                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Addres"  MinWidth="100" Width="140">
+                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Addres"  MinWidth="100" Width="160">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -142,9 +140,9 @@
                         </DataTemplate>
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
-                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="40"/>
-                <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="40"/>
-                <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="Floors" Width="40">
+                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="Floors" MinWidth="30" Width="35">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -160,14 +158,14 @@
                 </xcdg:Column>
 
                 <xcdg:Column ReadOnly="True" Title="Планировка"  FieldName="Layout.Name" MinWidth="40" Width="60"/>
-                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="50"/>
+                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40" Width="50"/>
                 <xcdg:Column ReadOnly="True" Title="Материал" FieldName="Material.Name" MinWidth="60" Width="60"/>
                 <xcdg:Column ReadOnly="True" Title="Потолки" FieldName="FloorLevel.Name" Width="60"/>
-                <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40"/>
                 <xcdg:Column ReadOnly="True" Title="Вариант" FieldName="DealVariant.Name" MinWidth="60" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Комментарий" FieldName="Description" Width="*"/>
-                <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
+                
                 <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="Realtor" Width="100">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
@@ -179,9 +177,21 @@
                         </DataTemplate>
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
-                <xcdg:Column ReadOnly="True" Title="Вид." FieldName="HasVideo" Width="40"/>
-                <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="40"/>
-                <xcdg:Column ReadOnly="True" Title="Дом." FieldName="SubmitToDomino" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
+                <xcdg:Column ReadOnly="True" Title="Дата" FieldName="CreateDate" Width="75"/>
+                <xcdg:Column ReadOnly="True" Title="Видео" FieldName="HasVideo" Width="30">
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <Image Height="15" Width="15" Source="../../Resources/video.png" >
+                                <Image.Visibility>
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Converter="{StaticResource BoolToVisibleConverter}" Path="DataContext.HasVideo"></Binding>
+                                </Image.Visibility>
+                            </Image>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
+                <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Домино" FieldName="SubmitToDomino" Width="30"/>
                 <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="60" >
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>

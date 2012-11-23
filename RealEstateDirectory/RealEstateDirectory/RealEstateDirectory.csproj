@@ -164,6 +164,7 @@
       <DependentUpon>RoomListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainFormTabs\Room\RoomListViewModel.cs" />
+    <Compile Include="Services\BoolToVisibilityConverter.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
     <Compile Include="Services\EnhancedObservableCollection.cs" />
     <Compile Include="Services\IMessageService.cs" />
@@ -319,6 +320,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\video.png" />
     <Resource Include="Resources\refresh.png" />
     <Resource Include="Resources\edit.png" />
     <Resource Include="Resources\delete.png" />

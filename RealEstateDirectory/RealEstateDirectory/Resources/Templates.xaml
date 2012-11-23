@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain">
+                    xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
+                    xmlns:l="clr-namespace:RealEstateDirectory.Services"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
     <Style x:Key="DictionaryWindow" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="ThreeDBorderWindow"></Setter>
         <Setter Property="Width" Value="400"></Setter>
@@ -24,6 +26,8 @@
         <Setter Property="Margin" Value="3"></Setter>
     </Style>
 
+    <l:BoolToVisible x:Key="BoolToVisibleConverter" />
+    
     <!--Отображение сущностей-->
     <DataTemplate DataType="{x:Type Dictionaries:District}">
         <TextBlock Text="{Binding Name}"></TextBlock>
@@ -39,6 +43,10 @@
     
     <DataTemplate DataType="{x:Type Dictionaries:DealVariant}">
         <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type System:DateTime}">
+        <TextBlock Text="{Binding StringFormat={}\{0:dd.MM.yyyy HH:mm\}}"></TextBlock>
     </DataTemplate>
 
     <ControlTemplate x:Key="DictionaryWithOnlyNameEntitiesViewTemplate" TargetType="{x:Type Window}" >
