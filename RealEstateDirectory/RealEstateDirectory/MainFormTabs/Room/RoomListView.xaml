@@ -47,10 +47,30 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="3">
-            <Button Margin="5" Width="100" Content="Добавить" Command="{Binding AddCommand}" />
-            <Button Margin="5" Width="100" Content="Изменить" Command="{Binding ChangeCommand}" />
-            <Button Margin="5" Width="100" Content="Удалить" Command="{Binding DeleteCommand}" />
-            <Button Margin="5" Width="100" Content="Обновить" Command="{Binding UpdateCommand}" />
+            <Button Margin="5" Width="100" Command="{Binding AddCommand}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/add.png" />
+                    <TextBlock Margin="10,0,0,0">Добавить</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Width="100" Command="{Binding ChangeCommand}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/Edit.png" />
+                    <TextBlock Margin="10,0,0,0">Изменить</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Width="100" Command="{Binding DeleteCommand}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/delete.png" />
+                    <TextBlock Margin="10,0,0,0">Удалить</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Width="100" Command="{Binding UpdateCommand}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/refresh.png" />
+                    <TextBlock Margin="10,0,0,0">Обновить</TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
 
         <Expander Header="Фильтр" Grid.Row="1" HorizontalAlignment="Stretch">
@@ -81,15 +101,15 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Число комнат"  />
-                    <xctk:IntegerUpDown   Text="{Binding RoomCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150"/>
+                    <TextBox Text="{Binding RoomCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}" Text="Цена от"/>
-                    <xctk:IntegerUpDown  Text="{Binding MinPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150"/>
+                    <TextBox Text="{Binding MinPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Цена до"/>
-                    <xctk:IntegerUpDown  Text="{Binding MaxPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150"/>
+                    <TextBox Text="{Binding MaxPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
                 </StackPanel>
             </WrapPanel>
         </Expander>
@@ -106,7 +126,6 @@
                     </xcdg:TableView.Theme>
                 </xcdg:TableView>
             </xcdg:DataGridControl.View>
-
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Addres"  MinWidth="100" Width="140">
@@ -123,25 +142,8 @@
                         </DataTemplate>
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
-
                 <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="40"/>
                 <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="40"/>
-
-                <!--<xcdg:Column ReadOnly="True" Title="Комнат" FieldName="Rooms" Width="40">
-                    <xcdg:Column.CellContentTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0}/{1}">
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.RoomCount"></Binding>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext.TotalRoomCount"/>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DataTemplate>
-                    </xcdg:Column.CellContentTemplate>
-                </xcdg:Column>-->
-
                 <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="Floors" Width="40">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
@@ -180,42 +182,39 @@
                 <xcdg:Column ReadOnly="True" Title="Вид." FieldName="HasVideo" Width="40"/>
                 <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="40"/>
                 <xcdg:Column ReadOnly="True" Title="Дом." FieldName="SubmitToDomino" Width="40"/>
-                <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="40" >
+                <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="60" >
                     <xcdg:Column.CellContentTemplate>
-                        <DataTemplate DataType="Room:RoomListViewModel">
-                            <Button Content="Ред." Command="{Binding ChangeInGridCommand}" >
-                                <Button.DataContext>
-                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
-                                </Button.DataContext>
-                                <Button.CommandParameter>
-                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-                                </Button.CommandParameter>
-                            </Button>
-                        </DataTemplate>
-                    </xcdg:Column.CellContentTemplate>
-                </xcdg:Column>
-                <xcdg:Column ReadOnly="True" Title="Удалить" FieldName="Delete" Width="40" >
-                    <xcdg:Column.CellContentTemplate>
-                        <DataTemplate DataType="Room:RoomListViewModel">
-                            <Button Content="Уд." Command="{Binding DeleteInGridCommand}" >
-                                <Button.DataContext>
-                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
-                                </Button.DataContext>
-                                <Button.CommandParameter>
-                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-                                </Button.CommandParameter>
-                            </Button>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Command="{Binding ChangeInGridCommand}" ToolTip="Изменить" Margin="0,0,7,0">
+                                    <Button.DataContext>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
+                                    </Button.DataContext>
+                                    <Button.CommandParameter>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+                                    </Button.CommandParameter>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="15" Width="15" Source="../../Resources/edit.png"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Command="{Binding DeleteInGridCommand}" ToolTip="Удалить">
+                                    <Button.DataContext>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
+                                    </Button.DataContext>
+                                    <Button.CommandParameter>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+                                    </Button.CommandParameter>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="15" Width="15" Source="../../Resources/delete.png"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
         <TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
-        <!--<Button Content="Ред." Command="{Binding ChangeInGridCommand}">
-            <Button.CommandParameter>
-                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-            </Button.CommandParameter>
-        </Button>-->
     </Grid>
 </UserControl>
 
