@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.Commands;
@@ -38,6 +40,10 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_RealtorService = realtorService;
 			_OwnershipService = ownershipService;
 			_DealVariantService = dealVariantService;
+            PropertyChanged += (sender, args) =>
+            {
+                OkCommand.RaiseCanExecuteChanged();
+            };
 
 			OkCommand = new DelegateCommand(() =>
 				{
@@ -79,11 +85,11 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		#region Свойства  INotifi
 
-		public ListCollectionView DistrictList { get; set; }
-		public ListCollectionView StreetList { get; set; }
-		public ListCollectionView RealtorList { get; set; }
-		public ListCollectionView OwnershipList { get; set; }
-		public ListCollectionView DealVariantList { get; set; }
+		public ListCollectionView District { get; set; }
+		public ListCollectionView Street { get; set; }
+		public ListCollectionView Realtor { get; set; }
+		public ListCollectionView Ownership { get; set; }
+		public ListCollectionView DealVariant { get; set; }
 
 		public string TerritorialNumber { get; set; }
 		public bool SubmitToVDV { get; set; }
@@ -94,15 +100,19 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public string Description { get; set; }
 		public DateTime CreateDate { get; set; }
 
+        //Костыли для валидации
+        public District CurrentDistrict { get; set; }
+        public Realtor CurrentRealtor { get; set; }
+
 		#endregion
 
 		#region Свойства
 
 		public event Action<EditEndedMode, T> EditEnded;
 		public T DbEntity;
-		protected District NullDistrict = new District("");
+		//protected District NullDistrict = new District("");
 		protected Street NullStreet = new Street("");
-		protected Realtor NullRealtor = new Realtor("");
+		//protected Realtor NullRealtor = new Realtor("");
 		protected DealVariant NullDealVariant = new DealVariant("");
 		protected Ownership NullOwnership = new Ownership("");
 		protected Terrace NullTerrace = new Terrace("");
@@ -116,34 +126,35 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public virtual void BeginEdit(T room)
 		{
-			DistrictList = new ListCollectionView((new[] {NullDistrict}).Concat(_DistrictService.GetAll()).ToList());
-			DistrictList = new ListCollectionView((new[] {NullDistrict}).Concat(_DistrictService.GetAll()).ToList());
-			RealtorList = new ListCollectionView((new[] {NullRealtor}).Concat(_RealtorService.GetAll()).ToList());
-			OwnershipList = new ListCollectionView((new[] {NullOwnership}).Concat(_OwnershipService.GetAll()).ToList());
-			DealVariantList =
+			District = new ListCollectionView(_DistrictService.GetAll().ToList());
+            Street = new ListCollectionView((new[] { NullStreet }).ToList());
+			Realtor = new ListCollectionView(_RealtorService.GetAll().ToList());
+			Ownership = new ListCollectionView((new[] {NullOwnership}).Concat(_OwnershipService.GetAll()).ToList());
+			DealVariant =
 				new ListCollectionView((new[] {NullDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
 			InitCollection();
 
 			DbEntity = room;
 			UpdateValuesFromModel();
 
-			DistrictList.CurrentChanged += (sender, args) =>
+			District.CurrentChanged += (sender, args) =>
 				{
 					UpdateStreet();
 				};
-
+      
+		    OkCommand.RaiseCanExecuteChanged();
 			OpenDialog();
 		}
 
 		private void UpdateStreet()
 		{
-			var district = DistrictList.CurrentItem as District;
+			var district = District.CurrentItem as District;
 			if (district != null)
 			{
-				StreetList = new ListCollectionView((new[] {NullStreet}).Concat(district.Streets).ToList());
+				Street = new ListCollectionView((new[] {NullStreet}).Concat(district.Streets).ToList());
 				if (district.Equals(DbEntity.District))
 				{
-					StreetList.MoveCurrentTo(DbEntity.Street);
+					Street.MoveCurrentTo(DbEntity.Street);
 				}
 			}
 		}
@@ -162,21 +173,21 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public void UpdateValuesFromModel()
 		{
-			DistrictList.MoveCurrentTo(DbEntity.District);
+			District.MoveCurrentTo(DbEntity.District);
 			if (DbEntity.District != null)
 			{
-				StreetList = new ListCollectionView((new[] {NullStreet}).Concat(DbEntity.District.Streets).ToList());
-				StreetList.MoveCurrentTo(DbEntity.Street);
+				Street = new ListCollectionView((new[] {NullStreet}).Concat(DbEntity.District.Streets).ToList());
+				Street.MoveCurrentTo(DbEntity.Street);
 			}
 			Id = DbEntity.Id;
 			CreateDate = DbEntity.CreateDate;
-			DealVariantList.MoveCurrentTo(DbEntity.DealVariant);
+			DealVariant.MoveCurrentTo(DbEntity.DealVariant);
 			Description = DbEntity.Description;
 			HasVideo = DbEntity.HasVideo;
 			Id = DbEntity.Id;
-			OwnershipList.MoveCurrentTo(DbEntity.Ownership);
+			Ownership.MoveCurrentTo(DbEntity.Ownership);
 			Price = DbEntity.Price;
-			RealtorList.MoveCurrentTo(DbEntity.Realtor);
+			Realtor.MoveCurrentTo(DbEntity.Realtor);
 			SubmitToDomino = DbEntity.SubmitToDomino;
 			SubmitToVDV = DbEntity.SubmitToVDV;
 			TerritorialNumber = DbEntity.TerritorialNumber;
@@ -206,18 +217,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		private D ResolveDictionary<D>(D dictionary) where D : BaseDictionary
 		{
-			return dictionary == null || dictionary.Equals(ResolveNullDictionary(dictionary)) ? null : dictionary;
-		}
-
-		private object ResolveNullDictionary<D>(D dictionary) where D : BaseDictionary
-		{
-			switch (typeof (D).Name)
-			{
-				case "District":
-					return NullDistrict;
-					break;
-			}
-			return null;
+			return dictionary == null || String.IsNullOrEmpty(dictionary.Name) ? null : dictionary;
 		}
 
 		public void OnEditEnded(EditEndedMode mode, T entity)
@@ -228,15 +228,15 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public void SetRealEstateValues(T entity)
 		{
-			entity.District = ResolveDictionary<District>(DistrictList);
-			entity.Street = ResolveDictionary<Street>(StreetList);
+			entity.District = ResolveDictionary<District>(District);
+			entity.Street = ResolveDictionary<Street>(Street);
 
-			entity.DealVariant = ResolveDictionary<DealVariant>(DealVariantList);
+			entity.DealVariant = ResolveDictionary<DealVariant>(DealVariant);
 			entity.Description = Description;
 			entity.HasVideo = HasVideo;
-			entity.Ownership = ResolveDictionary<Ownership>(OwnershipList);
+			entity.Ownership = ResolveDictionary<Ownership>(Ownership);
 			entity.Price = Price;
-			entity.Realtor = ResolveDictionary<Realtor>(RealtorList);
+			entity.Realtor = ResolveDictionary<Realtor>(Realtor);
 			entity.SubmitToDomino = SubmitToDomino;
 			entity.SubmitToVDV = SubmitToVDV;
 			entity.TerritorialNumber = TerritorialNumber;
@@ -255,7 +255,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		protected bool CanOk()
 		{
-			return true;
+            return IsValid();
 		}
 
 		protected bool CanCancel()
@@ -280,6 +280,18 @@ namespace RealEstateDirectory.MainFormTabs.Common
 						return "Цена не может быть отрицательной";
 				}
 
+                if (propertyName == PropertySupport.ExtractPropertyName(() => CurrentRealtor))
+                {
+                    if (CurrentRealtor == null)
+                        return "Риэлтор должен быть указан";
+                }
+
+                if (propertyName == PropertySupport.ExtractPropertyName(() => CurrentDistrict))
+                {
+                    if (CurrentDistrict == null)
+                        return "Район должен быть указан";
+                }
+
 				var childDataError = ChildDataError(propertyName);
 				if (!String.IsNullOrEmpty(childDataError))
 				{
@@ -290,12 +302,42 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			}
 		}
 
+        public string ValidateAll()
+        {
+            var reasons = new List<string>();
+            var trtr = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            foreach (var prop in this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                var curStr = this[prop.Name];
+                if (!String.IsNullOrEmpty(curStr))
+                {
+                    reasons.Add(curStr);
+                }
+            }
+
+            return string.Join("; ", reasons);
+        }
+
+        public bool IsValid()
+        {
+            if(String.IsNullOrEmpty(ValidateAll()))
+            {
+                return true;
+            }
+            return false;
+        }
+
 		public string Error
 		{
 			get
 			{
-				var entity = CreateNewModel();
+			    var validateResult = ValidateAll();
+                if(!String.IsNullOrEmpty(validateResult))
+                {
+                    return validateResult;
+                }
 
+				var entity = CreateNewModel();
 				var validation = _RealEstateService.IsValid(entity, Id);
 				return validation.IsValid ? null : validation.GetReasons();
 			}

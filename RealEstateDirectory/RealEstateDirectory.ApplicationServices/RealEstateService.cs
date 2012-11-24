@@ -101,7 +101,19 @@ namespace RealEstateDirectory.ApplicationServices
         public ValidationResult IsValid(T entity, int id = 0)
         {
             //Пока вводить можно все
-            return new ValidationResult();
+            var result = new ValidationResult();
+
+            if(entity.Realtor==null)
+            {
+                result.FailValidation("Необходимо указать ответственного риэлтора");
+            }
+
+            if (entity.District == null)
+            {
+                result.FailValidation("Необходимо указать район");
+            }
+
+            return result;
         }
 
         #endregion

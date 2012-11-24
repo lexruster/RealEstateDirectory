@@ -19,7 +19,7 @@ namespace RealEstateDirectory.AbstractApplicationServices.Common
         /// <summary>
         /// Причины провала выалидации
         /// </summary>
-        public List<string> FailReasons { get; set; }
+        protected List<string> FailReasons { get; set; }
 
         /// <summary>
         /// "Провалить" валидацию с указанием причины
@@ -33,7 +33,7 @@ namespace RealEstateDirectory.AbstractApplicationServices.Common
 
         public string GetReasons()
         {
-            return string.Join(";", FailReasons);
+            return string.Join("; ", FailReasons);
         }
 
         public ValidationResult()

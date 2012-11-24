@@ -19,7 +19,6 @@ namespace RealEstateDirectory.MainFormTabs.Room
     [NotifyForAll]
     public class RoomEditViewModel : RealEstateEditViewModel<Domain.Entities.Room>
     {
-
         #region Конструктор
 
         public RoomEditViewModel(IRoomService service, IMessageService messageService,
@@ -121,6 +120,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
         protected override string ChildDataError(string propertyName)
         {
+            
             if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
             {
                 if (TotalSquare < 0)
@@ -130,19 +130,34 @@ namespace RealEstateDirectory.MainFormTabs.Room
             if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount))
             {
                 if (TotalRoomCount < 0)
-                    return "Полное число комнат не может быть отрицательной";
+                    return "Полное число комнат не может быть отрицательным";
+                if (TotalRoomCount.HasValue && RoomCount.HasValue && RoomCount > TotalRoomCount)
+                    return "Число комнат не может быть больше общего числа комант";
             }
 
             if (propertyName == PropertySupport.ExtractPropertyName(() => RoomCount))
             {
                 if (RoomCount < 0)
-                    return "Число комнат не может быть отрицательной";
+                    return "Число комнат не может быть отрицательным";
+
+                if (TotalRoomCount.HasValue && RoomCount.HasValue && RoomCount > TotalRoomCount)
+                    return "Число комнат не может быть больше общего числа комант";
             }
 
             if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
             {
                 if (Floor < 0)
                     return "Этаж не может быть отрицательным";
+                if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
+                    return "Этаж не может быть больше общего числа этажей";
+            }
+
+            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor))
+            {
+                if (TotalFloor < 0)
+                    return "Всего этажей не может быть отрицательным";
+                if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
+                    return "Этаж не может быть больше общего числа этажей";
             }
 
             return null;

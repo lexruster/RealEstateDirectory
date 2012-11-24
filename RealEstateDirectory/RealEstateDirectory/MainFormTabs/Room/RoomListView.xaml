@@ -4,10 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
-             xmlns:Common="clr-namespace:RealEstateDirectory.MainFormTabs.Common"
-             xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room" mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+              mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
     <UserControl.Resources>
         <ResourceDictionary>
             <!--Стили для грида-->
@@ -47,25 +45,25 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="3">
             <Button Margin="5" Width="100" Command="{Binding AddCommand}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/add.png" />
+                    <Image Source="../../Resources/Img/Add.png" />
                     <TextBlock Margin="10,0,0,0">Добавить</TextBlock>
                 </StackPanel>
             </Button>
             <Button Margin="5" Width="100" Command="{Binding ChangeCommand}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/Edit.png" />
+                    <Image Source="../../Resources/Img/Edit.png" />
                     <TextBlock Margin="10,0,0,0">Изменить</TextBlock>
                 </StackPanel>
             </Button>
             <Button Margin="5" Width="100" Command="{Binding DeleteCommand}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/delete.png" />
+                    <Image Source="../../Resources/Img/delete.png" />
                     <TextBlock Margin="10,0,0,0">Удалить</TextBlock>
                 </StackPanel>
             </Button>
             <Button Margin="5" Width="100" Command="{Binding UpdateCommand}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/refresh.png" />
+                    <Image Source="../../Resources/Img/refresh.png" />
                     <TextBlock Margin="10,0,0,0">Обновить</TextBlock>
                 </StackPanel>
             </Button>
@@ -182,7 +180,7 @@
                 <xcdg:Column ReadOnly="True" Title="Видео" FieldName="HasVideo" Width="30">
                     <xcdg:Column.CellContentTemplate>
                         <DataTemplate>
-                            <Image Height="15" Width="15" Source="../../Resources/video.png" >
+                            <Image Height="15" Width="15" Source="../../Resources/Img/video.png" >
                                 <Image.Visibility>
                                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Converter="{StaticResource BoolToVisibleConverter}" Path="DataContext.HasVideo"></Binding>
                                 </Image.Visibility>
@@ -204,7 +202,7 @@
                                         <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
                                     </Button.CommandParameter>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Height="15" Width="15" Source="../../Resources/edit.png"/>
+                                        <Image Height="15" Width="15" Source="../../Resources/Img/edit.png"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Command="{Binding DeleteInGridCommand}" ToolTip="Удалить">
@@ -215,7 +213,7 @@
                                         <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
                                     </Button.CommandParameter>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Height="15" Width="15" Source="../../Resources/delete.png"/>
+                                        <Image Height="15" Width="15" Source="../../Resources/Img/delete.png"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>

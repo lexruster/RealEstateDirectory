@@ -240,7 +240,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Templates.xaml">
+    <Page Include="Resources\DataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ValidationStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DictionaryTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,11 +332,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Resource Include="Resources\video.png" />
-    <Resource Include="Resources\refresh.png" />
-    <Resource Include="Resources\edit.png" />
-    <Resource Include="Resources\delete.png" />
-    <Resource Include="Resources\add.png" />
+    <Resource Include="Resources\Img\add.png" />
+    <Resource Include="Resources\Img\video.png" />
+    <Resource Include="Resources\Img\refresh.png" />
+    <Resource Include="Resources\Img\edit.png" />
+    <Resource Include="Resources\Img\delete.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

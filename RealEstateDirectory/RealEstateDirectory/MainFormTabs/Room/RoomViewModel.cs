@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Data;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
-using RealEstateDirectory.AbstractApplicationServices;
-using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
-using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
-using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.MainFormTabs.Room
 {
