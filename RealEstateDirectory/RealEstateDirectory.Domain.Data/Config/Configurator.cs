@@ -20,7 +20,7 @@ namespace RealEstateDirectory.Domain.Data.Config
                     //c.UseQueryCache = true;
                     //c.UseMinimalPuts = true;
                 });
-
+            
             InitProperties(cfg);
 
             InitMapping(cfg);
