@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
-              mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+              mc:Ignorable="d" >
     <UserControl.Resources>
         <ResourceDictionary>
             <!--Стили для грида-->
@@ -117,7 +117,7 @@
                             SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"
                               Name="dataGrid">
                 <xcdg:DataGridControl.View>
-                    <xcdg:TableView>
+                <xcdg:TableView IsColumnVirtualizationEnabled="True">
                         <xcdg:TableView.Theme>
                             <xcdg:AeroNormalColorTheme/>
                         </xcdg:TableView.Theme>
@@ -147,7 +147,6 @@
                             <DataTemplate>
                                 <Image Height="15" Width="15" Source="../../Resources/Img/video.png" >
                                     <Image.Visibility>
-                                        <!--<Binding RelativeSource="{RelativeSource Self}" Converter="{StaticResource BoolToVisibleConverter}" Path="DataContext.HasVideo"></Binding>-->
                                         <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Converter="{StaticResource BoolToVisibleConverter}" Path="DataContext.HasVideo"></Binding>
                                     </Image.Visibility>
                                 </Image>
@@ -188,7 +187,20 @@
                     </xcdg:Column>
                 </xcdg:DataGridControl.Columns>
             </xcdg:DataGridControl>
-       
+        
+        <!--<xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="True"
+                  SelectedItem="{Binding CurrentEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly" 
+                               Name="dataGrid">
+                <xcdg:DataGridControl.View>
+                <xcdg:TableView IsColumnVirtualizationEnabled="True">
+                        <xcdg:TableView.Theme>
+                            <xcdg:AeroNormalColorTheme/>
+                        </xcdg:TableView.Theme>
+                    </xcdg:TableView>
+                </xcdg:DataGridControl.View>
+                
+            </xcdg:DataGridControl>-->
 
         <TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
     </Grid>
