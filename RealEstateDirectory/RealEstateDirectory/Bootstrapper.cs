@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
@@ -28,6 +29,7 @@ using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
+using Environment = System.Environment;
 
 namespace RealEstateDirectory
 {
@@ -51,14 +53,41 @@ namespace RealEstateDirectory
 			return Container.Resolve<ShellView>();
 		}
 
-		protected override void InitializeShell()
-		{
-			base.InitializeShell();
-			((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
-			Application.Current.MainWindow = (Window) Shell;
-		}
+        protected override void InitializeShell()
+        {
+            base.InitializeShell();
+            try
+            {
+                ((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
+            }
+            catch (Exception e)
+            {
+                MessageService ms = new MessageService();
+                var error = e.Message;
+                if (e.InnerException != null)
+                {
+                    error += Environment.NewLine + e.InnerException.Message;
+                    if (e.InnerException.InnerException != null)
+                    {
+                        error += Environment.NewLine + e.InnerException.InnerException.Message;
+                        if (e.InnerException.InnerException.InnerException != null)
+                        {
+                            error += Environment.NewLine + e.InnerException.InnerException.InnerException.Message;
+                            if (e.InnerException.InnerException.InnerException.InnerException != null)
+                            {
+                                error += Environment.NewLine +
+                                         e.InnerException.InnerException.InnerException.InnerException.Message;
+                            }
+                        }
+                    }
+                }
+                ms.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
+            }
 
-		public override void Run(bool runWithDefaultConfiguration)
+            Application.Current.MainWindow = (Window) Shell;
+        }
+
+	    public override void Run(bool runWithDefaultConfiguration)
 		{
 			base.Run(runWithDefaultConfiguration);
 			Application.Current.MainWindow.Show();
