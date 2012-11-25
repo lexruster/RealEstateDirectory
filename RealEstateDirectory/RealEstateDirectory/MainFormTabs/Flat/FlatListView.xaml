@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="RealEstateDirectory.MainFormTabs.Room.RoomListView"
+﻿<UserControl x:Class="RealEstateDirectory.MainFormTabs.Flat.FlatListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -97,7 +97,7 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Число комнат"  />
-                    <TextBox Text="{Binding RoomCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
+                    <TextBox Text="{Binding TotalRoomCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}" Text="Цена от"/>
@@ -112,11 +112,11 @@
 
         <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="False"
                   SelectedItem="{Binding CurrentEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Deferred"  NavigationBehavior="RowOnly"
-                             VirtualizingStackPanel.IsVirtualizing="True" Name="dataGrid">
+                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Deferred" NavigationBehavior="RowOnly"
+                         VirtualizingStackPanel.IsVirtualizing="True"     Name="dataGrid">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView IsColumnVirtualizationEnabled="True">
-                    <xcdg:TableView.Theme>
+                    <xcdg:TableView.Theme >
                         <xcdg:AeroNormalColorTheme/>
                     </xcdg:TableView.Theme>
                 </xcdg:TableView>
@@ -124,14 +124,14 @@
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Address"  MinWidth="100" Width="160"/>
-                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="30"/>
-                <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="TotalRoomCount" MinWidth="30" Width="30"/>
                 <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="FloorString" MinWidth="30" Width="35"/>
 
                 <xcdg:Column ReadOnly="True" Title="Планировка"  FieldName="Layout.Name" MinWidth="40" Width="60"/>
-                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="SquareString" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40" Width="50"/>
                 <xcdg:Column ReadOnly="True" Title="Материал" FieldName="Material.Name" MinWidth="60" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Сан. узел" FieldName="ToiletType.Name" MinWidth="60" Width="60"/>
                 <xcdg:Column ReadOnly="True" Title="Потолки" FieldName="FloorLevel.Name" Width="60"/>
                 <xcdg:Column ReadOnly="True" Title="Вариант" FieldName="DealVariant.Name" MinWidth="60" Width="80"/>
                 <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>

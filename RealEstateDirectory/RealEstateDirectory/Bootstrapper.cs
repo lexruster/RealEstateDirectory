@@ -26,10 +26,12 @@ using RealEstateDirectory.Domain.Data.Config;
 using RealEstateDirectory.Domain.Data.Repository;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
 using RealEstateDirectory.MainFormTabs;
+using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
 using Environment = System.Environment;
+using RoomListViewModel = RealEstateDirectory.MainFormTabs.Room.RoomListViewModel;
 
 namespace RealEstateDirectory
 {
@@ -139,10 +141,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
-			Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
-			
-			Container.RegisterType<RoomEditViewModel>();
-			Container.RegisterType<RoomViewModel>();
+            Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
+            Container.RegisterType<FlatListViewModel>(new InjectionMethod("Initialize"));
 		}
 	}
 }

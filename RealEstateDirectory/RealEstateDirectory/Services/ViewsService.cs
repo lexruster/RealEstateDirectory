@@ -20,6 +20,7 @@ using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
+using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.Room;
 
 namespace RealEstateDirectory.Services
@@ -141,5 +142,29 @@ namespace RealEstateDirectory.Services
 				view.Close();
 			}
 		}
+
+        public void OpenFlatDialog(FlatEditViewModel viewModel)
+        {
+            var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof(FlatEditView));
+            if (view == null)
+            {
+                var newView = new FlatEditView();
+                newView.DataContext = viewModel;
+                newView.ShowDialog();
+            }
+            else
+            {
+                view.Activate();
+            }
+        }
+
+        public void CloseFlatDialog()
+        {
+            var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof(FlatEditView));
+            if (view != null)
+            {
+                view.Close();
+            }
+        }
 	}
 }
