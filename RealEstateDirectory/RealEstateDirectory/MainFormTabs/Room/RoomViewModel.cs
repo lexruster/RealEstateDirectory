@@ -29,6 +29,16 @@ namespace RealEstateDirectory.MainFormTabs.Room
             get { return String.Format("{0:0.0}", TotalSquare); }
         }
 
+        public string FloorString
+        {
+            get
+            {
+                if(Floor.HasValue|| TotalFloor.HasValue)
+                    return String.Format("{0}/{1}", Floor, TotalFloor);
+                return "";
+            }
+        }
+
         #endregion
 
         #region Методы

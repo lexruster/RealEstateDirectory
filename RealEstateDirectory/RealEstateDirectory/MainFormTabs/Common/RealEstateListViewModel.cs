@@ -208,8 +208,9 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 			entities = UpdateChildFilterData(entities);
 
-			EntityCountString = String.Format("Всего: {0} предложений", entities.Count());
-			Entities = new ObservableCollection<RealEstateViewModel<T>>(entities.Select(CreateNewViewModel));
+			
+			Entities = new ObservableCollection<RealEstateViewModel<T>>(entities.Select(CreateNewViewModel).ToArray());
+            EntityCountString = String.Format("Всего: {0} предложений", Entities.Count());
 		}
 
 		private void LoadData()

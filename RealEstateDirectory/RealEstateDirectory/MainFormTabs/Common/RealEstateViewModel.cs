@@ -39,6 +39,21 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			get { return String.Format("{0:0,0.00}", Price); }
 		}
 
+        public string Address
+        {
+            get { return String.Format("{0}, {1}", Street!=null? Street.Name:"", TerritorialNumber); }
+        }
+
+        public string RealtorString
+        {
+            get
+            {
+                if (Realtor!=null)
+                return String.Format("{0} {1}", Realtor.Name, Realtor.Phone);
+                return "";
+            }
+        }
+
 		public T DbEntity;
 
 		#endregion
