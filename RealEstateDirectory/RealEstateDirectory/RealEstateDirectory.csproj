@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B6F99A5-63D7-460D-97CB-C12ED2A6D0A4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RealEstateDirectory</RootNamespace>
+    <AssemblyName>RealEstateDirectory</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
+      <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WPFToolkit.Design, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="NotifyPropertyWeaver">
+      <HintPath>$(SolutionDir)..\Dependencies\NotifyPropertyWeaver\NotifyPropertyWeaver.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Dictionaries\Common\RealEstateEntityViewModel.cs" />
+    <Compile Include="Dictionaries\Common\RealEstateListViewModel.cs" />
+    <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntitiesViewModel.cs" />
+    <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntityViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryView.xaml.cs">
+      <DependentUpon>RealtorAgencyDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyViewModel.cs" />
+    <Compile Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml.cs">
+      <DependentUpon>StreetDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\StreetDictionary\StreetDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\StreetDictionary\StreetViewModel.cs" />
+    <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryView.xaml.cs">
+      <DependentUpon>WaterSupplyDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\WaterSupplyDictionary\WaterSupplyViewModel.cs" />
+    <Compile Include="Dictionaries\ToiletTypeDictionary\ToiletTypeDictionaryView.xaml.cs">
+      <DependentUpon>ToiletTypeDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\ToiletTypeDictionary\ToiletTypeDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\ToiletTypeDictionary\ToiletTypeViewModel.cs" />
+    <Compile Include="Dictionaries\TerraceDictionary\TerraceDictionaryView.xaml.cs">
+      <DependentUpon>TerraceDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\TerraceDictionary\TerraceDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\TerraceDictionary\TerraceViewModel.cs" />
+    <Compile Include="Dictionaries\SewageDictionary\SewageDictionaryView.xaml.cs">
+      <DependentUpon>SewageDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\SewageDictionary\SewageDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\SewageDictionary\SewageViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorDictionary\RealtorDictionaryView.xaml.cs">
+      <DependentUpon>RealtorDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\RealtorDictionary\RealtorDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\RealtorDictionary\RealtorViewModel.cs" />
+    <Compile Include="Dictionaries\OwnershipDictionary\OwnershipDictionaryView.xaml.cs">
+      <DependentUpon>OwnershipDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\OwnershipDictionary\OwnershipDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\OwnershipDictionary\OwnershipViewModel.cs" />
+    <Compile Include="Dictionaries\MaterialDictionary\MaterialDictionaryView.xaml.cs">
+      <DependentUpon>MaterialDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\MaterialDictionary\MaterialDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\MaterialDictionary\MaterialViewModel.cs" />
+    <Compile Include="Dictionaries\LayoutDictionary\LayoutDictionaryView.xaml.cs">
+      <DependentUpon>LayoutDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\LayoutDictionary\LayoutDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\LayoutDictionary\LayoutViewModel.cs" />
+    <Compile Include="Dictionaries\FloorLevelDictionary\FloorLevelDictionaryView.xaml.cs">
+      <DependentUpon>FloorLevelDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\FloorLevelDictionary\FloorLevelDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\FloorLevelDictionary\FloorLevelViewModel.cs" />
+    <Compile Include="Dictionaries\DealVariantDictionary\DealVariantsDictionaryView.xaml.cs">
+      <DependentUpon>DealVariantsDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\DealVariantDictionary\DealVariantsDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\DealVariantDictionary\DealVariantViewModel.cs" />
+    <Compile Include="Dictionaries\Common\DictionaryEntityViewModel.cs" />
+    <Compile Include="Dictionaries\Common\DictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\Common\DictionaryWindow.cs" />
+    <Compile Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml.cs">
+      <DependentUpon>DistrictsDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\DistrictDictionary\DistrictsDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\DistrictDictionary\DistrictViewModel.cs" />
+    <Compile Include="Interfaces\ISessionedViewModel.cs" />
+    <Compile Include="MainFormTabs\Common\RealEstateEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Common\RealEstateViewModel.cs" />
+    <Compile Include="MainFormTabs\Common\RealEstateListViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomView.xaml.cs">
+      <DependentUpon>RoomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Room\RoomEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Room\RoomListView.xaml.cs">
+      <DependentUpon>RoomListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Room\RoomListViewModel.cs" />
+    <Compile Include="Services\BoolToVisibilityConverter.cs" />
+    <Compile Include="Services\CollectionChangingEventArgs.cs" />
+    <Compile Include="Services\EnhancedObservableCollection.cs" />
+    <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\IViewsService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\ViewsService.cs" />
+    <Compile Include="Shell\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\ShellViewModel.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\StreetDictionary\StreetDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\WaterSupplyDictionary\WaterSupplyDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\ToiletTypeDictionary\ToiletTypeDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\TerraceDictionary\TerraceDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\SewageDictionary\SewageDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\RealtorDictionary\RealtorDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\OwnershipDictionary\OwnershipDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\MaterialDictionary\MaterialDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\LayoutDictionary\LayoutDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\FloorLevelDictionary\FloorLevelDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\DealVariantDictionary\DealVariantsDictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\Room\RoomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\Room\RoomListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\DataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ValidationStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DictionaryTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\BureauBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\WhistlerBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RealEstateDirectory.AbstractApplicationServices\RealEstateDirectory.AbstractApplicationServices.csproj">
+      <Project>{057d6555-af8e-4f1c-8b76-b0bf0b9a8187}</Project>
+      <Name>RealEstateDirectory.AbstractApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.ApplicationServices\RealEstateDirectory.ApplicationServices.csproj">
+      <Project>{c51725d0-2851-4599-8ef8-4545863ff365}</Project>
+      <Name>RealEstateDirectory.ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
+      <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
+      <Name>RealEstateDirectory.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Domain.Data\RealEstateDirectory.Domain.Data.csproj">
+      <Project>{dbbce386-9154-4588-9a61-07f924c651cb}</Project>
+      <Name>RealEstateDirectory.Domain.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
+      <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
+      <Name>RealEstateDirectory.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure.NHibernate\RealEstateDirectory.Infrastructure.NHibernate.csproj">
+      <Project>{b705b080-4c52-43b3-b880-7c175eac660f}</Project>
+      <Name>RealEstateDirectory.Infrastructure.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
+      <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
+      <Name>RealEstateDirectory.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Resource Include="Resources\Img\add.png" />
+    <Resource Include="Resources\Img\video.png" />
+    <Resource Include="Resources\Img\refresh.png" />
+    <Resource Include="Resources\Img\edit.png" />
+    <Resource Include="Resources\Img\delete.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterCompile">
+    <NotifyPropertyWeaverMsBuildTask.WeavingTask />
+  </Target>
+  <UsingTask TaskName="NotifyPropertyWeaverMsBuildTask.WeavingTask" AssemblyFile="$(SolutionDir)..\Dependencies\NotifyPropertyWeaver\NotifyPropertyWeaverMsBuildTask.dll" />
+</Project>
