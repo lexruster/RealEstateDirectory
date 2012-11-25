@@ -183,6 +183,15 @@
       <DependentUpon>FlatEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainFormTabs\Flat\FlatViewModel.cs" />
+    <Compile Include="MainFormTabs\Residence\ResidenceEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Residence\ResidenceListView.xaml.cs">
+      <DependentUpon>ResidenceListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Residence\ResidenceListViewModel.cs" />
+    <Compile Include="MainFormTabs\Residence\ResidenceEditView.xaml.cs">
+      <DependentUpon>ResidenceEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Residence\ResidenceViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomEditView.xaml.cs">
       <DependentUpon>RoomEditView.xaml</DependentUpon>
@@ -281,6 +290,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainFormTabs\Flat\FlatEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainFormTabs\Residence\ResidenceListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainFormTabs\Residence\ResidenceEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

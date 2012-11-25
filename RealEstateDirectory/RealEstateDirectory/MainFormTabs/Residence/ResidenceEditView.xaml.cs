@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace RealEstateDirectory.MainFormTabs.Residence
 {
 	/// <summary>
-	/// Interaction logic for ResidenceView.xaml
+    /// Interaction logic for ResidenceEditView.xaml
 	/// </summary>
-	public partial class ResidenceView : Window
+	public partial class ResidenceEditView : Window
 	{
-		public ResidenceView()
+        public ResidenceEditView()
 		{
 			InitializeComponent();
 		}

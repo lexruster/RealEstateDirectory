@@ -8,7 +8,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 	[NotifyForAll]
 	public class ResidenceViewModel : RealEstateViewModel<Domain.Entities.Residence>
 	{
-		#region Свойства  INotifi
+		#region Свойства  INotify
 
 		public decimal? TotalSquare { get; set; }
 		public int? TotalFloor { get; set; }

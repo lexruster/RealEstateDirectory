@@ -32,9 +32,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		#region Свойства  INotifi
 
 		public decimal? TotalSquare { get; set; }
-		public int? TotalRoomCount { get; set; }
 		public int? TotalFloor { get; set; }
-		public int? RoomCount { get; set; }
 		public ListCollectionView Material { get; set; }
 		public int? Floor { get; set; }
 
@@ -88,23 +86,6 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 			{
 				if (TotalSquare < 0)
 					return "Площадь не может быть отрицательной";
-			}
-
-			if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount))
-			{
-				if (TotalRoomCount < 0)
-					return "Полное число комнат не может быть отрицательным";
-				if (TotalRoomCount.HasValue && RoomCount.HasValue && RoomCount > TotalRoomCount)
-					return "Число комнат не может быть больше общего числа комант";
-			}
-
-			if (propertyName == PropertySupport.ExtractPropertyName(() => RoomCount))
-			{
-				if (RoomCount < 0)
-					return "Число комнат не может быть отрицательным";
-
-				if (TotalRoomCount.HasValue && RoomCount.HasValue && RoomCount > TotalRoomCount)
-					return "Число комнат не может быть больше общего числа комант";
 			}
 
 			if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))

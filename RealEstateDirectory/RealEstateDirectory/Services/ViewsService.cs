@@ -38,32 +38,35 @@ namespace RealEstateDirectory.Services
             Initialize();
         }
 
-		private void Initialize()
-		{
-			_viewModelViewMap = new List<KeyValuePair<Type, Type>>();
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (RealtorAgencyDictionaryViewModel),
-				typeof (RealtorAgencyDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DealVariantsDictionaryViewModel),
-				typeof (DealVariantsDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DistrictsDictionaryViewModel),
-				typeof (DistrictsDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (FloorLevelDictionaryViewModel),
-				typeof (FloorLevelDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (LayoutDictionaryViewModel), typeof (LayoutDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (MaterialDictionaryViewModel),
-				typeof (MaterialDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (OwnershipDictionaryViewModel),
-				typeof (OwnershipDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (RealtorDictionaryViewModel),
-				typeof (RealtorDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (SewageDictionaryViewModel), typeof (SewageDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (StreetDictionaryViewModel), typeof (StreetDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (TerraceDictionaryViewModel),
-				typeof (TerraceDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (ToiletTypeDictionaryViewModel),
-				typeof (ToiletTypeDictionaryView)));
-			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (WaterSupplyDictionaryViewModel),
-				typeof (WaterSupplyDictionaryView)));
+        private void Initialize()
+        {
+            _viewModelViewMap = new List<KeyValuePair<Type, Type>>();
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (RealtorAgencyDictionaryViewModel),
+                                                               typeof (RealtorAgencyDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DealVariantsDictionaryViewModel),
+                                                               typeof (DealVariantsDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DistrictsDictionaryViewModel),
+                                                               typeof (DistrictsDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (FloorLevelDictionaryViewModel),
+                                                               typeof (FloorLevelDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (LayoutDictionaryViewModel),
+                                                               typeof (LayoutDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (MaterialDictionaryViewModel),
+                                                               typeof (MaterialDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (OwnershipDictionaryViewModel),
+                                                               typeof (OwnershipDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (RealtorDictionaryViewModel),
+                                                               typeof (RealtorDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (SewageDictionaryViewModel),
+                                                               typeof (SewageDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (StreetDictionaryViewModel),
+                                                               typeof (StreetDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (TerraceDictionaryViewModel),
+                                                               typeof (TerraceDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (ToiletTypeDictionaryViewModel),
+                                                               typeof (ToiletTypeDictionaryView)));
+            _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (WaterSupplyDictionaryViewModel),
+                                                               typeof (WaterSupplyDictionaryView)));
 
         }
 
@@ -143,29 +146,22 @@ namespace RealEstateDirectory.Services
             }
         }
 
-		public void OpenResidenceDialog(ResidenceEditViewModel residenceEditViewModel)
-		{
-			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (ResidenceView));
-			if (view == null)
-				(new ResidenceView {DataContext = residenceEditViewModel}).ShowDialog();
-			else
-				view.Activate();
-		}
+        public void OpenResidenceDialog(ResidenceEditViewModel residenceEditViewModel)
+        {
+            var newView = new ResidenceEditView();
+            newView.DataContext = residenceEditViewModel;
+            newView.ShowDialog();
+        }
 
-		public void CloseRoomDialog()
-		{
-			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (RoomView));
-			if (view != null)
-				view.Close();
-		}
+        public void CloseResidenceDialog()
+        {
+            var view =
+                Application.Current.Windows.Cast<Window>().SingleOrDefault(
+                    window => window.GetType() == typeof (ResidenceEditView));
+            if (view != null)
+                view.Close();
+        }
 
-		public void CloseResidenceDialog()
-		{
-			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof(ResidenceView));
-			if (view != null)
-				view.Close();
-		}
-	}
         public void CloseRoomDialog()
         {
             var view =
@@ -206,7 +202,7 @@ namespace RealEstateDirectory.Services
         {
             var view =
                 Application.Current.Windows.Cast<Window>().SingleOrDefault(
-                    window => window.GetType() == typeof(PlotEditView));
+                    window => window.GetType() == typeof (PlotEditView));
             if (view != null)
             {
                 view.Close();
@@ -225,7 +221,7 @@ namespace RealEstateDirectory.Services
         {
             var view =
                 Application.Current.Windows.Cast<Window>().SingleOrDefault(
-                    window => window.GetType() == typeof(HouseEditView));
+                    window => window.GetType() == typeof (HouseEditView));
             if (view != null)
             {
                 view.Close();
