@@ -15,5 +15,11 @@ namespace RealEstateDirectory.Services
 		void CloseRoomDialog();
         void OpenFlatDialog(FlatEditViewModel roomEditViewModel);
         void CloseFlatDialog();
+
+        void OpenPlotDialog(PlotEditViewModel roomEditViewModel);
+        void CloseFlatDialog();
+
+        void OpenHouseDialog(HouseEditViewModel roomEditViewModel);
+        void CloseFlatDialog();
 	}
 }

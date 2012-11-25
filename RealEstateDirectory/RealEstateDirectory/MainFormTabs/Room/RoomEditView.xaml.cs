@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace RealEstateDirectory.MainFormTabs.Room
 {
 	/// <summary>
-	/// Interaction logic for DialogTest.xaml
+	/// Interaction logic for RoomEditView.xaml
 	/// </summary>
-	public partial class RoomView : Window
+	public partial class RoomEditView : Window
 	{
-		public RoomView()
+        public RoomEditView()
 		{
 			InitializeComponent();
 		}

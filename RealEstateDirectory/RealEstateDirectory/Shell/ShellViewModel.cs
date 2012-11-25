@@ -50,7 +50,9 @@ namespace RealEstateDirectory.Shell
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
             
             RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
-            FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();    
+            FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
+            PlotsDataContext = _ServiceLocator.GetInstance<PlotListViewModel>();
+            HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();    
 		}
 
 		#region Infrastructure
@@ -80,5 +82,7 @@ namespace RealEstateDirectory.Shell
 
 		public RoomListViewModel RoomsDataContext { get; private set; }
         public FlatListViewModel FlatsDataContext { get; private set; }
+        public PlotListViewModel PlotsDataContext { get; private set; }
+        public HouseListViewModel HousesDataContext { get; private set; }
 	}
 }

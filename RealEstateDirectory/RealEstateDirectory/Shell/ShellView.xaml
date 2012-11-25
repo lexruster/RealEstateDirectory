@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room"
         xmlns:Flat="clr-namespace:RealEstateDirectory.MainFormTabs.Flat"
+        xmlns:Plot="clr-namespace:RealEstateDirectory.MainFormTabs.Plot"
+        xmlns:House="clr-namespace:RealEstateDirectory.MainFormTabs.House"
         mc:Ignorable="d" Title="Справочник недвижимости"  Width="1280" Height="700"
         MinHeight="720" MinWidth="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Background="{DynamicResource WindowBackgroundBrush}">
@@ -44,10 +46,12 @@
                     <Room:RoomListView DataContext="{Binding RoomsDataContext}" />
                 </TabItem>
                 <TabItem Header="Дома" Style="{StaticResource MyTabItem}" >
+                    <House:HouseListView DataContext="{Binding HousesDataContext}" />
                 </TabItem>
                 <TabItem Header="Помещения" Style="{StaticResource MyTabItem}" >
                 </TabItem>
                 <TabItem Header="Участки" Style="{StaticResource MyTabItem}" >
+                    <Plot:PlotListView DataContext="{Binding PlotsDataContext}" />
                 </TabItem>
             </TabControl>
         </DockPanel>
