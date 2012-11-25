@@ -91,7 +91,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 
         protected override void UpdateConcreteModelFromValues()
         {
-            SetRoomValues(DbEntity);
+            SetFlatValues(DbEntity);
         }
 
         protected override void CloseDialog()
@@ -107,13 +107,13 @@ namespace RealEstateDirectory.MainFormTabs.Flat
         protected override Domain.Entities.Flat CreateNewModel()
         {
             var flat = new Domain.Entities.Flat();
-            SetRoomValues(flat);
+            SetFlatValues(flat);
             SetRealEstateValues(flat);
 
             return flat;
         }
 
-        protected void SetRoomValues(Domain.Entities.Flat flat)
+        protected void SetFlatValues(Domain.Entities.Flat flat)
         {
             flat.TotalSquare = TotalSquare;
             flat.KitchenSquare = KitchenSquare;
@@ -154,7 +154,6 @@ namespace RealEstateDirectory.MainFormTabs.Flat
                 if (TotalRoomCount < 0)
                     return "Число комнат не может быть отрицательным";
             }
-
 
             if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
             {

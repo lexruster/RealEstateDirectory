@@ -21,6 +21,8 @@ using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.MainFormTabs.Flat;
+using RealEstateDirectory.MainFormTabs.House;
+using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Room;
 
 namespace RealEstateDirectory.Services

@@ -20,6 +20,8 @@ using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.MainFormTabs.Flat;
+using RealEstateDirectory.MainFormTabs.House;
+using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 

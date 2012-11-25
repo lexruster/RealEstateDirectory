@@ -156,6 +156,24 @@
     <Compile Include="MainFormTabs\Common\RealEstateEditViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateListViewModel.cs" />
+    <Compile Include="MainFormTabs\House\HouseEditView.xaml.cs">
+      <DependentUpon>HouseEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\House\HouseEditViewModel.cs" />
+    <Compile Include="MainFormTabs\House\HouseListView.xaml.cs">
+      <DependentUpon>HouseListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\House\HouseListViewModel.cs" />
+    <Compile Include="MainFormTabs\House\HouseViewModel.cs" />
+    <Compile Include="MainFormTabs\Plot\PlotEditView.xaml.cs">
+      <DependentUpon>PlotEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Plot\PlotEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Plot\PlotListView.xaml.cs">
+      <DependentUpon>PlotListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Plot\PlotListViewModel.cs" />
+    <Compile Include="MainFormTabs\Plot\PlotViewModel.cs" />
     <Compile Include="MainFormTabs\Flat\FlatEditViewModel.cs" />
     <Compile Include="MainFormTabs\Flat\FlatListView.xaml.cs">
       <DependentUpon>FlatListView.xaml</DependentUpon>
@@ -174,7 +192,7 @@
       <DependentUpon>RoomListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainFormTabs\Room\RoomListViewModel.cs" />
-    <Compile Include="Services\BoolToVisibilityConverter.cs" />
+    <Compile Include="Services\BoolToVisible.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
     <Compile Include="Services\EnhancedObservableCollection.cs" />
     <Compile Include="Services\IMessageService.cs" />
@@ -241,6 +259,22 @@
     <Page Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\House\HouseEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainFormTabs\House\HouseListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainFormTabs\Plot\PlotEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainFormTabs\Plot\PlotListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainFormTabs\Flat\FlatListView.xaml">
       <Generator>MSBuild:Compile</Generator>
