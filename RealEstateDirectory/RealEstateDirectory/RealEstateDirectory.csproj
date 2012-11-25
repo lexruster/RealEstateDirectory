@@ -156,6 +156,15 @@
     <Compile Include="MainFormTabs\Common\RealEstateEditViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateListViewModel.cs" />
+    <Compile Include="MainFormTabs\Flat\FlatEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Flat\FlatListView.xaml.cs">
+      <DependentUpon>FlatListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Flat\FlatListViewModel.cs" />
+    <Compile Include="MainFormTabs\Flat\FlatEditView.xaml.cs">
+      <DependentUpon>FlatEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Flat\FlatViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
@@ -232,6 +241,14 @@
     <Page Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\Flat\FlatListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainFormTabs\Flat\FlatEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainFormTabs\Room\RoomView.xaml">
       <SubType>Designer</SubType>
