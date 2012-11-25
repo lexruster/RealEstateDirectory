@@ -27,6 +27,8 @@ using RealEstateDirectory.Domain.Data.Repository;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
 using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.MainFormTabs.Flat;
+using RealEstateDirectory.MainFormTabs.House;
+using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
@@ -143,6 +145,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
             Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
             Container.RegisterType<FlatListViewModel>(new InjectionMethod("Initialize"));
+            Container.RegisterType<PlotListViewModel>(new InjectionMethod("Initialize"));
+            Container.RegisterType<HouseListViewModel>(new InjectionMethod("Initialize"));
 		}
 	}
 }

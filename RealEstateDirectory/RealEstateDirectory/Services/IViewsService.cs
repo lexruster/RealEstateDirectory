@@ -3,6 +3,8 @@ using RealEstateDirectory.Dictionaries.Common;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.MainFormTabs.Flat;
+using RealEstateDirectory.MainFormTabs.House;
+using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Room;
 
 namespace RealEstateDirectory.Services
@@ -15,5 +17,11 @@ namespace RealEstateDirectory.Services
 		void CloseRoomDialog();
         void OpenFlatDialog(FlatEditViewModel roomEditViewModel);
         void CloseFlatDialog();
+
+        void OpenPlotDialog(PlotEditViewModel roomEditViewModel);
+        void ClosePlotDialog();
+
+        void OpenHouseDialog(HouseEditViewModel roomEditViewModel);
+        void CloseHouseDialog();
 	}
 }

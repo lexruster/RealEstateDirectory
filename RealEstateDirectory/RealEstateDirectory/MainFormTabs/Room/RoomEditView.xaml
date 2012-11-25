@@ -1,8 +1,8 @@
-﻿<Window x:Class="RealEstateDirectory.MainFormTabs.Room.RoomView"
+﻿<Window x:Class="RealEstateDirectory.MainFormTabs.Room.RoomEditView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="Комната" MinHeight="500" Height="500" Width="620" MinWidth="620"
+        Title="Комната" MinHeight="500" Height="500" Width="640" MinWidth="620"
         Style="{StaticResource EntityWindow}">
     <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
         <AdornerDecorator>
