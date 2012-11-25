@@ -7,6 +7,7 @@
         xmlns:Flat="clr-namespace:RealEstateDirectory.MainFormTabs.Flat"
         xmlns:Plot="clr-namespace:RealEstateDirectory.MainFormTabs.Plot"
         xmlns:House="clr-namespace:RealEstateDirectory.MainFormTabs.House"
+        xmlns:Residence="clr-namespace:RealEstateDirectory.MainFormTabs.Residence"
         mc:Ignorable="d" Title="Справочник недвижимости"  Width="1280" Height="700"
         MinHeight="720" MinWidth="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Background="{DynamicResource WindowBackgroundBrush}">
@@ -49,6 +50,7 @@
                     <House:HouseListView DataContext="{Binding HousesDataContext}" />
                 </TabItem>
                 <TabItem Header="Помещения" Style="{StaticResource MyTabItem}" >
+					<Residence:ResidenceListView DataContext="{Binding ResidenceDataContext}" />
                 </TabItem>
                 <TabItem Header="Участки" Style="{StaticResource MyTabItem}" >
                     <Plot:PlotListView DataContext="{Binding PlotsDataContext}" />

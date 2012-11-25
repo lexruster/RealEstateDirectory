@@ -22,6 +22,7 @@ using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
+using RealEstateDirectory.MainFormTabs.Residence;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 
@@ -55,6 +56,8 @@ namespace RealEstateDirectory.Shell
             FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
             PlotsDataContext = _ServiceLocator.GetInstance<PlotListViewModel>();
             HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();    
+            RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
+			ResidenceDataContext = _ServiceLocator.GetInstance<ResidenceListViewModel>();
 		}
 
 		#region Infrastructure
@@ -86,5 +89,7 @@ namespace RealEstateDirectory.Shell
         public FlatListViewModel FlatsDataContext { get; private set; }
         public PlotListViewModel PlotsDataContext { get; private set; }
         public HouseListViewModel HousesDataContext { get; private set; }
+
+		public ResidenceListViewModel ResidenceDataContext { get; private set; }
 	}
 }
