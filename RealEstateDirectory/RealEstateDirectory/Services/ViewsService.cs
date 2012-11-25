@@ -20,6 +20,7 @@ using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
+using RealEstateDirectory.MainFormTabs.Residence;
 using RealEstateDirectory.MainFormTabs.Room;
 
 namespace RealEstateDirectory.Services
@@ -38,28 +39,28 @@ namespace RealEstateDirectory.Services
 		{
 			_viewModelViewMap = new List<KeyValuePair<Type, Type>>();
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (RealtorAgencyDictionaryViewModel),
-			                                                   typeof (RealtorAgencyDictionaryView)));
+				typeof (RealtorAgencyDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DealVariantsDictionaryViewModel),
-			                                                   typeof (DealVariantsDictionaryView)));
+				typeof (DealVariantsDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (DistrictsDictionaryViewModel),
-			                                                   typeof (DistrictsDictionaryView)));
+				typeof (DistrictsDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (FloorLevelDictionaryViewModel),
-			                                                   typeof (FloorLevelDictionaryView)));
+				typeof (FloorLevelDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (LayoutDictionaryViewModel), typeof (LayoutDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (MaterialDictionaryViewModel),
-			                                                   typeof (MaterialDictionaryView)));
+				typeof (MaterialDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (OwnershipDictionaryViewModel),
-			                                                   typeof (OwnershipDictionaryView)));
+				typeof (OwnershipDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (RealtorDictionaryViewModel),
-			                                                   typeof (RealtorDictionaryView)));
+				typeof (RealtorDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (SewageDictionaryViewModel), typeof (SewageDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (StreetDictionaryViewModel), typeof (StreetDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (TerraceDictionaryViewModel),
-			                                                   typeof (TerraceDictionaryView)));
+				typeof (TerraceDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (ToiletTypeDictionaryViewModel),
-			                                                   typeof (ToiletTypeDictionaryView)));
+				typeof (ToiletTypeDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (WaterSupplyDictionaryViewModel),
-			                                                   typeof (WaterSupplyDictionaryView)));
+				typeof (WaterSupplyDictionaryView)));
 
 		}
 
@@ -133,13 +134,27 @@ namespace RealEstateDirectory.Services
 			}
 		}
 
+		public void OpenResidenceDialog(ResidenceEditViewModel residenceEditViewModel)
+		{
+			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (ResidenceView));
+			if (view == null)
+				(new ResidenceView {DataContext = residenceEditViewModel}).ShowDialog();
+			else
+				view.Activate();
+		}
+
 		public void CloseRoomDialog()
 		{
 			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof (RoomView));
 			if (view != null)
-			{
 				view.Close();
-			}
+		}
+
+		public void CloseResidenceDialog()
+		{
+			var view = Application.Current.Windows.Cast<Window>().SingleOrDefault(window => window.GetType() == typeof(ResidenceView));
+			if (view != null)
+				view.Close();
 		}
 	}
 }

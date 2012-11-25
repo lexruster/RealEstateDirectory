@@ -19,6 +19,7 @@ using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.MainFormTabs;
+using RealEstateDirectory.MainFormTabs.Residence;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
 
@@ -48,7 +49,8 @@ namespace RealEstateDirectory.Shell
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
             
-            RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();    
+            RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
+			ResidenceDataContext = _ServiceLocator.GetInstance<ResidenceListViewModel>();
 		}
 
 		#region Infrastructure
@@ -77,5 +79,7 @@ namespace RealEstateDirectory.Shell
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
 
 		public RoomListViewModel RoomsDataContext { get; private set; }
+
+		public ResidenceListViewModel ResidenceDataContext { get; private set; }
 	}
 }

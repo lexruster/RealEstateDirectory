@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Room="clr-namespace:RealEstateDirectory.MainFormTabs.Room"
+        xmlns:Residence="clr-namespace:RealEstateDirectory.MainFormTabs.Residence"
         mc:Ignorable="d" Title="Справочник недвижимости"  Width="1280" Height="768"
         MinHeight="720" MinWidth="1000" WindowStartupLocation="CenterScreen" 
         Background="{DynamicResource WindowBackgroundBrush}">
@@ -44,6 +45,7 @@
                 <TabItem Header="Дома" Style="{StaticResource MyTabItem}" >
                 </TabItem>
                 <TabItem Header="Помещения" Style="{StaticResource MyTabItem}" >
+					<Residence:ResidenceListView DataContext="{Binding ResidenceDataContext}" />
                 </TabItem>
                 <TabItem Header="Участки" Style="{StaticResource MyTabItem}" >
                 </TabItem>

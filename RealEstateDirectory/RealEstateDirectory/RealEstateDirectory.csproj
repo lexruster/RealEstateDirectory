@@ -156,6 +156,15 @@
     <Compile Include="MainFormTabs\Common\RealEstateEditViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateViewModel.cs" />
     <Compile Include="MainFormTabs\Common\RealEstateListViewModel.cs" />
+    <Compile Include="MainFormTabs\Residence\ResidenceEditViewModel.cs" />
+    <Compile Include="MainFormTabs\Residence\ResidenceListView.xaml.cs">
+      <DependentUpon>ResidenceListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Residence\ResidenceListViewModel.cs" />
+    <Compile Include="MainFormTabs\Residence\ResidenceView.xaml.cs">
+      <DependentUpon>ResidenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTabs\Residence\ResidenceViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomViewModel.cs" />
     <Compile Include="MainFormTabs\Room\RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
@@ -230,6 +239,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\DistrictDictionary\DistrictsDictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\Residence\ResidenceListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainFormTabs\Residence\ResidenceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
