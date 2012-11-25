@@ -110,98 +110,87 @@
             </WrapPanel>
         </Expander>
 
-        <!--ItemScrollingBehavior="Immediate"  Loaded="dataGrid_Loaded" -->
-        <!--<StackPanel Grid.Row="2" ></StackPanel>-->
         <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="False"
                   SelectedItem="{Binding CurrentEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"
                               Name="dataGrid">
-                <xcdg:DataGridControl.View>
+            <xcdg:DataGridControl.View>
                 <xcdg:TableView IsColumnVirtualizationEnabled="True">
-                        <xcdg:TableView.Theme>
-                            <xcdg:AeroNormalColorTheme/>
-                        </xcdg:TableView.Theme>
-                    </xcdg:TableView>
-                </xcdg:DataGridControl.View>
-                <xcdg:DataGridControl.Columns>
-                    <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
-                    <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Address"  MinWidth="100" Width="160"/>
-                    <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="30"/>
-                    <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="30"/>
-                    <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="FloorString" MinWidth="30" Width="35"/>
+                    <xcdg:TableView.Theme>
+                        <xcdg:AeroNormalColorTheme/>
+                    </xcdg:TableView.Theme>
+                </xcdg:TableView>
+            </xcdg:DataGridControl.View>
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
+                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Address"  MinWidth="100" Width="160"/>
+                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="FloorString" MinWidth="30" Width="35"/>
 
-                    <xcdg:Column ReadOnly="True" Title="Планировка"  FieldName="Layout.Name" MinWidth="40" Width="60"/>
-                    <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="40"/>
-                    <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40" Width="50"/>
-                    <xcdg:Column ReadOnly="True" Title="Материал" FieldName="Material.Name" MinWidth="60" Width="60"/>
-                    <xcdg:Column ReadOnly="True" Title="Потолки" FieldName="FloorLevel.Name" Width="60"/>
-                    <xcdg:Column ReadOnly="True" Title="Вариант" FieldName="DealVariant.Name" MinWidth="60" Width="80"/>
-                    <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>
-                    <xcdg:Column ReadOnly="True" Title="Комментарий" FieldName="Description" Width="*"/>
+                <xcdg:Column ReadOnly="True" Title="Планировка"  FieldName="Layout.Name" MinWidth="40" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="40"/>
+                <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40" Width="50"/>
+                <xcdg:Column ReadOnly="True" Title="Материал" FieldName="Material.Name" MinWidth="60" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Потолки" FieldName="FloorLevel.Name" Width="60"/>
+                <xcdg:Column ReadOnly="True" Title="Вариант" FieldName="DealVariant.Name" MinWidth="60" Width="80"/>
+                <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>
+                <xcdg:Column ReadOnly="True" Title="Комментарий" FieldName="Description" Width="*"/>
 
-                    <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="RealtorString" Width="100"/>
-                    <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
-                    <xcdg:Column ReadOnly="True" Title="Дата" FieldName="CreateDate" Width="75"/>
-                    <xcdg:Column ReadOnly="True" Title="Видео" FieldName="HasVideo" Width="30">
-                        <xcdg:Column.CellContentTemplate>
-                            <DataTemplate>
-                                <Image Height="15" Width="15" Source="../../Resources/Img/video.png" >
-                                    <Image.Visibility>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Converter="{StaticResource BoolToVisibleConverter}" Path="DataContext.HasVideo"></Binding>
-                                    </Image.Visibility>
-                                </Image>
-                            </DataTemplate>
-                        </xcdg:Column.CellContentTemplate>
-                    </xcdg:Column>
-                    <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="30"/>
-                    <xcdg:Column ReadOnly="True" Title="Домино" FieldName="SubmitToDomino" Width="30"/>
-                    <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="60" >
-                        <xcdg:Column.CellContentTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Command="{Binding ChangeInGridCommand}" ToolTip="Изменить" Margin="0,0,7,0">
-                                        <Button.DataContext>
-                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
-                                        </Button.DataContext>
-                                        <Button.CommandParameter>
-                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-                                        </Button.CommandParameter>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Height="15" Width="15" Source="../../Resources/Img/edit.png"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Command="{Binding DeleteInGridCommand}" ToolTip="Удалить">
-                                        <Button.DataContext>
-                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
-                                        </Button.DataContext>
-                                        <Button.CommandParameter>
-                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-                                        </Button.CommandParameter>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Height="15" Width="15" Source="../../Resources/Img/delete.png"/>
-                                        </StackPanel>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </xcdg:Column.CellContentTemplate>
-                    </xcdg:Column>
-                </xcdg:DataGridControl.Columns>
-            </xcdg:DataGridControl>
-        
-        <!--<xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="True"
-                  SelectedItem="{Binding CurrentEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly" 
-                               Name="dataGrid">
-                <xcdg:DataGridControl.View>
-                <xcdg:TableView IsColumnVirtualizationEnabled="True">
-                        <xcdg:TableView.Theme>
-                            <xcdg:AeroNormalColorTheme/>
-                        </xcdg:TableView.Theme>
-                    </xcdg:TableView>
-                </xcdg:DataGridControl.View>
-                
-            </xcdg:DataGridControl>-->
-
+                <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="RealtorString" Width="100" />
+                <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
+                <xcdg:Column ReadOnly="True" Title="Дата" FieldName="CreateDate" Width="75"/>
+                <xcdg:Column ReadOnly="True" Title="Видео" FieldName="HasVideo" Width="30" >
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <Image Height="15" Width="15"  Source="../../Resources/Img/video.png" Visibility="{Binding HasVideo, Converter={StaticResource BoolToVisibleConverter}}" >
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="Есть видео" IsEnabled="True"></ToolTip>
+                                </ToolTipService.ToolTip>
+                            </Image>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                    <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo Path="." />
+                    </xcdg:Column.DisplayMemberBindingInfo>
+                </xcdg:Column>
+                <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Домино" FieldName="SubmitToDomino" Width="30"/>
+                <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="60" >
+                    <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo Path="." />
+                    </xcdg:Column.DisplayMemberBindingInfo>
+                    <xcdg:Column.CellContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Command="{Binding ChangeInGridCommand}" ToolTip="Изменить" Margin="0,0,7,0">
+                                    <Button.DataContext>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
+                                    </Button.DataContext>
+                                    <Button.CommandParameter>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+                                    </Button.CommandParameter>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="15" Width="15" Source="../../Resources/Img/edit.png"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Command="{Binding DeleteInGridCommand}" ToolTip="Удалить">
+                                    <Button.DataContext>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
+                                    </Button.DataContext>
+                                    <Button.CommandParameter>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
+                                    </Button.CommandParameter>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="15" Width="15" Source="../../Resources/Img/delete.png"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </xcdg:Column.CellContentTemplate>
+                </xcdg:Column>
+            </xcdg:DataGridControl.Columns>
+        </xcdg:DataGridControl>
         <TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
     </Grid>
 </UserControl>

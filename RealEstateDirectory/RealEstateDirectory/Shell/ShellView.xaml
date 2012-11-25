@@ -18,13 +18,6 @@
                 <MenuItem Header="Выход" Command="{Binding ExitCommand}" />
             </MenuItem>
 
-            <MenuItem Header="Недвижимость">
-                <MenuItem Header="Квартиры" Command="{Binding FlatCommand}" />
-                <MenuItem Header="Комнаты" Command="{Binding RoomCommand}" />
-                <MenuItem Header="Дома" Command="{Binding HouseCommand}" />
-                <MenuItem Header="Помещения" Command="{Binding ResidenceCommand}" />
-                <MenuItem Header="Участки" Command="{Binding PlotCommand}" />
-            </MenuItem>
             <MenuItem Header="Справочники">
                 <MenuItem Header="Агентства" Command="{Binding RealtorAgencyDictionaryCommand}" />
                 <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />

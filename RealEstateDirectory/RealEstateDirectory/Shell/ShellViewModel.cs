@@ -75,12 +75,6 @@ namespace RealEstateDirectory.Shell
 		public ICommand ToiletTypeDictionaryCommand { get; private set; }
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
 
-		public ICommand FlatCommand { get; private set; }
-		public ICommand RoomCommand { get; private set; }
-		public ICommand ResidenceCommand { get; private set; }
-		public ICommand PlotCommand { get; private set; }
-		public ICommand HouseCommand { get; private set; }
-
 		public RoomListViewModel RoomsDataContext { get; private set; }
 	}
 }
