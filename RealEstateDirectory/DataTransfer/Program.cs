@@ -26,35 +26,35 @@ namespace DataTransfer
 			var db = new DataClassesDataContext();
 			_idDictionaryMaps = new Dictionary<Type, List<IdMap>>();
 			bool succes = true;
-			//try
-			//{
-			using (var session = config.BuildSessionFactory().OpenSession())
+			try
 			{
-				var tran = session.BeginTransaction(IsolationLevel.Serializable);
-				DeleteData(session);
-				tran.Commit();
-				session.Flush();
+				using (var session = config.BuildSessionFactory().OpenSession())
+				{
+					var tran = session.BeginTransaction(IsolationLevel.Serializable);
+					DeleteData(session);
+					tran.Commit();
+					session.Flush();
 
 
-				var tran2 = session.BeginTransaction(IsolationLevel.Serializable);
-				MoveDictionary(session, db);
-				MoveEntity(session, db);
+					var tran2 = session.BeginTransaction(IsolationLevel.Serializable);
+					MoveDictionary(session, db);
+					MoveEntity(session, db);
 
-				tran2.Commit();
-				session.Flush();
+					tran2.Commit();
+					session.Flush();
+				}
 			}
-			//}
-			//catch (Exception ex)
-			//{
-			//	succes = false;
-			//	Console.WriteLine(ex.Message);
-			//	if (ex.InnerException != null)
-			//	{
-			//		Console.WriteLine(ex.InnerException.Message);
-			//		if (ex.InnerException.InnerException != null)
-			//			Console.WriteLine(ex.InnerException.InnerException.Message);
-			//	}
-			//}
+			catch (Exception ex)
+			{
+				succes = false;
+				Console.WriteLine(ex.Message);
+				if (ex.InnerException != null)
+				{
+					Console.WriteLine(ex.InnerException.Message);
+					if (ex.InnerException.InnerException != null)
+						Console.WriteLine(ex.InnerException.InnerException.Message);
+				}
+			}
 
 			Console.WriteLine("Результат переноса: {0}", succes ? "успешен" : "ОШИБКА");
 			Console.ReadKey();
@@ -62,38 +62,16 @@ namespace DataTransfer
 
 		private static void DeleteData(ISession hb)
 		{
-			//foreach (var ent in hb.Query<Flat>().ToList())
-			//{
-			//	hb.Delete(ent);
-			//}
-			//foreach (var ent in hb.Query<House>().ToList())
-			//{
-			//	hb.Delete(ent);
-			//}
-			//foreach (var ent in hb.Query<Plot>().ToList())
-			//{
-			//	hb.Delete(ent);
-			//}
-			//foreach (var ent in hb.Query<Residence>().ToList())
-			//{
-			//	hb.Delete(ent);
-			//}
-			//foreach (var ent in hb.Query<Room>().ToList())
-			//{
-			//	hb.Delete(ent);
-			//}
-
 			foreach (var ent in hb.Query<RealEstate>().ToList())
 			{
 				hb.Delete(ent);
 			}
-			  
 
 			foreach (var ent in hb.Query<DealVariant>().ToList())
 			{
 				hb.Delete(ent);
 			}
-			
+
 			foreach (var ent in hb.Query<FloorLevel>().ToList())
 			{
 				hb.Delete(ent);
@@ -164,12 +142,6 @@ namespace DataTransfer
 
 		private static void MoveDictionary(ISession hb, DataClassesDataContext linq)
 		{
-
-			foreach (var ent in hb.Query<DealVariant>().ToList())
-			{
-				hb.Delete(ent);
-			}
-
 			//DealVariant
 			_idDictionaryMaps.Add(typeof (DealVariant), new List<IdMap>());
 			foreach (var curEnitie in linq.Variants)
@@ -256,7 +228,7 @@ namespace DataTransfer
 			Console.WriteLine("Сан узел - готово");
 
 			//Агентства
-			_idDictionaryMaps.Add(typeof(RealtorAgency), new List<IdMap>());
+			_idDictionaryMaps.Add(typeof (RealtorAgency), new List<IdMap>());
 			foreach (var curEnitie in linq.Agencies)
 			{
 				var hbEntity = new RealtorAgency(curEnitie.vcName)
@@ -277,14 +249,14 @@ namespace DataTransfer
 			var helper = new DataResolveHelper(hb);
 			helper.IdDictionaryMaps = _idDictionaryMaps;
 			//IFlatService
-			foreach (var l in linq.AppartmentForSales.Where(x=>x.bActual.HasValue && x.bActual.Value))
+			foreach (var l in linq.AppartmentForSales.Where(x => x.bActual.HasValue && x.bActual.Value))
 			{
 				var hbEntity = new Flat
 					{
 						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
 						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
 						Description = l.vcComment,
-						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.District),
 						Floor = l.iFloor,
 						FloorLevel = null,
 						HasVideo = l.bVideo ?? false,
@@ -318,7 +290,7 @@ namespace DataTransfer
 						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
 						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
 						Description = l.vcComment,
-						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.District),
 						HasVideo = l.bVideo ?? false,
 						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
 						Ownership = null,
@@ -350,7 +322,7 @@ namespace DataTransfer
 						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
 						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
 						Description = l.vcComment,
-						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.District),
 						HasVideo = l.bVideo ?? false,
 						Ownership = null,
 						Price = l.iPrice,
@@ -373,7 +345,7 @@ namespace DataTransfer
 						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
 						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
 						Description = l.vcComment,
-						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.District),
 						HasVideo = l.bVideo ?? false,
 						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
 						Ownership = null,
@@ -400,7 +372,7 @@ namespace DataTransfer
 						CreateDate = l.DateOfAdd.HasValue ? l.DateOfAdd.Value : DateTime.Now,
 						DealVariant = helper.ResolveHbEntity<DealVariant>(l.Variant),
 						Description = l.vcComment,
-						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.Variant),
+						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.District),
 						HasVideo = l.bVideo ?? false,
 						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
 						Ownership = null,
