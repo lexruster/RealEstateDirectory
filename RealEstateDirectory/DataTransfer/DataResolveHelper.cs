@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
+using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
 
 namespace DataTransfer
@@ -31,6 +32,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(Variant entity) where T : BaseDictionary
 		{
+			if(typeof(T) != typeof(DealVariant))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idVariant);
 
@@ -39,6 +42,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(District entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(RealEstateDirectory.Domain.Entities.Dictionaries.District))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idDistrict);
 
@@ -47,6 +52,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(Balcony entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(Terrace))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idBalcony);
 
@@ -55,6 +62,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(Rielter entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(Realtor))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idRielter);
 
@@ -63,6 +72,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(Street entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(RealEstateDirectory.Domain.Entities.Dictionaries.Street))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idStreet);
 
@@ -71,6 +82,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(SanUsel entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(ToiletType))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idSanUsel);
 
@@ -79,6 +92,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(WallMatherial entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(Material))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idWallMatherial);
 
@@ -87,6 +102,8 @@ namespace DataTransfer
 
 		public T ResolveHbEntity<T>(Planing entity) where T : BaseDictionary
 		{
+			if (typeof(T) != typeof(Layout))
+				throw new Exception("Не верный тип.");
 			if (entity != null)
 				return ResolveHbEntity<T>(entity.idPlaning);
 
