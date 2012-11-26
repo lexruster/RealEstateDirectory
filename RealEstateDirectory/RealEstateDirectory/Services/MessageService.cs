@@ -8,5 +8,10 @@ namespace RealEstateDirectory.Services
 		{
 			return MessageBox.Show(text, title, buttons, image);
 		}
+
+		public bool ShowConfirm(string text, string title)
+		{
+			return MessageBox.Show(text, title, MessageBoxButton.OKCancel, MessageBoxImage.Question)==MessageBoxResult.OK;
+		}
 	}
 }

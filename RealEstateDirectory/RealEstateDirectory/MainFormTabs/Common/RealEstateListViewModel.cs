@@ -289,8 +289,19 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		{
 			if (CurrentEntity != null)
 			{
-				_RealEstateService.Delete(CurrentEntity.DbEntity);
-				Entities.Remove(CurrentEntity);
+				string confirmMessage =
+					String.Format("Вы уверены что хотите удалить недвижимость по адресу {0}, {1}, {2} риэлтора {3} {4}",
+					              CurrentEntity.District != null ? CurrentEntity.District.Name : "",
+					              CurrentEntity.Street != null ? CurrentEntity.Street.Name : "",
+					              CurrentEntity.TerritorialNumber,
+					              CurrentEntity.Realtor.Name,
+					              CurrentEntity.Realtor.Phone);
+
+				if (_MessageService.ShowConfirm(confirmMessage, "Подтвердите действие"))
+				{
+					_RealEstateService.Delete(CurrentEntity.DbEntity);
+					Entities.Remove(CurrentEntity);
+				}
 			}
 		}
 
