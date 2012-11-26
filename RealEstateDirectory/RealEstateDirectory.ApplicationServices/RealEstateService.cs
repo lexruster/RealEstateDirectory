@@ -117,7 +117,5 @@ namespace RealEstateDirectory.ApplicationServices
         }
 
         #endregion
-
-	    
     }
 }

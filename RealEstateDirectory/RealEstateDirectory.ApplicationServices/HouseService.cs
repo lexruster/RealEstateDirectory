@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.DataAccess;
@@ -29,7 +30,9 @@ namespace RealEstateDirectory.ApplicationServices
 
 		public override IEnumerable<House> GetAll()
 		{
-			return Repository.GetAllHouse();
+			return
+				Repository.GetAllHouse().OrderBy(x => x.District == null ? "" : x.District.Name).ThenBy(
+					x => x.Street == null ? "" : x.Street.Name);
 		}
 
 		#endregion

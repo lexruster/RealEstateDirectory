@@ -1,3 +1,5 @@
+using System;
+
 namespace RealEstateDirectory.Infrastructure.Entities
 {
     /// <summary>
