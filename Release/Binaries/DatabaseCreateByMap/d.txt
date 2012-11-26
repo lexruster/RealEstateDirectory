@@ -1,0 +1,319 @@
+
+    drop table if exists "DealVariant" cascade
+
+    drop table if exists "District" cascade
+
+    drop table if exists "Ownership" cascade
+
+    drop table if exists "Sewage" cascade
+
+    drop table if exists "WaterSupply" cascade
+
+    drop table if exists "Layout" cascade
+
+    drop table if exists "Material" cascade
+
+    drop table if exists "Realtor" cascade
+
+    drop table if exists "Street" cascade
+
+    drop table if exists "Terrace" cascade
+
+    drop table if exists "ToiletType" cascade
+
+    drop table if exists "FloorLevel" cascade
+
+    drop table if exists "RealtorAgency" cascade
+
+    drop table if exists "RealEstate" cascade
+
+    drop table if exists "Plot" cascade
+
+    drop table if exists "Building" cascade
+
+    drop table if exists "Residence" cascade
+
+    drop table if exists "Apartment" cascade
+
+    drop table if exists "Flat" cascade
+
+    drop table if exists "House" cascade
+
+    drop table if exists "Room" cascade
+
+    drop table if exists hibernate_unique_key cascade
+
+    create table "DealVariant" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "District" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "Ownership" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "Sewage" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "WaterSupply" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "Layout" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "Material" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "Realtor" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       "Phone" varchar(255),
+       primary key ("Id")
+    )
+
+    create table "Street" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       "District" int4 not null,
+       primary key ("Id")
+    )
+
+    create table "Terrace" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "ToiletType" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "FloorLevel" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       primary key ("Id")
+    )
+
+    create table "RealtorAgency" (
+        "Id" int4 not null,
+       "Name" varchar(2048) not null unique,
+       "Contacts" varchar(2048),
+       "Director" varchar(1024),
+       "Address" varchar(2048),
+       "Description" text,
+       primary key ("Id")
+    )
+
+    create table "RealEstate" (
+        "Id"  serial,
+       "District" int4,
+       "Street" int4,
+       "TerritorialNumber" varchar(255),
+       "Description" text,
+       "HasVideo" boolean,
+       "SubmitToVDV" boolean,
+       "SubmitToDomino" boolean,
+       "Price" decimal(19,5),
+       "Realtor" int4,
+       "DealVariant" int4,
+       "CreateDate" timestamp,
+       "Ownership" int4,
+       primary key ("Id")
+    )
+
+    create table "Plot" (
+        "RealEstateId" int4 not null,
+       "PlotSquare" decimal(19,5),
+       primary key ("RealEstateId")
+    )
+
+    create table "Building" (
+        "RealEstateId" int4 not null,
+       "Floor" int4,
+       "TotalFloor" int4,
+       "TotalSquare" decimal(19,5),
+       "Material" int4,
+       primary key ("RealEstateId")
+    )
+
+    create table "Residence" (
+        "BuildingId" int4 not null,
+       primary key ("BuildingId")
+    )
+
+    create table "Apartment" (
+        "BuildingId" int4 not null,
+       "TotalRoomCount" int4,
+       "Layout" int4,
+       "Terrace" int4,
+       "FloorLevel" int4,
+       primary key ("BuildingId")
+    )
+
+    create table "Flat" (
+        "ApartmentId" int4 not null,
+       "ToiletType" int4,
+       "ResidentialSquare" decimal(19,5),
+       "KitchenSquare" decimal(19,5),
+       primary key ("ApartmentId")
+    )
+
+    create table "House" (
+        "PlotId" int4 not null,
+       "TotalFloor" int4,
+       "HouseSquare" decimal(19,5),
+       "WaterSupply" int4,
+       "Sewage" int4,
+       "HasBathhouse" boolean,
+       "HasGarage" boolean,
+       "HasGas" boolean,
+       "Material" int4,
+       primary key ("PlotId")
+    )
+
+    create table "Room" (
+        "ApartmentId" int4 not null,
+       "RoomCount" int4,
+       primary key ("ApartmentId")
+    )
+
+    alter table "Street" 
+        add constraint FK9BB3A2FA55AB264 
+        foreign key ("District") 
+        references "District"
+
+    alter table "RealEstate" 
+        add constraint FK89EE87F5A55AB264 
+        foreign key ("District") 
+        references "District"
+
+    alter table "RealEstate" 
+        add constraint FK89EE87F51F3B56AD 
+        foreign key ("Street") 
+        references "Street"
+
+    alter table "RealEstate" 
+        add constraint FK89EE87F5DA59EC51 
+        foreign key ("Realtor") 
+        references "Realtor"
+
+    alter table "RealEstate" 
+        add constraint FK89EE87F5B30AB285 
+        foreign key ("DealVariant") 
+        references "DealVariant"
+
+    alter table "RealEstate" 
+        add constraint FK89EE87F55B644B2F 
+        foreign key ("Ownership") 
+        references "Ownership"
+
+    alter table "Plot" 
+        add constraint FK647958865658CA8 
+        foreign key ("RealEstateId") 
+        references "RealEstate" 
+        on delete cascade
+
+    alter table "Building" 
+        add constraint FK41C736475658CA8 
+        foreign key ("RealEstateId") 
+        references "RealEstate" 
+        on delete cascade
+
+    alter table "Building" 
+        add constraint FK41C73647C683932 
+        foreign key ("Material") 
+        references "Material"
+
+    alter table "Residence" 
+        add constraint FK6898661072C563D8 
+        foreign key ("BuildingId") 
+        references "Building" 
+        on delete cascade
+
+    alter table "Apartment" 
+        add constraint FK597FF4472C563D8 
+        foreign key ("BuildingId") 
+        references "Building" 
+        on delete cascade
+
+    alter table "Apartment" 
+        add constraint FK597FF44490DA631 
+        foreign key ("Layout") 
+        references "Layout"
+
+    alter table "Apartment" 
+        add constraint FK597FF44DEDC6321 
+        foreign key ("Terrace") 
+        references "Terrace"
+
+    alter table "Apartment" 
+        add constraint FK597FF44D7973DB 
+        foreign key ("FloorLevel") 
+        references "FloorLevel"
+
+    alter table "Flat" 
+        add constraint FK4B1D588684939010 
+        foreign key ("ApartmentId") 
+        references "Apartment" 
+        on delete cascade
+
+    alter table "Flat" 
+        add constraint FK4B1D58861494C256 
+        foreign key ("ToiletType") 
+        references "ToiletType"
+
+    alter table "House" 
+        add constraint FKE48ABDF482BDE57D 
+        foreign key ("PlotId") 
+        references "Plot" 
+        on delete cascade
+
+    alter table "House" 
+        add constraint FKE48ABDF446155E3A 
+        foreign key ("WaterSupply") 
+        references "WaterSupply"
+
+    alter table "House" 
+        add constraint FKE48ABDF4350ADA0D 
+        foreign key ("Sewage") 
+        references "Sewage"
+
+    alter table "House" 
+        add constraint FKE48ABDF4C683932 
+        foreign key ("Material") 
+        references "Material"
+
+    alter table "Room" 
+        add constraint FK4C31B65E84939010 
+        foreign key ("ApartmentId") 
+        references "Apartment" 
+        on delete cascade
+
+    create table hibernate_unique_key (
+         next_hi int4 
+    )
+
+    insert into hibernate_unique_key values ( 1 )
