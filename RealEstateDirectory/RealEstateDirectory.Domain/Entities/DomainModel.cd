@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RealEstateDirectory.Domain.Entities.Apartment">
+    <Position X="1.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAQAAAAAAAAAAAIAAAgAAAAAAA=</HashCode>
+      <FileName>Entities\Apartment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Building">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Entities\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Flat">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Entities\Flat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.House">
+    <Position X="6.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAgAAgASAACAAAAAAAAAAAAAAEAAAAAAABAAA=</HashCode>
+      <FileName>Entities\House.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Plot">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Plot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.RealEstate" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAABQAgAAAAAAAAAAAACAEACAABAAIRCAAAAAA=</HashCode>
+      <FileName>Entities\RealEstate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Residence">
+    <Position X="4.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Residence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Room">
+    <Position X="3.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.DealVariant" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\DealVariant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.District" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\District.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Layout" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Layout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Material" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Material.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Ownership" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Ownership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Realtor" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Realtor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Sewage" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Sewage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Street" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Street.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.Terrace" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\Terrace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.ToiletType" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\ToiletType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.WaterSupply" Collapsed="true">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\WaterSupply.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateDirectory.Domain.Entities.Dictionaries.FloorLevel" Collapsed="true">
+    <Position X="9.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Dictionaries\FloorLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
