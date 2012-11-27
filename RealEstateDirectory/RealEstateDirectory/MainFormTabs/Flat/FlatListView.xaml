@@ -110,10 +110,10 @@
             </WrapPanel>
         </Expander>
 
-        <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoCreateColumns="False"
-                  SelectedItem="{Binding CurrentEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Deferred" NavigationBehavior="RowOnly"
-                         VirtualizingStackPanel.IsVirtualizing="True"     Name="dataGrid">
+        <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities, Mode=OneWay}" AutoCreateColumns="False"
+                  SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"
+                         VirtualizingStackPanel.IsVirtualizing="True">
             <xcdg:DataGridControl.View>
                 <xcdg:TableView IsColumnVirtualizationEnabled="True">
                     <xcdg:TableView.Theme >

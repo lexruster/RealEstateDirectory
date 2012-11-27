@@ -52,11 +52,11 @@ namespace RealEstateDirectory.Shell
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
             
-            RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
             FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
-            PlotsDataContext = _ServiceLocator.GetInstance<PlotListViewModel>();
-            HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();    
-            RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
+			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
+			PlotsDataContext = _ServiceLocator.GetInstance<PlotListViewModel>();
+			HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();
+			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
 			ResidenceDataContext = _ServiceLocator.GetInstance<ResidenceListViewModel>();
 		}
 
