@@ -22,7 +22,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 	public abstract class RealEstateListViewModel<T> : NotificationObject
 		where T : RealEstate, new()
 	{
-
 		#region Конструктор
 
 		public RealEstateListViewModel(IRealEstateService<T> service, IMessageService messageService,
