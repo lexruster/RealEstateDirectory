@@ -6,7 +6,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 {
 	public class HouseMap : JoinedSubclassMapping<House>
 	{
-        public HouseMap()
+		public HouseMap()
 		{
 			Key(k =>
 				{
@@ -14,14 +14,15 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 					k.OnDelete(OnDeleteAction.Cascade);
 				});
 
+			ManyToOne(x => x.WaterSupply, mapper => mapper.Column("WaterSupplyId"));
+			ManyToOne(x => x.Sewage, mapper => mapper.Column("SewageId"));
+			ManyToOne(x => x.Material, mapper => mapper.Column("MaterialId"));
+
 			Property(x => x.TotalFloor);
 			Property(x => x.HouseSquare);
-            ManyToOne(x=>x.WaterSupply);
-            ManyToOne(x => x.Sewage);
-            Property(x => x.HasBathhouse);
-            Property(x => x.HasGarage);
-            Property(x => x.HasGas);
-            ManyToOne(x => x.Material);
+			Property(x => x.HasBathhouse);
+			Property(x => x.HasGarage);
+			Property(x => x.HasGas);
 		}
 	}
 }

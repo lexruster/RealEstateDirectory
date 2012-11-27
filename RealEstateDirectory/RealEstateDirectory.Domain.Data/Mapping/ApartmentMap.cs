@@ -6,17 +6,19 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 {
 	public class ApartmentMap : JoinedSubclassMapping<Apartment>
 	{
-        public ApartmentMap()
+		public ApartmentMap()
 		{
 			Key(k =>
 				{
-                    k.Column("BuildingId");
+					k.Column("BuildingId");
 					k.OnDelete(OnDeleteAction.Cascade);
 				});
+
+			ManyToOne(x => x.Layout, mapper => mapper.Column("LayoutId"));
+			ManyToOne(x => x.Terrace, mapper => mapper.Column("TerraceId"));
+			ManyToOne(x => x.FloorLevel, mapper => mapper.Column("FloorLevelId"));
+
 			Property(x => x.TotalRoomCount);
-            ManyToOne(x => x.Layout);
-            ManyToOne(x => x.Terrace);
-            ManyToOne(x => x.FloorLevel);
 		}
 	}
 }
