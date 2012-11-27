@@ -26,7 +26,7 @@ namespace RealEstateDirectory.Infrastructure.Entities
 			if (other == null) return false;
 			if (ReferenceEquals(this, other)) return true;
 
-			if (!IsTransient(this) && !IsTransient(this) && Equals(Id, other.Id))
+			if (!IsTransient(this) && !IsTransient(other) && Equals(Id, other.Id))
 			{
 				var otherType = other.GetUnproxiedType();
 				var thisType = GetUnproxiedType();

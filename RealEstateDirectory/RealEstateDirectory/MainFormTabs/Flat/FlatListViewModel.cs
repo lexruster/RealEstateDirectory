@@ -23,8 +23,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 		                         IDistrictService districtService, IRealtorService realtorService,
 		                         IOwnershipService ownershipService, IDealVariantService dealVariantService,
 		                         IServiceLocator serviceLocator)
-			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, serviceLocator
-				)
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, serviceLocator)
 		{
 		}
 

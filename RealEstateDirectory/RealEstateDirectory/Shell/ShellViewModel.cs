@@ -56,7 +56,6 @@ namespace RealEstateDirectory.Shell
 			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
 			PlotsDataContext = _ServiceLocator.GetInstance<PlotListViewModel>();
 			HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();
-			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
 			ResidenceDataContext = _ServiceLocator.GetInstance<ResidenceListViewModel>();
 		}
 

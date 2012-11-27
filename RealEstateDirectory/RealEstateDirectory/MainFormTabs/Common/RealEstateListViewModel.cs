@@ -65,7 +65,9 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		{
 			_RealEstateService.StartSession();
 			LoadFiltersData();
+			InitFilters();
 			LoadData();
+			_FilterEnabled = true;
 		}
 
 		#endregion
@@ -75,11 +77,17 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public RealEstateViewModel<T> CurrentEntity { get; set; }
 		public ObservableCollection<RealEstateViewModel<T>> Entities { get; set; }
 
-		public ListCollectionView DistrictList { get; set; }
-		public ListCollectionView StreetList { get; set; }
-		public ListCollectionView RealtorList { get; set; }
-		public ListCollectionView OwnershipList { get; set; }
-		public ListCollectionView DealVariantList { get; set; }
+		public ObservableCollection<District> DistrictList { get; set; }
+		public ObservableCollection<Street> StreetList { get; set; }
+		public ObservableCollection<Realtor> RealtorList { get; set; }
+		public ObservableCollection<Ownership> OwnershipList { get; set; }
+		public ObservableCollection<DealVariant> DealVariantList { get; set; }
+
+		public District FilterDistrict { get; set; }
+		public Street FilterStreet { get; set; }
+		public Realtor FilterRealtor { get; set; }
+		public Ownership FilterOwnership { get; set; }
+		public DealVariant FilterDealVariant { get; set; }
 
 		public decimal? MinPrice { get; set; }
 		public decimal? MaxPrice { get; set; }
@@ -113,20 +121,22 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected readonly Ownership _AllOwnership = new Ownership("< все >");
 		protected readonly Ownership _NoneOwnership = new Ownership("< не указано >");
 
+		/// <summary>
+		/// Для сброса фильтров, чтобы каждый фильтр не вызывал перерисовку
+		/// </summary>
+		protected bool _FilterEnabled;
+
 		#endregion
 
 		#region Методы
 
 		private void UpdateStreet()
 		{
-			var district = DistrictList.CurrentItem as District;
+			var district = FilterDistrict;
 			if (district != null)
 			{
-				StreetList = new ListCollectionView((new[] {_AllStreets, _NoneStreets}).Concat(district.Streets).ToList());
-				StreetList.CurrentChanged += (sender, args) =>
-					{
-						UpdateFilter();
-					};
+				StreetList = new ObservableCollection<Street>((new[] {_AllStreets, _NoneStreets}).Concat(district.Streets).ToList());
+				FilterStreet = _AllStreets;
 			}
 		}
 
@@ -138,95 +148,100 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			DealVariantList = null;
 			OwnershipList = null;
 
-			DistrictList = new ListCollectionView((new[] {_AllDistricts, _NoneDistricts}).Concat(
+			DistrictList = new ObservableCollection<District>((new[] {_AllDistricts, _NoneDistricts}).Concat(
 				_DistrictService.GetAll()).ToList());
-
-			DistrictList.CurrentChanged += (sender, args) =>
-				{
-					UpdateStreet();
-					UpdateFilter();
-				};
+			FilterDistrict = _AllDistricts;
 			UpdateStreet();
 
-			RealtorList = new ListCollectionView((new[] {_AllRealtors, _NoneRealtors}).Concat(_RealtorService.GetAll()).ToList());
-			RealtorList.CurrentChanged += (sender, args) =>
-				{
-					UpdateFilter();
-				};
+			RealtorList = new ObservableCollection<Realtor>((new[] {_AllRealtors, _NoneRealtors}).Concat(_RealtorService.GetAll()).ToList());
+			FilterRealtor = _AllRealtors;
 
 			DealVariantList =
-				new ListCollectionView((new[] {_AllDealVariant, _NoneDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
-			DealVariantList.CurrentChanged += (sender, args) =>
-				{
-					UpdateFilter();
-				};
+				new ObservableCollection<DealVariant>((new[] {_AllDealVariant, _NoneDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
+			FilterDealVariant = _AllDealVariant;
+
 			OwnershipList =
-				new ListCollectionView((new[] {_AllOwnership, _NoneOwnership}).Concat(_OwnershipService.GetAll()).ToList());
-			OwnershipList.CurrentChanged += (sender, args) =>
-				{
-					UpdateFilter();
-				};
-			
+				new ObservableCollection<Ownership>((new[] {_AllOwnership, _NoneOwnership}).Concat(_OwnershipService.GetAll()).ToList());
+			FilterOwnership = _AllOwnership;
+
 			MinPrice = null;
 			MaxPrice = null;
 
 			LoadChildFiltersData();
 		}
 
-		protected void UpdateFilter()
+		private void InitFilters()
+		{
+			PropertyChanged += (sender, args) =>
+			{
+				if (_FilterEnabled)
+				{
+					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDealVariant)
+					    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterOwnership)
+					    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterRealtor)
+					    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterStreet))
+						UpdateEntityList();
+
+					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDistrict))
+					{
+						UpdateStreet();
+						UpdateEntityList();
+					}
+				}
+			};
+		}
+
+		protected void UpdateEntityList()
 		{
 			var entities = _RealEstateService.GetAll();
 
-			var district = ResolveDictionary<District>(DistrictList);
-			if (district != null && district != _AllDistricts)
-				entities = district == _NoneDistricts
+			var district = FilterDistrict;
+			if (district != null && !Equals(district, _AllDistricts))
+				entities = Equals(district, _NoneDistricts)
 					           ? entities.Where(room => room.District == null)
-					           : entities.Where(room => room.District != null && room.District == district);
+					           : entities.Where(room => room.District != null && Equals(room.District, district));
 
-			var realtor = ResolveDictionary<Realtor>(RealtorList);
-			if (realtor != null && realtor != _AllRealtors)
-				entities = realtor == _NoneRealtors
+			var street = FilterStreet;
+			if (street != null && !Equals(street, _AllStreets))
+				entities = Equals(street, _NoneStreets)
+							   ? entities.Where(room => room.Street == null)
+							   : entities.Where(room => room.Street != null && Equals(room.Street, street));
+
+			var realtor = FilterRealtor;
+			if (realtor != null && !Equals(realtor, _AllRealtors))
+				entities = Equals(realtor, _NoneRealtors)
 					           ? entities.Where(room => room.Realtor == null)
-					           : entities.Where(room => room.Realtor != null && room.Realtor == realtor);
+							   : entities.Where(room => room.Realtor != null && Equals(room.Realtor, realtor));
 
-			var dealVariant = ResolveDictionary<DealVariant>(DealVariantList);
-			if (dealVariant != null && dealVariant != _AllDealVariant)
-				entities = dealVariant == _NoneDealVariant
-							   ? entities.Where(room => room.DealVariant == null)
-							   : entities.Where(room => room.DealVariant != null && room.DealVariant == dealVariant);
+			var dealVariant = FilterDealVariant;
+			if (dealVariant != null && !Equals(dealVariant, _AllDealVariant))
+				entities = Equals(dealVariant, _NoneDealVariant)
+					           ? entities.Where(room => room.DealVariant == null)
+					           : entities.Where(room => room.DealVariant != null && Equals(room.DealVariant, dealVariant));
 
-			var ownership = ResolveDictionary<Ownership>(OwnershipList);
-			if (ownership != null && ownership != _AllOwnership)
-				entities = ownership == _NoneOwnership
-							   ? entities.Where(room => room.Ownership == null)
-							   : entities.Where(room => room.Ownership != null && room.Ownership == ownership);
+			var ownership = FilterOwnership;
+			if (ownership != null && !Equals(ownership, _AllOwnership))
+				entities = Equals(ownership, _NoneOwnership)
+					           ? entities.Where(room => room.Ownership == null)
+					           : entities.Where(room => room.Ownership != null && Equals(room.Ownership, ownership));
 
 			var minPrice = MinPrice ?? -decimal.MaxValue;
 			var maxPrice = MaxPrice ?? decimal.MaxValue;
 			var needFilter = MinPrice.HasValue && MaxPrice.HasValue;
-			entities = needFilter ? entities.Where(room => room.Price.HasValue && room.Price > minPrice && room.Price < maxPrice) : entities;
+			entities = needFilter
+				           ? entities.Where(room => room.Price.HasValue && room.Price > minPrice && room.Price < maxPrice)
+				           : entities;
 
 			entities = UpdateChildFilterData(entities);
 
-			
+
 			Entities = new ObservableCollection<RealEstateViewModel<T>>(entities.Select(CreateNewViewModel).ToArray());
-            EntityCountString = String.Format("Всего: {0} предложений", Entities.Count());
+			EntityCountString = String.Format("Всего: {0} предложений", Entities.Count());
 		}
 
 		private void LoadData()
 		{
-			UpdateFilter();
-		}
-
-		public D ResolveDictionary<D>(ListCollectionView listView) where D : BaseDictionary
-		{
-			D dictionary = listView.CurrentItem as D;
-			return ResolveDictionary(dictionary);
-		}
-
-		private D ResolveDictionary<D>(D dictionary) where D : BaseDictionary
-		{
-			return dictionary == null ? null : dictionary;
+			UpdateEntityList();
 		}
 
 		protected RealEstateViewModel<T> CreateNewViewModel(T model)
@@ -260,7 +275,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			roomViewModel.EditEnded += RoomViewModelOnEditEnded;
 			roomViewModel.BeginEdit(new T());
 		}
-
 
 		protected void ChangeInGrid(RealEstateViewModel<T> viewModel)
 		{
@@ -307,18 +321,23 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		protected void Update()
 		{
-			LoadData();
+			_FilterEnabled = false;
+			LoadFiltersData();
+			_FilterEnabled = true;
+			UpdateEntityList();
 		}
 
 		protected void ApplyFilter()
 		{
-			UpdateFilter();
+			UpdateEntityList();
 		}
 
 		protected void ClearFilter()
 		{
+			_FilterEnabled = false;
 			LoadFiltersData();
-			LoadData();
+			_FilterEnabled = true;
+			UpdateEntityList();
 		}
 
 		#endregion
