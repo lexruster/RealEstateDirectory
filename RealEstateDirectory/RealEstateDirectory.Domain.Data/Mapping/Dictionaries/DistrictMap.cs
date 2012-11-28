@@ -9,7 +9,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
     {
         public DistrictMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Identity));
+            Id(x => x.Id);
             Property(x => x.Name, m =>
             {
                 m.NotNullable(true);
@@ -19,9 +19,6 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
 
             Bag(x => x.Streets, c =>
                                     {
-                                        c.Inverse(true);
-                                        c.Lazy(CollectionLazy.NoLazy);
-                                        c.Cascade(Cascade.All);
                                     },
                 r =>
                     {

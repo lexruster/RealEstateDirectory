@@ -8,7 +8,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
     {
         public StreetMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Identity));
+            Id(x => x.Id);
             Property(x => x.Name, m =>
             {
                 m.NotNullable(true);
@@ -17,9 +17,6 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
             });
             ManyToOne(x => x.District, r =>
                                            {
-                                               r.Cascade(Cascade.All | Cascade.None | Cascade.Persist | Cascade.Remove);
-                                               r.Update(true);
-                                               r.Insert(true);
                                                r.NotNullable(true);
                                                r.Class(typeof(District));
                                            });

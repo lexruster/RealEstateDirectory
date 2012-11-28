@@ -8,7 +8,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping
     {
         public RealEstateMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Identity));
+            Id(x => x.Id);
             ManyToOne(x => x.DealVariant);
             Property(x => x.Description, m => m.Length(4096));
 
