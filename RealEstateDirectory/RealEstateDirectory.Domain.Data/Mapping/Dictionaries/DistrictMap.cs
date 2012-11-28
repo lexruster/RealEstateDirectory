@@ -19,6 +19,8 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
 
             Bag(x => x.Streets, c =>
                                     {
+										c.Cascade(Cascade.All);
+										c.Inverse(true);
                                     },
                 r =>
                     {
