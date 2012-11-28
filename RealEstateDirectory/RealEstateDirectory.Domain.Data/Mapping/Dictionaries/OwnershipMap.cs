@@ -9,7 +9,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
     {
         public OwnershipMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Identity));
+            Id(x => x.Id);
             Property(x => x.Name, m =>
                                       {
                                           m.NotNullable(true);

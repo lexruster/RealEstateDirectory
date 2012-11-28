@@ -96,10 +96,6 @@ namespace DataTransfer
 			{
 				hb.Delete(ent);
 			}
-			foreach (var ent in hb.Query<RealEstateDirectory.Domain.Entities.Dictionaries.Street>().ToList())
-			{
-				hb.Delete(ent);
-			}
 			foreach (var ent in hb.Query<RealEstateDirectory.Domain.Entities.Dictionaries.District>().ToList())
 			{
 				hb.Delete(ent);

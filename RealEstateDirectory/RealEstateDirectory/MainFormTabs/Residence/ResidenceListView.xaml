@@ -75,27 +75,27 @@
 					<Button Margin="2" Width="100" Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Left"  />
 					<Button Margin="2" Width="100" Content="Сбросить" Command="{Binding ClearFilterCommand}" HorizontalAlignment="Left"  />
 				</StackPanel>
-				<StackPanel>
-					<TextBlock Style="{StaticResource TextBlock}" Text="Район" />
-					<ComboBox ItemsSource="{Binding DistrictList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Style="{StaticResource TextBlock}"  Text="Улица"  />
-					<ComboBox  ItemsSource="{Binding StreetList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Style="{StaticResource TextBlock}"  Text="Риэлтор"  />
-					<ComboBox  ItemsSource="{Binding RealtorList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Style="{StaticResource TextBlock}"  Text="Собственность"  />
-					<ComboBox  ItemsSource="{Binding OwnershipList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Style="{StaticResource TextBlock}"  Text="Вариант сделки"  />
-					<ComboBox  ItemsSource="{Binding DealVariantList}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
-				</StackPanel>
-				<StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}" Text="Район" />
+                    <ComboBox ItemsSource="{Binding DistrictList}" SelectedItem="{Binding FilterDistrict, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Улица"  />
+                    <ComboBox  ItemsSource="{Binding StreetList}" SelectedItem="{Binding FilterStreet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Риэлтор"  />
+                    <ComboBox  ItemsSource="{Binding RealtorList}" SelectedItem="{Binding FilterRealtor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Собственность"  />
+                    <ComboBox  ItemsSource="{Binding OwnershipList}" SelectedItem="{Binding FilterOwnership, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextBlock}"  Text="Вариант сделки"  />
+                    <ComboBox  ItemsSource="{Binding DealVariantList}" SelectedItem="{Binding FilterDealVariant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+                </StackPanel>
+                <StackPanel>
 					<TextBlock Style="{StaticResource TextBlock}" Text="Цена от"/>
 					<TextBox Text="{Binding MinPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
 				</StackPanel>
