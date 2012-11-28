@@ -1,0 +1,7080 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.5
+-- Dumped by pg_dump version 9.1.5
+-- Started on 2012-11-28 23:51:26
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 196 (class 3079 OID 11639)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2099 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 192 (class 1259 OID 35582)
+-- Dependencies: 5
+-- Name: Apartment; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Apartment" (
+    "BuildingId" integer NOT NULL,
+    "TotalRoomCount" integer,
+    "LayoutId" integer,
+    "TerraceId" integer,
+    "FloorLevelId" integer
+);
+
+
+ALTER TABLE public."Apartment" OWNER TO nhibernate;
+
+--
+-- TOC entry 190 (class 1259 OID 35572)
+-- Dependencies: 5
+-- Name: Building; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Building" (
+    "RealEstateId" integer NOT NULL,
+    "Floor" integer,
+    "TotalFloor" integer,
+    "TotalSquare" numeric(19,5),
+    "MaterialId" integer
+);
+
+
+ALTER TABLE public."Building" OWNER TO nhibernate;
+
+--
+-- TOC entry 162 (class 1259 OID 35389)
+-- Dependencies: 5
+-- Name: DealVariant; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "DealVariant" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."DealVariant" OWNER TO nhibernate;
+
+--
+-- TOC entry 161 (class 1259 OID 35387)
+-- Dependencies: 5 162
+-- Name: DealVariant_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "DealVariant_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."DealVariant_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2100 (class 0 OID 0)
+-- Dependencies: 161
+-- Name: DealVariant_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "DealVariant_Id_seq" OWNED BY "DealVariant"."Id";
+
+
+--
+-- TOC entry 2101 (class 0 OID 0)
+-- Dependencies: 161
+-- Name: DealVariant_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"DealVariant_Id_seq"', 21, true);
+
+
+--
+-- TOC entry 164 (class 1259 OID 35402)
+-- Dependencies: 5
+-- Name: District; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "District" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."District" OWNER TO nhibernate;
+
+--
+-- TOC entry 163 (class 1259 OID 35400)
+-- Dependencies: 5 164
+-- Name: District_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "District_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."District_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2102 (class 0 OID 0)
+-- Dependencies: 163
+-- Name: District_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "District_Id_seq" OWNED BY "District"."Id";
+
+
+--
+-- TOC entry 2103 (class 0 OID 0)
+-- Dependencies: 163
+-- Name: District_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"District_Id_seq"', 106, true);
+
+
+--
+-- TOC entry 193 (class 1259 OID 35587)
+-- Dependencies: 5
+-- Name: Flat; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Flat" (
+    "ApartmentId" integer NOT NULL,
+    "ToiletTypeId" integer,
+    "ResidentialSquare" numeric(19,5),
+    "KitchenSquare" numeric(19,5)
+);
+
+
+ALTER TABLE public."Flat" OWNER TO nhibernate;
+
+--
+-- TOC entry 184 (class 1259 OID 35532)
+-- Dependencies: 5
+-- Name: FloorLevel; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "FloorLevel" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."FloorLevel" OWNER TO nhibernate;
+
+--
+-- TOC entry 183 (class 1259 OID 35530)
+-- Dependencies: 5 184
+-- Name: FloorLevel_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "FloorLevel_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."FloorLevel_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2104 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: FloorLevel_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "FloorLevel_Id_seq" OWNED BY "FloorLevel"."Id";
+
+
+--
+-- TOC entry 2105 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: FloorLevel_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"FloorLevel_Id_seq"', 1, false);
+
+
+--
+-- TOC entry 194 (class 1259 OID 35592)
+-- Dependencies: 5
+-- Name: House; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "House" (
+    "PlotId" integer NOT NULL,
+    "TotalFloor" integer,
+    "HouseSquare" numeric(19,5),
+    "WaterSupplyId" integer,
+    "SewageId" integer,
+    "HasBathhouse" boolean,
+    "HasGarage" boolean,
+    "HasGas" boolean,
+    "MaterialId" integer
+);
+
+
+ALTER TABLE public."House" OWNER TO nhibernate;
+
+--
+-- TOC entry 172 (class 1259 OID 35454)
+-- Dependencies: 5
+-- Name: Layout; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Layout" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."Layout" OWNER TO nhibernate;
+
+--
+-- TOC entry 171 (class 1259 OID 35452)
+-- Dependencies: 5 172
+-- Name: Layout_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Layout_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Layout_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2106 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: Layout_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Layout_Id_seq" OWNED BY "Layout"."Id";
+
+
+--
+-- TOC entry 2107 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: Layout_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Layout_Id_seq"', 84, true);
+
+
+--
+-- TOC entry 174 (class 1259 OID 35467)
+-- Dependencies: 5
+-- Name: Material; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Material" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."Material" OWNER TO nhibernate;
+
+--
+-- TOC entry 173 (class 1259 OID 35465)
+-- Dependencies: 174 5
+-- Name: Material_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Material_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Material_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2108 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: Material_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Material_Id_seq" OWNED BY "Material"."Id";
+
+
+--
+-- TOC entry 2109 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: Material_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Material_Id_seq"', 84, true);
+
+
+--
+-- TOC entry 166 (class 1259 OID 35415)
+-- Dependencies: 5
+-- Name: Ownership; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Ownership" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."Ownership" OWNER TO nhibernate;
+
+--
+-- TOC entry 165 (class 1259 OID 35413)
+-- Dependencies: 166 5
+-- Name: Ownership_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Ownership_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ownership_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2110 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: Ownership_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Ownership_Id_seq" OWNED BY "Ownership"."Id";
+
+
+--
+-- TOC entry 2111 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: Ownership_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Ownership_Id_seq"', 1, false);
+
+
+--
+-- TOC entry 189 (class 1259 OID 35567)
+-- Dependencies: 5
+-- Name: Plot; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Plot" (
+    "RealEstateId" integer NOT NULL,
+    "PlotSquare" numeric(19,5)
+);
+
+
+ALTER TABLE public."Plot" OWNER TO nhibernate;
+
+--
+-- TOC entry 188 (class 1259 OID 35558)
+-- Dependencies: 5
+-- Name: RealEstate; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "RealEstate" (
+    "Id" integer NOT NULL,
+    "DistrictId" integer,
+    "StreetId" integer,
+    "TerritorialNumber" character varying(255),
+    "Description" text,
+    "HasVideo" boolean,
+    "SubmitToVDV" boolean,
+    "SubmitToDomino" boolean,
+    "Price" numeric(19,5),
+    "RealtorId" integer,
+    "DealVariantId" integer,
+    "CreateDate" timestamp without time zone,
+    "OwnershipId" integer
+);
+
+
+ALTER TABLE public."RealEstate" OWNER TO nhibernate;
+
+--
+-- TOC entry 187 (class 1259 OID 35556)
+-- Dependencies: 5 188
+-- Name: RealEstate_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "RealEstate_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."RealEstate_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2112 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: RealEstate_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "RealEstate_Id_seq" OWNED BY "RealEstate"."Id";
+
+
+--
+-- TOC entry 2113 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: RealEstate_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"RealEstate_Id_seq"', 5186, true);
+
+
+--
+-- TOC entry 176 (class 1259 OID 35480)
+-- Dependencies: 5
+-- Name: Realtor; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Realtor" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL,
+    "Phone" character varying(255)
+);
+
+
+ALTER TABLE public."Realtor" OWNER TO nhibernate;
+
+--
+-- TOC entry 186 (class 1259 OID 35545)
+-- Dependencies: 5
+-- Name: RealtorAgency; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "RealtorAgency" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL,
+    "Contacts" character varying(2048),
+    "Director" character varying(1024),
+    "Address" character varying(2048),
+    "Description" text
+);
+
+
+ALTER TABLE public."RealtorAgency" OWNER TO nhibernate;
+
+--
+-- TOC entry 185 (class 1259 OID 35543)
+-- Dependencies: 186 5
+-- Name: RealtorAgency_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "RealtorAgency_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."RealtorAgency_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2114 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: RealtorAgency_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "RealtorAgency_Id_seq" OWNED BY "RealtorAgency"."Id";
+
+
+--
+-- TOC entry 2115 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: RealtorAgency_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"RealtorAgency_Id_seq"', 21, true);
+
+
+--
+-- TOC entry 175 (class 1259 OID 35478)
+-- Dependencies: 176 5
+-- Name: Realtor_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Realtor_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Realtor_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2116 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: Realtor_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Realtor_Id_seq" OWNED BY "Realtor"."Id";
+
+
+--
+-- TOC entry 2117 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: Realtor_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Realtor_Id_seq"', 301, true);
+
+
+--
+-- TOC entry 191 (class 1259 OID 35577)
+-- Dependencies: 5
+-- Name: Residence; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Residence" (
+    "BuildingId" integer NOT NULL
+);
+
+
+ALTER TABLE public."Residence" OWNER TO nhibernate;
+
+--
+-- TOC entry 195 (class 1259 OID 35597)
+-- Dependencies: 5
+-- Name: Room; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Room" (
+    "ApartmentId" integer NOT NULL,
+    "RoomCount" integer
+);
+
+
+ALTER TABLE public."Room" OWNER TO nhibernate;
+
+--
+-- TOC entry 168 (class 1259 OID 35428)
+-- Dependencies: 5
+-- Name: Sewage; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Sewage" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."Sewage" OWNER TO nhibernate;
+
+--
+-- TOC entry 167 (class 1259 OID 35426)
+-- Dependencies: 168 5
+-- Name: Sewage_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Sewage_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Sewage_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2118 (class 0 OID 0)
+-- Dependencies: 167
+-- Name: Sewage_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Sewage_Id_seq" OWNED BY "Sewage"."Id";
+
+
+--
+-- TOC entry 2119 (class 0 OID 0)
+-- Dependencies: 167
+-- Name: Sewage_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Sewage_Id_seq"', 1, false);
+
+
+--
+-- TOC entry 178 (class 1259 OID 35493)
+-- Dependencies: 5
+-- Name: Street; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Street" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL,
+    "DistrictId" integer NOT NULL
+);
+
+
+ALTER TABLE public."Street" OWNER TO nhibernate;
+
+--
+-- TOC entry 177 (class 1259 OID 35491)
+-- Dependencies: 5 178
+-- Name: Street_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Street_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Street_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2120 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: Street_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Street_Id_seq" OWNED BY "Street"."Id";
+
+
+--
+-- TOC entry 2121 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: Street_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Street_Id_seq"', 14624, true);
+
+
+--
+-- TOC entry 180 (class 1259 OID 35506)
+-- Dependencies: 5
+-- Name: Terrace; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "Terrace" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."Terrace" OWNER TO nhibernate;
+
+--
+-- TOC entry 179 (class 1259 OID 35504)
+-- Dependencies: 180 5
+-- Name: Terrace_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "Terrace_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Terrace_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2122 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: Terrace_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "Terrace_Id_seq" OWNED BY "Terrace"."Id";
+
+
+--
+-- TOC entry 2123 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: Terrace_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"Terrace_Id_seq"', 98, true);
+
+
+--
+-- TOC entry 182 (class 1259 OID 35519)
+-- Dependencies: 5
+-- Name: ToiletType; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "ToiletType" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."ToiletType" OWNER TO nhibernate;
+
+--
+-- TOC entry 181 (class 1259 OID 35517)
+-- Dependencies: 182 5
+-- Name: ToiletType_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "ToiletType_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."ToiletType_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2124 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: ToiletType_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "ToiletType_Id_seq" OWNED BY "ToiletType"."Id";
+
+
+--
+-- TOC entry 2125 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: ToiletType_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"ToiletType_Id_seq"', 28, true);
+
+
+--
+-- TOC entry 170 (class 1259 OID 35441)
+-- Dependencies: 5
+-- Name: WaterSupply; Type: TABLE; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+CREATE TABLE "WaterSupply" (
+    "Id" integer NOT NULL,
+    "Name" character varying(2048) NOT NULL
+);
+
+
+ALTER TABLE public."WaterSupply" OWNER TO nhibernate;
+
+--
+-- TOC entry 169 (class 1259 OID 35439)
+-- Dependencies: 5 170
+-- Name: WaterSupply_Id_seq; Type: SEQUENCE; Schema: public; Owner: nhibernate
+--
+
+CREATE SEQUENCE "WaterSupply_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."WaterSupply_Id_seq" OWNER TO nhibernate;
+
+--
+-- TOC entry 2126 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: WaterSupply_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nhibernate
+--
+
+ALTER SEQUENCE "WaterSupply_Id_seq" OWNED BY "WaterSupply"."Id";
+
+
+--
+-- TOC entry 2127 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: WaterSupply_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: nhibernate
+--
+
+SELECT pg_catalog.setval('"WaterSupply_Id_seq"', 1, false);
+
+
+--
+-- TOC entry 1968 (class 2604 OID 35392)
+-- Dependencies: 161 162 162
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "DealVariant" ALTER COLUMN "Id" SET DEFAULT nextval('"DealVariant_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1969 (class 2604 OID 35405)
+-- Dependencies: 163 164 164
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "District" ALTER COLUMN "Id" SET DEFAULT nextval('"District_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1979 (class 2604 OID 35535)
+-- Dependencies: 183 184 184
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "FloorLevel" ALTER COLUMN "Id" SET DEFAULT nextval('"FloorLevel_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1973 (class 2604 OID 35457)
+-- Dependencies: 171 172 172
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Layout" ALTER COLUMN "Id" SET DEFAULT nextval('"Layout_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1974 (class 2604 OID 35470)
+-- Dependencies: 173 174 174
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Material" ALTER COLUMN "Id" SET DEFAULT nextval('"Material_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1970 (class 2604 OID 35418)
+-- Dependencies: 165 166 166
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Ownership" ALTER COLUMN "Id" SET DEFAULT nextval('"Ownership_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1981 (class 2604 OID 35561)
+-- Dependencies: 188 187 188
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealEstate" ALTER COLUMN "Id" SET DEFAULT nextval('"RealEstate_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1975 (class 2604 OID 35483)
+-- Dependencies: 175 176 176
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Realtor" ALTER COLUMN "Id" SET DEFAULT nextval('"Realtor_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1980 (class 2604 OID 35548)
+-- Dependencies: 186 185 186
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealtorAgency" ALTER COLUMN "Id" SET DEFAULT nextval('"RealtorAgency_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1971 (class 2604 OID 35431)
+-- Dependencies: 167 168 168
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Sewage" ALTER COLUMN "Id" SET DEFAULT nextval('"Sewage_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1976 (class 2604 OID 35496)
+-- Dependencies: 178 177 178
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Street" ALTER COLUMN "Id" SET DEFAULT nextval('"Street_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1977 (class 2604 OID 35509)
+-- Dependencies: 180 179 180
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Terrace" ALTER COLUMN "Id" SET DEFAULT nextval('"Terrace_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1978 (class 2604 OID 35522)
+-- Dependencies: 181 182 182
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "ToiletType" ALTER COLUMN "Id" SET DEFAULT nextval('"ToiletType_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 1972 (class 2604 OID 35444)
+-- Dependencies: 169 170 170
+-- Name: Id; Type: DEFAULT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "WaterSupply" ALTER COLUMN "Id" SET DEFAULT nextval('"WaterSupply_Id_seq"'::regclass);
+
+
+--
+-- TOC entry 2088 (class 0 OID 35582)
+-- Dependencies: 192 2092
+-- Data for Name: Apartment; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Apartment" ("BuildingId", "TotalRoomCount", "LayoutId", "TerraceId", "FloorLevelId") FROM stdin;
+4366	1	73	85	\N
+4367	1	76	90	\N
+4368	1	74	85	\N
+4369	2	75	85	\N
+4370	1	76	\N	\N
+4371	1	77	90	\N
+4372	1	77	90	\N
+4373	1	77	90	\N
+4374	1	77	90	\N
+4375	2	75	98	\N
+4376	3	76	91	\N
+4377	1	74	85	\N
+4378	1	76	90	\N
+4379	2	76	85	\N
+4380	1	77	90	\N
+4381	1	74	85	\N
+4382	4	75	85	\N
+4383	3	75	85	\N
+4384	3	76	91	\N
+4385	3	\N	97	\N
+4386	2	74	85	\N
+4387	1	74	98	\N
+4388	1	75	85	\N
+4389	1	74	96	\N
+4390	2	73	86	\N
+4391	4	76	85	\N
+4392	3	75	90	\N
+4393	1	76	97	\N
+4394	1	75	85	\N
+4395	2	75	96	\N
+4396	1	\N	85	\N
+4397	1	74	85	\N
+4398	1	73	85	\N
+4399	1	73	96	\N
+4400	1	77	97	\N
+4401	1	73	96	\N
+4402	2	73	85	\N
+4403	1	76	97	\N
+4404	2	76	97	\N
+4405	4	77	95	\N
+4406	2	74	85	\N
+4407	3	75	\N	\N
+4408	4	77	97	\N
+4409	3	76	90	\N
+4410	1	77	90	\N
+4411	2	77	91	\N
+4412	2	77	92	\N
+4413	3	77	91	\N
+4414	3	77	92	\N
+4415	1	76	90	\N
+4416	1	75	96	\N
+4417	3	76	97	\N
+4418	1	76	90	\N
+4419	1	74	98	\N
+4420	3	82	90	\N
+4421	2	82	97	\N
+4422	1	76	\N	\N
+4423	1	77	97	\N
+4424	1	\N	97	\N
+4425	1	77	90	\N
+4426	2	75	96	\N
+4427	2	74	97	\N
+4428	1	\N	90	\N
+4429	3	76	90	\N
+4430	3	75	85	\N
+4431	2	\N	85	\N
+4432	1	77	91	\N
+4433	1	74	98	\N
+4434	4	76	97	\N
+4435	2	\N	\N	\N
+4436	2	76	96	\N
+4437	3	\N	86	\N
+4438	3	\N	95	\N
+4439	1	73	85	\N
+4440	1	82	98	\N
+4441	1	\N	96	\N
+4442	2	75	96	\N
+4443	2	76	98	\N
+4444	3	76	97	\N
+4445	3	\N	85	\N
+4446	4	75	85	\N
+4447	3	\N	97	\N
+4448	1	76	90	\N
+4449	1	75	85	\N
+4450	2	77	90	\N
+4451	2	73	97	\N
+4452	2	77	97	\N
+4453	3	77	91	\N
+4454	3	\N	97	\N
+4455	4	75	96	\N
+4456	3	\N	95	\N
+4457	1	76	90	\N
+4458	1	75	98	\N
+4459	2	73	96	\N
+4460	2	74	96	\N
+4461	3	73	\N	\N
+4462	1	\N	98	\N
+4463	1	76	97	\N
+4464	2	76	90	\N
+4465	3	\N	\N	\N
+4466	1	76	85	\N
+4467	1	77	90	\N
+4468	1	82	97	\N
+4469	2	84	85	\N
+4470	3	76	95	\N
+4471	4	76	91	\N
+4472	1	73	85	\N
+4473	1	77	85	\N
+4474	1	74	85	\N
+4475	1	74	85	\N
+4476	1	76	98	\N
+4477	2	75	85	\N
+4478	1	77	91	\N
+4479	1	76	91	\N
+4480	1	77	91	\N
+4481	1	77	90	\N
+4482	1	73	96	\N
+4483	2	73	96	\N
+4484	2	73	85	\N
+4485	3	75	91	\N
+4486	3	75	95	\N
+4487	3	77	90	\N
+4488	3	77	91	\N
+4489	3	77	91	\N
+4490	3	75	95	\N
+4491	1	75	85	\N
+4492	2	74	85	\N
+4493	1	73	85	\N
+4494	1	77	90	\N
+4495	1	\N	90	\N
+4496	1	74	\N	\N
+4497	4	76	85	\N
+4498	1	\N	90	\N
+4499	1	\N	98	\N
+4500	2	74	98	\N
+4501	3	\N	97	\N
+4502	2	74	98	\N
+4503	2	74	85	\N
+4504	3	76	90	\N
+4505	3	75	98	\N
+4506	2	75	85	\N
+4507	2	77	91	\N
+4508	2	77	90	\N
+4509	2	77	90	\N
+4510	2	73	\N	\N
+4511	2	76	97	\N
+4512	2	\N	85	\N
+4513	2	73	96	\N
+4514	3	76	91	\N
+4515	2	74	85	\N
+4516	3	76	91	\N
+4517	3	75	98	\N
+4518	1	73	85	\N
+4519	2	73	85	\N
+4520	3	76	90	\N
+4521	1	73	98	\N
+4522	1	75	96	\N
+4523	1	76	97	\N
+4524	2	76	\N	\N
+4525	3	76	90	\N
+4526	3	76	97	\N
+4527	3	\N	95	\N
+4528	1	77	90	\N
+4529	1	74	85	\N
+4530	1	75	85	\N
+4531	1	76	96	\N
+4532	1	75	90	\N
+4533	1	73	\N	\N
+4534	1	74	98	\N
+4535	1	74	85	\N
+4536	1	77	90	\N
+4537	1	81	85	\N
+4538	1	77	90	\N
+4539	2	77	90	\N
+4540	3	73	98	\N
+4541	3	74	85	\N
+4542	3	84	98	\N
+4543	3	77	91	\N
+4544	2	74	98	\N
+4545	2	73	85	\N
+4546	3	76	91	\N
+4547	3	74	85	\N
+4548	2	76	85	\N
+4549	2	\N	86	\N
+4550	2	\N	\N	\N
+4551	1	74	85	\N
+4552	1	73	98	\N
+4553	2	\N	96	\N
+4554	2	\N	\N	\N
+4555	2	77	91	\N
+4556	1	\N	\N	\N
+4557	1	74	\N	\N
+4558	1	84	85	\N
+4559	3	74	97	\N
+4560	3	74	96	\N
+4561	1	\N	\N	\N
+4562	2	76	86	\N
+4563	3	76	95	\N
+4564	3	76	97	\N
+4565	3	74	85	\N
+4566	3	75	97	\N
+4567	1	77	97	\N
+4568	1	76	98	\N
+4569	1	76	98	\N
+4570	1	77	90	\N
+4571	1	74	98	\N
+4572	1	76	90	\N
+4573	1	75	98	\N
+4574	3	76	91	\N
+4575	3	75	90	\N
+4576	2	76	90	\N
+4577	1	75	\N	\N
+4578	3	76	90	\N
+4579	3	75	95	\N
+4580	3	75	96	\N
+4581	3	75	85	\N
+4582	3	75	98	\N
+4583	1	76	97	\N
+4584	2	75	96	\N
+4585	2	75	97	\N
+4586	2	76	96	\N
+4587	2	74	96	\N
+4588	2	76	96	\N
+4589	3	74	\N	\N
+4590	1	77	\N	\N
+4591	1	77	\N	\N
+4592	1	76	90	\N
+4593	1	\N	86	\N
+4594	1	\N	96	\N
+4595	2	76	90	\N
+4596	2	75	85	\N
+4597	2	73	98	\N
+4598	2	73	96	\N
+4599	2	76	97	\N
+4600	2	75	85	\N
+4601	2	75	96	\N
+4602	2	74	\N	\N
+4603	2	76	97	\N
+4604	2	74	96	\N
+4605	2	77	90	\N
+4606	2	\N	85	\N
+4607	2	\N	85	\N
+4608	2	75	86	\N
+4609	2	74	96	\N
+4610	2	74	\N	\N
+4611	2	77	85	\N
+4612	2	75	\N	\N
+4613	2	76	97	\N
+4614	2	76	\N	\N
+4615	2	74	96	\N
+4616	2	76	96	\N
+4617	2	76	90	\N
+4618	2	75	96	\N
+4619	2	75	96	\N
+4620	2	\N	\N	\N
+4621	2	76	97	\N
+4622	2	76	90	\N
+4623	4	76	97	\N
+4624	1	\N	85	\N
+4625	1	76	96	\N
+4626	2	76	90	\N
+4627	2	75	90	\N
+4628	2	\N	98	\N
+4629	2	74	85	\N
+4630	2	75	97	\N
+4631	2	76	97	\N
+4632	2	80	87	\N
+4633	2	76	97	\N
+4634	2	74	96	\N
+4635	2	76	90	\N
+4636	1	76	\N	\N
+4637	1	76	90	\N
+4638	1	74	85	\N
+4639	1	75	85	\N
+4640	1	76	90	\N
+4641	1	75	85	\N
+4642	1	82	85	\N
+4643	2	73	\N	\N
+4644	2	\N	85	\N
+4645	2	\N	90	\N
+4646	2	75	85	\N
+4647	2	82	97	\N
+4648	2	\N	97	\N
+4649	2	82	\N	\N
+4650	2	73	85	\N
+4651	2	77	\N	\N
+4652	2	74	98	\N
+4653	2	77	90	\N
+4654	1	77	97	\N
+4655	1	75	96	\N
+4656	1	76	97	\N
+4657	2	77	\N	\N
+4658	2	\N	97	\N
+4659	1	74	85	\N
+4660	1	75	85	\N
+4661	1	76	98	\N
+4662	3	73	98	\N
+4663	1	74	85	\N
+4664	1	75	96	\N
+4665	1	74	85	\N
+4666	1	75	90	\N
+4667	1	76	90	\N
+4668	1	74	98	\N
+4669	1	73	98	\N
+4670	1	81	85	\N
+4671	1	74	98	\N
+4672	1	77	97	\N
+4673	1	\N	\N	\N
+4674	1	76	90	\N
+4675	2	\N	\N	\N
+4676	2	76	97	\N
+4677	4	\N	91	\N
+4678	2	76	91	\N
+4679	3	75	96	\N
+4680	3	76	97	\N
+4681	1	\N	96	\N
+4682	1	\N	85	\N
+4683	1	\N	\N	\N
+4684	1	\N	\N	\N
+4685	1	\N	\N	\N
+4686	1	\N	85	\N
+4687	1	\N	\N	\N
+4688	1	\N	\N	\N
+4689	1	\N	\N	\N
+4690	2	\N	\N	\N
+4691	2	\N	96	\N
+4692	2	\N	90	\N
+4693	2	\N	\N	\N
+4694	1	\N	97	\N
+4695	1	\N	\N	\N
+4696	1	\N	\N	\N
+4697	1	74	85	\N
+4698	1	\N	\N	\N
+4699	1	\N	85	\N
+4700	1	\N	91	\N
+4701	1	\N	\N	\N
+4702	2	\N	\N	\N
+4703	2	\N	\N	\N
+4704	2	74	\N	\N
+4705	2	73	\N	\N
+4706	2	84	90	\N
+4707	2	\N	\N	\N
+4708	2	73	\N	\N
+4709	2	\N	85	\N
+4710	2	\N	\N	\N
+4711	2	75	96	\N
+4712	2	75	96	\N
+4713	2	76	98	\N
+4714	1	76	85	\N
+4715	1	\N	\N	\N
+4716	3	74	96	\N
+4717	2	76	97	\N
+4718	2	76	96	\N
+4719	2	\N	96	\N
+4720	2	\N	96	\N
+4721	2	73	85	\N
+4722	2	75	\N	\N
+4723	2	76	98	\N
+4724	2	\N	\N	\N
+4725	2	76	\N	\N
+4726	2	75	85	\N
+4727	3	76	91	\N
+4728	3	76	97	\N
+4729	3	77	90	\N
+4730	3	\N	89	\N
+4731	3	\N	85	\N
+4732	3	\N	\N	\N
+4733	1	73	\N	\N
+4734	1	74	98	\N
+4735	1	74	98	\N
+4736	2	76	96	\N
+4737	2	\N	86	\N
+4738	2	77	90	\N
+4739	3	76	90	\N
+4740	1	\N	90	\N
+4741	1	\N	90	\N
+4742	2	\N	\N	\N
+4743	2	\N	\N	\N
+4744	2	\N	97	\N
+4745	3	\N	\N	\N
+4746	3	76	90	\N
+4747	3	77	98	\N
+4748	3	77	90	\N
+4749	3	76	90	\N
+4750	3	75	85	\N
+4751	3	77	92	\N
+4752	4	77	92	\N
+4753	1	73	85	\N
+4754	1	75	85	\N
+4755	1	75	85	\N
+4756	1	73	98	\N
+4757	1	75	98	\N
+4758	1	74	96	\N
+4759	1	75	96	\N
+4760	1	75	96	\N
+4761	1	76	96	\N
+4762	1	76	97	\N
+4763	1	76	97	\N
+4764	1	76	97	\N
+4765	1	76	85	\N
+4766	1	76	85	\N
+4767	1	75	95	\N
+4768	2	76	\N	\N
+4769	3	74	\N	\N
+4770	3	76	91	\N
+4771	3	76	90	\N
+4772	3	76	90	\N
+4773	3	77	97	\N
+4774	3	74	85	\N
+4775	3	74	85	\N
+4776	3	74	85	\N
+4777	3	76	91	\N
+4778	3	76	97	\N
+4779	3	76	97	\N
+4780	2	76	\N	\N
+4781	2	74	98	\N
+4782	2	74	85	\N
+4783	2	76	97	\N
+4784	2	74	85	\N
+4785	1	75	96	\N
+4786	1	76	90	\N
+4787	1	76	97	\N
+4788	1	73	85	\N
+4789	2	75	90	\N
+4790	2	75	\N	\N
+4791	3	\N	85	\N
+4792	1	77	90	\N
+4793	1	74	85	\N
+4794	1	74	85	\N
+4795	3	76	95	\N
+4796	1	74	85	\N
+4797	1	\N	85	\N
+4798	2	76	85	\N
+4799	2	76	85	\N
+4800	2	76	97	\N
+4801	2	75	85	\N
+4802	2	76	85	\N
+4803	3	76	85	\N
+4804	3	76	85	\N
+4805	3	74	85	\N
+4806	3	75	96	\N
+4807	3	\N	85	\N
+4808	3	76	\N	\N
+4809	2	73	95	\N
+4810	2	75	85	\N
+4811	2	74	85	\N
+4812	2	73	\N	\N
+4813	2	74	\N	\N
+4814	2	76	97	\N
+4815	2	73	\N	\N
+4816	2	73	\N	\N
+4817	2	74	85	\N
+4818	2	76	97	\N
+4819	2	77	97	\N
+4820	2	76	97	\N
+4821	2	76	97	\N
+4822	2	73	98	\N
+4823	2	77	91	\N
+4824	2	74	85	\N
+4825	2	74	85	\N
+4826	2	75	98	\N
+4827	2	74	96	\N
+4828	2	75	96	\N
+4829	2	73	85	\N
+4830	1	75	85	\N
+4831	1	74	98	\N
+4832	1	74	98	\N
+4833	1	77	90	\N
+4834	1	77	90	\N
+4835	1	75	85	\N
+4836	1	75	85	\N
+4837	1	75	85	\N
+4838	1	75	98	\N
+4839	1	74	85	\N
+4840	1	75	96	\N
+4841	1	74	98	\N
+4842	2	74	85	\N
+4843	2	76	85	\N
+4844	2	75	85	\N
+4845	3	76	97	\N
+4846	3	73	96	\N
+4847	3	76	97	\N
+4848	3	75	85	\N
+4849	3	76	91	\N
+4850	3	73	96	\N
+4851	3	73	90	\N
+4852	3	74	85	\N
+4853	3	76	85	\N
+4854	3	75	85	\N
+4855	3	76	90	\N
+4856	3	76	85	\N
+4857	3	76	90	\N
+4858	3	76	90	\N
+4859	3	76	90	\N
+4860	3	73	85	\N
+4861	4	77	97	\N
+4862	4	73	96	\N
+4863	4	76	97	\N
+4864	4	76	97	\N
+4865	4	75	85	\N
+4866	4	73	98	\N
+4867	4	75	85	\N
+4868	4	76	85	\N
+4869	4	76	90	\N
+4870	4	76	90	\N
+4871	4	82	90	\N
+4872	4	76	90	\N
+4873	4	77	95	\N
+4874	1	77	90	\N
+4875	1	77	90	\N
+4876	1	76	85	\N
+4877	1	73	98	\N
+4878	1	76	\N	\N
+4879	1	76	98	\N
+4880	2	76	90	\N
+4881	2	75	\N	\N
+4882	2	\N	85	\N
+4883	2	\N	\N	\N
+4884	2	\N	\N	\N
+4885	2	\N	\N	\N
+4886	2	76	90	\N
+4887	1	\N	\N	\N
+4888	1	\N	\N	\N
+4889	3	75	\N	\N
+4890	2	\N	\N	\N
+4891	2	\N	\N	\N
+4892	2	\N	\N	\N
+4893	2	\N	\N	\N
+4894	2	\N	98	\N
+4895	2	\N	\N	\N
+4896	1	74	98	\N
+4897	1	75	98	\N
+4898	1	74	85	\N
+4899	1	75	85	\N
+4900	1	74	98	\N
+4901	1	75	85	\N
+4902	1	77	90	\N
+4903	1	76	90	\N
+4904	1	74	98	\N
+4905	2	\N	90	\N
+4906	2	\N	98	\N
+4907	2	76	\N	\N
+4908	2	76	90	\N
+4909	2	73	85	\N
+4910	2	73	85	\N
+4911	2	74	98	\N
+4912	2	74	85	\N
+4913	3	75	95	\N
+4914	3	76	97	\N
+4915	3	76	90	\N
+4916	3	75	85	\N
+4917	3	75	85	\N
+4918	1	\N	96	\N
+4919	1	\N	\N	\N
+4920	1	\N	95	\N
+4921	1	76	96	\N
+4922	1	73	96	\N
+4923	1	76	\N	\N
+4924	3	75	85	\N
+4925	4	74	96	\N
+4926	4	75	85	\N
+4927	3	76	97	\N
+4928	3	76	91	\N
+4929	3	73	98	\N
+4930	3	73	\N	\N
+4931	4	75	98	\N
+4932	2	\N	90	\N
+4933	2	\N	\N	\N
+4934	2	\N	\N	\N
+4935	3	\N	91	\N
+4936	3	\N	92	\N
+4937	1	74	85	\N
+4938	2	\N	\N	\N
+4939	1	76	98	\N
+4940	1	81	96	\N
+4941	1	75	96	\N
+4942	1	74	85	\N
+4943	1	74	85	\N
+4944	1	77	97	\N
+4945	1	74	85	\N
+4946	1	74	85	\N
+4947	1	74	85	\N
+4948	2	77	91	\N
+4949	1	74	96	\N
+4950	2	73	85	\N
+4951	1	74	85	\N
+4952	1	76	85	\N
+4953	2	74	85	\N
+4954	2	74	85	\N
+4955	2	74	85	\N
+4956	3	76	97	\N
+4957	1	76	85	\N
+4958	2	\N	\N	\N
+4959	3	75	85	\N
+4960	1	77	90	\N
+4961	1	74	85	\N
+4962	1	74	85	\N
+4963	1	76	85	\N
+4964	1	75	85	\N
+4965	1	74	85	\N
+4966	1	\N	85	\N
+4967	1	75	98	\N
+4968	1	73	\N	\N
+4969	2	74	\N	\N
+4970	1	74	85	\N
+4971	1	82	85	\N
+4972	1	76	85	\N
+4973	1	76	85	\N
+4974	2	74	98	\N
+4975	2	76	90	\N
+4976	2	82	95	\N
+4977	3	76	91	\N
+4978	1	\N	90	\N
+4979	1	76	96	\N
+4980	1	73	96	\N
+4981	1	76	96	\N
+4982	2	\N	96	\N
+4983	2	\N	96	\N
+4984	3	\N	97	\N
+4985	2	\N	96	\N
+4986	1	74	96	\N
+4987	1	76	96	\N
+4988	1	74	\N	\N
+4989	2	74	98	\N
+4990	2	74	96	\N
+4991	2	75	97	\N
+4992	2	74	98	\N
+4993	2	76	97	\N
+4994	2	75	\N	\N
+4995	2	73	96	\N
+4996	2	73	96	\N
+4997	2	76	\N	\N
+4998	2	76	97	\N
+4999	2	75	\N	\N
+5000	2	82	90	\N
+5001	2	76	97	\N
+5002	3	76	90	\N
+5003	3	75	97	\N
+5004	3	75	97	\N
+5005	3	76	\N	\N
+5006	4	76	90	\N
+5007	0	\N	96	\N
+5008	3	76	90	\N
+5009	4	82	98	\N
+5010	4	75	95	\N
+5011	4	82	85	\N
+5012	5	82	85	\N
+5013	2	74	\N	\N
+5014	2	76	96	\N
+5015	2	74	97	\N
+5016	2	76	97	\N
+5017	2	\N	90	\N
+5131	3	73	98	\N
+5132	1	\N	\N	\N
+5133	1	\N	\N	\N
+5134	3	73	\N	\N
+5135	0	78	\N	\N
+5136	0	78	\N	\N
+5137	0	\N	\N	\N
+5138	0	\N	\N	\N
+5139	0	\N	\N	\N
+5140	3	75	98	\N
+5141	4	\N	98	\N
+5142	3	73	98	\N
+5143	0	73	98	\N
+5144	0	78	\N	\N
+5145	0	78	\N	\N
+5146	0	78	98	\N
+5147	3	\N	\N	\N
+5148	0	78	98	\N
+5149	0	78	85	\N
+5150	3	\N	98	\N
+5151	0	78	\N	\N
+5152	3	\N	98	\N
+5153	3	\N	\N	\N
+5154	0	78	85	\N
+5155	2	\N	85	\N
+5156	0	78	98	\N
+5157	0	78	98	\N
+5158	2	\N	85	\N
+5159	0	78	98	\N
+5160	4	73	98	\N
+5161	3	\N	98	\N
+5162	3	\N	98	\N
+5163	3	\N	98	\N
+5164	0	78	\N	\N
+5165	4	\N	98	\N
+5166	0	\N	\N	\N
+5167	0	\N	85	\N
+5168	0	\N	\N	\N
+5169	0	\N	\N	\N
+5170	0	78	98	\N
+5171	0	74	\N	\N
+5172	1	78	\N	\N
+5173	0	78	\N	\N
+5174	3	\N	\N	\N
+5175	0	73	\N	\N
+5176	0	78	85	\N
+5177	0	78	98	\N
+5178	0	78	\N	\N
+5179	0	78	98	\N
+5180	0	\N	\N	\N
+5181	0	73	\N	\N
+5182	0	\N	98	\N
+5183	3	\N	98	\N
+5184	0	78	85	\N
+5185	0	\N	\N	\N
+5186	2	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 2086 (class 0 OID 35572)
+-- Dependencies: 190 2092
+-- Data for Name: Building; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Building" ("RealEstateId", "Floor", "TotalFloor", "TotalSquare", "MaterialId") FROM stdin;
+4366	4	5	38.00000	73
+4367	7	9	45.00000	73
+4368	4	5	32.00000	73
+4369	8	9	49.00000	73
+4370	10	18	47.00000	73
+4371	4	10	60.00000	73
+4372	3	9	50.00000	73
+4373	7	10	54.50000	73
+4374	10	10	65.00000	73
+4375	1	5	45.00000	73
+4376	3	9	65.00000	74
+4377	2	2	27.00000	73
+4378	10	16	36.00000	73
+4379	8	9	50.00000	73
+4380	7	10	56.00000	73
+4381	2	4	32.00000	73
+4382	5	5	63.00000	74
+4383	5	5	56.00000	74
+4384	4	9	72.00000	74
+4385	5	9	0.00000	74
+4386	4	5	45.00000	74
+4387	3	4	33.00000	73
+4388	3	5	32.00000	\N
+4389	2	5	32.00000	74
+4390	5	5	60.00000	74
+4391	4	9	78.00000	74
+4392	1	9	54.00000	73
+4393	7	9	40.00000	\N
+4394	3	5	42.00000	73
+4395	4	5	47.00000	73
+4396	3	5	33.00000	\N
+4397	4	5	33.00000	73
+4398	2	2	37.00000	73
+4399	3	6	40.00000	73
+4400	16	18	61.00000	73
+4401	3	5	39.00000	73
+4402	7	7	55.10000	73
+4403	2	14	36.00000	74
+4404	6	10	100.00000	\N
+4405	12	22	199.00000	75
+4406	3	5	42.00000	73
+4407	1	5	62.00000	74
+4408	25	32	187.00000	\N
+4409	6	9	64.00000	73
+4410	16	16	49.30000	73
+4411	14	16	74.10000	73
+4412	2	16	92.50000	73
+4413	5	16	114.70000	73
+4414	13	16	124.80000	73
+4415	2	10	45.00000	73
+4416	8	9	34.00000	73
+4417	8	9	59.80000	73
+4418	16	16	35.80000	74
+4419	5	5	32.00000	73
+4420	3	5	52.00000	\N
+4421	3	5	56.00000	73
+4422	2	9	37.00000	73
+4423	12	16	47.00000	\N
+4424	9	9	36.00000	\N
+4425	2	9	52.70000	73
+4426	9	9	50.00000	73
+4427	4	5	46.00000	73
+4428	8	14	65.50000	\N
+4429	2	9	61.00000	74
+4430	4	5	61.20000	73
+4431	3	4	57.00000	\N
+4432	12	17	52.00000	\N
+4433	1	2	36.00000	73
+4434	4	16	80.10000	74
+4435	8	16	73.20000	\N
+4436	2	9	53.00000	\N
+4437	5	9	56.00000	73
+4438	11	11	81.00000	73
+4439	4	6	40.00000	73
+4440	4	5	36.00000	74
+4441	3	5	32.00000	\N
+4442	2	5	44.00000	\N
+4443	1	9	52.00000	\N
+4444	8	9	64.00000	74
+4445	3	5	54.00000	73
+4446	4	5	64.00000	74
+4447	3	9	70.00000	74
+4448	13	16	41.00000	73
+4449	8	9	33.00000	73
+4450	3	9	104.00000	73
+4451	2	3	60.00000	73
+4452	5	9	64.00000	\N
+4453	2	6	103.00000	73
+4454	5	9	65.00000	\N
+4455	3	5	62.00000	73
+4456	7	16	66.50000	\N
+4457	5	9	32.00000	73
+4458	4	5	31.00000	73
+4459	5	5	58.00000	\N
+4460	12	12	53.00000	\N
+4461	1	5	69.00000	74
+4462	2	5	32.00000	74
+4463	8	9	45.00000	74
+4464	2	16	67.30000	\N
+4465	10	16	0.00000	74
+4466	8	9	36.00000	74
+4467	7	10	40.00000	73
+4468	3	5	35.00000	73
+4469	1	9	49.40000	74
+4470	3	9	73.50000	73
+4471	5	9	83.00000	74
+4472	6	6	32.00000	73
+4473	7	9	49.00000	73
+4474	4	5	32.00000	73
+4475	4	5	32.00000	73
+4476	9	9	35.00000	73
+4477	6	9	45.00000	73
+4478	1	9	58.00000	\N
+4479	5	6	60.00000	73
+4480	11	11	54.00000	73
+4481	8	11	50.00000	73
+4482	5	5	35.00000	73
+4483	3	3	54.00000	\N
+4484	4	6	50.00000	\N
+4485	8	9	72.00000	73
+4486	9	9	60.00000	73
+4487	3	10	100.00000	73
+4488	2	9	100.00000	73
+4489	5	9	100.00000	73
+4490	3	9	59.00000	73
+4491	5	5	31.00000	74
+4492	5	5	46.00000	74
+4493	4	5	37.00000	73
+4494	2	9	48.00000	73
+4495	9	9	33.00000	\N
+4496	1	5	31.00000	73
+4497	7	10	90.00000	73
+4498	3	10	39.00000	\N
+4499	1	9	41.00000	74
+4500	1	5	44.00000	74
+4501	5	9	0.00000	\N
+4502	1	5	40.00000	\N
+4503	5	5	45.00000	73
+4504	15	16	65.60000	74
+4505	1	5	62.00000	\N
+4506	4	9	44.00000	\N
+4507	3	9	76.00000	73
+4508	3	16	47.00000	73
+4509	8	11	69.00000	73
+4510	1	2	48.00000	73
+4511	2	9	52.00000	74
+4512	2	2	41.00000	\N
+4513	4	4	56.00000	\N
+4514	1	9	67.00000	74
+4515	3	5	42.60000	73
+4516	8	9	68.00000	73
+4517	3	3	43.00000	73
+4518	2	4	35.00000	73
+4519	3	5	54.00000	\N
+4520	8	9	62.00000	73
+4521	2	5	38.00000	73
+4522	8	9	33.00000	73
+4523	1	9	45.00000	73
+4524	3	9	48.00000	73
+4525	4	9	60.70000	73
+4526	8	9	64.00000	74
+4527	6	9	59.00000	\N
+4528	11	18	47.00000	73
+4529	3	5	31.00000	73
+4530	9	9	30.00000	73
+4531	7	9	34.00000	73
+4532	2	9	32.00000	73
+4533	5	5	33.50000	73
+4534	4	5	36.00000	73
+4535	5	5	34.00000	73
+4536	5	9	54.00000	73
+4537	1	9	28.00000	73
+4538	5	12	59.20000	73
+4539	5	12	59.20000	73
+4540	1	3	56.00000	73
+4541	4	5	54.70000	73
+4542	1	3	0.00000	73
+4543	7	10	145.00000	73
+4544	1	5	46.00000	\N
+4545	2	3	59.10000	73
+4546	1	9	41.00000	74
+4547	3	5	63.00000	\N
+4548	4	9	54.00000	74
+4549	3	5	36.00000	\N
+4550	1	5	44.00000	\N
+4551	2	5	28.00000	\N
+4552	1	2	35.00000	73
+4553	9	9	46.00000	\N
+4554	1	2	43.00000	\N
+4555	8	10	100.00000	73
+4556	5	7	23.00000	\N
+4557	1	5	31.00000	\N
+4558	3	5	28.00000	\N
+4559	3	5	56.00000	73
+4560	3	5	0.00000	74
+4561	5	5	32.00000	\N
+4562	5	9	51.00000	73
+4563	2	9	64.00000	73
+4564	6	10	88.00000	73
+4565	4	5	57.00000	73
+4566	5	9	64.00000	73
+4567	2	10	43.00000	73
+4568	2	16	40.00000	73
+4569	1	9	35.00000	74
+4570	18	18	66.00000	73
+4571	2	5	32.00000	73
+4572	1	16	33.00000	74
+4573	1	5	36.00000	73
+4574	12	16	68.00000	73
+4575	9	9	57.00000	73
+4576	5	9	52.00000	\N
+4577	3	9	32.00000	73
+4578	1	9	80.00000	73
+4579	3	9	59.00000	73
+4580	4	5	56.00000	73
+4581	3	5	49.30000	73
+4582	1	5	60.00000	73
+4583	8	16	48.00000	74
+4584	2	5	41.00000	73
+4585	1	9	47.00000	73
+4586	7	9	49.00000	73
+4587	3	5	42.00000	73
+4588	7	9	50.00000	73
+4589	1	5	56.00000	74
+4590	7	10	46.10000	73
+4591	8	10	45.00000	73
+4592	5	9	42.00000	73
+4593	3	5	33.00000	\N
+4594	8	9	32.00000	\N
+4595	1	8	63.00000	73
+4596	3	9	45.00000	73
+4597	4	5	60.00000	\N
+4598	4	5	49.00000	73
+4599	6	9	49.00000	73
+4600	3	9	42.60000	73
+4601	1	9	49.00000	73
+4602	1	5	43.00000	\N
+4603	3	16	51.00000	\N
+4604	5	5	42.00000	\N
+4605	1	6	63.00000	\N
+4606	9	9	46.00000	\N
+4607	2	5	46.00000	\N
+4608	5	5	46.00000	\N
+4609	2	5	0.00000	\N
+4610	1	5	47.00000	\N
+4611	8	9	65.00000	\N
+4612	1	5	45.00000	\N
+4613	1	9	45.00000	\N
+4614	1	3	57.00000	\N
+4615	2	5	46.00000	\N
+4616	2	9	50.00000	\N
+4617	7	9	50.00000	73
+4618	2	5	0.00000	\N
+4619	2	5	52.00000	\N
+4620	7	9	52.00000	\N
+4621	3	9	50.00000	\N
+4622	9	9	50.00000	\N
+4623	10	14	80.00000	74
+4624	3	5	32.00000	\N
+4625	7	9	360.00000	74
+4626	9	9	54.00000	\N
+4627	3	9	55.00000	\N
+4628	2	5	60.00000	\N
+4629	4	4	42.00000	73
+4630	2	9	45.00000	73
+4631	10	16	50.00000	74
+4632	1	3	100.00000	\N
+4633	9	9	52.00000	74
+4634	3	5	42.00000	74
+4635	4	9	48.00000	\N
+4636	1	9	41.00000	\N
+4637	14	16	67.00000	73
+4638	2	5	33.00000	\N
+4639	2	5	31.00000	\N
+4640	8	9	35.00000	74
+4641	3	5	30.00000	\N
+4642	1	5	40.10000	73
+4643	1	2	37.00000	\N
+4644	9	9	57.00000	\N
+4645	9	9	52.00000	\N
+4646	5	5	44.00000	\N
+4647	4	5	50.00000	\N
+4648	2	9	50.00000	\N
+4649	2	5	51.90000	\N
+4650	1	3	46.00000	\N
+4651	13	15	80.00000	\N
+4652	2	5	41.00000	\N
+4653	8	9	84.00000	\N
+4654	4	9	45.00000	\N
+4655	8	9	35.00000	73
+4656	9	14	38.00000	73
+4657	6	15	84.00000	\N
+4658	5	5	88.00000	\N
+4659	4	5	32.00000	73
+4660	5	5	30.00000	73
+4661	2	9	37.00000	73
+4662	2	3	73.90000	73
+4663	5	5	31.00000	73
+4664	2	5	36.00000	73
+4665	2	5	33.00000	73
+4666	3	7	34.00000	73
+4667	2	9	35.00000	73
+4668	2	5	31.00000	73
+4669	2	6	37.00000	73
+4670	7	9	28.00000	73
+4671	2	5	33.00000	73
+4672	4	9	57.00000	73
+4673	1	9	33.00000	73
+4674	4	9	36.00000	73
+4675	2	9	52.00000	\N
+4676	8	9	52.00000	\N
+4677	2	16	78.00000	74
+4678	6	6	71.00000	73
+4679	4	5	54.00000	73
+4680	1	9	69.00000	74
+4681	2	2	25.00000	\N
+4682	3	5	36.20000	\N
+4683	1	3	20.10000	\N
+4684	1	5	0.00000	\N
+4685	5	9	25.00000	\N
+4686	4	7	32.00000	\N
+4687	5	9	34.00000	\N
+4688	1	5	31.00000	\N
+4689	8	9	21.00000	\N
+4690	1	9	52.00000	74
+4691	2	5	44.00000	\N
+4692	1	9	50.00000	74
+4693	2	2	35.20000	\N
+4694	6	10	48.00000	\N
+4695	4	9	33.00000	\N
+4696	3	5	33.00000	\N
+4697	3	5	30.00000	\N
+4698	3	3	35.00000	\N
+4699	1	10	38.00000	\N
+4700	9	10	63.00000	\N
+4701	11	13	38.00000	\N
+4702	2	9	52.00000	\N
+4703	5	5	48.00000	\N
+4704	1	5	43.00000	\N
+4705	1	2	43.00000	\N
+4706	5	13	52.00000	\N
+4707	9	10	54.00000	\N
+4708	2	2	41.00000	\N
+4709	6	10	51.00000	\N
+4710	3	9	52.00000	\N
+4711	4	5	46.00000	\N
+4712	4	5	46.00000	\N
+4713	1	9	52.00000	74
+4714	3	3	36.30000	\N
+4715	4	12	44.00000	\N
+4716	5	5	0.00000	\N
+4717	16	16	50.00000	74
+4718	9	9	46.60000	73
+4719	5	16	50.40000	73
+4720	8	16	50.40000	73
+4721	2	2	40.00000	\N
+4722	3	5	45.00000	\N
+4723	1	9	50.00000	\N
+4724	1	9	33.00000	\N
+4725	2	9	53.00000	\N
+4726	3	5	44.00000	\N
+4727	8	9	67.00000	74
+4728	8	9	70.00000	74
+4729	3	10	84.00000	73
+4730	3	9	56.00000	\N
+4731	4	5	57.20000	\N
+4732	5	5	82.00000	\N
+4733	2	3	28.00000	73
+4734	1	5	32.00000	73
+4735	3	5	32.00000	73
+4736	9	9	54.00000	\N
+4737	7	9	41.00000	\N
+4738	1	6	63.00000	\N
+4739	14	16	80.00000	74
+4740	9	9	35.00000	\N
+4741	1	16	35.00000	\N
+4742	5	9	52.00000	\N
+4743	3	9	48.00000	73
+4744	8	9	52.00000	\N
+4745	0	0	0.00000	\N
+4746	9	9	66.00000	74
+4747	10	10	154.00000	73
+4748	9	25	117.00000	73
+4749	8	10	62.00000	73
+4750	5	5	52.00000	73
+4751	6	10	111.50000	74
+4752	6	10	0.00000	74
+4753	7	7	37.00000	73
+4754	5	5	33.00000	73
+4755	8	9	33.00000	73
+4756	3	5	33.00000	73
+4757	5	9	32.00000	73
+4758	3	5	33.00000	73
+4759	5	5	30.00000	73
+4760	4	9	33.00000	73
+4761	5	9	36.00000	\N
+4762	1	9	36.00000	\N
+4763	3	10	40.00000	\N
+4764	4	10	48.00000	\N
+4765	9	9	44.00000	73
+4766	3	10	33.80000	73
+4767	6	9	52.00000	73
+4768	6	9	36.60000	\N
+4769	5	5	40.00000	73
+4770	9	10	75.30000	73
+4771	1	16	66.00000	74
+4772	9	16	66.00000	74
+4773	2	10	65.00000	73
+4774	5	5	43.00000	73
+4775	3	4	54.60000	\N
+4776	3	4	55.40000	\N
+4777	9	9	66.00000	\N
+4778	6	9	70.00000	\N
+4779	6	9	65.50000	\N
+4780	3	9	51.00000	\N
+4781	2	4	44.00000	\N
+4782	3	5	41.60000	\N
+4783	1	5	55.60000	73
+4784	5	5	42.00000	73
+4785	8	9	33.00000	73
+4786	3	5	37.00000	74
+4787	1	9	41.00000	74
+4788	3	3	40.00000	73
+4789	5	9	48.30000	73
+4790	1	5	44.00000	73
+4791	4	5	44.00000	73
+4792	8	9	58.00000	73
+4793	3	5	35.00000	73
+4794	5	5	33.00000	73
+4795	9	9	76.00000	73
+4796	3	5	29.40000	73
+4797	3	3	28.00000	73
+4798	9	9	47.00000	\N
+4799	16	16	50.00000	74
+4800	4	9	50.00000	73
+4801	4	5	45.00000	\N
+4802	7	9	50.00000	74
+4803	6	10	62.00000	\N
+4804	5	9	65.00000	74
+4805	3	5	51.00000	74
+4806	2	5	56.00000	74
+4807	3	9	0.00000	\N
+4808	8	9	64.00000	\N
+4809	5	6	52.00000	\N
+4810	3	5	44.00000	73
+4811	7	7	42.00000	73
+4812	3	5	41.60000	73
+4813	1	3	43.00000	73
+4814	2	9	52.00000	\N
+4815	2	5	57.00000	73
+4816	2	5	54.00000	73
+4817	4	7	49.00000	73
+4818	1	9	49.00000	\N
+4819	14	16	50.00000	\N
+4820	1	9	52.00000	\N
+4821	1	9	52.00000	\N
+4822	1	5	55.00000	\N
+4823	10	11	80.00000	\N
+4824	4	5	43.00000	\N
+4825	5	5	43.00000	\N
+4826	1	5	44.00000	\N
+4827	6	7	44.00000	\N
+4828	4	5	44.00000	\N
+4829	3	5	0.00000	\N
+4830	4	5	31.00000	73
+4831	2	5	30.00000	73
+4832	1	5	30.50000	73
+4833	3	9	47.00000	73
+4834	2	5	68.00000	73
+4835	5	5	31.00000	73
+4836	7	9	31.50000	73
+4837	4	9	33.00000	73
+4838	4	5	30.00000	73
+4839	5	5	31.00000	73
+4840	7	9	37.80000	73
+4841	5	5	31.00000	73
+4842	5	5	46.00000	73
+4843	7	9	52.00000	73
+4844	2	5	44.00000	74
+4845	2	9	61.00000	74
+4846	2	3	74.00000	73
+4847	3	9	65.00000	74
+4848	3	5	57.00000	73
+4849	7	9	65.00000	74
+4850	4	5	68.00000	73
+4851	4	4	64.00000	73
+4852	4	5	58.00000	73
+4853	6	9	64.00000	73
+4854	9	9	57.00000	73
+4855	7	9	59.00000	73
+4856	5	9	65.00000	74
+4857	8	9	67.00000	74
+4858	11	18	90.00000	75
+4859	2	16	71.00000	74
+4860	3	5	77.00000	73
+4861	8	9	128.00000	74
+4862	3	4	80.00000	73
+4863	3	9	73.00000	73
+4864	2	5	94.00000	73
+4865	1	9	90.00000	73
+4866	3	6	100.00000	73
+4867	2	9	80.00000	73
+4868	1	9	90.00000	73
+4869	1	9	86.00000	73
+4870	2	9	90.00000	74
+4871	6	7	69.00000	73
+4872	5	9	77.00000	74
+4873	0	0	0.00000	75
+4874	3	10	45.40000	73
+4875	5	10	44.00000	73
+4876	2	3	38.20000	73
+4877	1	5	43.00000	73
+4878	5	9	36.00000	\N
+4879	1	9	36.00000	74
+4880	7	9	51.00000	\N
+4881	4	9	47.00000	\N
+4882	4	5	46.00000	\N
+4883	1	9	83.00000	\N
+4884	3	10	56.00000	\N
+4885	10	10	85.00000	\N
+4886	8	9	54.40000	73
+4887	4	9	42.00000	\N
+4888	1	5	29.30000	\N
+4889	1	5	0.00000	73
+4890	2	4	38.00000	73
+4891	3	9	52.00000	\N
+4892	2	2	37.00000	\N
+4893	3	5	44.00000	\N
+4894	3	5	44.00000	\N
+4895	5	5	44.00000	\N
+4896	1	5	31.00000	74
+4897	2	9	30.00000	73
+4898	4	5	33.50000	73
+4899	5	9	35.00000	73
+4900	2	5	31.00000	73
+4901	7	9	33.00000	73
+4902	7	18	56.00000	73
+4903	8	11	40.00000	73
+4904	5	5	31.00000	73
+4905	9	9	48.00000	\N
+4906	2	4	58.00000	\N
+4907	8	9	50.00000	74
+4908	9	9	55.00000	73
+4909	5	5	49.00000	\N
+4910	3	3	52.00000	\N
+4911	2	5	42.00000	\N
+4912	4	4	42.00000	\N
+4913	3	9	56.40000	73
+4914	1	9	57.00000	73
+4915	2	9	63.00000	\N
+4916	5	5	42.00000	\N
+4917	2	5	57.00000	\N
+4918	8	9	26.00000	74
+4919	9	9	36.00000	\N
+4920	3	9	36.00000	\N
+4921	2	5	39.00000	73
+4922	4	5	37.00000	73
+4923	5	9	35.00000	\N
+4924	2	5	57.00000	73
+4925	4	5	64.00000	73
+4926	2	5	64.40000	73
+4927	8	9	65.00000	74
+4928	1	9	65.00000	74
+4929	2	5	70.00000	\N
+4930	1	3	85.00000	\N
+4931	2	5	58.00000	74
+4932	11	16	50.00000	\N
+4933	1	9	50.00000	\N
+4934	6	9	52.00000	\N
+4935	7	16	74.00000	73
+4936	3	9	68.00000	\N
+4937	3	5	31.00000	73
+4938	3	4	44.00000	\N
+4939	8	9	36.00000	73
+4940	4	9	21.60000	73
+4941	4	9	33.00000	73
+4942	5	5	31.00000	73
+4943	5	5	33.00000	73
+4944	6	9	48.00000	73
+4945	4	5	33.00000	73
+4946	3	5	32.00000	73
+4947	5	5	30.00000	73
+4948	10	10	96.00000	73
+4949	5	5	31.00000	74
+4950	2	2	37.00000	73
+4951	4	5	31.00000	74
+4952	9	9	52.00000	\N
+4953	4	4	42.00000	\N
+4954	3	4	45.00000	\N
+4955	4	5	43.00000	\N
+4956	3	9	1.00000	73
+4957	9	9	36.00000	\N
+4958	5	16	89.50000	73
+4959	2	5	54.00000	74
+4960	2	10	42.00000	73
+4961	2	5	32.00000	73
+4962	3	5	30.00000	73
+4963	5	6	30.40000	73
+4964	5	5	31.00000	73
+4965	4	5	30.00000	73
+4966	4	4	34.00000	73
+4967	2	5	31.00000	73
+4968	1	2	30.00000	73
+4969	5	5	42.00000	\N
+4970	3	5	31.00000	73
+4971	7	7	32.00000	73
+4972	12	16	35.50000	74
+4973	5	16	35.50000	\N
+4974	2	4	43.00000	74
+4975	3	9	54.00000	74
+4976	5	5	52.00000	\N
+4977	5	9	108.00000	74
+4978	13	16	36.00000	\N
+4979	2	5	39.00000	73
+4980	4	5	37.00000	73
+4981	5	9	35.00000	73
+4982	3	4	44.00000	73
+4983	4	5	44.00000	\N
+4984	5	9	65.00000	\N
+4985	5	5	44.00000	\N
+4986	3	5	36.00000	73
+4987	2	16	36.00000	74
+4988	4	5	0.00000	\N
+4989	5	5	42.00000	\N
+4990	3	5	42.00000	\N
+4991	6	9	42.00000	73
+4992	1	4	41.00000	\N
+4993	9	9	48.00000	\N
+4994	9	9	45.00000	\N
+4995	3	4	56.00000	\N
+4996	4	4	52.00000	\N
+4997	2	9	0.00000	\N
+4998	5	9	50.00000	\N
+4999	6	9	0.00000	73
+5000	5	5	65.00000	\N
+5001	1	10	60.00000	73
+5002	2	9	0.00000	\N
+5003	5	9	58.00000	\N
+5004	8	9	58.00000	\N
+5005	6	16	70.00000	74
+5006	10	14	80.00000	74
+5007	0	0	36.00000	73
+5008	7	9	65.00000	74
+5009	1	5	68.00000	73
+5010	7	9	73.00000	\N
+5011	1	5	80.00000	73
+5012	4	5	86.00000	73
+5013	4	4	43.00000	\N
+5014	10	16	50.00000	74
+5015	5	5	46.70000	\N
+5016	8	9	48.00000	\N
+5017	9	9	44.00000	\N
+5116	1	9	0.00000	\N
+5117	1	1	283.00000	\N
+5118	1	10	84.00000	73
+5119	1	9	55.00000	73
+5120	0	0	0.00000	\N
+5121	1	1	20.80000	73
+5122	2	2	21.00000	\N
+5123	1	16	0.00000	\N
+5124	0	0	0.00000	\N
+5125	1	4	0.00000	73
+5126	5	5	0.00000	73
+5127	1	3	0.00000	\N
+5128	1	5	68.00000	\N
+5129	0	0	310.00000	\N
+5130	1	5	40.00000	73
+5131	1	4	22.00000	73
+5132	2	5	18.00000	\N
+5133	4	4	20.00000	\N
+5134	1	5	20.00000	\N
+5135	1	5	18.30000	73
+5136	2	5	13.00000	\N
+5137	3	3	13.50000	\N
+5138	2	3	22.00000	\N
+5139	4	4	22.00000	\N
+5140	9	9	10.00000	73
+5141	3	5	19.00000	\N
+5142	4	4	14.00000	\N
+5143	1	2	17.80000	73
+5144	2	5	18.00000	\N
+5145	1	5	18.30000	73
+5146	3	3	18.50000	73
+5147	4	4	22.00000	\N
+5148	9	9	13.00000	73
+5149	4	4	13.00000	73
+5150	3	9	17.00000	73
+5151	1	4	22.00000	73
+5152	5	5	19.00000	73
+5153	1	5	18.00000	73
+5154	5	5	20.00000	73
+5155	2	5	14.50000	73
+5156	2	9	29.00000	73
+5157	3	5	18.00000	73
+5158	5	5	13.00000	73
+5159	1	2	17.00000	\N
+5160	5	5	14.00000	73
+5161	1	5	17.00000	73
+5162	3	3	23.50000	73
+5163	1	4	12.00000	73
+5164	3	5	13.00000	\N
+5165	2	2	33.00000	\N
+5166	3	4	22.00000	\N
+5167	4	4	22.00000	\N
+5168	1	5	13.00000	\N
+5169	5	5	13.00000	\N
+5170	2	9	10.10000	73
+5171	2	5	17.50000	\N
+5172	2	5	0.00000	\N
+5173	2	5	16.30000	\N
+5174	3	5	0.00000	\N
+5175	1	4	0.00000	\N
+5176	3	5	16.30000	73
+5177	3	9	19.00000	\N
+5178	3	5	18.00000	\N
+5179	4	5	17.50000	73
+5180	10	10	16.10000	73
+5181	1	2	15.00000	\N
+5182	4	5	17.30000	73
+5183	3	5	10.00000	\N
+5184	1	5	17.00000	73
+5185	2	9	0.00000	\N
+5186	1	2	12.00000	\N
+\.
+
+
+--
+-- TOC entry 2071 (class 0 OID 35389)
+-- Dependencies: 162 2092
+-- Data for Name: DealVariant; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "DealVariant" ("Id", "Name") FROM stdin;
+19	ч/продажа
+20	обмен
+21	обмен подобр.
+\.
+
+
+--
+-- TOC entry 2072 (class 0 OID 35402)
+-- Dependencies: 164 2092
+-- Data for Name: District; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "District" ("Id", "Name") FROM stdin;
+92	Ворош.
+93	Дзерж.
+94	Кир.
+95	Красноарм.
+96	Красноокт.
+97	Сов.
+98	ТЗР
+99	Центр.
+100	Область
+101	Волжский
+102	Ерзовка
+103	Быковский район
+104	Городи
+105	Средняя Ахтуба
+106	rrrr
+\.
+
+
+--
+-- TOC entry 2089 (class 0 OID 35587)
+-- Dependencies: 193 2092
+-- Data for Name: Flat; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Flat" ("ApartmentId", "ToiletTypeId", "ResidentialSquare", "KitchenSquare") FROM stdin;
+4366	25	19.00000	9.00000
+4367	25	20.00000	11.00000
+4368	25	20.00000	6.00000
+4369	26	29.00000	7.00000
+4370	25	0.00000	0.00000
+4371	25	28.00000	11.00000
+4372	25	21.00000	13.00000
+4373	25	20.30000	13.00000
+4374	25	0.00000	0.00000
+4375	26	34.00000	6.00000
+4376	26	49.00000	8.00000
+4377	25	15.50000	6.00000
+4378	26	18.00000	10.00000
+4379	26	29.00000	8.50000
+4380	26	22.80000	11.90000
+4381	25	18.00000	6.00000
+4382	\N	45.00000	7.00000
+4383	26	41.00000	6.00000
+4384	26	41.00000	9.00000
+4385	\N	0.00000	0.00000
+4386	25	29.00000	7.00000
+4387	25	18.00000	6.00000
+4388	25	18.00000	6.00000
+4389	25	19.00000	7.00000
+4390	26	40.00000	8.00000
+4391	26	51.00000	9.00000
+4392	26	0.00000	0.00000
+4393	25	21.00000	9.00000
+4394	\N	23.00000	7.50000
+4395	25	29.00000	7.00000
+4396	25	18.00000	6.00000
+4397	\N	18.00000	6.00000
+4398	25	19.20000	8.00000
+4399	25	22.00000	7.00000
+4400	25	19.00000	15.50000
+4401	25	19.00000	9.00000
+4402	25	39.10000	6.00000
+4403	26	18.00000	9.00000
+4404	26	78.00000	12.00000
+4405	\N	0.00000	0.00000
+4406	25	25.00000	6.00000
+4407	26	46.00000	6.30000
+4408	\N	0.00000	0.00000
+4409	26	40.00000	9.50000
+4410	\N	0.00000	0.00000
+4411	\N	0.00000	0.00000
+4412	\N	0.00000	0.00000
+4413	26	0.00000	0.00000
+4414	26	0.00000	0.00000
+4415	26	28.00000	8.00000
+4416	25	19.70000	6.00000
+4417	26	37.40000	8.30000
+4418	\N	17.80000	8.00000
+4419	\N	18.00000	7.00000
+4420	\N	30.00000	8.00000
+4421	25	0.00000	8.50000
+4422	26	20.00000	9.00000
+4423	25	18.00000	13.00000
+4424	\N	19.00000	9.00000
+4425	\N	18.00000	20.00000
+4426	26	28.00000	6.00000
+4427	\N	30.00000	6.00000
+4428	\N	34.40000	13.40000
+4429	26	40.00000	9.00000
+4430	25	45.30000	6.00000
+4431	25	35.00000	8.00000
+4432	26	26.00000	12.00000
+4433	25	20.00000	6.50000
+4434	\N	53.70000	8.00000
+4435	\N	0.00000	0.00000
+4436	26	0.00000	0.00000
+4437	26	40.00000	7.00000
+4438	26	47.00000	16.00000
+4439	\N	14.00000	14.00000
+4440	26	19.00000	7.40000
+4441	\N	18.00000	8.00000
+4442	26	27.00000	6.00000
+4443	27	30.00000	8.00000
+4444	26	42.00000	8.00000
+4445	26	30.00000	6.00000
+4446	26	45.00000	6.00000
+4447	26	40.00000	9.00000
+4448	26	17.00000	9.60000
+4449	25	19.00000	6.00000
+4450	26	46.00000	18.00000
+4451	26	36.00000	8.00000
+4452	26	20.00000	11.00000
+4453	25	51.00000	14.00000
+4454	26	41.00000	9.00000
+4455	26	0.00000	0.00000
+4456	26	42.00000	8.00000
+4457	25	18.00000	9.00000
+4458	25	18.00000	6.00000
+4459	\N	31.00000	10.00000
+4460	\N	39.00000	8.00000
+4461	\N	49.00000	8.00000
+4462	27	17.00000	7.00000
+4463	\N	20.00000	11.00000
+4464	\N	0.00000	0.00000
+4465	\N	0.00000	0.00000
+4466	25	18.00000	8.00000
+4467	25	19.70000	9.30000
+4468	\N	17.00000	8.00000
+4469	26	28.00000	8.80000
+4470	26	47.00000	9.00000
+4471	\N	51.00000	11.00000
+4472	25	0.00000	0.00000
+4473	25	18.30000	12.20000
+4474	\N	18.00000	6.00000
+4475	\N	0.00000	0.00000
+4476	26	19.00000	8.00000
+4477	26	28.00000	9.10000
+4478	\N	21.00000	16.00000
+4479	25	28.00000	15.00000
+4480	25	26.30000	13.30000
+4481	25	18.00000	12.40000
+4482	\N	19.00000	8.00000
+4483	\N	34.00000	7.00000
+4484	\N	30.00000	6.00000
+4485	26	43.00000	6.20000
+4486	26	39.00000	7.20000
+4487	\N	60.00000	14.00000
+4488	\N	50.00000	14.00000
+4489	\N	50.00000	14.00000
+4490	\N	39.00000	7.00000
+4491	25	17.00000	6.50000
+4492	25	27.00000	6.00000
+4493	\N	19.00000	9.00000
+4494	\N	0.00000	0.00000
+4495	27	18.00000	6.00000
+4496	25	18.00000	6.00000
+4497	\N	65.00000	9.00000
+4498	\N	0.00000	0.00000
+4499	\N	17.00000	6.00000
+4500	25	30.00000	6.00000
+4501	\N	0.00000	0.00000
+4502	25	25.00000	6.00000
+4503	25	29.00000	6.00000
+4504	26	41.30000	7.50000
+4505	26	41.40000	6.10000
+4506	\N	28.00000	960.00000
+4507	\N	42.00000	14.00000
+4508	\N	27.00000	8.00000
+4509	\N	34.00000	16.00000
+4510	\N	0.00000	0.00000
+4511	26	30.00000	9.00000
+4512	25	0.00000	0.00000
+4513	\N	37.00000	8.00000
+4514	26	41.00000	9.00000
+4515	25	26.10000	6.00000
+4516	26	42.00000	11.00000
+4517	25	31.00000	6.00000
+4518	\N	18.00000	8.00000
+4519	26	31.00000	7.20000
+4520	26	40.00000	9.00000
+4521	26	20.00000	9.00000
+4522	25	19.00000	6.00000
+4523	26	28.00000	8.20000
+4524	\N	0.00000	0.00000
+4525	26	38.00000	8.40000
+4526	26	42.00000	8.00000
+4527	\N	39.00000	7.50000
+4528	25	18.00000	12.00000
+4529	\N	18.00000	6.00000
+4530	\N	17.00000	6.00000
+4531	25	18.50000	8.20000
+4532	25	16.00000	8.00000
+4533	\N	0.00000	0.00000
+4534	\N	19.00000	6.00000
+4535	25	19.00000	6.00000
+4536	\N	20.00000	14.00000
+4537	\N	14.00000	6.00000
+4538	25	27.00000	13.30000
+4539	25	27.00000	13.30000
+4540	26	35.00000	6.00000
+4541	25	34.90000	6.10000
+4542	\N	0.00000	0.00000
+4543	26	94.00000	14.30000
+4544	25	28.00000	6.00000
+4545	\N	35.00000	7.40000
+4546	26	67.00000	9.00000
+4547	25	45.50000	6.20000
+4548	26	26.00000	6.00000
+4549	26	48.00000	7.00000
+4550	\N	25.00000	6.00000
+4551	25	16.20000	5.60000
+4552	26	19.00000	7.00000
+4553	27	26.00000	8.00000
+4554	\N	21.00000	5.00000
+4555	\N	28.00000	9.00000
+4556	\N	0.00000	0.00000
+4557	26	17.00000	6.00000
+4558	\N	16.00000	16.50000
+4559	\N	38.00000	6.00000
+4560	\N	0.00000	0.00000
+4561	\N	18.00000	6.00000
+4562	26	28.00000	9.00000
+4563	26	42.00000	11.00000
+4564	26	54.00000	11.00000
+4565	25	37.00000	6.00000
+4566	26	56.00000	6.00000
+4567	26	16.00000	10.00000
+4568	\N	20.00000	12.00000
+4569	\N	18.00000	9.00000
+4570	\N	25.00000	16.00000
+4571	25	18.00000	6.00000
+4572	26	18.00000	8.00000
+4573	\N	22.00000	6.00000
+4574	26	42.00000	8.20000
+4575	26	39.00000	7.00000
+4576	\N	28.00000	9.00000
+4577	\N	19.00000	6.20000
+4578	26	50.00000	12.00000
+4579	25	37.00000	6.00000
+4580	25	42.00000	7.00000
+4581	26	32.00000	6.00000
+4582	26	45.00000	6.00000
+4583	26	19.60000	13.50000
+4584	26	26.00000	6.00000
+4585	26	27.00000	7.00000
+4586	26	27.00000	8.00000
+4587	25	27.00000	6.00000
+4588	26	0.00000	0.00000
+4589	25	42.00000	6.00000
+4590	\N	21.10000	11.70000
+4591	\N	12.00000	23.00000
+4592	\N	19.00000	9.50000
+4593	25	17.00000	6.00000
+4594	\N	18.00000	7.00000
+4595	26	34.00000	9.30000
+4596	26	28.00000	6.00000
+4597	26	39.00000	7.50000
+4598	26	30.00000	7.00000
+4599	26	27.00000	8.00000
+4600	26	26.40000	9.00000
+4601	26	29.00000	7.20000
+4602	\N	0.00000	0.00000
+4603	\N	30.00000	9.00000
+4604	\N	0.00000	6.00000
+4605	26	33.00000	10.00000
+4606	\N	0.00000	0.00000
+4607	\N	0.00000	0.00000
+4608	\N	0.00000	6.00000
+4609	\N	0.00000	0.00000
+4610	26	33.00000	14.00000
+4611	26	35.00000	11.00000
+4612	\N	31.00000	6.00000
+4613	\N	28.00000	8.50000
+4614	\N	0.00000	0.00000
+4615	\N	0.00000	0.00000
+4616	\N	29.00000	9.00000
+4617	26	30.00000	8.00000
+4618	\N	0.00000	0.00000
+4619	26	0.00000	9.00000
+4620	\N	0.00000	9.00000
+4621	\N	30.00000	9.00000
+4622	\N	30.00000	9.00000
+4623	26	54.00000	8.00000
+4624	\N	18.00000	6.00000
+4625	26	18.00000	9.00000
+4626	26	29.00000	9.00000
+4627	27	27.00000	6.00000
+4628	\N	33.00000	8.00000
+4629	25	28.00000	6.00000
+4630	26	29.00000	7.00000
+4631	26	28.00000	8.00000
+4632	25	60.00000	40.00000
+4633	26	29.00000	8.00000
+4634	\N	26.00000	6.00000
+4635	\N	28.00000	8.00000
+4636	\N	19.00000	9.00000
+4637	\N	22.00000	27.00000
+4638	\N	17.50000	6.00000
+4639	\N	18.00000	6.00000
+4640	25	19.00000	8.00000
+4641	\N	17.00000	6.00000
+4642	\N	18.00000	10.00000
+4643	\N	23.00000	6.50000
+4644	\N	27.00000	9.00000
+4645	\N	31.70000	8.60000
+4646	\N	0.00000	0.00000
+4647	\N	30.00000	8.00000
+4648	\N	30.00000	8.00000
+4649	\N	28.50000	8.10000
+4650	\N	24.00000	8.00000
+4651	\N	0.00000	0.00000
+4652	\N	25.00000	6.00000
+4653	\N	50.00000	13.00000
+4654	\N	20.00000	11.00000
+4655	25	20.00000	7.00000
+4656	\N	18.00000	9.00000
+4657	\N	40.00000	15.00000
+4658	26	45.00000	11.00000
+4659	25	18.00000	6.00000
+4660	25	17.00000	6.60000
+4661	26	20.00000	9.00000
+4662	26	49.90000	8.90000
+4663	\N	19.00000	5.80000
+4664	\N	18.00000	6.00000
+4665	\N	19.00000	6.00000
+4666	26	18.00000	7.50000
+4667	25	17.00000	9.00000
+4668	25	16.00000	6.00000
+4669	26	15.00000	8.00000
+4670	\N	15.00000	6.00000
+4671	25	19.00000	6.00000
+4672	25	25.00000	12.00000
+4673	25	19.80000	8.50000
+4674	\N	19.00000	8.00000
+4675	\N	28.00000	8.00000
+4676	\N	28.00000	9.00000
+4677	\N	52.00000	9.00000
+4678	26	34.00000	9.00000
+4679	26	37.00000	6.00000
+4680	26	41.00000	9.00000
+4681	\N	17.00000	6.00000
+4682	\N	20.70000	8.10000
+4683	\N	37.50000	9.00000
+4684	\N	0.00000	0.00000
+4685	\N	11.00000	6.00000
+4686	\N	18.00000	6.00000
+4687	\N	18.00000	8.00000
+4688	\N	17.00000	6.60000
+4689	\N	11.00000	6.00000
+4690	\N	28.00000	9.00000
+4691	\N	29.00000	6.00000
+4692	\N	28.00000	8.00000
+4693	\N	25.00000	6.20000
+4694	\N	0.00000	0.00000
+4695	\N	19.00000	6.00000
+4696	\N	17.00000	6.00000
+4697	\N	18.00000	6.00000
+4698	\N	15.00000	10.00000
+4699	\N	15.00000	8.00000
+4700	\N	21.00000	16.00000
+4701	\N	19.00000	8.00000
+4702	\N	34.00000	9.00000
+4703	\N	0.00000	0.00000
+4704	\N	0.00000	0.00000
+4705	\N	0.00000	0.00000
+4706	\N	0.00000	0.00000
+4707	\N	32.00000	9.00000
+4708	\N	37.00000	6.00000
+4709	\N	32.00000	8.50000
+4710	\N	28.00000	9.00000
+4711	\N	29.00000	6.00000
+4712	\N	26.00000	6.00000
+4713	\N	28.00000	8.00000
+4714	\N	18.00000	9.90000
+4715	\N	20.00000	11.00000
+4716	\N	0.00000	0.00000
+4717	26	29.00000	8.00000
+4718	26	28.60000	9.00000
+4719	26	28.50000	7.50000
+4720	26	28.50000	7.50000
+4721	\N	31.00000	5.00000
+4722	\N	26.00000	6.00000
+4723	\N	29.00000	6.00000
+4724	\N	26.40000	6.00000
+4725	\N	30.00000	7.00000
+4726	\N	30.00000	0.00000
+4727	26	42.00000	9.00000
+4728	26	44.00000	9.00000
+4729	26	52.00000	12.00000
+4730	25	35.00000	6.50000
+4731	\N	0.00000	0.00000
+4732	26	0.00000	0.00000
+4733	25	18.00000	5.00000
+4734	25	18.00000	6.00000
+4735	25	19.00000	6.00000
+4736	26	29.00000	9.00000
+4737	25	26.00000	8.00000
+4738	26	33.00000	10.00000
+4739	25	41.30000	8.10000
+4740	25	19.00000	7.00000
+4741	\N	18.40000	8.00000
+4742	\N	29.00000	8.00000
+4743	\N	26.00000	7.00000
+4744	\N	28.00000	8.00000
+4745	\N	0.00000	0.00000
+4746	26	40.00000	8.00000
+4747	\N	90.00000	22.00000
+4748	25	50.00000	30.00000
+4749	26	40.00000	8.50000
+4750	26	36.00000	6.60000
+4751	26	39.40000	33.00000
+4752	\N	111.50000	0.00000
+4753	26	18.00000	8.00000
+4754	\N	18.00000	6.00000
+4755	25	19.00000	6.50000
+4756	25	16.00000	6.00000
+4757	\N	18.00000	6.00000
+4758	\N	21.00000	6.00000
+4759	\N	17.00000	7.00000
+4760	25	18.50000	6.00000
+4761	\N	18.00000	9.00000
+4762	\N	18.00000	9.00000
+4763	\N	16.00000	9.00000
+4764	\N	21.00000	15.00000
+4765	25	20.00000	14.00000
+4766	25	17.40000	7.80000
+4767	25	36.00000	0.00000
+4768	\N	72.00000	11.90000
+4769	\N	55.90000	6.00000
+4770	25	0.00000	9.00000
+4771	26	41.00000	8.00000
+4772	26	41.00000	8.00000
+4773	26	42.00000	8.00000
+4774	25	56.00000	6.50000
+4775	\N	37.00000	5.60000
+4776	\N	39.50000	6.00000
+4777	26	41.00000	8.00000
+4778	\N	40.00000	10.00000
+4779	\N	41.00000	8.20000
+4780	26	28.00000	8.40000
+4781	\N	29.00000	6.00000
+4782	25	25.50000	9.90000
+4783	26	30.20000	9.00000
+4784	25	27.00000	6.00000
+4785	25	22.00000	6.00000
+4786	26	20.00000	8.00000
+4787	26	22.00000	8.70000
+4788	26	20.00000	9.00000
+4789	26	29.00000	7.10000
+4790	\N	29.00000	6.00000
+4791	\N	28.00000	6.00000
+4792	26	20.00000	11.00000
+4793	25	18.00000	6.00000
+4794	\N	21.00000	6.00000
+4795	\N	47.00000	11.00000
+4796	25	17.70000	6.00000
+4797	25	17.00000	5.00000
+4798	26	28.00000	9.00000
+4799	26	24.00000	8.00000
+4800	26	29.00000	8.00000
+4801	\N	0.00000	0.00000
+4802	26	27.00000	9.00000
+4803	\N	38.00000	8.50000
+4804	\N	42.00000	9.00000
+4805	\N	36.00000	6.50000
+4806	26	42.00000	6.00000
+4807	25	0.00000	0.00000
+4808	\N	0.00000	9.00000
+4809	26	30.00000	7.00000
+4810	26	30.00000	6.50000
+4811	25	28.00000	6.00000
+4812	\N	23.40000	7.10000
+4813	\N	29.90000	6.00000
+4814	26	23.00000	9.00000
+4815	\N	33.00000	9.00000
+4816	26	28.00000	7.00000
+4817	25	32.00000	6.00000
+4818	26	29.00000	9.00000
+4819	26	29.00000	8.00000
+4820	26	28.00000	9.00000
+4821	26	29.00000	8.00000
+4822	26	33.00000	8.00000
+4823	26	46.00000	12.00000
+4824	26	29.00000	6.20000
+4825	25	26.00000	6.00000
+4826	26	30.00000	6.00000
+4827	\N	29.00000	6.00000
+4828	\N	27.00000	6.00000
+4829	\N	0.00000	0.00000
+4830	25	17.00000	7.00000
+4831	25	17.00000	6.30000
+4832	25	17.50000	6.00000
+4833	26	0.00000	0.00000
+4834	26	0.00000	0.00000
+4835	25	17.00000	6.50000
+4836	25	17.30000	6.00000
+4837	25	19.00000	6.00000
+4838	25	17.00000	6.50000
+4839	25	17.00000	6.00000
+4840	25	18.80000	7.00000
+4841	25	18.00000	6.00000
+4842	25	31.00000	6.00000
+4843	26	30.00000	9.00000
+4844	26	0.00000	0.00000
+4845	26	39.00000	8.30000
+4846	26	50.80000	9.00000
+4847	26	0.00000	0.00000
+4848	26	40.00000	6.00000
+4849	26	41.00000	8.00000
+4850	26	0.00000	0.00000
+4851	26	45.00000	7.00000
+4852	26	42.00000	6.00000
+4853	26	40.00000	8.00000
+4854	26	39.00000	7.00000
+4855	26	39.00000	8.00000
+4856	26	40.00000	8.00000
+4857	26	41.00000	8.00000
+4858	26	47.00000	13.00000
+4859	26	43.00000	12.00000
+4860	26	46.00000	13.00000
+4861	\N	0.00000	9.00000
+4862	26	56.00000	7.50000
+4863	26	53.00000	8.00000
+4864	26	64.00000	9.00000
+4865	26	64.00000	7.00000
+4866	26	56.00000	9.00000
+4867	26	56.00000	7.00000
+4868	26	65.00000	9.00000
+4869	26	64.00000	7.00000
+4870	26	50.00000	12.00000
+4871	26	52.00000	7.00000
+4872	26	55.00000	8.00000
+4873	\N	0.00000	0.00000
+4874	25	23.00000	12.00000
+4875	25	20.00000	12.40000
+4876	25	0.00000	0.00000
+4877	26	17.00000	8.50000
+4878	26	0.00000	0.00000
+4879	26	0.00000	0.00000
+4880	\N	28.00000	8.00000
+4881	\N	30.00000	6.00000
+4882	\N	28.00000	6.00000
+4883	\N	40.00000	13.60000
+4884	\N	33.00000	9.00000
+4885	\N	0.00000	0.00000
+4886	26	0.00000	0.00000
+4887	\N	19.00000	8.00000
+4888	\N	16.30000	6.00000
+4889	\N	0.00000	0.00000
+4890	\N	21.00000	6.00000
+4891	\N	28.00000	9.00000
+4892	\N	27.00000	6.00000
+4893	\N	28.00000	6.00000
+4894	\N	28.00000	6.00000
+4895	\N	28.00000	6.00000
+4896	25	18.00000	6.00000
+4897	25	18.00000	7.00000
+4898	25	20.00000	6.00000
+4899	25	20.00000	6.00000
+4900	25	18.00000	6.00000
+4901	25	20.00000	6.00000
+4902	\N	19.00000	10.00000
+4903	\N	19.00000	9.00000
+4904	25	18.00000	6.50000
+4905	\N	29.00000	6.00000
+4906	\N	36.00000	10.00000
+4907	\N	28.00000	8.00000
+4908	26	29.00000	9.00000
+4909	25	29.00000	8.00000
+4910	26	32.00000	6.50000
+4911	\N	0.00000	0.00000
+4912	25	0.00000	0.00000
+4913	26	0.00000	0.00000
+4914	\N	37.00000	8.00000
+4915	26	40.00000	9.00000
+4916	25	54.00000	7.00000
+4917	26	36.00000	6.00000
+4918	\N	12.00000	6.00000
+4919	\N	18.00000	8.00000
+4920	\N	20.00000	8.00000
+4921	\N	21.00000	8.00000
+4922	\N	20.00000	9.00000
+4923	\N	15.00000	7.30000
+4924	26	36.00000	6.00000
+4925	26	47.00000	6.30000
+4926	26	0.00000	0.00000
+4927	26	0.00000	0.00000
+4928	26	0.00000	10.00000
+4929	\N	0.00000	8.00000
+4930	26	0.00000	0.00000
+4931	26	0.00000	6.00000
+4932	26	28.00000	8.00000
+4933	\N	28.00000	8.00000
+4934	\N	28.00000	8.00000
+4935	\N	46.00000	13.60000
+4936	\N	42.00000	8.00000
+4937	\N	17.00000	6.00000
+4938	\N	28.00000	6.00000
+4939	26	19.00000	8.00000
+4940	25	10.70000	6.00000
+4941	25	19.50000	6.10000
+4942	25	18.00000	6.00000
+4943	25	20.00000	6.00000
+4944	25	18.50000	12.30000
+4945	25	18.00000	6.00000
+4946	25	17.00000	6.00000
+4947	25	18.00000	6.00000
+4948	26	0.00000	0.00000
+4949	25	17.00000	6.50000
+4950	25	20.00000	8.00000
+4951	25	18.00000	6.00000
+4952	\N	28.00000	9.00000
+4953	25	0.00000	0.00000
+4954	\N	29.00000	6.00000
+4955	\N	28.00000	6.00000
+4956	26	0.00000	0.00000
+4957	26	18.00000	9.00000
+4958	\N	34.50000	11.30000
+4959	\N	30.00000	6.00000
+4960	26	20.00000	11.00000
+4961	26	0.00000	0.00000
+4962	25	17.00000	6.50000
+4963	25	15.60000	6.60000
+4964	25	18.00000	7.00000
+4965	25	16.00000	6.00000
+4966	26	17.00000	9.00000
+4967	26	18.00000	7.00000
+4968	25	17.00000	6.00000
+4969	\N	28.00000	6.00000
+4970	\N	17.00000	6.00000
+4971	25	18.00000	7.50000
+4972	26	18.00000	7.60000
+4973	26	18.00000	7.60000
+4974	25	28.00000	6.40000
+4975	26	30.00000	8.20000
+4976	\N	0.00000	0.00000
+4977	28	0.00000	0.00000
+4978	\N	18.00000	8.00000
+4979	\N	21.00000	8.00000
+4980	\N	20.00000	9.00000
+4981	\N	15.00000	7.30000
+4982	\N	28.00000	7.20000
+4983	\N	28.00000	6.00000
+4984	\N	41.00000	8.00000
+4985	\N	28.00000	6.00000
+4986	25	17.00000	6.00000
+4987	26	18.00000	8.00000
+4988	\N	0.00000	0.00000
+4989	25	28.00000	6.00000
+4990	25	0.00000	0.00000
+4991	25	28.00000	6.40000
+4992	25	26.00000	6.00000
+4993	26	27.00000	8.00000
+4994	26	26.00000	9.00000
+4995	26	32.00000	9.00000
+4996	26	36.00000	8.00000
+4997	26	0.00000	0.00000
+4998	26	28.00000	9.00000
+4999	\N	0.00000	0.00000
+5000	\N	45.00000	8.00000
+5001	26	31.00000	8.50000
+5002	26	0.00000	0.00000
+5003	26	0.00000	6.50000
+5004	25	0.00000	0.00000
+5005	26	41.00000	8.00000
+5006	26	54.00000	8.00000
+5007	25	17.00000	6.00000
+5008	26	40.40000	8.00000
+5009	26	45.00000	7.50000
+5010	26	48.00000	7.00000
+5011	26	56.00000	7.50000
+5012	26	63.00000	12.00000
+5013	\N	28.00000	6.00000
+5014	26	30.00000	8.00000
+5015	25	0.00000	0.00000
+5016	26	27.00000	8.00000
+5017	26	28.00000	6.50000
+\.
+
+
+--
+-- TOC entry 2082 (class 0 OID 35532)
+-- Dependencies: 184 2092
+-- Data for Name: FloorLevel; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "FloorLevel" ("Id", "Name") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2090 (class 0 OID 35592)
+-- Dependencies: 194 2092
+-- Data for Name: House; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "House" ("PlotId", "TotalFloor", "HouseSquare", "WaterSupplyId", "SewageId", "HasBathhouse", "HasGarage", "HasGas", "MaterialId") FROM stdin;
+5018	3	274.00000	\N	\N	f	f	f	73
+5019	3	559.00000	\N	\N	f	f	f	73
+5020	1	330.00000	\N	\N	f	f	f	73
+5021	1	138.00000	\N	\N	f	f	f	73
+5022	2	90.00000	\N	\N	f	f	f	73
+5023	3	258.00000	\N	\N	f	f	f	\N
+5024	4	320.00000	\N	\N	f	f	f	\N
+5025	3	177.00000	\N	\N	f	f	f	73
+5026	1	115.00000	\N	\N	f	f	f	\N
+5027	1	130.00000	\N	\N	f	f	f	\N
+5028	3	165.00000	\N	\N	f	f	f	74
+5029	3	240.00000	\N	\N	f	f	f	78
+5030	1	50.00000	\N	\N	f	f	f	73
+5031	1	116.00000	\N	\N	f	f	f	\N
+5032	1	49.00000	\N	\N	f	f	f	73
+5033	1	130.00000	\N	\N	f	f	f	73
+5034	2	256.00000	\N	\N	f	f	f	\N
+5035	2	134.00000	\N	\N	f	f	f	73
+5036	2	225.00000	\N	\N	f	f	f	\N
+5037	3	228.00000	\N	\N	f	f	f	73
+5038	1	60.00000	\N	\N	f	f	f	73
+5039	1	50.00000	\N	\N	f	f	f	73
+5040	1	80.00000	\N	\N	f	f	f	73
+5041	2	250.00000	\N	\N	f	f	f	73
+5042	1	220.00000	\N	\N	f	f	f	\N
+5043	2	240.00000	\N	\N	f	f	f	73
+5044	3	223.00000	\N	\N	f	f	f	73
+5045	2	150.00000	\N	\N	f	f	f	73
+5046	1	173.00000	\N	\N	f	f	f	73
+5047	1	60.00000	\N	\N	f	f	f	82
+5048	1	0.00000	\N	\N	f	f	f	\N
+5049	1	58.00000	\N	\N	f	f	f	79
+5050	1	57.00000	\N	\N	f	f	f	73
+5051	1	32.00000	\N	\N	f	f	f	\N
+5052	1	70.00000	\N	\N	f	f	f	79
+5053	3	300.00000	\N	\N	f	f	f	\N
+5054	1	60.00000	\N	\N	f	f	f	\N
+5055	3	300.00000	\N	\N	f	f	f	\N
+5056	1	84.00000	\N	\N	f	f	f	82
+5057	1	260.00000	\N	\N	f	f	f	73
+5058	1	73.00000	\N	\N	f	f	f	79
+5059	1	66.00000	\N	\N	f	f	f	82
+5060	1	53.00000	\N	\N	f	f	f	\N
+5061	3	250.00000	\N	\N	f	f	f	\N
+5062	2	95.00000	\N	\N	f	f	f	\N
+5063	1	200.00000	\N	\N	f	f	f	\N
+5064	1	47.00000	\N	\N	f	f	f	82
+5065	1	478.00000	\N	\N	f	f	f	\N
+5066	1	100.00000	\N	\N	f	f	f	\N
+5067	2	200.00000	\N	\N	f	f	f	73
+5068	2	469.00000	\N	\N	f	f	f	\N
+5069	1	100.00000	\N	\N	f	f	f	\N
+5070	1	220.00000	\N	\N	f	f	f	80
+5071	1	330.00000	\N	\N	f	f	f	\N
+5072	1	46.00000	\N	\N	f	f	f	82
+5073	1	220.00000	\N	\N	f	f	f	73
+5074	1	182.00000	\N	\N	f	f	f	73
+5075	1	248.00000	\N	\N	f	f	f	\N
+5076	1	180.00000	\N	\N	f	f	f	73
+5077	1	72.00000	\N	\N	f	f	f	82
+5078	1	60.00000	\N	\N	f	f	f	\N
+5079	1	50.00000	\N	\N	f	f	f	79
+5080	1	64.00000	\N	\N	f	f	f	82
+5081	1	35.00000	\N	\N	f	f	f	79
+5082	1	91.00000	\N	\N	f	f	f	73
+5083	1	50.00000	\N	\N	f	f	f	\N
+5084	1	40.00000	\N	\N	f	f	f	82
+5085	3	330.00000	\N	\N	f	f	f	80
+5086	2	220.00000	\N	\N	f	f	f	80
+5087	1	91.00000	\N	\N	f	f	f	73
+\.
+
+
+--
+-- TOC entry 2076 (class 0 OID 35454)
+-- Dependencies: 172 2092
+-- Data for Name: Layout; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Layout" ("Id", "Name") FROM stdin;
+73	"стал."
+74	"хрущ."
+75	"брежн."
+76	улучш.
+77	элитн.
+78	общеж.
+79	Дом
+80	индивид. проект
+81	малометр.
+82	чешск.
+83	гараж
+84	Нет
+\.
+
+
+--
+-- TOC entry 2077 (class 0 OID 35467)
+-- Dependencies: 174 2092
+-- Data for Name: Material; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Material" ("Id", "Name") FROM stdin;
+73	кирп.
+74	пан.
+75	монол.
+76	пан.- кирп.
+77	монол.-кирп.
+78	керамзит-бетон
+79	дерев.
+80	блок
+81	засыпь
+82	кирп.-дерев.
+83	кирп.-кам.
+84	12
+\.
+
+
+--
+-- TOC entry 2073 (class 0 OID 35415)
+-- Dependencies: 166 2092
+-- Data for Name: Ownership; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Ownership" ("Id", "Name") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2085 (class 0 OID 35567)
+-- Dependencies: 189 2092
+-- Data for Name: Plot; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Plot" ("RealEstateId", "PlotSquare") FROM stdin;
+5018	6.00000
+5019	9.00000
+5020	6.00000
+5021	5.00000
+5022	4.00000
+5023	6.00000
+5024	7.00000
+5025	6.00000
+5026	5.00000
+5027	0.00000
+5028	14.00000
+5029	8.00000
+5030	6.00000
+5031	5.00000
+5032	8.00000
+5033	6.00000
+5034	4.00000
+5035	6.00000
+5036	5.00000
+5037	15.00000
+5038	3.00000
+5039	8.00000
+5040	12.00000
+5041	5.00000
+5042	6.00000
+5043	4.00000
+5044	14.00000
+5045	5.00000
+5046	15.00000
+5047	2.00000
+5048	15.00000
+5049	4.00000
+5050	5.00000
+5051	0.00000
+5052	9.00000
+5053	6.00000
+5054	4.00000
+5055	7.00000
+5056	10.00000
+5057	10.00000
+5058	3.00000
+5059	2.00000
+5060	3.00000
+5061	0.00000
+5062	0.00000
+5063	7.00000
+5064	0.00000
+5065	6.00000
+5066	12.00000
+5067	6.00000
+5068	14.00000
+5069	3.00000
+5070	7.00000
+5071	7.00000
+5072	7.00000
+5073	6.00000
+5074	8.00000
+5075	7.00000
+5076	8.00000
+5077	4.00000
+5078	3.00000
+5079	3.00000
+5080	4.00000
+5081	5.00000
+5082	9.00000
+5083	20.00000
+5084	5.00000
+5085	7.00000
+5086	7.00000
+5087	19.00000
+5088	10.00000
+5089	15.00000
+5090	56.00000
+5091	0.00000
+5092	20.80000
+5093	20.80000
+5094	6.00000
+5095	7.70000
+5096	12.00000
+5097	5.60000
+5098	15.00000
+5099	15.00000
+5100	0.00000
+5101	6.00000
+5102	15.00000
+5103	10.00000
+5104	0.00000
+5105	6.00000
+5106	15.00000
+5107	6.00000
+5108	6.00000
+5109	12.00000
+5110	6.00000
+5111	0.00000
+5112	0.00000
+5113	6.00000
+5114	0.00000
+5115	6.00000
+\.
+
+
+--
+-- TOC entry 2084 (class 0 OID 35558)
+-- Dependencies: 188 2092
+-- Data for Name: RealEstate; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "RealEstate" ("Id", "DistrictId", "StreetId", "TerritorialNumber", "Description", "HasVideo", "SubmitToVDV", "SubmitToDomino", "Price", "RealtorId", "DealVariantId", "CreateDate", "OwnershipId") FROM stdin;
+4366	99	14568	2	хор.сост., нов. сантехн., трубы, колонка-автомат, стир. машина	f	f	f	3100.00000	261	19	2010-03-11 16:55:15	\N
+4367	99	13034	38	евроотделка, встроенная мебель	f	f	f	3300.00000	261	19	2010-03-11 16:55:15	\N
+4368	99	14616	51	обычное состояние, вид на Волгу	f	f	f	2200.00000	261	21	2010-03-11 16:55:15	\N
+4369	99	13833	2	частичный ремонт, новая проводка, сантехника. Ост "Современник"("Краснознаменская")	f	f	f	3250.00000	261	19	2010-03-11 16:55:15	\N
+4370	92	12633	47б	б/отд., сдача 2 кв. 2010 г.	f	f	f	2550.00000	268	20	2010-03-11 16:55:15	\N
+4371	92	12755	37	сдан, б/отд.	f	f	f	2950.00000	268	19	2010-03-11 16:55:15	\N
+4372	92	12755	39	вид на Волгу, сдан, б/отд., лодж. -6м, возм. ипотека	f	f	f	2650.00000	268	19	2010-03-11 16:55:15	\N
+4373	92	12755	39	ТОРГ, сдан, б/отд., вид на Волгу	f	f	f	2950.00000	268	20	2010-03-11 16:55:15	\N
+4374	92	12755	39	евроремонт, мебель	f	f	f	4100.00000	268	20	2010-03-11 16:55:15	\N
+4375	92	12555	3	ТОРГ,хор.сост., 	f	f	f	2050.00000	268	20	2010-03-11 16:55:15	\N
+4376	92	12600	17	2-х сторон.,обычн..сост., все разд.	f	f	f	3000.00000	268	19	2010-03-11 16:55:15	\N
+4377	94	13421	41	стеклопакеты, космет. ремонт,срочно!	t	f	f	1050.00000	268	19	2010-03-11 16:55:15	\N
+4378	99	14596	33	нормальное состояние	f	f	f	2200.00000	261	20	2010-03-17 18:31:12	\N
+4379	99	14614	1	комнаты раздельные, нормальное состояние, док. готовы	f	f	f	2580.00000	261	19	2010-03-26 16:26:34	\N
+4380	92	12755	39	без отд., проводка, торг	f	f	f	3000.00000	268	19	2010-03-26 17:06:22	\N
+4381	92	12633	67 б	отл.сост.,после ремонта,пл. окна,замена труб,с/техн.,меж/ комн. двер.	f	f	f	1750.00000	268	20	2010-04-19 18:04:01	\N
+4382	92	12644	69	хор. сост., нов. трубы	f	f	f	2900.00000	268	20	2010-04-28 14:07:21	\N
+4383	92	12542	11	обычн. сост.,двухсторон	f	f	f	2300.00000	268	19	2010-04-28 14:09:47	\N
+4384	92	12644	67	отл. сост.,пл. окна,нов. -трубы,с/тех.,радиатор.	f	f	f	3850.00000	268	20	2010-04-28 14:12:13	\N
+4385	97	14220	66	хор. сост., вид на Волгу	f	f	f	4400.00000	259	\N	2010-05-14 18:30:22	\N
+4386	92	12632	10	кап. ремонт,все поменяно.	f	f	f	3570.00000	268	19	2010-05-31 14:21:48	\N
+4387	97	14347	32	ТОРГ,возможно ипотека,  хор. сост., сплит.,нов. трубы, с мебелью.	t	f	f	1600.00000	259	19	2010-06-11 15:56:00	\N
+4388	92	12598	12	хор.сост.,пл. окна, паркет, остается кухня	f	f	f	1750.00000	268	20	2010-06-11 17:21:56	\N
+4389	92	12618	3	отличное состояние, встоенная кухня, стеклопакет	f	f	f	2200.00000	268	19	2010-07-12 16:45:01	\N
+4390	92	12710	2	среднее состояние	f	f	f	4400.00000	268	20	2010-07-16 18:40:03	\N
+4391	92	12598	7	хорошее состояние	f	f	f	3850.00000	268	21	2010-07-16 18:52:51	\N
+4392	99	14590	6а	под офис, магазин, салон и т.п. Все окна на Новороссийскую	f	f	f	2930.00000	261	21	2010-07-16 21:32:06	\N
+4393	93	13119	10 а	нужен ремонт	f	f	f	2200.00000	272	19	2010-07-26 18:54:18	\N
+4394	99	14578	9	хорошее состояние, перепланирована в 2х комн. , без торга.	f	f	f	2050.00000	261	19	2010-08-04 16:42:55	\N
+4395	92	12595	3	евроотделка, стены выравнины, пол паркет; ОТЛОЖЕНА 	f	f	f	2100.00000	268	19	2010-09-10 17:05:06	\N
+4396	92	12618	5	нормальное, жилое сост.,возможно ИПОТЕКА.	f	f	f	1850.00000	268	19	2010-09-10 17:20:29	\N
+4397	99	14582	16	хороший ремонт, пластиковые окна, кухонный гарнитур, шкаф-купе	f	f	f	2000.00000	261	19	2010-09-14 18:14:41	\N
+4398	99	12854	58	нормальное состояние	f	f	f	1650.00000	261	20	2010-10-06 17:25:43	\N
+4399	99	13833	30	хорошее состояние; пластиковые окна, мебель; ж/б-перекрытия	f	f	f	2580.00000	261	19	2010-10-08 13:43:06	\N
+4400	99	14592	5	хороший ремонт; мебель, бытовая техника, вид на Волгу	f	f	f	3550.00000	261	19	2010-10-22 16:16:04	\N
+4401	99	14616	19	обычное состояние, возм. ипотека	f	f	f	3060.00000	261	19	2010-10-22 16:19:04	\N
+4402	99	14558	5	капитальный ремонт, современный дизайн квартиры, теплые полы, встроенная мебель и бытовая техника. Есть техэтаж, ж/б-перекрытия.	t	f	f	4560.00000	261	19	2010-10-22 18:56:54	\N
+4403	92	12683	2	хор. сост	f	f	f	1950.00000	268	19	2010-10-25 13:39:52	\N
+4404	92	12618	9	после ремонта, французская сантехника, итальянский кухонный гарнитур; торг	f	f	f	7500.00000	268	20	2010-10-25 13:57:11	\N
+4405	99	14584	6	без отделки; 3-сторонняя; холл 40 кв. м с окном	f	f	f	24000.00000	261	19	2010-12-20 16:58:12	\N
+4406	92	12609	7	номральное состояние, пластиковые окна	f	f	f	2050.00000	268	19	2010-12-20 17:04:07	\N
+4407	92	12600	3	пластиковые окна; поменяны сантехника, трубы, газовая колонка; более 3-х лет в собственности	f	f	f	2400.00000	268	20	2010-12-20 17:07:52	\N
+4408	92	12613	2а	свободная планировка, вид на Волгу. Подземный паркинг 2080 тыс. руб. ТОРГ	f	f	f	21000.00000	268	19	2010-12-20 17:17:30	\N
+4409	92	12563	6	обычное состояние,  пласт. окна, частич. заменены трубы, сплит-система, нов. газ. плита. ТОРГ	t	f	f	3000.00000	261	21	2010-12-22 21:59:28	\N
+4410	95	13702	23а	б/отд.	f	f	f	2025.00000	264	19	2010-12-23 17:11:28	\N
+4411	95	13702	23а	б/отд	f	f	f	3036.00000	264	19	2010-12-23 17:13:57	\N
+4412	95	13702	23а	б/отд	f	f	f	3809.00000	264	19	2010-12-23 17:16:04	\N
+4413	95	13702	23а	б/отд.	f	f	f	4663.00000	264	19	2010-12-23 17:17:29	\N
+4414	95	13702	23а	б/отд.	f	f	f	5086.00000	264	19	2010-12-23 17:18:43	\N
+4415	99	14596	43	хорошее состояние, пластиковые окна	f	f	f	2550.00000	261	20	2011-03-09 20:48:24	\N
+4416	99	14590	6-а	нормальное состояние, пластиковое окно, сплитсистема	f	f	f	1950.00000	261	21	2011-03-09 20:52:38	\N
+4417	93	12959	13	ТОРГ, стеклопакеты, норм. сост.	t	f	f	3100.00000	268	20	2011-04-04 16:26:55	\N
+4418	97	14024	1/2	ТОРГ, возможно ипотека	t	f	f	1650.00000	259	19	2011-04-08 17:35:38	\N
+4419	99	14585	21	высокие потолки, обычное состояние	f	f	f	1850.00000	261	20	2011-04-08 19:25:26	\N
+4420	93	12840		обычн. сост.	f	f	f	2700.00000	272	20	2011-04-21 17:59:49	\N
+4421	97	14006	2/1	торг, стеклопакеты, возможно ипотека, пласт. окна	t	f	f	2150.00000	277	\N	2011-05-04 16:37:28	\N
+4422	92	12644	34	хор. сост.	f	f	f	1680.00000	268	19	2011-05-06 14:17:58	\N
+4423	92	12600	19	лодж.- 13 кв.м., гардероб, ремонт, вид на Волгу.	f	f	f	3050.00000	268	19	2011-05-10 14:52:45	\N
+4424	93	12936	70	отл. сост., тех. этаж.	f	f	f	1750.00000	272	\N	2011-05-10 15:43:48	\N
+4425	99	14585	25	Без отделки. Окна во двор.	f	f	f	3500.00000	261	19	2011-05-12 11:02:49	\N
+4426	93	13072	8	ТОРГ, хор. сост., г/х вода.	f	f	f	2050.00000	277	\N	2011-05-25 17:59:54	\N
+4427	93	12882	97	ремонт, сплит.	f	f	f	2500.00000	277	\N	2011-05-25 18:06:33	\N
+4428	93	12790	71	б/отд.,большая лоджия-13,4 кв.м.,высота потолков- 3 кв.м.	f	f	f	3100.00000	277	19	2011-05-27 16:28:03	\N
+4429	93	12925	9	нормальн. сост.	f	f	f	2750.00000	268	20	2011-06-01 15:17:57	\N
+4430	97	14347	78	 норм. сост.	f	f	f	2350.00000	264	20	2011-06-06 15:48:33	\N
+4431	92	12633	67	част. ремонт, нов. с/тех, проводка	f	f	f	2150.00000	268	20	2011-07-13 15:41:27	\N
+4432	92	12633	16	вид на Волгу., с отделкой, торг	f	f	f	2800.00000	268	19	2011-07-13 15:43:04	\N
+4433	92	12580		хор. сост., ковролин	f	f	f	1380.00000	268	20	2011-07-13 15:45:51	\N
+4434	93	12928	41	хор. сост.,возможно ипотека, сплит, стеклопакет	t	f	f	3550.00000	264	19	2011-07-21 17:27:11	\N
+4435	93	12779	5	НОВОСТРОЙКА, сдача в 2012г	f	f	f	2478.00000	283	19	2011-08-04 18:19:42	\N
+4436	98	14478		среднее сост., требует ремонта	f	f	f	2030.00000	286	\N	2011-08-18 19:37:32	\N
+4437	97	14343	19	отл. сост.,возможно ипотека, частичн. мебель.	f	f	f	2700.00000	259	19	2011-08-23 20:21:14	\N
+4438	93	12779	19	евроремонт, сдан- 2007 г.	f	f	f	7000.00000	283	19	2011-08-24 17:50:43	\N
+4439	99	13833	23	обычное состояние; окна во двор	f	f	f	2400.00000	261	\N	2011-09-02 14:10:11	\N
+4440	93	12780	65	стеклопакеты, норм. сост.	f	f	f	1700.00000	272	\N	2011-09-14 16:07:30	\N
+4441	93	12882	145	нов. с/техника, электрика,  стеклопакеты, возм. ипотека	f	f	f	1700.00000	283	19	2011-09-14 16:12:43	\N
+4442	93	12844	3	хор. сост., все разд.	f	f	f	2000.00000	272	20	2011-09-14 16:42:38	\N
+4443	93	13053			f	f	f	2950.00000	283	19	2011-09-14 16:44:44	\N
+4444	93	12781	33	обычн. сост.	f	f	f	3350.00000	283	20	2011-09-14 17:02:49	\N
+4445	93	12780	25	обычн. сост., 2+1	f	f	f	2250.00000	272	20	2011-09-14 17:03:58	\N
+4446	93	12780	63	требует ремонта	f	f	f	2260.00000	272	19	2011-09-14 17:05:31	\N
+4447	93	13119	28	от ЖБИ, чистая ухоженая.	f	f	f	3250.00000	272	20	2011-09-14 17:06:52	\N
+4448	99	14596	31	обычное состояние	f	f	f	2200.00000	261	19	2011-09-16 15:05:07	\N
+4449	92	12615	6	 торгш,косметич. ремонт,( обои, линолиум)	f	f	f	1900.00000	268	19	2011-09-22 17:05:09	\N
+4450	93	12790	71	евроремонт, встроен. кухня,2-с/у., возм. ипотека.	f	f	f	5500.00000	277	19	2011-09-22 17:24:44	\N
+4451	97	14347	77	хор. сост.	f	f	f	2200.00000	277	\N	2011-10-10 14:56:19	\N
+4452	93	12790	108	евроремонт, встроен. кухня	f	f	f	3650.00000	277	\N	2011-10-10 15:48:18	\N
+4453	93	12790	71б	б/отд., торг.	f	f	f	4150.00000	277	19	2011-10-10 16:36:12	\N
+4454	93	12779	20	нов. деревян. окна, двери, ламинат, возм. ипотека	f	f	f	3500.00000	283	19	2011-10-11 12:59:00	\N
+4455	97	14006	11	хор. сост.	f	f	f	2400.00000	259	\N	2011-10-11 14:20:48	\N
+4456	97	14340	11	хор. сост., лодж.+ з/балк.	f	f	f	3050.00000	259	\N	2011-10-11 14:26:05	\N
+4457	97	14000	5	окна во двор, возм. ипотека.	f	f	f	2000.00000	259	20	2011-10-12 15:55:48	\N
+4458	92	12644	12	хор. сост.,меняли трубы, с/т., торг	f	f	f	1690.00000	268	20	2011-10-20 17:46:44	\N
+4459	98	13833		евроремонт	f	f	f	2200.00000	286	19	2011-10-21 14:39:59	\N
+4460	93	12882	95	стеклопакеты, перепланирована в 3-х комн.	f	f	f	2300.00000	277	\N	2011-10-21 14:59:33	\N
+4461	98	14546	5	под комерч. недвижимость, окна на дорогу	f	f	f	2650.00000	286	19	2011-10-21 15:29:12	\N
+4462	93	13033	20	средн. сост.	f	f	f	1650.00000	277	\N	2011-11-07 16:24:00	\N
+4463	93	13105	16	отл.ремонт, стеклопакеты	f	f	f	2300.00000	277	\N	2011-11-07 16:30:38	\N
+4464	93	12779	5	б/отд.,сдача 2 кв. 2012 г.	f	f	f	2385.00000	283	\N	2011-11-07 16:49:13	\N
+4465	93	12781	56	евроремонт, стеклопакеты, нов. радиаторы, 3 шт. встроен. шкафа	f	f	f	3470.00000	283	\N	2011-11-07 16:56:38	\N
+4466	93	12780	34	хор. сост.	f	f	f	1800.00000	272	20	2011-11-09 11:18:33	\N
+4467	99	14570	23	хорошее состояние, окна во двор, ост. "ЦПКиО", возможен обмен на 3-комн. в Центр., Ворош., Сов. (Тулака) районах с разницей 100 тыс.руб.	f	f	f	2600.00000	261	20	2011-11-29 18:51:08	\N
+4468	93	12844	17а	отл. сост., возм. ипотека	f	f	f	1900.00000	272	21	2011-11-30 11:39:58	\N
+4469	93	13002	60	хор. сост, косметич. ремонт, возможно ипотека, обмен не сложный	t	f	f	2350.00000	272	20	2011-11-30 12:35:06	\N
+4470	93	12925	1а	в состоянии ремонта	f	f	f	2480.00000	272	20	2011-11-30 12:42:10	\N
+4471	93	12928	45	ОТЛОЖЕНА, переплан. узакон., возм. ипотека, хор. сост.	f	f	f	4300.00000	283	\N	2011-11-30 12:56:32	\N
+4472	99	14616	3	Студия. Узаконенная перепланировка. Квартира после капитального ремонта (2011 г., никто не жил), встроенная мебель	f	f	f	2600.00000	261	19	2011-11-30 14:02:12	\N
+4473	99	12860	14	евроремонт (дизайн. проект); индивидуальное отопление, квартира неугловая; огороженная территория, круглосуточная охрана, видеонаблюдение, более 3-х лет в собственности, возм. ипотека	f	f	f	3050.00000	261	19	2011-11-30 14:07:05	\N
+4474	99	13385	19	норм. состояние, заменена проводка	f	f	f	2300.00000	261	20	2011-11-30 14:43:57	\N
+4475	99	14616	49	евроотделка, мебель, бытовая техника	f	f	f	2650.00000	261	19	2011-11-30 14:45:04	\N
+4476	99	14573	8	обычное состояние, торг	f	f	f	1860.00000	261	21	2011-11-30 14:49:15	\N
+4477	94	13300	10	хор. сост., комн. разд., ост. Авангард	f	f	f	2100.00000	259	19	2011-12-02 11:06:35	\N
+4478	93	13105	14а	хор. сост., ремонт	f	f	f	2800.00000	277	\N	2011-12-02 12:31:58	\N
+4479	93	13105	10	евроремонт, автономное отопление, мебель, возм. ипотека	f	f	f	2580.00000	277	19	2011-12-07 15:23:00	\N
+4480	99	12860	12	с ремонтом, 2 сплит-сист., кухонный гарнитур, парковка	f	f	f	2800.00000	261	19	2011-12-14 14:51:36	\N
+4481	99	12860	12	с ремонтом, более 3-х лет в собственности, возм. ипотека	f	f	f	3050.00000	261	19	2011-12-14 14:53:09	\N
+4482	99	13833	39	после косметического ремонта	f	f	f	2200.00000	261	\N	2011-12-14 14:58:38	\N
+4483	98	13833	203	хор. сост.	f	f	f	2000.00000	286	19	2011-12-21 17:48:44	\N
+4484	98	13833	127	хор. сост.	f	f	f	2000.00000	286	19	2011-12-21 17:51:13	\N
+4485	99	14590	14	2 лоджии по 13 кв. м	f	f	f	3300.00000	261	19	2011-12-26 15:05:38	\N
+4486	99	13034	24	всё раздельно	f	f	f	2750.00000	261	19	2011-12-26 15:17:18	\N
+4487	99	12860	12	хор. ремонт	f	f	f	6400.00000	261	21	2011-12-26 15:26:09	\N
+4488	99	14575	14	евроотделка, встроенная мебель.	f	f	f	7850.00000	261	\N	2011-12-26 15:28:33	\N
+4489	99	14575	14	евроотделка, встроен. техн., мебель.	f	f	f	6100.00000	261	\N	2011-12-26 15:31:12	\N
+4490	99	13034	54	2+1, хор. подъезд, нов. лифт, стояки	f	f	f	2850.00000	261	\N	2011-12-26 16:17:28	\N
+4491	92	12600	5	норм. сост.	f	f	f	1700.00000	268	19	2011-12-26 16:33:50	\N
+4492	92	12542	26	после ремонта, кухня студия, торг	f	f	f	2200.00000	268	20	2011-12-26 16:38:06	\N
+4493	99	13833	44	после ремонта	f	f	f	2350.00000	261	19	2011-12-26 17:19:41	\N
+4494	99	13034	28	Студия. Отличный ремонт, встроенная мебель	f	f	f	2850.00000	261	19	2011-12-26 17:21:04	\N
+4495	98	14439	36	хор. сост	f	f	f	1750.00000	286	\N	2011-12-27 12:40:12	\N
+4496	92	12563	72	хор. сост., стеклопакет, нов. с/т, решетки	f	f	f	1530.00000	268	19	2012-01-20 15:21:18	\N
+4497	96	13910	62	отл. сост.	f	f	f	3400.00000	286	19	2012-01-25 10:56:38	\N
+4498	93	13105	8	без отделки, 38 тыс/м2, сдача в 2014	f	f	f	38.00000	272	19	2012-01-25 12:19:23	\N
+4499	93	12779	20	Студия, евроремонт, паркет, тепл. полы, 2 встр. шкаф-купе, окна на Бульвар.	f	f	f	2250.00000	283	19	2012-01-25 12:20:47	\N
+4500	93	12780	3	односторон. возм. ипотека	f	f	f	1800.00000	272	20	2012-01-25 12:27:32	\N
+4501	93	13119	32/1	от ЖБИ	f	f	f	3100.00000	272	\N	2012-01-25 12:36:15	\N
+4502	92	12755	36	стеклопакеты, комнаты раздельные	f	f	f	2150.00000	293	\N	2012-01-31 10:18:42	\N
+4503	92	12625	10а	нужен ремонт	f	f	f	2350.00000	291	19	2012-01-31 10:30:18	\N
+4504	97	14385	6	хор. сост., лодж. на 2 окна,пласт. окна, великолепный вид на Волгу, возм. ипотека, торг	t	f	f	3500.00000	259	20	2012-01-31 10:57:54	\N
+4505	97	14000	7	хор. сост., пласт. окна, возм. ипотека.	f	f	f	2800.00000	259	20	2012-01-31 11:07:23	\N
+4506	98	14427	2	хор. сост.	f	f	f	2250.00000	286	20	2012-01-31 11:47:05	\N
+4507	97	14340	1а	торг, Вид на Волгу, хор. сост., стеклопакеты.	t	f	f	7500.00000	277	\N	2012-01-31 12:37:27	\N
+4508	97	14340	5	хор. сост., 	f	f	f	2650.00000	277	\N	2012-01-31 12:39:10	\N
+4509	97	14000	17	2х  сторон., вид на Волгу, хор. сост., ремонт	f	f	f	4100.00000	277	\N	2012-01-31 12:41:19	\N
+4510	93	12827	20	комн. разд.	f	f	f	1650.00000	277	\N	2012-01-31 12:49:37	\N
+4511	97	14319	17	хор. сост.,стеклопакеты, сплит., натяжн. потолок, возм. ипотека	f	f	f	2450.00000	277	19	2012-01-31 12:52:07	\N
+4512	92	12753	98		f	f	f	1700.00000	291	19	2012-02-02 14:12:04	\N
+4513	98	14404	5	стеклопакеты, хор. сост.	f	f	f	2150.00000	286	\N	2012-02-02 17:52:24	\N
+4514	92	12764	1	хор. сост.	f	f	f	3060.00000	268	\N	2012-02-03 11:34:01	\N
+4515	94	13135	28	хор. сост., окна во двор, возм. ипотека	f	f	f	1850.00000	259	19	2012-02-03 11:37:16	\N
+4516	96	13708	1	евроокна, ламинат, хор. сост.	f	f	f	2700.00000	293	19	2012-02-03 11:49:08	\N
+4517	96	13948	6	косметич. ремонт, пероепланирован. из 2-х комнатн.	f	f	f	2000.00000	293	19	2012-02-03 11:56:17	\N
+4518	99	13385	12	отличный ремонт, мебель	f	f	f	2650.00000	261	\N	2012-02-03 12:55:39	\N
+4519	98	14546	26		f	f	f	2200.00000	286	\N	2012-02-08 14:30:31	\N
+4520	96	13863	78	стеклопакет, линолиум, более 3х лет	f	f	f	2650.00000	293	20	2012-02-09 18:15:58	\N
+4521	96	13863	13	хор.сост., более 3-х лет	f	f	f	1850.00000	293	21	2012-02-09 18:34:09	\N
+4522	97	14343	14	  отл. сост., стеклопакеты, нов. с/тех.,радиаторы, замена электропроводки, возм. ипотека	f	f	f	2000.00000	268	19	2012-02-09 18:48:01	\N
+4523	97	14063	18	хор. сост., стеклопакет., сплит.	f	f	f	2820.00000	277	\N	2012-02-09 19:02:56	\N
+4524	97	14278	16	хор. сост., возм. ипотека	f	f	f	2450.00000	277	\N	2012-02-09 19:07:44	\N
+4525	96	13987	50	обычн. сост., сплит-система, более 3х лет	f	f	f	3300.00000	293	19	2012-02-18 11:24:31	\N
+4526	93	12893	56	хор. сост	f	f	f	3350.00000	283	20	2012-02-18 11:31:59	\N
+4527	93	13071	12	стеклопакеты, нов. радиаторы, ремонт в с/узле.	f	f	f	2750.00000	272	\N	2012-02-18 11:33:29	\N
+4528	99	14575	16-А	лоджия 6 кв. м, гардеробная, без отделки, сдан в конце 2011 года	f	f	f	2600.00000	261	19	2012-03-01 13:10:26	\N
+4529	99	13833	48/2	пластиковые окна	f	f	f	1950.00000	261	\N	2012-03-01 13:19:41	\N
+4530	99	14575	7	после косметического ремонта	f	f	f	1750.00000	261	20	2012-03-01 13:26:40	\N
+4531	99	14596	59	пластиковые окна, хорошее состояние	f	f	f	2050.00000	261	20	2012-03-01 13:34:27	\N
+4532	99	13833	2	отличное состояние, заменены электропроводка, сантехника; остаются мебель и бытовая техника, в комнате пластиковое окно; окна во двор	f	f	f	2650.00000	261	19	2012-03-13 12:43:27	\N
+4533	99	13833	41	обычное состояние	f	f	f	2300.00000	261	19	2012-03-13 12:49:03	\N
+4534	99	13833	58/1	дом во дворе, состояние обычное, ТОРГ	f	f	f	1850.00000	261	19	2012-03-13 12:50:14	\N
+4535	99	13833	42	хорошее состояние, пластиковые окна, заменены электропроводка, сантехника, трубы, радиаторы	f	f	f	2050.00000	261	20	2012-03-13 12:52:20	\N
+4536	99	14614	6	хороший ремонт, сплит-система, 2 шкафа-купе	f	f	f	3550.00000	261	\N	2012-03-13 12:53:32	\N
+4537	99	14592	67а	обычное состояние, мебель, окна во двор; огороженная территория вокруг дома; охрана; вместительная парковка	f	f	f	1860.00000	261	19	2012-03-13 12:54:58	\N
+4538	99	12941	15-А	состояние обычное, неугловая, коридор 7 кв. м, гардеробная 4 кв. м, санузел 5,4 кв. м; в комнате 2 окна (можно перепланировать в 2-комн.), дом сдан в 2007 г.	t	f	f	3090.00000	261	20	2012-03-15 16:37:55	\N
+4539	99	12941	15-А	квартира 1-комн., легко перепланируется в 2-комн. (в комнате 2 окна), коридор 7 кв. м, санузел 5,4 кв.м, гардеробная 4 кв.м	t	f	f	3090.00000	261	20	2012-03-15 16:40:12	\N
+4540	99	14598	12	двусторонняя, хорошее состояние, 2 пластиковых окна, подвесной потолок. ТОРГ	t	f	f	3270.00000	293	20	2012-03-15 16:52:48	\N
+4541	99	14598	9	комнаты раздельные, 2-сторонняя, неугловая; нужен ремонт, новая газовая колонка-автомат	t	f	f	3050.00000	261	\N	2012-03-15 16:55:05	\N
+4542	99	13034	2	угловая, окна на дорогу, среднее состояние	f	f	f	3600.00000	283	\N	2012-03-15 16:56:44	\N
+4543	99	12854	11-А	2-сторонняя, 2 санузла, без отделки, вид на Волгу	f	f	f	6500.00000	261	\N	2012-03-15 16:58:30	\N
+4544	99	13833	68а	евроремонт, срочно	f	f	f	2300.00000	286	19	2012-03-16 10:02:51	\N
+4545	99	14588	26	обычн. сост.	t	f	f	2900.00000	272	19	2012-03-16 10:11:13	\N
+4546	92	12764	1	хор. сост.	f	f	f	3060.00000	268	20	2012-03-16 10:25:05	\N
+4547	92	12755	19	после ремонта, трубы сантехн., окна меняли, электропроводка новая, стены, потолок выравнены	f	f	f	2840.00000	268	21	2012-03-16 10:27:52	\N
+4548	92	12600	15	евроремонт, вст. кухня, сплит	f	f	f	3000.00000	291	19	2012-03-16 10:32:42	\N
+4549	92	12715	17	все разд., двусторонняя, хор. сост.	f	f	f	2500.00000	291	20	2012-03-16 10:34:18	\N
+4550	92	12598	8	ремонт, железная дверь, все разд., 2 кладовки, двусторон.	f	f	f	2150.00000	291	19	2012-03-16 10:36:08	\N
+4551	92	12684	18	норм. сост., нов. трубы	f	f	f	1700.00000	268	19	2012-03-16 10:55:27	\N
+4552	92	12631	5	хор. сост., пл. окна	f	f	f	1500.00000	268	21	2012-03-16 11:11:13	\N
+4553	93	12925	1б	тех. этаж	f	f	f	2100.00000	272	20	2012-03-16 11:58:33	\N
+4554	93	12979	13	треб. ремонт.	f	f	f	1500.00000	283	19	2012-03-16 11:59:27	\N
+4555	93	13105	10а	ремонт	f	f	f	3800.00000	277	19	2012-03-16 12:00:57	\N
+4556	93	12780	30а	студия, утепл лодж., отделка, продается с меблеью, (кож диван, натур ковер)	f	f	f	1750.00000	283	20	2012-03-16 12:05:20	\N
+4557	93	12780	35	обычн. сост., бывш. общеж.	f	f	f	1550.00000	268	20	2012-03-16 12:10:28	\N
+4558	93	12882	91	норм. сост.,	t	f	f	1650.00000	277	19	2012-03-16 12:13:15	\N
+4559	97	14347	38	частичн. ремонт, возм. ипотека	f	f	f	2250.00000	259	19	2012-03-16 12:45:18	\N
+4560	97	14368	8		f	f	f	2060.00000	259	19	2012-03-16 12:52:25	\N
+4561	94	13135	79		f	f	f	1400.00000	259	\N	2012-03-16 13:00:58	\N
+4562	96	13726	9	мет. дверь,  пласт. окна	f	f	f	2450.00000	293	20	2012-03-16 13:36:13	\N
+4563	96	13803	38	отл. сост.,стеклопакет, лиминат, перепланпровка.	f	f	f	3100.00000	293	19	2012-03-19 18:59:08	\N
+4564	96	13783	15а	от застройщика, счетчики все подключенно	f	f	f	4200.00000	293	19	2012-03-19 19:01:22	\N
+4565	96	13863	31	хор. сост., 2+1	f	f	f	2650.00000	293	19	2012-03-19 19:39:52	\N
+4566	96	13790	120	более 3х лет, 2х комн. +допл.	f	f	f	2850.00000	293	20	2012-03-19 19:43:05	\N
+4567	96	13783	15а	ноная отделка, менее 3-х лет	f	f	f	2350.00000	293	19	2012-03-19 19:47:59	\N
+4568	96	13973	36/4	хор. ремонт,сигнализация, подвестн. потолок	f	f	f	2200.00000	293	20	2012-03-19 20:02:07	\N
+4569	96	13803	51	менее 3-х лет, свежий ремонт	f	f	f	1700.00000	293	20	2012-03-19 20:10:20	\N
+4570	99	14575	16а	без отделки, лоджия 8 кв. м, дом сдан в 2011 г.	f	f	f	2700.00000	261	19	2012-03-28 15:59:15	\N
+4571	99	14596	19	пластиковые окна, состояние обычное; мебель	f	f	f	1850.00000	261	19	2012-03-28 16:03:24	\N
+4572	99	14596	57	обычное состояние	f	f	f	1900.00000	261	19	2012-03-28 16:04:25	\N
+4573	99	14596	39	обычное состояние, сплит-система	f	f	f	1900.00000	261	\N	2012-03-28 16:05:29	\N
+4574	99	14596	31	комнаты раздельные, хорошее состояние, возможна ипотека	f	f	f	3450.00000	261	19	2012-03-28 16:22:17	\N
+4575	99	12854	2а	комнаты 2+1, 2-сторонняя, вид на Волгу, возможна ипотека	f	f	f	2640.00000	261	19	2012-03-28 16:33:42	\N
+4576	93	13093	10а	хор. сост.	f	f	f	2600.00000	277	\N	2012-04-04 17:40:34	\N
+4577	96	13790	118	стеклопакеты	f	f	f	1800.00000	293	19	2012-04-06 20:09:23	\N
+4578	99	14596	43	все разд., обычн. сост., 2-сторон., 3 окна во двор; ТОРГ	f	f	f	3900.00000	261	\N	2012-04-10 14:43:06	\N
+4579	99	13081	5	хор. ремонт, 2 сторон., возм. ипотека	f	f	f	3300.00000	261	19	2012-04-10 14:57:23	\N
+4580	99	14596	41	2-сторонняя	f	f	f	2750.00000	261	20	2012-04-10 15:04:05	\N
+4581	99	14596	41	холодная/горячая вода, комнаты 2+1, 2-сторонняя, обычное состояние, ТОРГ	f	f	f	2500.00000	261	19	2012-04-10 15:33:53	\N
+4582	99	13081	8	2+1, нужен ремонт	f	f	f	2600.00000	261	\N	2012-04-10 15:57:15	\N
+4583	92	12633	37а	без отделки, вид на Волгу, сдан в 2012 г.	f	f	f	2320.00000	268	19	2012-04-10 16:13:18	\N
+4584	92	12600	10	хор. сост., сплит, косметич. ремонт	f	f	f	2000.00000	268	20	2012-04-10 16:33:59	\N
+4585	92	12563	38	комн. разд., высокий этаж, без ремонта	f	f	f	2250.00000	291	19	2012-04-10 16:35:43	\N
+4586	92	12644	65	норм. сост., один стеклопакет	f	f	f	2650.00000	291	19	2012-04-10 16:37:41	\N
+4587	92	12710	7	ТОРГ, евроокна, комн. разд., выс. потолок, отл. сост.	f	f	f	2600.00000	291	19	2012-04-10 16:39:44	\N
+4588	92	12598	18	норм. сост.	f	f	f	2550.00000	291	19	2012-04-10 16:44:12	\N
+4589	92	12633	9	пласт. окно, хор. сост., обмен на 1 комн.	f	f	f	2850.00000	268	20	2012-04-10 16:50:54	\N
+4590	97	14380	86	ремонт от застройщика	f	f	f	2350.00000	259	19	2012-04-10 18:25:02	\N
+4591	97	14330	1а	б/отд., окна на дорогу	f	f	f	2750.00000	259	19	2012-04-10 18:27:33	\N
+4592	97	14246	15	хор. ремонт, сплит, кухня, возм. ипотека	f	f	f	2400.00000	259	19	2012-04-10 18:30:54	\N
+4593	98	14439	19	отл. сост.	f	f	f	1430.00000	286	\N	2012-04-10 18:39:33	\N
+4594	98	14427	16	хор. сост.	f	f	f	1850.00000	283	\N	2012-04-10 18:41:01	\N
+4595	96	13910	62а	нов. дом сдача-май 2012 г., б/отд.,б/с/тех.	f	f	f	2550.00000	295	19	2012-04-11 13:32:03	\N
+4596	96	13790	78	капитальный ремонт, возм. ипотека	f	f	f	2300.00000	293	20	2012-04-11 13:33:46	\N
+4597	96	13827	28	свежий ремонт, возм. ипотека	f	f	f	2450.00000	293	20	2012-04-11 13:37:23	\N
+4598	96	13833	115	отл. ремонт, возм. ипотека	f	f	f	2350.00000	293	19	2012-04-11 13:40:26	\N
+4599	96	13955	62	отл. ремонт	f	f	f	2550.00000	293	21	2012-04-11 14:22:28	\N
+4600	96	13987	23		f	f	f	2300.00000	293	19	2012-04-11 14:27:41	\N
+4601	96	13790	118	СРОЧНО, евроремонт	f	f	f	2250.00000	286	19	2012-04-11 14:29:03	\N
+4602	97	14001	2	хор. сост., возм. ипотека	f	f	f	1700.00000	277	\N	2012-04-11 14:58:28	\N
+4603	97	14024	1/2	хор. сост., пласт. окна, возм. ипотека	f	f	f	2550.00000	277	20	2012-04-11 15:02:12	\N
+4604	97	14347	78	хор. сост, сплит, встроен. кухня	f	f	f	2150.00000	277	\N	2012-04-11 15:04:57	\N
+4605	97	14368	40	комн. разд., большой коридор, кладовка, решетки, хор. сост.	f	f	f	3000.00000	296	\N	2012-04-11 15:16:33	\N
+4606	97	14006	19	хор. сост.	f	f	f	1900.00000	277	\N	2012-04-11 15:17:35	\N
+4607	97	14249	3	комн. разд., хор. сост.	f	f	f	2050.00000	277	\N	2012-04-11 15:21:02	\N
+4608	97	14295	10	сплит	f	f	f	1730.00000	277	\N	2012-04-11 15:23:43	\N
+4609	97	14347		сплит, хор. сост.	f	f	f	1950.00000	277	\N	2012-04-11 15:24:40	\N
+4610	97	13993	17	мебель	f	f	f	2300.00000	277	19	2012-04-11 15:26:57	\N
+4611	97	13993	4	хор. сост., ипотека возм	f	f	f	3500.00000	277	\N	2012-04-11 15:28:46	\N
+4612	97	14006	13	ч/п., разносторон.	f	f	f	1797.00000	277	\N	2012-04-11 15:29:51	\N
+4613	97	14063	18	пласт. окна, ремонт	f	f	f	2820.00000	277	\N	2012-04-11 15:30:56	\N
+4614	97	14144	67		f	f	f	2000.00000	277	\N	2012-04-11 15:31:44	\N
+4615	97	14082	9	хор. сост.	f	f	f	2200.00000	277	\N	2012-04-11 15:32:51	\N
+4616	97	14220	66	хор. сост., пласт. окна, счетчики на воду	f	f	f	2900.00000	277	\N	2012-04-11 15:35:06	\N
+4617	97	14006	31	удовл. сост., возм. ипотека	f	f	f	2250.00000	277	19	2012-04-11 15:36:22	\N
+4618	97	14330	1	хор. сост.	f	f	f	2550.00000	277	19	2012-04-11 15:37:17	\N
+4619	97	14198	27	возм. ипотека, ч/п.	f	f	f	2450.00000	277	\N	2012-04-11 15:38:58	\N
+4620	97	14340	20	хор. сост., ч/п, возм. ипотека	f	f	f	2500.00000	277	\N	2012-04-11 15:40:07	\N
+4621	97	14198	9	обычн. сост., ч/п., вид на Волгу	f	f	f	2600.00000	277	\N	2012-04-11 15:41:49	\N
+4622	97	14340	10	вид на Волгу, ч/п, возм. ипотека.	f	f	f	2450.00000	277	\N	2012-04-11 15:43:36	\N
+4623	94	13231	98б	хор. сост., стеклопакеты, возм. ипотека	t	f	f	2990.00000	277	19	2012-04-11 17:49:55	\N
+4624	98	14434	38	хор. сост., пласт. окна, срочно	f	f	f	1470.00000	286	19	2012-04-13 13:41:05	\N
+4625	96	13987	68	хор. сост., пустая	f	f	f	1750.00000	293	19	2012-05-02 15:07:44	\N
+4626	92	12598	3	ремонт, евроокна	f	f	f	2620.00000	293	20	2012-05-03 13:03:40	\N
+4627	92	12563	38	 евроремонт, перепланировка из 3х комн.,кух. гарнитур	f	f	f	3050.00000	291	21	2012-05-03 13:05:22	\N
+4628	92	12710	37	косм. ремонт, 1 пласт. окна, все разд.	f	f	f	2650.00000	291	19	2012-05-03 13:06:35	\N
+4629	96	13790	154	норм. сост., комнаты смежн., новая с/тех., замена труб частично,  крыша после кап. ремонта, старая колонка.	f	f	f	1780.00000	295	19	2012-05-03 14:11:52	\N
+4630	96	13910	21	двусторон., хор. сост, возм. ипотека	f	f	f	2550.00000	293	19	2012-05-03 14:20:54	\N
+4631	96	13732	16	хор. сост., евроокна, возм. ипотека	f	f	f	2870.00000	293	20	2012-05-03 14:24:23	\N
+4632	96	12575	21б	дом на 5 квартир, земля в собств., гараж, середина дома, 2 санузла, окна во двор и на 39 гв., прихожая 24 кв. м., возм. ипотека.	f	f	f	4100.00000	295	\N	2012-05-03 14:34:27	\N
+4633	96	13776	7	СНЯЛИ  переплан., пласт. окан, ламинат, сплит, встроен. кухня, посудомоечн. машина, менее 3х лет	f	f	f	2500.00000	295	\N	2012-05-03 14:44:01	\N
+4634	96	13783	9	СНЯЛИ  комн. смежн., с/у совм., нов. трубы, м/дверь,тел., хор. сост., двусторон.	f	f	f	1750.00000	295	20	2012-05-03 14:46:27	\N
+4635	96	13955	46	натяжн. потолки, обои под покраску, встроен. кухня, спальн. гарнитур, нов. меб.	f	f	f	2700.00000	295	20	2012-05-03 14:57:51	\N
+4636	93	13119	28	хор. сост., обмен на 2х б-р Победы, 17а	f	f	f	2150.00000	272	\N	2012-05-03 15:13:14	\N
+4637	93	12893	58	под ч/отд.. цена за кв.м.	f	f	f	26.00000	283	\N	2012-05-03 15:14:35	\N
+4638	93	12874	1	обычн. сост.	f	f	f	1650.00000	272	\N	2012-05-03 15:15:56	\N
+4639	93	12780	19	хор. сост., встроен. меб.	f	f	f	1750.00000	272	\N	2012-05-03 15:17:07	\N
+4640	93	12780	50	обычн. сост.	f	f	f	1800.00000	272	20	2012-05-03 15:29:22	\N
+4641	93	13071	8	хор. сост.	f	f	f	1700.00000	272	\N	2012-05-03 15:30:25	\N
+4642	93	12936	68	хор. сост., возм. ипотека, двусторон.	f	f	f	1750.00000	272	\N	2012-05-03 15:32:33	\N
+4643	93	12986	5	обычн. сост.	f	f	f	1600.00000	277	19	2012-05-03 15:34:39	\N
+4644	93	12779	40	окна на бульвар, под ремонт	f	f	f	2650.00000	283	19	2012-05-03 15:35:49	\N
+4645	93	12893	56	узакон. переплан. (нет кладовой), возм. ипотека, обычн. жилое сост., обои, линолеум, потолочная плитка, в подъезде новый лифт.	f	f	f	2450.00000	283	\N	2012-05-03 15:40:01	\N
+4646	93	12780	27	пласт. окна, хор. ремонт, совмещ. комнаты (трамвай)	f	f	f	1950.00000	272	\N	2012-05-03 15:41:50	\N
+4647	93	12780	65	пласт. окна, нужен косметич. ремонт, 	f	f	f	2350.00000	272	19	2012-05-03 15:43:24	\N
+4648	93	12936	44а	пласт. окна, отл. сост.	f	f	f	2550.00000	272	20	2012-05-03 15:44:42	\N
+4649	93	12844	21а	двусторон., нов. двери, окна	f	f	f	2600.00000	272	\N	2012-05-03 15:48:15	\N
+4650	93	12936	58	погреб, ванная отремонтирована, нов. трубы, торг	f	f	f	2050.00000	272	\N	2012-05-03 15:50:10	\N
+4651	93	12790	71	хор. сост., ремонт, возм. ипотека	f	f	f	4800.00000	277	19	2012-05-03 15:51:37	\N
+4652	93	12893	34а	хор. сост., сплит	f	f	f	1900.00000	277	\N	2012-05-03 15:53:57	\N
+4653	93	12790	71	хор. сост., ипотека	f	f	f	5500.00000	277	19	2012-05-03 15:56:31	\N
+4654	93	13105	16	отл. ремонт, пласт. окна	f	f	f	2350.00000	277	\N	2012-05-03 16:00:34	\N
+4655	93	12913	112	хор. сост.	f	f	f	1900.00000	277	19	2012-05-03 16:06:52	\N
+4656	93	13093	2а	хор. сост., возм. ипотека	f	f	f	1850.00000	277	19	2012-05-03 16:10:27	\N
+4657	93	12790	71	евроремонт, возм. ипотека	f	f	f	4900.00000	277	19	2012-05-03 16:15:06	\N
+4658	93	12790	69/4	еврормеонт, двусторон., сплит, возм. ипотека	f	f	f	4000.00000	277	19	2012-05-03 16:17:14	\N
+4659	92	12563	52	хор. сост., стеклопакет.	f	f	f	1650.00000	259	\N	2012-05-03 16:33:11	\N
+4660	92	12634	5	норм. сост.,стеклопакет на кухне, нов. линолиум	f	f	f	1670.00000	268	20	2012-05-03 16:35:06	\N
+4661	92	12766	2	ТОРГ, норм. сост.	f	f	f	1850.00000	268	19	2012-05-03 16:36:25	\N
+4662	92	12684	29	СРОЧНО,стеклопакент, 2-х сторон.норм. сост.	f	f	f	3200.00000	268	21	2012-05-03 16:46:10	\N
+4663	97	14373	86	угловая, дом после капремонта, евроокна, новые трубы	f	f	f	1560.00000	298	19	2012-05-12 13:02:16	\N
+4664	97	14198	27	нов. трубы, колонка-автомат, возм. ипотека	f	f	f	2060.00000	259	20	2012-05-12 13:45:42	\N
+4665	99	14568	9	пластиковые окна, более 3-х лет в собственности	f	f	f	2500.00000	261	19	2012-05-16 14:58:32	\N
+4666	99	14557	7	большая лоджия, лифт	f	f	f	2400.00000	261	19	2012-05-16 15:02:07	\N
+4667	99	14585	8	пластиковые окна, обычное состояние, во двор, возможна ипотека	f	f	f	2700.00000	261	19	2012-05-16 15:09:28	\N
+4668	99	14583	18а	обычное состояние, возможна ипотека	f	f	f	1900.00000	261	19	2012-05-16 15:27:42	\N
+4669	99	13833	23а	коридор 10 кв. м, обычное состояние, окна во двор	f	f	f	2580.00000	261	19	2012-05-16 15:35:01	\N
+4670	99	14596	43	окна во двор	f	f	f	1750.00000	261	20	2012-05-16 15:36:16	\N
+4671	99	13833	51	обычное состояние, пластиковое окно	f	f	f	1850.00000	261	20	2012-05-16 15:46:45	\N
+4672	93	12781	9а	Студия, евроремонт. встр. кухня, мебель, техника,с/у в итальянская плитка,более 3-х лет.	f	f	f	3400.00000	295	19	2012-05-16 17:01:10	\N
+4673	93	12893	27а	сост. жилое,	f	f	f	1530.00000	283	19	2012-05-16 17:03:02	\N
+4674	93	12780	34а	хор. сост.,возм. ипотека	f	f	f	1850.00000	272	19	2012-05-16 17:05:24	\N
+4675	93	12893	66	евроремонт, встроен. мебель, натяжн. потолки	f	f	f	2900.00000	283	19	2012-05-16 17:17:04	\N
+4676	93	12779	76	паркет,сплит, дерев. окно, возм. ипотека,	f	f	f	2700.00000	283	\N	2012-05-16 17:21:15	\N
+4677	93	12893	74а	отл. сост., стеклопакеты	f	f	f	3900.00000	283	\N	2012-05-16 17:44:11	\N
+4678	96	13778		"Олежкина слобода", б/отд.,  сдан 2012 года.	f	f	f	2450.00000	295	19	2012-05-16 18:37:47	\N
+4679	96	13862	93	хор. сост., 	t	f	f	2350.00000	293	20	2012-05-16 19:00:20	\N
+4680	96	13973	118	хор. сост.	f	f	f	2600.00000	293	20	2012-05-16 19:06:02	\N
+4681	98	14392	15	хор. сост., 	f	f	f	1350.00000	286	\N	2012-05-18 11:19:21	\N
+4682	98	14389	13	евроокна , хор. сост., торг	f	f	f	1700.00000	286	\N	2012-05-18 11:21:13	\N
+4683	98	14515	30	ж/б перекр., евроокна, нов. сантехн., решетки.	f	f	f	1600.00000	286	\N	2012-05-18 11:23:01	\N
+4684	98	14440	13	студия, торг, евроокна, хор. сост.	f	f	f	1500.00000	286	\N	2012-05-18 11:24:20	\N
+4685	98	14402	10	хор. сост.	f	f	f	1520.00000	286	19	2012-05-18 11:25:26	\N
+4686	98	13833	179	нов. колонка	f	f	f	1450.00000	286	19	2012-05-18 11:27:07	\N
+4687	98	14477	22		f	f	f	1800.00000	286	\N	2012-05-18 11:28:07	\N
+4688	98	14427	6		f	f	f	1650.00000	286	19	2012-05-18 11:28:52	\N
+4689	98	14434	51а	хор. сост.	f	f	f	1150.00000	286	19	2012-05-18 11:29:47	\N
+4690	98	14477	27	хор. сост.	f	f	f	2200.00000	286	19	2012-05-18 11:33:20	\N
+4691	98	14496	47	хор. сост.	f	f	f	1700.00000	286	19	2012-05-18 11:35:44	\N
+4692	98	14452	6	кладовая, решетки на окнах, треб. ремонт	f	f	f	2100.00000	286	\N	2012-05-18 11:37:15	\N
+4693	98	14487	3	комн. смежн., хор. сост.	f	f	f	1450.00000	286	\N	2012-05-18 11:39:09	\N
+4694	93	12882	112	хор. сост.	f	f	f	2900.00000	277	\N	2012-05-18 11:55:00	\N
+4695	93	12827	1а	хор. сост., евроокна	f	f	f	1450.00000	277	\N	2012-05-18 12:02:28	\N
+4696	93	12877	13	хор. сост., 	f	f	f	1500.00000	277	19	2012-05-18 12:03:33	\N
+4697	93	12913	120	хор. сост.	f	f	f	1800.00000	277	\N	2012-05-18 12:06:47	\N
+4698	93	12882	72	евроокна, автономное отопление	f	f	f	1600.00000	277	\N	2012-05-18 12:09:53	\N
+4699	93	12944	19	хор. сост.	f	f	f	2100.00000	277	19	2012-05-18 12:10:42	\N
+4700	93	13105	14а	хор. сост., ремонт, встроен. кухня	f	f	f	2800.00000	277	\N	2012-05-18 12:13:55	\N
+4701	93	12882	108	хор. сост.	f	f	f	2150.00000	277	19	2012-05-18 12:15:08	\N
+4702	93	13072	3	хор. сост., евроокна, з/лодж., возм. ипотека	f	f	f	2300.00000	277	\N	2012-05-18 12:18:45	\N
+4703	93	13093	12	евроремонт	f	f	f	2500.00000	277	\N	2012-05-18 12:19:36	\N
+4704	93	12882	89	хор. сост.	f	f	f	2050.00000	277	\N	2012-05-18 12:21:10	\N
+4705	93	13016	18		f	f	f	1750.00000	277	\N	2012-05-18 12:24:09	\N
+4706	93	12882	108	хор. сост.	f	f	f	3000.00000	277	\N	2012-05-18 12:25:31	\N
+4707	93	12913	108	хор. сост.	f	f	f	2550.00000	277	19	2012-05-18 12:27:28	\N
+4708	93	12998	46	хор. сост.	f	f	f	1350.00000	277	\N	2012-05-18 12:29:02	\N
+4709	93	13038	14	евроремонт	f	f	f	3000.00000	277	\N	2012-05-18 12:29:57	\N
+4710	93	13093	10	отл. сост., сплит, евроокна, возм. ипотека	f	f	f	2700.00000	277	\N	2012-05-18 12:32:13	\N
+4711	93	13030	20	отл. сост., евроокна, возм. ипотека	f	f	f	2200.00000	272	\N	2012-05-18 12:34:28	\N
+4712	93	13014	16	комн. разд.	f	f	f	1950.00000	272	\N	2012-05-18 12:35:44	\N
+4713	93	12779	20	треб. рем., менее 3х лет	f	f	f	2250.00000	283	\N	2012-05-18 12:36:29	\N
+4714	97	14044	56	отл. сост., евроокна, автономн. отопление, ТОРГ	f	f	f	1710.00000	300	\N	2012-05-18 13:07:13	\N
+4715	97	14003	16	возм. ипотека, хор. сост.	f	f	f	2730.00000	259	19	2012-05-18 13:37:02	\N
+4716	93	12936	32	хор. сост., возм. ипотека	f	f	f	2150.00000	272	20	2012-05-18 13:41:49	\N
+4717	97	14024	1/2	отл сост., ремонт, меб., сплит, евроокна, возм. ипотека, торг	f	f	f	2150.00000	300	19	2012-05-18 13:45:17	\N
+4718	97	14006	31	хор. сост., возм. ипотека	f	f	f	2360.00000	300	19	2012-05-18 13:51:36	\N
+4719	97	14024	1/2	средн. сост, 2 мет. двери	f	f	f	2460.00000	300	20	2012-05-18 13:52:53	\N
+4720	97	14024	1/1	косм. ремонт, сплит, ТОРГ	f	f	f	2550.00000	300	20	2012-05-18 13:55:41	\N
+4721	97	14024	7	погреб, ж/б перекр., среднее состояние, ТОРГ	f	f	f	1650.00000	300	\N	2012-05-18 14:00:07	\N
+4722	97	14295		хор. сост., нов. сантехн.,	f	f	f	1960.00000	300	\N	2012-05-18 14:01:32	\N
+4723	97	13993	1/1	норм. сост, нов трубы	f	f	f	2000.00000	298	19	2012-05-18 14:02:40	\N
+4724	97	14024	25	еврореомнт, втсроен. мебель, евроокна	f	f	f	2000.00000	300	20	2012-05-18 14:04:00	\N
+4725	97	14220	70	хор. ремонт, евроокна	f	f	f	2800.00000	298	\N	2012-05-18 14:05:11	\N
+4726	97	14126	15	обычн. сост.	f	f	f	2300.00000	298	\N	2012-05-18 14:06:00	\N
+4727	97	14126	8а	1 окно на Волгу, 2 во двор, торг	f	f	f	2850.00000	298	19	2012-05-18 14:09:04	\N
+4728	97	14055		реомнт от застройщика	f	f	f	2900.00000	259	19	2012-05-18 14:11:13	\N
+4729	97	14347	15	без отд., 2 окна на дорого, 1 во двор.	f	f	f	3800.00000	259	19	2012-05-18 14:12:50	\N
+4730	97	14340	14	хор сост, хор. двор	f	f	f	2800.00000	298	20	2012-05-18 14:15:00	\N
+4731	97	14348	2а	дом на стяжках, торг	f	f	f	2000.00000	298	\N	2012-05-18 14:16:34	\N
+4732	97	14368	10		f	f	f	2900.00000	298	\N	2012-05-18 14:17:11	\N
+4733	92	12563	56	нов. сантехн., трубы, нов. колнка, обычн. сост.	f	f	f	1550.00000	268	20	2012-05-18 14:23:40	\N
+4734	92	12648	6	хор. сост., пласт. окна, нов. сантехн., трубы, натяжной потолок	f	f	f	1800.00000	268	19	2012-05-18 14:24:48	\N
+4735	92	12710	7	обычн. сост., торг	f	f	f	1900.00000	268	19	2012-05-18 14:25:55	\N
+4736	92	12598	3	еврокна, хор. сост.	f	f	f	2600.00000	291	20	2012-05-18 14:30:06	\N
+4737	97	14024	25	бывш. общеж., комнаты раздельно, норм. сост., метал. дверь	f	f	f	1670.00000	297	19	2012-05-18 14:37:45	\N
+4738	97	14368	4а	комн. разд., большой коридор и лодж., кладовка, решетки, хор. сост., можно под офис	f	f	f	3000.00000	297	\N	2012-05-18 14:39:26	\N
+4739	94	13247	6	комнаты раздельные, 2-сторонняя, хорошее состояние, сплитсистема, кухонный гарнитур, спутниковое ТВ. Чистая продажа или обмен на 2-комн. улучш. планировки	t	f	f	2750.00000	261	21	2012-05-18 15:11:07	\N
+4740	93	12781	46	возм. ипотека, переплан. в 2х комн. узакон., коридор - 5,6 кв. м., зал - 12,8 кв. м., лодж. - 3,9 кв. м.	f	f	f	2000.00000	283	19	2012-05-21 14:04:58	\N
+4741	93	12781	15	состояние на "4"	f	f	f	1900.00000	283	\N	2012-05-21 14:06:33	\N
+4742	93	12781	52	средн. сост., ипотеки нет, обмен на 2х комн. в центре.	f	f	f	2550.00000	283	\N	2012-05-21 14:08:49	\N
+4743	93	12779	24	мебель, гараж	f	f	f	2700.00000	283	19	2012-05-21 14:10:50	\N
+4744	93	12779	76	паркет, сплит, дерев. окна, возм. ипотека	f	f	f	2700.00000	283	\N	2012-05-21 14:12:55	\N
+4745	93	12781	47б	3 окна во двор, 1 на ул., возм. ипотека	f	f	f	3450.00000	283	\N	2012-05-21 14:13:58	\N
+4746	99	12854	13	все раздельно, крыша после ремонта; состояние обычное, пластиковое окно; возможна ипотека	f	f	f	3150.00000	261	\N	2012-05-30 15:25:18	\N
+4747	99	12860	12	после ремонта, окна во двор	f	f	f	5900.00000	261	19	2012-05-30 15:28:49	\N
+4748	99	14592	5	хороший ремонт, перепланировка, мебель, бытовая техника, вид на Волгу	f	f	f	6450.00000	261	\N	2012-05-30 15:37:11	\N
+4749	99	13081	7-б	хорошее состояние, пластиковые окна	f	f	f	3600.00000	261	20	2012-05-30 15:38:26	\N
+4750	99	13109	10	все раздельно, 2-сторонняя, ТОРГ	f	f	f	2700.00000	261	\N	2012-05-30 16:18:35	\N
+4751	99	14592	67-а	хороший рем., 2 санузла (совмещенный с душевой кабиной и раздельный с ванной), кухня-гостиная 33 кв .м и три раздельные комнаты, вид на Волгу, 3 сплита, кухонный гарнитур с барной стойкой, шкаф-купе	t	f	f	5300.00000	261	19	2012-05-30 16:31:13	\N
+4752	99	14592	67-а	хороший рем., 2 санузла (совмещенный с душевой кабиной и раздельный с ванной), кухня-гостиная 33 кв .м и три раздельные комнаты, вид на Волгу, 3 сплита, кухонный гарнитур с барной стойкой, шкаф-купе	t	f	f	5300.00000	261	19	2012-05-30 16:32:07	\N
+4753	99	14558	4	без ремонта, возможна ипотека	f	f	f	2550.00000	261	19	2012-05-31 15:57:53	\N
+4754	99	12860	14-а	хорошее состояние, пластиковые окна, возможна ипотека	f	f	f	1850.00000	261	19	2012-05-31 16:01:56	\N
+4755	99	14590	10	обычное состояние, пластиковое окно в кухне	f	f	f	2000.00000	261	19	2012-05-31 16:03:34	\N
+4756	99	13833	60	капремонт квартиры 2009 г., пластиковые окна, заменены электропроводка, сантехника , трубы, батареи, полы; новые обои, линолеум. Балкона нет, есть эркер	f	f	f	2250.00000	261	21	2012-05-31 16:05:51	\N
+4757	99	13034	42	хорошее состояние, окна во двор, возможна ипотека	f	f	f	2050.00000	261	19	2012-05-31 16:08:06	\N
+4758	99	14573	18	хороший ремонт, заменены электропроводка, сантехника, трубы, колонка, радиаторы. Натяжные потолки	f	f	f	2050.00000	261	21	2012-05-31 16:10:33	\N
+4759	99	13109	10	хороший ремонт, мебель	f	f	f	1950.00000	261	21	2012-05-31 16:27:59	\N
+4760	99	13034	44	хорошее состояние, пластиковые окна, сплитсистема, возможна ипотека	f	f	f	2200.00000	261	19	2012-05-31 16:53:47	\N
+4761	97	14126	10		f	f	f	2200.00000	298	\N	2012-06-06 15:23:12	\N
+4762	97	14126	24	обычн. сост., возм. ипотека	f	f	f	1900.00000	298	19	2012-06-06 15:29:32	\N
+4763	97	14012	2	нов. дом, мет. дверь, ламинат	f	f	f	2000.00000	298	19	2012-06-06 15:32:03	\N
+4764	97	14380	86	хор. ремонт	f	f	f	2600.00000	298	19	2012-06-06 15:33:25	\N
+4765	97	14246	13	натяжн. потолки, ипотека	f	f	f	2260.00000	259	19	2012-06-06 15:47:53	\N
+4766	97	14278	14	треб. ремонт, аванс	f	f	f	1760.00000	259	19	2012-06-06 15:50:54	\N
+4767	97	14024	25	студия, новая сантехника, торг	f	f	f	1760.00000	300	20	2012-06-07 13:24:05	\N
+4768	97	13993	4	евродизайн, джакузи	f	f	f	3400.00000	298	19	2012-06-07 13:46:08	\N
+4769	97	14362	35	евроокна, трубы, обычн. сост.. возм. ипотека	f	f	f	2250.00000	298	19	2012-06-07 13:48:29	\N
+4770	97	14055		евроокна, ремонт от застройщика	f	f	f	3060.00000	300	19	2012-06-07 13:50:21	\N
+4771	97	14024	1/1	паркет, сплит, 2 двери	f	f	f	2950.00000	300	20	2012-06-07 13:52:49	\N
+4772	97	14024	1/1	нов. сантехн., косметич. ремонт, торг	f	f	f	0.00000	300	19	2012-06-07 13:54:33	\N
+4773	97	14063	20	ремонт от застройщика, евроокна, торг	f	f	f	0.00000	300	20	2012-06-07 13:56:17	\N
+4774	97	14348	1	обычн. сост., комн. разд.	f	f	f	2160.00000	300	19	2012-06-07 13:58:57	\N
+4775	97	14362	46	нов. трубы, счетчики, подвал	f	f	f	2250.00000	298	\N	2012-06-07 14:46:50	\N
+4776	97	14156		балк., нов. трубы, сантехн.	f	f	f	2400.00000	298	\N	2012-06-07 14:52:11	\N
+4777	97	14220	66	кладовка, тех. этаж.	f	f	f	2850.00000	298	\N	2012-06-07 14:53:36	\N
+4778	97	13993		евроокна, нов. трубы, натяжн. потолок.	f	f	f	2850.00000	298	\N	2012-06-07 14:55:09	\N
+4779	97	14126	8	обычн. сост.	f	f	f	3300.00000	298	\N	2012-06-07 14:56:24	\N
+4780	97	13993		обычн. сост., возм. ипотека, з/лодж.	f	f	f	2350.00000	298	\N	2012-06-07 15:02:40	\N
+4781	97	14362	35	комн. смежн., норм. сост., угловая	f	f	f	1650.00000	298	\N	2012-06-07 15:06:40	\N
+4782	97	14236	3	хор. сост., метал. дверь	f	f	f	2360.00000	300	\N	2012-06-07 15:08:41	\N
+4783	97	14063	14	отл. сост., тел, домофон, сплит	f	f	f	2560.00000	300	19	2012-06-07 15:26:13	\N
+4784	97	14347	52	удовл. сост.	f	f	f	1810.00000	300	\N	2012-06-07 15:30:07	\N
+4785	96	13790	120	душ. кабина, мет. дверь, возм. ипотека	f	f	f	1850.00000	293	19	2012-06-07 16:04:07	\N
+4786	96	13734	9	хор. сост., возм. ипотека	f	f	f	1800.00000	293	19	2012-06-07 16:16:45	\N
+4787	96	13910	15	жилое сост. 	f	f	f	1900.00000	293	20	2012-06-07 16:18:36	\N
+4788	96	13827	31	хор. сост.,  возм. ипотека, квартира пустая	f	f	f	1650.00000	293	19	2012-06-07 16:27:51	\N
+4789	99	13833	2	норм. сост.,всё разд., возм. ипотека.	f	f	f	3050.00000	261	19	2012-06-09 13:12:03	\N
+4790	98	14471	11	хор. сост.	f	f	f	1580.00000	286	19	2012-06-09 16:01:46	\N
+4791	98	14430	9	переплан из 2х комн., душевая кабина, нов. колонка, сантехн.	f	f	f	1850.00000	299	20	2012-06-09 16:03:43	\N
+4792	99	14575	14	пластиковые окна, кладовая, новая котельная, дом сдан в 2008 г., возможна ипотека	f	f	f	2650.00000	261	19	2012-06-22 13:17:45	\N
+4793	99	14585	21	пластиковые окна, во двор; возможна ипотека, ТОРГ	f	f	f	1950.00000	261	19	2012-06-22 13:18:57	\N
+4794	99	14557	19	обычное состояние, перепланировка: увеличена комната за счет кладовой, ТОРГ	f	f	f	1800.00000	261	20	2012-06-22 13:21:13	\N
+4795	99	14596	43	есть техэтаж; хорошее состояние	t	f	f	4300.00000	264	\N	2012-06-22 15:15:22	\N
+4796	96	13863	19	пластиковые окна, новые трубы, стояк, устаовлены счетчики	f	f	f	1800.00000	293	20	2012-06-22 17:21:14	\N
+4797	96	13923	2	пластик	f	f	f	1450.00000	293	19	2012-06-22 17:28:45	\N
+4798	92	12644	73	новая входная дверь и межкомнатные	f	f	f	2400.00000	291	\N	2012-06-25 16:43:14	\N
+4799	92	12710	52	евроокна, ламинат, хор. ремонт	f	f	f	2440.00000	291	\N	2012-06-25 16:44:55	\N
+4800	92	12644	65	сплит., хор. сост.	f	f	f	2750.00000	291	\N	2012-06-25 17:00:18	\N
+4801	92	12555	3	евроокна,нов. радиаторы, норм. сост.	f	f	f	2450.00000	291	\N	2012-06-25 17:02:30	\N
+4802	92	12644	30	евроокна, кух.гарнитур, сплит., итальянская плитка в с/у,натяжной потолок, гардеробная.	f	f	f	3000.00000	291	\N	2012-06-25 17:08:44	\N
+4803	92	12644	73	евроокна, шкаф-купе, кух. гарнитур, хор. ремонт	f	f	f	3450.00000	291	\N	2012-06-25 17:30:52	\N
+4804	92	12600	15 б	евроокна, нов. электрика, подготовлена к ремонту.	f	f	f	3150.00000	291	19	2012-06-25 17:32:42	\N
+4805	92	12598	12	евроокна, нов. межкомнатные и входная дверь, хор. сост. 	f	f	f	2650.00000	291	\N	2012-06-25 17:36:33	\N
+4806	92	12633	13	ТОРГ, хор. сост., стеклопакеты, нов. трубы. с/техника.	f	f	f	2650.00000	268	19	2012-06-25 17:38:36	\N
+4807	92	12598	4	кухня-столовая, сплит, разносторон., хор. сост.	f	f	f	3450.00000	291	19	2012-06-25 17:40:39	\N
+4808	92	12563	4	евроокна, евроремонт, замена всего.	f	f	f	3500.00000	291	19	2012-06-25 17:42:27	\N
+4809	96	13833	115	двухсторон., стеклопакет, сплит.	f	f	f	2350.00000	295	19	2012-06-26 17:33:14	\N
+4810	96	13949	21	комнат. смежные, норм. сост.	f	f	f	1940.00000	295	19	2012-06-26 17:35:07	\N
+4811	96	13833	155	тех. этаж, нужен космет. ремонт, крыша в отличн. сост., 	f	f	f	1750.00000	295	19	2012-06-26 17:38:59	\N
+4812	96	13833	79	Все в рабочем состоянии, комнаты смежные, разносторон., угловая, менее 3х лет.	f	f	f	1950.00000	295	\N	2012-06-26 17:44:11	\N
+4813	96	13948	14	Сняли	f	f	f	1850.00000	295	\N	2012-06-26 17:46:39	\N
+4814	96	13987	31	Все раздельно, частичн. стеклопакеты,  нужен косметич. ремонт.	f	f	f	2450.00000	295	\N	2012-06-26 17:49:14	\N
+4815	96	13734	9	нов. трубы, электрика, сост. обычн.	f	f	f	2450.00000	295	19	2012-06-26 18:07:16	\N
+4816	96	13863	23	недоделаный отличный ремонт.	f	f	f	2350.00000	295	19	2012-06-26 18:10:52	\N
+4817	96	13833	153		f	f	f	2200.00000	295	19	2012-06-26 18:12:15	\N
+4818	96	13987	60	хор. сост., нов. двери, с/техника, трубы, имеется подвал.	f	f	f	2950.00000	295	19	2012-06-26 18:14:43	\N
+4819	96	13803	56	менее 3х лет. сост. после бабушки.	f	f	f	2350.00000	293	19	2012-06-26 18:18:19	\N
+4820	96	13705		хор. сост., стеклопакеты.	f	f	f	2400.00000	293	19	2012-06-26 18:20:42	\N
+4821	96	13803	51	жилое сост., паркет, паркет.	f	f	f	2250.00000	293	20	2012-06-26 18:23:16	\N
+4822	96	13948	7	самое обычное сост.	f	f	f	2200.00000	293	19	2012-06-26 18:24:50	\N
+4823	96	13783	11а	минимальный торг, хор. сост., все новое.	f	f	f	4120.00000	295	20	2012-06-26 18:32:44	\N
+4824	96	13949	5	хор. сост.,комнаты раздельны, все новое	f	f	f	1850.00000	293	\N	2012-06-26 18:36:22	\N
+4825	96	13955	9	требуется ремонт, возм. ипотека	f	f	f	1700.00000	295	19	2012-06-26 18:42:32	\N
+4826	96	13987	36	хор. сост.	f	f	f	2100.00000	295	20	2012-06-26 18:46:35	\N
+4827	96	13833	149	хор. сост.	f	f	f	2000.00000	295	\N	2012-06-26 18:47:52	\N
+4828	96	13987	39	средн. сост.	f	f	f	2000.00000	297	\N	2012-06-26 18:49:10	\N
+4829	96	13973	23	обычн. сост.	f	f	f	2350.00000	295	\N	2012-06-26 18:51:14	\N
+4830	96	13987	39	обычное состояние; квартира освобождена	f	f	f	1530.00000	293	19	2012-06-27 18:08:21	\N
+4831	96	13862	93	нужен ремонт, более 3-х лет в собственности	f	f	f	1400.00000	293	19	2012-06-27 18:13:07	\N
+4832	96	13790	23	после капремонта, менее 3-х лет в собственности	f	f	f	1550.00000	293	20	2012-06-27 18:14:50	\N
+4833	96	13987	7	обычное состояние, более 3-х лет в собственности	f	f	f	2400.00000	293	19	2012-06-27 18:17:22	\N
+4834	96	13987	5	отделка от застройщика, ТОРГ	f	f	f	2600.00000	293	19	2012-06-27 18:18:32	\N
+4835	96	13790	88	хорошее состояние, менее 3-х лет в собственности	f	f	f	1650.00000	293	20	2012-06-27 18:20:12	\N
+4836	96	13948	63	пластиковые окна, состояние от бабушки, возм. ипотека	f	f	f	1550.00000	293	19	2012-06-27 18:36:30	\N
+4837	96	13948	63	обычное состояние, более 3-х лет в собственности	f	f	f	1700.00000	293	19	2012-06-27 18:39:11	\N
+4838	96	13973	40	нужен ремонт, менее 3-х лет в собственности	f	f	f	1650.00000	293	19	2012-06-27 18:40:33	\N
+4839	92	12609	11	заменены: электропроводка, трубы, сантехника; сплитсистема	f	f	f	1780.00000	268	19	2012-06-27 18:53:44	\N
+4840	92	12598	17	хорошее состояние, сплитсистема	f	f	f	1950.00000	268	19	2012-06-27 18:55:22	\N
+4841	92	12633	33	обычное состояние; возможна ипотека	f	f	f	1750.00000	268	19	2012-06-27 18:56:32	\N
+4842	96	13898	12	нужен ремонт, более 3-х лет в собственности; освобождена	f	f	f	1800.00000	293	19	2012-06-27 19:13:16	\N
+4843	96	13987	41	после ремонта; освобождена	f	f	f	2450.00000	293	19	2012-06-27 19:14:31	\N
+4844	96	13987	8	отличное состояние; дом после капремонта	f	f	f	2050.00000	293	20	2012-06-27 19:16:38	\N
+4845	96	13958	26	хорошее состояние	f	f	f	3000.00000	293	20	2012-06-28 10:49:33	\N
+4846	96	13805	2	частичный ремонт	f	f	f	3200.00000	293	19	2012-06-28 10:50:34	\N
+4847	96	13803	40	перепланировка, более 3-х лет в собственности	f	f	f	3050.00000	293	19	2012-06-28 10:51:35	\N
+4848	96	13948	34	хорошее состояние	f	f	f	2650.00000	293	19	2012-06-28 10:58:10	\N
+4849	96	13726	7	неугловая; без ремонта	f	f	f	3000.00000	293	19	2012-06-28 11:01:28	\N
+4850	96	13863	1	двусторонняя, ж/б-перекрытия, хорошее состояние, более 3-х лет в собственности	f	f	f	3100.00000	293	20	2012-06-28 15:15:06	\N
+4851	96	13833	135	двусторонняя, пластиковые окна, более 3-х лет в собственности	f	f	f	2800.00000	293	20	2012-06-28 15:19:00	\N
+4852	96	13955	40	обычное состоние, освобождена	f	f	f	2500.00000	293	19	2012-06-28 15:23:47	\N
+4853	96	13987	62	обычное состояние	f	f	f	2850.00000	293	20	2012-06-28 15:24:43	\N
+4854	96	13790	96	хорошее состояние, СРОЧНО	f	f	f	2300.00000	293	19	2012-06-28 15:27:00	\N
+4855	96	13987	62	угловая, пластиковые окна, встроенная мебель	f	f	f	3200.00000	293	19	2012-06-28 15:29:21	\N
+4856	96	13790	66	хорошее состояние, освобождена	f	f	f	3500.00000	293	19	2012-06-28 15:32:43	\N
+4857	96	13910	5	обычное состояние, освобождена	f	f	f	2850.00000	293	19	2012-06-28 15:33:55	\N
+4858	96	13973	36/1	итальянская отделка, встроенная мебель	f	f	f	4500.00000	293	19	2012-06-28 15:35:10	\N
+4859	96	13973	36/2	хорошее состояние	f	f	f	3600.00000	293	19	2012-06-28 15:36:22	\N
+4860	96	13833	79	хорошее состояние	f	f	f	2850.00000	293	19	2012-06-28 15:37:18	\N
+4861	96	13705	29	2 уровня, 2 санузла, евроремонт	f	f	f	4500.00000	293	19	2012-06-28 16:01:34	\N
+4862	96	13833	141	ж/б-перекрытия, нужен ремонт	f	f	f	2600.00000	293	19	2012-06-28 16:02:42	\N
+4863	96	13863	78	двусторонняя, сплитсистема, обычное состояние, более 3-х лет в собственности	f	f	f	3300.00000	293	20	2012-06-28 16:04:15	\N
+4864	96	13948	1	евроремонт	f	f	f	4500.00000	293	20	2012-06-28 16:05:23	\N
+4865	96	13790	120	неугловая, нужен ремонт	f	f	f	4350.00000	293	19	2012-06-28 16:07:01	\N
+4866	96	13833	111	угловая, отличное состояние, пластиковые окна, м/дверь	f	f	f	3900.00000	293	20	2012-06-28 16:08:44	\N
+4867	96	13955	50	хорошее состояние	f	f	f	3400.00000	293	19	2012-06-28 16:09:53	\N
+4868	96	13790	108	двусторонняя, обычное состояние	f	f	f	5500.00000	293	19	2012-06-28 16:11:05	\N
+4869	96	13790	120	угловая, хорошее состояние	f	f	f	3900.00000	293	20	2012-06-28 16:12:21	\N
+4870	96	13803	40	неугловая, пластиковые окна, ремонт в кухне	f	f	f	3500.00000	293	19	2012-06-28 16:13:34	\N
+4871	96	13833	151	на полу ламинат, менее 3-х лет в собственности	f	f	f	2550.00000	293	20	2012-06-28 16:14:44	\N
+4872	96	13955	60	капремонт, более 3-х лет в собственности	f	f	f	2900.00000	293	20	2012-06-28 16:16:25	\N
+4873	96	13973	18/1	2 уровня, 2 санузла	f	f	f	7400.00000	293	\N	2012-06-28 16:17:47	\N
+4874	97	14330	1а	без отделки	f	f	f	2780.00000	259	19	2012-06-29 17:57:08	\N
+4875	97	14330	1-б		f	f	f	2760.00000	259	\N	2012-06-29 17:58:12	\N
+4876	97	14144	67	отделка от застройщика	f	f	f	1860.00000	300	20	2012-06-29 17:59:35	\N
+4877	97	14368	10	нормальное состояние	f	f	f	1650.00000	298	19	2012-06-29 18:00:47	\N
+4878	97	13993	1/1	обычное состояние, м/дверь	f	f	f	1850.00000	298	20	2012-06-29 18:01:49	\N
+4879	97	14220	66	обычное состояние	f	f	f	1860.00000	298	19	2012-06-29 18:02:43	\N
+4880	97	14198	11	возм. ипотека, 2 сплита, встроен. меб.	f	f	f	2700.00000	259	20	2012-07-09 12:11:34	\N
+4881	97	14198	19	возм. ипотека	f	f	f	2500.00000	259	\N	2012-07-09 12:13:21	\N
+4882	97	14330	1	возм. ипотека, хор. сост., нов. трубы	f	f	f	2450.00000	259	19	2012-07-09 12:27:38	\N
+4883	97	14385	10	возм. ипотека, хор. сост.	f	f	f	5600.00000	259	19	2012-07-09 12:28:53	\N
+4884	97	14340	2/1	возм. ипотека, вид на Волгу, хор. сост.	f	f	f	3100.00000	259	19	2012-07-09 12:30:30	\N
+4885	97	14330	1а	ремонт	f	f	f	5800.00000	259	19	2012-07-09 12:32:57	\N
+4886	97	14055	18		f	f	f	3010.00000	300	19	2012-07-09 12:37:13	\N
+4887	98	14440	6	хор. сост.	f	f	f	1850.00000	286	19	2012-07-09 12:48:59	\N
+4888	98	14474	6	хор. сост., решетки, в комнате встроен. шкаф, торг, возм. ипоетка	f	f	f	1420.00000	283	\N	2012-07-09 12:52:02	\N
+4889	98	14471	11	комн. разд., средн. сост.	f	f	f	1800.00000	286	20	2012-07-09 13:02:44	\N
+4890	98	14431	37	средн. сост.	f	f	f	1600.00000	286	19	2012-07-09 13:10:33	\N
+4891	98	14477	21	хор. сост.	f	f	f	2650.00000	286	20	2012-07-09 13:11:42	\N
+4892	98	14496	67	хор. сост., стеклопакет	f	f	f	1600.00000	286	19	2012-07-09 13:12:54	\N
+4893	98	14489	14	средн. сост.	f	f	f	1800.00000	286	19	2012-07-09 13:13:49	\N
+4894	98	14496	25	хор. сост.	f	f	f	1730.00000	263	19	2012-07-09 13:16:47	\N
+4895	98	14411	12	обычн. сост.	f	f	f	1800.00000	286	20	2012-07-09 13:17:42	\N
+4896	99	14562	3	обычное состояние; возможна ипотека	f	f	f	1750.00000	261	19	2012-07-11 19:17:44	\N
+4897	99	14590	12	обычное состояние	f	f	f	2040.00000	261	20	2012-07-11 19:18:48	\N
+4898	99	13833	43	хорошее состояние, пластиковые окна	f	f	f	1950.00000	261	20	2012-07-11 19:19:56	\N
+4899	99	14590	12	обычное состояние	f	f	f	2030.00000	261	20	2012-07-11 19:21:09	\N
+4900	99	13833	46	после капремонта; новые пластиковые окна, дерев. двери, электропроводка, колонка, сантехника, трубы	f	f	f	2000.00000	261	19	2012-07-11 19:23:20	\N
+4901	99	13034	42	пластиковые окна, новая сантехника; сплитсистема, шкаф-купе	f	f	f	1970.00000	261	21	2012-07-11 19:24:33	\N
+4902	99	14575	16а	лоджия 9 кв. м; без отделки, сдан в 2011 году	f	f	f	2600.00000	261	19	2012-07-11 19:25:58	\N
+4903	99	12941	17	хороши ремонт, окна во двор	f	f	f	2650.00000	261	19	2012-07-11 19:27:47	\N
+4904	99	14582	14	обычное состояние; пластиковые окна	f	f	f	1600.00000	261	19	2012-07-11 19:28:50	\N
+4905	99	12854	10	евроремонт, сплит	f	f	f	2500.00000	283	19	2012-07-18 11:44:42	\N
+4906	99	14588	20	освобождена, треб. ремонт	f	f	f	3250.00000	283	19	2012-07-18 11:46:09	\N
+4907	92	12644	24	евроокна, нов. двери, ремонт	f	f	f	2850.00000	291	\N	2012-07-20 12:59:18	\N
+4908	92	12764	3	в кузне и зале стеклопакеты, нов. вход. дверь	f	f	f	2450.00000	291	\N	2012-07-20 13:02:03	\N
+4909	92	12555	19	ремонт, кухон. гарнитур	f	f	f	3000.00000	291	19	2012-07-20 13:03:53	\N
+4910	92	12632	20	обычн. сост.	f	f	f	2500.00000	291	\N	2012-07-20 13:05:52	\N
+4911	92	12710	53	евроремонт	f	f	f	2400.00000	291	\N	2012-07-20 13:07:00	\N
+4912	92	12684	31	комн. смежн., стеклопакеты	f	f	f	1950.00000	291	\N	2012-07-20 13:08:12	\N
+4913	99	13034	24	2-сторон.	f	f	f	2700.00000	261	19	2012-07-20 13:17:47	\N
+4914	99	14614	1	возм. ипотека, хор. сост.	f	f	f	2850.00000	283	\N	2012-07-20 13:19:00	\N
+4915	92	12644	18	разносторон., стеклопакеты, норм. сост.,	f	f	f	3500.00000	291	19	2012-07-20 13:21:27	\N
+4916	92	12598	14	стеклопакеты, кухня-столовая, хор. сост.	f	f	f	2750.00000	291	20	2012-07-20 13:22:38	\N
+4917	92	12563	20	евроокна, ремонт, хор. сост.	f	f	f	2850.00000	291	\N	2012-07-20 13:26:48	\N
+4918	93	12928	37	1989 г. постройки, 1 собственник, хор сост., торг	f	f	f	1730.00000	283	\N	2012-07-20 14:05:48	\N
+4919	93	12781	48	обмен ан 3х комн.	f	f	f	2300.00000	283	20	2012-07-20 14:06:36	\N
+4920	93	12779	76	хор. сост., стеклопакеты	f	f	f	2300.00000	283	19	2012-07-20 14:07:50	\N
+4921	98	14389	13	евроремонт	f	f	f	1700.00000	286	19	2012-07-20 14:19:31	\N
+4922	98	14431	45	хор. сост.	f	f	f	1600.00000	286	19	2012-07-20 14:20:39	\N
+4923	98	14439	15а	хор. сост.	f	f	f	1350.00000	286	19	2012-07-20 14:21:33	\N
+4924	97	14330	1	жилое сост., возм. ипотека	f	f	f	2700.00000	259	19	2012-07-20 14:23:39	\N
+4925	97	14256	2/1	средн. сост., возм. ипотека	f	f	f	2650.00000	300	\N	2012-07-20 14:25:09	\N
+4926	97	14295	10	стеклопакеты,  косм. ремонт, возм. ипотека	f	f	f	3150.00000	300	20	2012-07-20 14:27:22	\N
+4927	97	14319	19	счетчики, сплит	f	f	f	3000.00000	298	20	2012-07-20 14:28:54	\N
+4928	97	14319	19	хор. ремонт, сплит	f	f	f	3300.00000	300	20	2012-07-20 14:30:50	\N
+4929	97	14311	5	нов. трубы, счетчики	f	f	f	2400.00000	298	19	2012-07-20 14:32:35	\N
+4930	97	14156	7	частичн. ремонт	f	f	f	2500.00000	298	\N	2012-07-20 14:33:38	\N
+4931	97	14001	4	частичн. ремонт	f	f	f	3000.00000	298	20	2012-07-20 14:34:34	\N
+4932	93	12781	11	средн. сост., кухня, комнаты и коридор после косм. ремонта, торг, возм. ипотека	f	f	f	2400.00000	283	\N	2012-07-20 14:36:15	\N
+4933	93	12781	41	обычн. сост.возм. ипотека	t	f	f	2500.00000	283	20	2012-07-20 14:38:16	\N
+4934	93	12779	66	косм. ремонт, нов. сантехн., окна на Парк Хаус, 3 собственника	f	f	f	3000.00000	283	19	2012-07-20 14:39:46	\N
+4935	93	12779	5		f	f	f	2570.00000	283	\N	2012-07-20 14:41:41	\N
+4936	93	12781	46	углов. подъезд 1 комн с реомнтом, остальные - жилое сост., возм. ипоетка, торг	f	f	f	3500.00000	283	\N	2012-07-20 14:42:58	\N
+4937	97	14311	9		f	f	f	1500.00000	298	19	2012-07-23 11:03:44	\N
+4938	94	13135		средн. сост.	f	f	f	1570.00000	283	\N	2012-07-23 11:05:44	\N
+4939	99	14573	8	хороший ремонт	f	f	f	2130.00000	261	19	2012-08-09 16:31:09	\N
+4940	99	14575	5	нормальное состояние	f	f	f	1650.00000	261	19	2012-08-09 16:32:46	\N
+4941	99	14590	18а	обычное состояние	f	f	f	1900.00000	261	19	2012-08-09 16:37:08	\N
+4942	99	14588	2	обычное состояние	f	f	f	2250.00000	261	19	2012-08-09 16:41:14	\N
+4943	99	13833	58/1	хорошее состояние, пластиковые окна	f	f	f	1850.00000	261	19	2012-08-09 16:42:23	\N
+4944	99	12860	14	хороший ремонт	f	f	f	3050.00000	261	19	2012-08-09 16:45:51	\N
+4945	99	14596	19	обычное состояние	f	f	f	1880.00000	261	19	2012-08-09 16:46:45	\N
+4946	99	14582	14	хорошее состояние	f	f	f	1750.00000	261	21	2012-08-09 16:47:38	\N
+4947	99	14557	17	после ремонта	f	f	f	1950.00000	261	19	2012-08-09 16:48:23	\N
+4948	99	14592	11	без отделки, сдан в 2007 г., окна во двор; есть техэтаж	f	f	f	4200.00000	261	19	2012-08-14 16:24:50	\N
+4949	92	12555	3	новая сантехника, джакузи, балкон утеплен, ламинат в комнате, обои линолеум, хор. сост.	f	f	f	1835.00000	268	21	2012-08-16 14:54:24	\N
+4950	92	12580	5	стеклопакеты, сплит, хор. сост., подвал 10 м2, 	f	f	f	1550.00000	268	19	2012-08-16 14:56:09	\N
+4951	92	12648	8	обычн. норм сост., торг, не подходит под ипотеку	f	f	f	1750.00000	268	19	2012-08-16 14:57:32	\N
+4952	92	12598	1	1 стеклопакет, обычн. сост.	f	f	f	2600.00000	279	19	2012-08-16 15:00:49	\N
+4953	92	12684	31	комн. смежн., стеклопакеты	f	f	f	1950.00000	291	\N	2012-08-16 15:02:03	\N
+4954	92	12548	3	стеклопакеты, нов. сантехн, хор. сост.	f	f	f	2150.00000	291	\N	2012-08-16 15:03:35	\N
+4955	92	12710	3	окна во двор, быт. техн., меб.	f	f	f	2550.00000	291	19	2012-08-16 15:23:42	\N
+4956	92	12764	11/5	хор. сост., дубов. паркет, стеклопакеты, возм. ипотека, срочно, торг	f	f	f	3050.00000	300	19	2012-08-16 15:28:22	\N
+4957	93	13071	5	хор. сост., нов. радиаторы, счетчики на воду, торг	f	f	f	1700.00000	272	19	2012-08-16 15:52:13	\N
+4958	93	12893	58	торг	f	f	f	3950.00000	283	\N	2012-08-16 15:58:24	\N
+4959	93	13040	12	хор. сост.	f	f	f	2350.00000	272	20	2012-08-16 15:59:44	\N
+4960	96	13742	4	от застройщика, сдача 3 квартала 2013	f	f	f	1600.00000	293	19	2012-08-16 16:13:39	\N
+4961	96	13790	138	обычн. сост.	f	f	f	0.00000	293	19	2012-08-16 16:15:03	\N
+4962	96	13548	18	стеклопакеты, сплит, сантехн. новая	f	f	f	1600.00000	293	20	2012-08-16 16:24:22	\N
+4963	96	13898	9	отл. сост., встроен. меб.	f	f	f	1850.00000	293	20	2012-08-16 16:26:08	\N
+4964	96	13948	44	частичн. ремонт	f	f	f	1500.00000	293	19	2012-08-16 16:27:19	\N
+4965	96	13726	11	отл. сост.	f	f	f	1650.00000	293	19	2012-08-16 16:30:55	\N
+4966	96	13973	9	хор. сост. менее 3х лет.	f	f	f	1800.00000	293	19	2012-08-16 16:32:29	\N
+4967	96	13955	9	жилое сост.	f	f	f	1600.00000	293	19	2012-08-16 16:33:42	\N
+4968	96	13948	79	хор. сост., возм. ипотека	f	f	f	1550.00000	293	19	2012-08-16 16:34:47	\N
+4969	96	13783	17	без ремонта	f	f	f	1750.00000	295	\N	2012-08-16 16:39:14	\N
+4970	97	14311	9	обычное состояние	f	f	f	1500.00000	298	19	2012-08-17 11:16:47	\N
+4971	97	14347	25	отл. сост., стеклопакеты, ламинат, СПЛ	f	f	f	1860.00000	300	20	2012-08-17 11:30:47	\N
+4972	97	14024	1/3	ремонт новые трубы стеклопакеты	f	f	f	1810.00000	300	20	2012-08-17 11:33:31	\N
+4973	97	14024	1/2	обычн. сост.	f	f	f	1810.00000	300	19	2012-08-17 11:34:51	\N
+4974	97	14368	8	подготовлена к ремонту	f	f	f	1560.00000	298	19	2012-08-17 11:44:24	\N
+4975	97	14044	64	ремонт от застройщика	f	f	f	2360.00000	298	19	2012-08-17 11:45:33	\N
+4976	97	14065	12	двусторон., отл. планировка	f	f	f	1750.00000	272	\N	2012-08-17 11:47:07	\N
+4977	97	14055	10	евроокна, сплит, под чистовую отделку	f	f	f	3000.00000	291	\N	2012-08-17 11:49:44	\N
+4978	98	14402	2	ремонт, хор. сост.	f	f	f	1700.00000	286	20	2012-08-17 12:02:06	\N
+4979	98	14389	13	евроремонт	f	f	f	1700.00000	286	19	2012-08-17 12:03:27	\N
+4980	98	14431	45	хор. сост.	f	f	f	1600.00000	286	19	2012-08-17 12:06:11	\N
+4981	98	14439	15а	хор. сост.	f	f	f	1350.00000	286	19	2012-08-17 12:08:21	\N
+4982	98	14515	2	хор. сост., торг	f	f	f	1800.00000	286	20	2012-08-17 12:13:24	\N
+4983	98	14496	30	хор. сост., торг	f	f	f	1750.00000	286	20	2012-08-17 12:15:16	\N
+4984	98	14477	18	хор. сост., торг	f	f	f	2950.00000	286	19	2012-08-17 12:16:33	\N
+4985	96	13783	17	хор. сост.	f	f	f	1750.00000	286	20	2012-08-17 12:17:45	\N
+4986	94	13135		хор. сост., торг	f	f	f	1550.00000	298	\N	2012-08-17 12:42:32	\N
+4987	94	13311	127	стеклопакеты, утепленный балк., г/х вода, эл. плита, хор. сост., возм. ипотека	f	f	f	1700.00000	301	\N	2012-08-17 12:45:24	\N
+4988	94	13339	30	обычн. сост., окна дерев., возм. ипотека	f	f	f	1330.00000	301	19	2012-08-17 12:47:57	\N
+4989	94	13135	24	обычн. сост., окна дерев., нов. газ. колонка, трубы, стояк пласт., освобождена, ипотека	f	f	f	1550.00000	301	19	2012-08-17 12:50:15	\N
+4990	94	13135	34б	балк. 3 кв. м., дерев., окна дерев, колонка в ванной, нов. трубы,  обычн. сост., возм. ипотека	f	f	f	1900.00000	301	\N	2012-08-17 12:53:57	\N
+4991	94	13135	65	комн. смежн., стеклопакеты, сплит, трубы пластик, нов. сантехн., хор. сост.	f	f	f	1900.00000	301	\N	2012-08-17 13:12:06	\N
+4992	94	13188	3	комн. разд., средн. сост., окна дерев. решетки, угловая, газ колонка автомат, нов трубы (металлопластик), частичн. нов проводка	f	f	f	1500.00000	301	\N	2012-08-17 13:14:06	\N
+4993	94	13209	6	комн. разд., г/х вода, газ, не угловая, окна дерев., хор. сост., возм. ипотека	f	f	f	2050.00000	301	19	2012-08-17 13:16:46	\N
+4994	94	13300	10	комн. разд., обычн. сост.	f	f	f	2050.00000	301	\N	2012-08-17 13:18:25	\N
+4995	94	13339	24	комн. разд., 2х сторон., в середине дома, нов. сантехн., трубы пласт., нов проводка,  ремонт в ванной, туалете на кухне в большой комнате, вход. дверь мет., межкомн. двери нов., встроен кухня, 2 сплит	f	f	f	1850.00000	301	19	2012-08-17 13:22:29	\N
+4996	94	13435	27	комн. разд., 2 сторон., не торцевая, ж/б, в ванной пласт трубы, окна дерев., обычн. сост.	f	f	f	1750.00000	301	\N	2012-08-17 13:39:39	\N
+4997	94	13231	94	комн. разд., окна дерев., обычн. сост.	f	f	f	1750.00000	301	19	2012-08-17 13:40:44	\N
+5080	\N	12664		4 комн., обмен на 2х комн.  в Кировском или Гумрак	f	f	f	2400.00000	283	20	2012-06-09 14:00:48	\N
+4998	94	13231	96	евроремонт, всё разд., стеклопакеты, стены и потолок выровнены, потолок гипсокартон, нов. батареи сантехн., отл. сост., возм. ипотека	f	f	f	2400.00000	301	\N	2012-08-17 13:48:48	\N
+4999	94	13300	10	комн. разд., хор. сост.	f	f	f	2100.00000	301	19	2012-08-17 13:50:51	\N
+5000	94	13132		авиагородок, хор. ремонт., лодж заст. и утеплена, кондиционер, 3 сплит системы, Интернет	f	f	f	2100.00000	301	\N	2012-08-17 13:54:39	\N
+5001	94	13231	86а	комн. разд., лодж 7 кв. м., окна дерев, разносторон., счетчики на воду, хор. сост., охранемая территория, парковка, тсж, дом сдан в 2005 г. ипотека	f	f	f	2300.00000	301	\N	2012-08-17 13:58:07	\N
+5002	94	13231	96	комн. разд., частичн. евроремонт, 2 пласт окна, хор. сост.	f	f	f	2700.00000	301	19	2012-08-17 14:02:51	\N
+5003	94	13231	127	комн. смежн., пласт окна, хор. сост.	f	f	f	2330.00000	301	19	2012-08-17 14:04:07	\N
+5004	94	13231	133	комн. разд, переплан, не угловая, 2 сторон., кап ремонт, пласт окна	f	f	f	2400.00000	301	19	2012-08-17 14:05:33	\N
+5005	94	13247	8	комн. разд., 2 сторон., пласт. окна, нов. сантехн., хор. реомнт, отл. сост, ипотека, меб. по желанию	f	f	f	2700.00000	301	19	2012-08-17 14:06:56	\N
+5006	94	13231	98б	хор. сост., стеклопакеты, возм. ипотека.	f	f	f	0.00000	277	19	2012-08-17 14:11:29	\N
+5007	94	13135		хор. сост. торг	f	f	f	1550.00000	298	\N	2012-08-17 14:15:54	\N
+5008	94	13132		Одоевского улица, 56 дом, комн. разд., обычн. сост., колясочная в коридоре, большая кладовая	f	f	f	2550.00000	301	\N	2012-08-17 14:19:00	\N
+5009	94	13410	4	комн. разд., нестанд. планировка, торцевая, окна дерев, решетки, г/з вода, хор. сост.	f	f	f	2500.00000	301	19	2012-08-17 14:21:14	\N
+5010	94	13231	127	комн. разд., пласт окна, ремонт в 2х комн натяжн потолки, ванну трубы меняли, торцевая	f	f	f	2800.00000	301	\N	2012-08-17 14:22:30	\N
+5011	94	13410	4	комн. смежн., большая кладовая антрисоль, обычн. сост.	f	f	f	3000.00000	301	\N	2012-08-17 14:24:20	\N
+5012	94	13410	4	торцевая, комн. смежн., 2 пласт окна, унитаз раковину меняли, трубы пласт., обычн. сост.	f	f	f	4000.00000	301	\N	2012-08-17 14:25:48	\N
+5013	95	13266	199	стеклопакеты, комн. разд. переплан, хор. сост менее 3х лет	f	f	f	1400.00000	301	\N	2012-08-17 14:27:29	\N
+5014	94	13247	6	комн. смежн, тсж, хор. сост., возм. ипотека	f	f	f	2150.00000	301	\N	2012-08-17 14:28:44	\N
+5015	94	13231	140а	комн. смежн., переплан в 3х комн., узаконена, окна во двор, не торцевая, з/лодж., 2 стеклопакета, сплит, меняли стояк, унитаз	f	f	f	1700.00000	301	\N	2012-08-17 14:30:53	\N
+5016	94	13165	64	комн. разд., стеклопакеты, нов. проводка, трубы, сантехн.	f	f	f	2400.00000	301	\N	2012-08-17 14:32:21	\N
+5017	94	13300	4	комн. разд., стеклопакеты, ремонт, сплит, хор. сост.	f	f	f	2050.00000	301	\N	2012-08-17 14:33:29	\N
+5018	97	14033		2 арма пояса ( крепкий фундамент)	t	f	f	10300.00000	259	19	2010-03-11 16:55:16	\N
+5019	97	14002		без отд., хозпостройки, бассейн, баня, водопад	t	f	f	12360.00000	259	19	2010-03-17 22:47:17	\N
+5020	92	12605		торг, все удобства в доме, остается встроен. гарнитур,барная стойка, эл. духовка	t	f	f	80000.00000	268	20	2010-05-14 19:42:39	\N
+5021	97	14333		хор. сост.,все в доме,камин,септик	t	f	f	5500.00000	259	19	2010-05-31 16:07:58	\N
+5022	97	14061		хор. сост.	f	f	f	3600.00000	259	19	2010-05-31 16:12:55	\N
+5023	97	14002		хор. сост., 1эт-с ремонтом,2-эт-б/отд.	f	f	f	6300.00000	259	\N	2010-05-31 16:14:55	\N
+5024	97	14190		земля в собствен., летняя кухня, нужен космет. ремонт	f	f	f	6600.00000	259	\N	2010-05-31 16:16:55	\N
+5025	97	14226		ТОРГ, хорошее состояние	t	f	f	6100.00000	259	\N	2010-12-22 22:41:38	\N
+5026	97	14044		земля в собствен.( СХИ)	f	f	f	3500.00000	259	20	2011-02-17 13:22:37	\N
+5027	97	14049		газ, вода, 8,7 сот. земли, в собствен., баня, теплица,хор. сост.	t	f	f	5100.00000	259	\N	2011-03-15 18:55:32	\N
+5028	97	14113		хор. сост.,более 3х лет, 	f	f	f	4800.00000	259	\N	2011-05-05 12:43:15	\N
+5029	97	14160		ТОРГ, все в собствен.	f	f	f	9000.00000	259	\N	2011-06-21 14:05:02	\N
+5030	97	14050		торг, в собствен., газ, вода рядом, под комерческ. недвижимость рядом с Ростовской трассой	f	f	f	1600.00000	259	\N	2011-06-21 14:16:35	\N
+5031	93	12844		финский-все удобства, ц/канал.,хор. сост., 2 входа	f	f	f	4200.00000	272	\N	2011-07-22 13:48:06	\N
+5032	104	14621		все удобсва, 40% готовности дом на участке	f	f	f	1980.00000	272	\N	2011-07-22 13:52:57	\N
+5033	93	12861		все в собствен., хор. ремонт, газ, вода, септик, рядом дет. сад, 	f	f	f	6200.00000	283	19	2011-08-09 17:17:03	\N
+5034	93	12956		высота потолков-3 м2, под чистовую отделку.	f	f	f	7200.00000	283	\N	2011-08-09 17:28:39	\N
+5035	98	14479		5 комнат, гараж, бассейн, 2 сан. узла.	f	f	f	4900.00000	286	\N	2011-08-24 18:40:07	\N
+5036	93	13115		дому- 3 года, высота потолков-3.35 кв.м., двор вымощен тротуарной плиткой.	f	f	f	12000.00000	283	\N	2011-08-25 18:04:40	\N
+5037	104	\N	 Ерзовка	все удобства, бассейн, гост. дом пригодный для индивид. проживания, вдионаблюдение	t	f	f	10200.00000	283	19	2011-09-23 12:50:18	\N
+5038	93	12949	Ангарский	дом облож. кирпичом, сайдингом, душ. кабина,1965 года.	f	f	f	2640.00000	283	\N	2011-09-23 12:53:12	\N
+5039	104	\N		п. Степной, 2/3 дома, 2 комнаты, газ, вода, АГВ, летняя кухня, 	f	f	f	800.00000	286	\N	2011-10-10 13:54:04	\N
+5040	104	\N		п. Степной, 4 комнаты, газ, вода, АГВ, 	f	f	f	1250.00000	286	\N	2011-10-10 13:57:27	\N
+5041	93	13029		1997 г. постройки, из белого кирпича, 2-с/узла, гараж на 2- машины	f	f	f	8000.00000	286	\N	2011-11-10 16:24:41	\N
+5081	94	13212		35/21/10,6, вода, свет в доме, газ по улице	f	f	f	1300.00000	283	\N	2012-07-23 11:17:05	\N
+5042	96	13770	п.Солнечны	220/100/20, облицовка камнем, сайдингом, 2с/у, баня, камин, 4 комнаты, огт 15 до 35 кв.м., участок мащенный тротуарной плиткой, беседка, возм. ипотека.	f	f	f	6300.00000	283	\N	2011-11-10 16:38:22	\N
+5043	93	12886	14	п. Ангарский, недостр., бело-желт., коробка без крыши, торг	f	f	f	4100.00000	283	\N	2011-12-02 11:29:36	\N
+5044	100	\N		КАЛАЧ-на-ДОНУ. \r\nгаз,вода,камин,после косм. ремонта, бассейн, в центре Калача, 200 5 г.постройки.Возможен обмен.	f	f	f	4800.00000	283	\N	2012-02-02 17:35:27	\N
+5045	93	12949		1эт.-столовая-кухня, спальня, с/узел, \r\n2эт.-3 спальни, с/узел	f	f	f	8000.00000	283	\N	2012-02-02 17:40:21	\N
+5046	92	12580	2	6 комн., 1998 г. постройки	f	f	f	5000.00000	283	19	2012-03-16 13:08:53	\N
+5047	93	12927	1	1/2 дома, смежн комн., 	f	f	f	1550.00000	272	\N	2012-03-16 13:11:24	\N
+5048	102	\N		хоз. постройки, выведен первый этаж из белого кирпича., летняя кухня вокруг 1эт дома	f	f	f	1300.00000	283	\N	2012-03-16 13:15:27	\N
+5049	93	13094		газ. вода, по улице асфальт	f	f	f	2500.00000	283	\N	2012-03-16 13:17:31	\N
+5050	93	12797		п. Ангарский, газ, вода, гараж, все в собств.	f	f	f	2600.00000	283	\N	2012-03-16 13:18:41	\N
+5051	92	12612		1/2 дома, отд. вход, 3 комн.+ кухня, с/у на ул., газ, вода, рядом трамвай, магазин, поликлинка	f	f	f	1200.00000	283	\N	2012-03-23 16:13:21	\N
+5052	92	\N		Максимовский разъезд, удобства на улице, газ на участке	f	f	f	2600.00000	283	\N	2012-03-23 16:17:11	\N
+5053	93	13124		п. Ангарский, отл. сост.	f	f	f	16300.00000	283	\N	2012-03-23 16:50:57	\N
+5054	93	13051		п. Ангарский, зал+2 спальния, тел., ровный участок, возм. обмен на кв.	f	f	f	2650.00000	283	\N	2012-03-26 12:09:31	\N
+5055	96	13873		в собств., цоколь без отделки, 1 эт. - кухня-столовая, санузел, спальня, 2-эт - мансарда, не отд., электроотопление, газ по ул., 2010 г. постройки, рядом 3й ГорМолЗавод	f	f	f	4200.00000	283	\N	2012-03-26 13:11:07	\N
+5056	92	12646		Станция Садовая, 1967 г. постройки, 1,5 уровня, газ, вода, тел., хоз. постройки, земля в аренде на 40 лет, туалет на улице.	f	f	f	2900.00000	283	\N	2012-03-26 13:25:31	\N
+5057	97	14015		построен в конце 90х, удобства в доме, жилое сост.	f	f	f	2600.00000	283	\N	2012-03-29 10:26:02	\N
+5058	92	12548		удобства в доме, подвал под всем домом, в собств.	f	f	f	2550.00000	283	\N	2012-03-29 10:27:09	\N
+5059	93	12988		1/2 дома, 1,5 ур., бревенчатый, обложен кирпичом, 50-е года постройки, 25/66/10, 2 комн., в цоколе с/у, газ, вода, канал, земля в аренде	f	f	f	1750.00000	283	\N	2012-03-29 10:29:29	\N
+5060	97	14041		СХИ, все в собственности, газ, вода, свет, с/у в доме, пласт. окна, сплит, спутниковая антенна	f	f	f	2200.00000	277	\N	2012-04-13 13:10:56	\N
+5061	97	14224		п. Новостройка, первый уровень -цоколь, прачечная, котельная, спорт. зал., 2 ур. - детская, зал, кухня, столовая, санузел разд., 3 ур.- санузел совм., 3 спальни, 6 соток, на участке баня, все в собств	f	f	f	8500.00000	283	\N	2012-04-13 13:19:23	\N
+5062	97	14363		1,5 ур., с/у разд., 1-эт. - 3 комнаты, АГВ, вода в доме, 2-эт. - 4 комнаты, септик, гараж, 4,5 сотки, все в собственности.	f	f	f	3100.00000	297	\N	2012-04-13 13:21:50	\N
+5063	104	\N		Ворошилова ул., 200/85/13, цоколь используется под автомастерскую	f	f	f	4500.00000	283	20	2012-04-25 11:49:23	\N
+5064	92	12673		хоз. постройки, газ, вода, всё в собственности, дом у дороги, под коммерч. недвижимость	f	f	f	2250.00000	283	\N	2012-04-25 15:59:02	\N
+5065	93	12970		второй киллометр, 478151/27, высота потолков 3,45 м., свет, газ, вода, канализация септик, свет 380 вт, возм. обмен, торг	t	f	f	1000000.00000	283	19	2012-04-25 16:01:26	\N
+5066	93	12852		100/44/14, все в собств.еврокна, хор. сост., санузел разд.	f	f	f	2500.00000	283	19	2012-05-18 15:00:05	\N
+5067	104	\N		Дзержинского ул., бед., красн., облицовочн. кирпич, все коммуникации, пятикамерные стеклопакеты, энергосберегающие, крыша металлочерепица, 200/120/20, все в собст., дом по немец. проекту, перераб архи	f	f	f	6200.00000	283	\N	2012-05-18 15:02:18	\N
+5068	97	14042		СНТ "Центральный 2", в собств., недострой	f	f	f	3400.00000	293	\N	2012-05-21 14:25:14	\N
+5069	105	\N		х. Бобры, рядом с постом ДПС	t	f	f	2100.00000	272	\N	2012-06-09 13:41:04	\N
+5070	96	13976		п. Солнечный, 2 ур., блочный облицован сайдингом, евроокна, внутри гипсокартон, в собств., все коммуникации на участке, 4 комн.	f	f	f	3200.00000	283	\N	2012-06-09 13:43:24	\N
+5071	96	13976		п. Солнечный, 3 ур., блочный облицованный, свет, септик, вода, газ по участку в собственности	f	f	f	4800.00000	283	\N	2012-06-09 13:44:18	\N
+5072	92	12767		3 комн., санузел	f	f	f	1750.00000	283	\N	2012-06-09 13:45:38	\N
+5073	96	13944		2008 г. постройки, кирп.+ сайдинг, баня, барбекю, отл. сост.	f	f	f	9.00000	283	\N	2012-06-09 13:46:59	\N
+5074	93	12859		барбекю, гараж 80 кв. м., отл. сост., 2009 г. постройки, торг, красный кирп.	f	f	f	14.00000	283	\N	2012-06-09 13:48:12	\N
+5075	94	13231		меб., сигнализация, бассейн, беседка, веранда, коотеджный поселок "Лапшин сад"	f	f	f	25800.00000	283	\N	2012-06-09 13:52:16	\N
+5076	93	12872		желт. кирп., жилой флигель, бассейн	f	f	f	21000.00000	283	\N	2012-06-09 13:53:23	\N
+5077	96	13982	53	4 комн., с/у септик в доме, хор. реомнт, подвал	t	f	f	3400.00000	295	\N	2012-06-09 13:55:22	\N
+5078	92	\N		4 комн., газ, вода, в арендн, торг	f	f	f	2000.00000	283	\N	2012-06-09 13:56:10	\N
+5079	92	12766		во дворе вода, газ у соседей, печ. отопление, торг	f	f	f	1450.00000	283	\N	2012-06-09 13:57:03	\N
+5129	93	13038	14б	подвал	f	f	f	3565.00000	283	\N	2012-07-23 11:36:09	\N
+5130	99	13109	18	отдельный, вход, переведена в коммерч. недвижимость, евроремонт	f	f	f	2680.00000	286	\N	2012-07-23 11:39:57	\N
+5131	98	14434	28	стеклопакет, новые- обои, линолиум, хор. сост., нов. с/тех., трубы, 	f	f	f	770.00000	268	19	2011-09-23 12:40:49	\N
+5132	97	14183	1	комната в общежитии, отл. сост., пласт. окна, торг	f	f	f	730.00000	283	\N	2011-10-11 13:14:11	\N
+5133	98	14431	33		f	f	f	700.00000	286	\N	2011-10-21 14:41:45	\N
+5134	96	13746	6	2 окна, решетка на окнах, на 3х хозяев	f	f	f	830.00000	283	\N	2011-12-02 11:16:33	\N
+5135	97	14183	5	первый высокий этаж, норм. сост.	f	f	f	760.00000	259	\N	2011-12-02 11:19:15	\N
+5136	92	12653	3		f	f	f	700.00000	259	20	2011-12-02 11:20:43	\N
+5137	97	14343	20	отл. сост., нов. проводка, пласт. окна, шкаф купе.	f	f	f	960.00000	259	\N	2011-12-02 11:23:48	\N
+5138	98	14470	13	хор. сост.	f	f	f	660.00000	286	19	2012-01-31 11:52:14	\N
+5139	98	14404	3	хор. сост., на 3 хозяина	f	f	f	700.00000	286	19	2012-02-03 11:38:27	\N
+5140	96	13948	63	пласт. окна, кондиционер	f	f	f	650.00000	293	19	2012-02-03 11:42:29	\N
+5141	96	13973	23		f	f	f	800.00000	293	\N	2012-02-03 11:46:14	\N
+5142	96	13827	26	документы готовы, хор. сост., ост. Библиотечная.	f	f	f	670.00000	264	19	2012-02-09 14:38:49	\N
+5143	97	14156	8	торг, хор. сост., погреб, отдельный вход, можно под комерч. недвижимость.	t	f	f	700.00000	259	20	2012-02-09 14:48:47	\N
+5144	97	14183	1	торг,отл. сост., стеклопакет,	f	f	f	730.00000	283	\N	2012-02-09 14:50:00	\N
+5145	97	14183	5	высокий этаж, норм. сост.	f	f	f	760.00000	259	\N	2012-02-09 14:51:22	\N
+5146	99	12860	2а	коридорного типа, хор. сост., 8 комн. на этаже, кухня 21 кв. м., на 4 комнаты, продается с мебелью.	f	f	f	750.00000	283	19	2012-03-16 13:04:11	\N
+5147	98	14434	34	евроремонт, на 3 хозяев	f	f	f	0.00000	286	19	2012-03-16 13:05:49	\N
+5148	98	14439	12	хор. сост.,обмен на 1-комн., более 3х лет,	f	f	f	580.00000	293	20	2012-04-11 17:56:45	\N
+5149	96	13973	3	хор. сост., с нишей	f	f	f	650.00000	293	\N	2012-04-11 18:31:08	\N
+5150	96	13955	60	итальянские радиаторы, ленолиум, обои.	f	f	f	870.00000	293	19	2012-04-11 18:34:05	\N
+5151	96	13724	2	индивидуальный с/узел, ванна	f	f	f	850.00000	293	19	2012-04-11 18:36:01	\N
+5152	96	13863	28	удовлет. сост.	f	f	f	850.00000	293	19	2012-04-11 18:37:28	\N
+5153	96	13863	20	хор. сост., нов. с/техника, колонка автомат	f	f	f	800.00000	293	19	2012-04-11 18:38:45	\N
+5154	96	13898	5	в комнате душевая кабина, водонагреватель, раковина	f	f	f	750.00000	293	20	2012-04-11 18:43:21	\N
+5155	96	13930	6	стеклопакет, встроен. шкаф	f	f	f	850.00000	293	19	2012-04-11 18:46:33	\N
+5156	96	13948	55	18 кв.м. +11 кв.м. стеклопакеты, с/узел отдельный, ванная 4 кв.м.	f	f	f	1550.00000	293	20	2012-04-11 19:02:38	\N
+5157	96	13948	17	хор. сост., м/дверь	f	f	f	800.00000	293	20	2012-04-11 19:09:07	\N
+5158	96	13833	117	1/2 доли в 2-х комн квартире	f	f	f	950.00000	293	19	2012-04-11 19:13:03	\N
+5159	96	13898	5	после косм. ремонта, не угловая	f	f	f	700.00000	293	20	2012-04-11 19:14:19	\N
+5160	96	13734	7	счетчики на воду, свет, газ. колонка	f	f	f	750.00000	293	20	2012-04-11 19:15:42	\N
+5161	96	13827	44	стеклопакет, более 3х лет	f	f	f	850.00000	293	19	2012-04-11 19:21:11	\N
+5162	96	13922	2	нужен ремонт, более 3-х лет	f	f	f	870.00000	293	\N	2012-04-11 19:22:19	\N
+5163	96	13863	9	с/узел в хор. сост.	f	f	f	670.00000	293	19	2012-04-11 19:27:48	\N
+5164	96	13987	48	вода в комнате, ламинат	f	f	f	700.00000	293	20	2012-04-11 19:28:55	\N
+5165	96	14622	14	19,5 кв.м +13,5 кв.м, свежий ремонт	f	f	f	1100.00000	293	20	2012-04-11 19:31:47	\N
+5166	98	14434	23	хор. сост.,	f	f	f	750.00000	286	\N	2012-04-11 19:33:00	\N
+5167	98	14431	33	отл. сост	f	f	f	750.00000	286	\N	2012-04-11 19:33:41	\N
+5168	93	12799		вода в комнате, с/узел на 2-х хоз.	f	f	f	500.00000	283	\N	2012-04-11 19:34:41	\N
+5169	96	13833	117	1/2 доли в 2х комн. кв.	f	f	f	1000.00000	293	\N	2012-05-18 14:56:07	\N
+5170	97	14024	25	коридорного типа, норм. сост, евроокна, торг	f	f	f	400.00000	298	\N	2012-05-18 14:58:22	\N
+5171	97	14368	4	хор. сост.	f	f	f	650.00000	297	\N	2012-05-21 15:05:11	\N
+5172	97	14368	4	норм. сост	f	f	f	600.00000	297	19	2012-06-09 14:07:41	\N
+5173	96	13724	6	норм. сост., хор. сост, кухня в комн., ванная на 2х хозяев, торг	f	f	f	800.00000	295	19	2012-06-09 14:10:49	\N
+5174	96	13790	100	2 комн. 17+12  в 3х комн. кв., на 2х хозяев	f	f	f	1400.00000	295	21	2012-06-09 14:12:08	\N
+5175	98	14439	6	20+12,6,  в 3х комн. кв. 700+ 600 тыс. руб.	f	f	f	0.00000	272	19	2012-06-09 14:13:19	\N
+5176	97	14347	54	косм. ремонт, коридорного типа, торг	f	f	f	850.00000	300	\N	2012-06-09 14:14:54	\N
+5177	96	13955	20а	бывш. общеж. секционного типа, изолир. секция, своя кухня и санузел, г/х вода, меб., без мебели - 1800 тыс.	f	f	f	1900.00000	295	19	2012-06-09 14:17:28	\N
+5178	94	13165	84	коридорного типа, рядом кухня туалет на 2 семьи, сплит	f	f	f	680.00000	297	\N	2012-06-09 14:18:42	\N
+5179	97	14183	1	торг, коридорного типа, обычн. сост., возм. ипотека	f	f	f	730.00000	300	19	2012-06-09 14:20:29	\N
+5180	97	14055	22	хор. сост., на 3 хозяев	f	f	f	950.00000	300	\N	2012-06-09 14:22:37	\N
+5181	94	13339	14	малонаселенная, нов. сантехн., линолеум, евроокна	f	f	f	600.00000	297	\N	2012-06-09 15:43:02	\N
+5182	96	13783	9а	общеж., треб. ремонт	f	f	f	730.00000	295	\N	2012-07-23 11:08:34	\N
+5183	96	13833	137	ремонт	f	f	f	830.00000	295	\N	2012-07-23 11:09:35	\N
+5184	94	13135	2а	евроремонт, в секции 5 комн., вся мебель остается	f	f	f	800.00000	298	19	2012-07-23 11:11:37	\N
+5185	93	12779	37	1/3 доли, торг	t	f	f	750.00000	283	20	2012-07-23 11:12:37	\N
+5186	95	13549		с/у разд.	f	f	f	600.00000	283	\N	2012-07-23 11:14:26	\N
+5082	105	\N		п. Песчанка, 91/70/12, стеклопакеты, 10 км. до моста, торг	t	f	f	4500.00000	283	\N	2012-07-23 11:30:01	\N
+5083	105	\N		Краснослободск, п. 2-ой Пятилетки, ул. Фурманова	f	f	f	600.00000	283	\N	2012-07-23 11:31:00	\N
+5084	105	\N		Краснослободск, 3 комн., кухня, газ, вода, свет, септик, туалет на улице	f	f	f	1600.00000	283	\N	2012-07-23 11:33:08	\N
+5085	96	\N		п. Солнечный, свет, септик, вода, газ по участку, в собств.	f	f	f	4800.00000	283	\N	2012-07-23 11:49:00	\N
+5086	96	13976		п. Солнечный, стеклопакеты, внутри гипсокартон, в собств., все коммуникации на участке, 4 комн.	f	f	f	3200.00000	283	\N	2012-07-23 11:51:52	\N
+5087	105	\N		п. Песчанка, 91/72/10, с/у совм., 4 комн., 200 метров до конечной маршрутки	f	f	f	4500.00000	283	19	2012-07-23 11:53:54	\N
+5088	97	14278		УЧАСТОК или обмен на 2х комн.	f	f	f	1800.00000	259	\N	2010-05-07 19:08:20	\N
+5089	100	\N		УЧАСТОК-Городищенский, п. Ерзовка, кв-л 18, ул. Степная, 15 сот. в собствен.	f	f	f	500.00000	264	19	2010-08-02 13:46:47	\N
+5090	101	\N		ДАЧА-ТОРГ, СРОЧНО, о.Зеленый,кирп. 2-этаж.,56 кв.м., 6 сот.в собствен., б/отд., сад, септик, возм. прописка и проведен. газа.	f	f	f	450.00000	268	19	2010-09-10 13:49:56	\N
+5091	98	\N	" Нива"	УЧАСТОК-10 сот. з12121212емли	f	f	f	120.00000	259	\N	2011-03-15 18:58:49	\N
+5092	93	\N		ДАЧА- Дубовая балка,12 сот., в собствен., сад, срочно	f	f	f	300.00000	268	19	2011-04-01 17:23:55	\N
+5093	93	12984	22а	ГАРАЖ- КГБТ"Спутник", капитальный, яма, погреб, свет, ост. Хорошева,	f	f	f	250.00000	268	19	2011-04-01 17:26:58	\N
+5094	98	\N		ДАЧА "НИВА", первый проулок, б/построек	f	f	f	100.00000	259	\N	2011-04-08 18:36:44	\N
+5095	105	\N		ДАЧА-СНТ" Дружба", ул Приозерная, 2   \r\nТорг, кирпичн. дом 18 кв.м., б/отд.,  веранда, газ, свет, вода в доме, все в собственности.	t	f	f	750.00000	277	19	2011-05-04 17:00:31	\N
+5096	93	\N		УЧАСТОК- ВЗБТ "Царицын", ггаз, вода по улице, все в собствен.	f	f	f	1400.00000	277	19	2011-06-21 14:38:01	\N
+5097	93	12850	 Ангарский	ост. Областная больница, газ, вода, свет, центр. канализация.	f	f	f	2900.00000	283	\N	2011-10-21 16:42:19	\N
+5098	97	\N	Центральны		f	f	f	550.00000	259	19	2011-10-21 16:45:45	\N
+5099	97	\N	Центральны	sdfdsfdsf	f	f	f	600.00000	259	19	2011-10-21 16:46:17	\N
+5100	97	14097	50	ровный участок, газ, видео	f	f	f	910.00000	259	\N	2011-12-02 11:37:02	\N
+5101	97	\N		Верхняя Ельшанка, собственность	f	f	f	550.00000	259	19	2011-12-02 11:51:06	\N
+5102	97	14097	56	Центральный 2, 70%,, газ	f	f	f	1500.00000	259	19	2011-12-02 11:52:57	\N
+5103	105	\N		Краснослободск, пер. Кривой, первая береговая линия, вода по улице, в собственности	f	f	f	2150.00000	279	\N	2011-12-02 11:55:23	\N
+5104	93	12884		продажа или обмен на 1 комн. в ТЗР	f	f	f	1700.00000	279	\N	2011-12-02 11:57:38	\N
+5105	93	12802		центр. канал., газ, вода, свет, есть дом под снос	f	f	f	3600.00000	283	\N	2011-12-02 11:59:15	\N
+5106	97	14040			f	f	f	650.00000	259	\N	2011-12-02 11:59:53	\N
+5107	104	\N		СНТ "Нефтяник", по московской трассе.	f	f	f	200.00000	283	\N	2012-01-31 12:02:30	\N
+5108	104	\N		СНТ "Бойлер", недалеко от села Орловка по 3й продольной, есть вода	f	f	f	0.00000	283	\N	2012-01-31 12:03:36	\N
+5109	97	14067		аренда на 10 лет, нов. поселок, рядом с бором.	f	f	f	1600.00000	283	\N	2012-03-16 13:20:19	\N
+5110	104	\N		в собственности, вода, асфальт, газ проходит рядом. СНТ "Дубок"	f	f	f	400.00000	283	\N	2012-04-13 13:31:41	\N
+5111	97	\N		Горная поляна, аренда на 10 лет, нов. поселок рядом с бором.	f	f	f	1600.00000	283	\N	2012-05-18 15:04:18	\N
+5112	104	\N		в собств., вода, асфальт, газ рядом, СНТ "Дубок"	f	f	f	400.00000	283	\N	2012-05-18 15:04:56	\N
+5113	104	\N		СНТ "Нефтяник - 2", питьевая вода, ухоженный сад. до 16 м2, 1комн+коридор	f	f	f	550.00000	300	\N	2012-05-18 15:06:03	\N
+5114	97	\N		СНТ "Нефтяник-2"	f	f	f	350.00000	298	\N	2012-05-18 15:06:37	\N
+5115	98	\N		Винновка, СНТ "Дзержинец", ухоженная	f	f	f	600.00000	283	\N	2012-06-09 13:31:33	\N
+5116	97	14246	15	отл. сост.,отдельный вход, интернет, телефон	t	f	f	4500.00000	259	\N	2010-05-07 18:49:11	\N
+5117	99	13034		АВТОМОЙКА-все оборудование, действующая, СРОЧНО	f	f	f	26000.00000	268	19	2010-09-10 13:10:54	\N
+5118	97	14380	86	ОФИС- 2 входа, 4 кабинета	f	f	f	3500.00000	259	19	2010-09-10 13:14:06	\N
+5119	99	14590	6 а	Под офис,магазин, салон, банк и т.д, радом с Рестораном " кавказская пленица", все окна на ул. новороссицкую.	f	f	f	2930.00000	261	\N	2010-09-10 13:16:06	\N
+5120	95	13678		офисное здание 400 кв. м (евроотделка). Складские помещения капитальные 1200 кв. м. Земельный участок 7,8 Га. ТОРГ	t	f	f	32000.00000	259	19	2010-12-22 22:50:27	\N
+5121	93	12984	22а	ГАРАЖ-КГБТ "Спутник"капитальный, яма, погреб, отс. Хорошева, срочно.	f	f	f	250.00000	268	19	2011-04-08 18:49:52	\N
+5122	98	\N		ГАРАЖ- ГСК-19 "ТОПОЛЕК", Металллический, яма, погреб, рядом сторожка.	f	f	f	250.00000	268	19	2011-04-08 18:52:43	\N
+5123	93	12779	5	Офис-33м2/кв.м, площадь 129 кв. м.	f	f	f	4257.00000	283	19	2011-08-09 17:42:54	\N
+5124	97	\N		ГСК "Оленегорский", 6 на 7, 2 смежн. гаража, 2 смотр. ямы, новая кровля, ворота под Газель и под легковую, торг	f	f	f	900.00000	283	19	2011-12-27 13:04:44	\N
+5125	99	13081	17	1 эт. - 150 кв. м. по  51 т. р., торг, или 3-эт. - 300 кв. м. по 51 т. р./м2, 4 эт. - 300 кв. м. по 51 т. р.	f	f	f	0.00000	283	\N	2011-12-27 13:12:22	\N
+5126	92	12542	22	администр. здание, после ремонта, 43 тыс./м2, помещения от 50 до 730 кв. м.	f	f	f	0.00000	283	\N	2011-12-27 13:13:43	\N
+5127	99	13034	2	окна на дорогу, 2 окна, средн. сост., 64 м2, з комн. 	f	f	f	3600.00000	283	\N	2012-03-16 13:27:46	\N
+5128	98	14546	5	окна на дорогу, 3х комн., срочно	f	f	f	2650.00000	286	\N	2012-04-13 13:34:30	\N
+\.
+
+
+--
+-- TOC entry 2078 (class 0 OID 35480)
+-- Dependencies: 176 2092
+-- Data for Name: Realtor; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Realtor" ("Id", "Name", "Phone") FROM stdin;
+259	Корниенко Андрей Анатольевич	 8-937-724-57-18
+260	Алексей Денисович	32-99-16, 8-927-513-51-38
+261	Каримов Ренат Шакирович	 8-905-333-75-86
+262	Офис	32-99-16
+263	Юдин Дмитрий Викторович	 8-961-063-63-63
+264	Юдина Наталья Алексеевна	 8-961-062-62-62
+265	Марина Григорьевна	32-99-16, 8-902-361-54-68
+266	Светлана Васильевна	32-99-16, 8-927-506-52-95
+267	Анастасия Сергеевна	32-99-16, 8-937-719-19-73
+268	Бабенко Юлия Федоровна	 8-961-657-21-98
+269	Денис Николаевич	32-99-16, 8-927-513-70-53
+270	Александра Николаевна	32-99-16, 8-927-536-77-34
+271	Александра Николаевна3	32-99-16, 8-927-536-77-34
+272	Зрянина Александра Николаевна	 8-988-977-18-88
+273	Татьяна Николаевна	32-99-16, 8-903-327-67-08
+274	Михаил Александрович	32-99-16, 8-937-705-42-20
+275	Дмитрий Сергеевич	32-99-16, 8-904-414-15-91
+276	Арсен Каренович	32-99-16, 8-917-33-62-777
+277	Щелупинин Максим Владимирович	 8-988-491-32-62
+278	Елена Васильевна	32-99-16, 8-919-540-84-31
+279	офис	32-99-16
+280	Михаил Александрович 	32-99-16, 8-937-705-42-20
+281	Николай Анатольевич	32-99-16, 8-988-973-16-94
+282	Роман Викторович	32-99-16, 8-917-332-52-91
+283	Петрунина Наталия Петровна	 8-917-841-56-12
+284	Мария Сергеевна	32-99-16, 8-960-887-51-73
+285	Ольга Анатольевна	32-99-16, 8-905-434-77-93
+286	Юдина Ирада Заидовна	 8-909-382-83-51
+287	Андрей Андреевич	32-99-16, 8-961-057-66-67
+288	Ашрафуллина Яна Вильнуровна	 8-961
+289	Овинова Анна Юрьевна	32-99-16, 8-961-661-58-66
+290	о	00
+291	Руднева Анна Андреевна	32-99-16, 8-906-172-48-80
+292	Анна Андреевна	32-99-16, 8-906-172-48-80
+293	Плешакова Наталия Анатольевна	 8-919-545-82-28
+294	Гущин Антон Анатольевич	32-99-16, 8-917-843-81-82
+295	Широнова Ирина Валерьевна	8-961-664-26-50
+296	Четокина Юлия Генадьевна	 8-905-338-49-69
+297	Четокина Юлия Геннадьевна	8-905-338-49-69
+298	Солодовникова Светлана Александровна	8-904-426-62-46
+299	Дёмин Сергей Анатольевич	8-917-727-40-60
+300	Задорожнева Ирина Алексеевна	8-903-316-55-80
+301	Еремичева Ольга Ивановна	8-905-394-22-30, 8-917-336-24-00
+\.
+
+
+--
+-- TOC entry 2083 (class 0 OID 35545)
+-- Dependencies: 186 2092
+-- Data for Name: RealtorAgency; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "RealtorAgency" ("Id", "Name", "Contacts", "Director", "Address", "Description") FROM stdin;
+19	asdasd	sdaf	sadsdafsdfsasadf	dsafasdf	sdafasdf
+20	2	f	4	3	sdf
+21	213	123	213	213	121
+\.
+
+
+--
+-- TOC entry 2087 (class 0 OID 35577)
+-- Dependencies: 191 2092
+-- Data for Name: Residence; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Residence" ("BuildingId") FROM stdin;
+5116
+5117
+5118
+5119
+5120
+5121
+5122
+5123
+5124
+5125
+5126
+5127
+5128
+5129
+5130
+\.
+
+
+--
+-- TOC entry 2091 (class 0 OID 35597)
+-- Dependencies: 195 2092
+-- Data for Name: Room; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Room" ("ApartmentId", "RoomCount") FROM stdin;
+5131	1
+5132	1
+5133	3
+5134	1
+5135	1
+5136	1
+5137	1
+5138	1
+5139	0
+5140	1
+5141	1
+5142	1
+5143	0
+5144	0
+5145	0
+5146	1
+5147	1
+5148	1
+5149	1
+5150	1
+5151	0
+5152	1
+5153	1
+5154	1
+5155	1
+5156	2
+5157	1
+5158	1
+5159	0
+5160	1
+5161	1
+5162	1
+5163	1
+5164	1
+5165	2
+5166	0
+5167	0
+5168	0
+5169	0
+5170	0
+5171	1
+5172	1
+5173	0
+5174	2
+5175	0
+5176	0
+5177	0
+5178	0
+5179	0
+5180	0
+5181	0
+5182	1
+5183	1
+5184	0
+5185	1
+5186	1
+\.
+
+
+--
+-- TOC entry 2074 (class 0 OID 35428)
+-- Dependencies: 168 2092
+-- Data for Name: Sewage; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Sewage" ("Id", "Name") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2079 (class 0 OID 35493)
+-- Dependencies: 178 2092
+-- Data for Name: Street; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Street" ("Id", "Name", "DistrictId") FROM stdin;
+12536	Абаканская ул.	92
+12537	Авангардная ул.	92
+12538	Автозаводская ул.	92
+12539	Автотранспортная ул.	92
+12540	Азербайджанская ул.	92
+12541	Азизбекова ул.	92
+12542	Академическая ул.	92
+12543	Актюбинская ул.	92
+12544	Алабяна пер.	92
+12545	Алма-Атинская ул.	92
+12546	Алмазная ул.	92
+12547	Ангелиной Паши ул.	92
+12548	Ардатовская ул.	92
+12549	Аткарский пер.	92
+12550	Ашхабадская ул.	92
+12551	Базисная ул.	92
+12552	Балахнинская ул.	92
+12553	Балашовская ул.	92
+12554	Барнаульская ул.	92
+12555	Баррикадная ул.	92
+12556	Белоглинская ул.	92
+12557	Белорусская ул.	92
+12558	Благовещенская ул.	92
+12559	Благодатная ул.	92
+12560	Бобруйская ул.	92
+12561	Боровского ул.	92
+12562	Бородина ул.	92
+12563	Буханцева мил. ул.	92
+12564	Валдайская ул.	92
+12565	Василеостровский  пер.	92
+12566	Васнецова ул.	92
+12567	Венецианова ул.	92
+12568	Верейская ул.	92
+12569	Верещагина ул.	92
+12570	Вишневского ул.	92
+12571	Вознесенская ул.	92
+12572	Волынская ул.	92
+12573	Воркутинская ул.	92
+12574	Воропоновская ул.	92
+12575	Восточная ул.	92
+12576	Вяземская ул.	92
+12577	Гомельская ул.	92
+12578	Грановитая ул.	92
+12579	Грейдерная ул.	92
+12580	Гродненская ул.	92
+12581	Грушевская ул.	92
+12582	Гурзуфская ул.	92
+12583	Гурзуфский пер.	92
+12584	Дагестанская ул.	92
+12585	Двуреченская ул.	92
+12586	Дербентская ул.	92
+12587	Детская ул.	92
+12588	Дивногорская ул.	92
+12589	Диккенса ул.	92
+12590	Долгий пер.	92
+12591	Долгорукого Юрия ул.	92
+12592	Доменная ул.	92
+12593	Дрогобычская ул.	92
+12594	Дружбы ул.	92
+12595	Дубовская ул.	92
+12596	Ейская ул.	92
+12597	Елабужская ул.	92
+12598	Елецкая ул.	92
+12599	Елецкий пер.	92
+12600	Елисеева ул.	92
+12601	Ельниковый пер.	92
+12602	Ельшанская ул.	92
+12603	Заслонова Константина  ул.	92
+12604	Звездина ул.	92
+12605	Иванова ул.	92
+12606	Ивановская ул.	92
+12607	Изюмская ул.	92
+12608	Иловайская ул.	92
+12609	Иркутская ул.	92
+12610	Кавказская ул.	92
+12611	Казанская ул.	92
+12612	Калачевская ул.	92
+12613	Калинина ул.	92
+12614	Калиновская ул.	92
+12615	Каменская ул.	92
+12616	Кандалакшская ул.	92
+12617	Кандалакшский пер.	92
+12618	Канунникова ул.	92
+12619	Каргопольская ул.	92
+12620	Карело-Финская ул.	92
+12621	Карпинского ул.	92
+12622	Карповская ул.	92
+12623	Карьерная ул.	92
+12624	Каховская ул.	92
+12625	КИМ ул.	92
+12626	Кирпичного завода №2 пос.	92
+12627	Кирсановская ул.	92
+12628	Кишиневская ул.	92
+12629	Клинская ул.	92
+12630	Клубная ул.	92
+12631	Ковенская ул.	92
+12632	Ковровская ул.	92
+12633	Козловская ул.	92
+12634	Комитетская ул.	92
+12635	Консервная 1-я ул.	92
+12636	Консервная 2-я ул.	92
+12637	Кончаловского ул.	92
+12638	Котлубанская ул.	92
+12639	Крамского ул.	92
+12640	Красногородская ул.	92
+12641	Краснослободская ул.	92
+12642	Красносулинская ул.	92
+12643	Кронштадтская ул.	92
+12644	Кузнецкая ул.	92
+12645	Куйбышевская ул.	92
+12646	Купавинская ул.	92
+12647	Куприна ул.	92
+12648	Лавочкина ул.	92
+12649	Ленинградская ул.	92
+12650	Ленкоранская ул.	92
+12651	Ленкоранский пер.	92
+12652	Линевская ул.	92
+12653	Липецкая ул.	92
+12654	Лобачевского ул.	92
+12655	Лугопольская ул.	92
+12656	Лужская ул.	92
+12657	Львовская ул.	92
+12658	Льежа ул.	92
+12659	Магнитогорская ул.	92
+12660	Майкопская ул.	92
+12661	Макаренко ул.	92
+12662	Макарчука ул.	92
+12663	раз. Максимовский	92
+12664	Малыгина ул.	92
+12665	Медведицкая ул.	92
+12666	Минераловодская ул.	92
+12667	Миргородская ул.	92
+12668	Мирная ул.	92
+12669	Мицкевича Адама ул.	92
+12670	Моздокская ул.	92
+12671	Моздокский пер.	92
+12672	Мончегорская ул.	92
+12673	Морфлотская ул.	92
+12674	Моршанская ул.	92
+12675	Мурманская ул.	92
+12676	Нагорная ул.	92
+12677	Нарезенская ул.	92
+12678	Неждановой ул.	92
+12679	Нежинская ул.	92
+12680	Немировича-Данченко ул.	92
+12681	Нефтегорская ул.	92
+12682	Нижневартовская ул.	92
+12683	Новоузенская ул.	92
+12684	Огарева ул.	92
+12685	Огородная ул.	92
+12686	Одесская ул.	92
+12687	Ойротская ул.	92
+12688	Оленегорская ул.	92
+12689	Орская ул.	92
+12690	Острогожская ул.	92
+12691	Павловская ул.	92
+12692	Палладина академика пер.	92
+12693	Палладина академика ул.	92
+12694	Панина ул.	92
+12695	Перова ул.	92
+12696	Пинская ул.	92
+12697	Пионерка Река ул.	92
+12698	Плещеева ул.	92
+12699	Поворинская ул.	92
+12700	Подъемная ул.	92
+12701	Поленова ул.	92
+12702	Полетаевская ул.	92
+12703	Приволжская ул.	92
+12704	Привольная ул.	92
+12705	Прикарпатская  ул.	92
+12706	Прокопьевская ул.	92
+12707	Просвещения ул.	92
+12708	Профсоюзная ул.	92
+12709	Пугачевская ул.	92
+12710	Р.-Крестьянская ул.	92
+12711	Радомская ул.	92
+12712	Разина Степана ул.	92
+12713	Расковой Марины ул.	92
+12714	Рогачевская ул.	92
+12715	Ростовская ул.	92
+12716	Рублева ул.	92
+12717	Рыбинский пер.	92
+12718	Саврасова ул.	92
+12719	Садовая стан.	92
+12720	Садовского ул.	92
+12721	Саранская ул.	92
+12722	Саранский пос.	92
+12723	Сафонова ул.	92
+12724	Светлоградская ул.	92
+12725	Северодвинская ул.	92
+12726	Североморцев ул.	92
+12727	Семенова-Тян-Шанского ул.	92
+12728	Сердобская ул.	92
+12729	Серноводская ул.	92
+12730	Серпуховская ул.	92
+12731	Симбирская ул.	92
+12732	Симбирский пер.	92
+12733	Скрябина ул.	92
+12734	Славгородская ул.	92
+12735	Советская площ.	92
+12736	Солдатская ул.	92
+12737	Соликамская ул.	92
+12738	Солнечная ул.	92
+12739	Социалистическая ул.	92
+12740	Спокойная ул.	92
+12741	Спокойный пер.	92
+12742	Ставропольская ул.	92
+12743	Сходненская ул.	92
+12744	Таджикская ул.	92
+12745	Тарханская ул.	92
+12746	Татищевская ул.	92
+12747	Татищевский пер.	92
+12748	Темрюкская ул.	92
+12749	Тирольская ул.	92
+12750	Ужгородская ул.	92
+12751	Уржумская ул.	92
+12752	Феодосийская ул.	92
+12753	Филиппова Саши ул.	92
+12754	Царицынской обороны ул.	92
+12755	Циолковского ул.	92
+12756	Чарджуйская ул.	92
+12757	Чебоксарская ул.	92
+12758	Чебоксарский пер.	92
+12759	Чекистов площ.	92
+12760	Челябинская ул.	92
+12761	Чембарская ул.	92
+12762	Чембарский пер.	92
+12763	Ченстоховский пер.	92
+12764	Череповецкая ул.	92
+12765	Черновицкая ул.	92
+12766	Чигиринская ул.	92
+12767	Чигорина ул.	92
+12768	Чинаковская ул.	92
+12769	Чинарская ул.	92
+12770	Чистопольская ул.	92
+12771	Чистяковская ул.	92
+12772	Читинская ул.	92
+12773	Чонгарская ул.	92
+12774	Чугуевская ул.	92
+12775	Чугуевский пер.	92
+12776	Шуйская ул.	92
+12777	Яблочная ул.	92
+12778	Ягодный пер.	92
+12779	30-летия Победы б.	93
+12780	51-я Гвардейская	93
+12781	8-й Воздушной Армии	93
+12782	Абаканский пр-зд	93
+12783	Абрамишвили (рп. Гумрак) ул.	93
+12784	шоссе Авиаторов	93
+12785	шоссе Авиаторов (рп. Гумрак)	93
+12786	Авторемонтная ул.	93
+12787	Административная ул.	93
+12788	Азовская ул.	93
+12789	Алтайский пр-зд	93
+12790	Ангарская ул.	93
+12791	Аннинская ул.	93
+12792	Аптечный пр-зд	93
+12793	Аракская ул.	93
+12794	Аральская ул.	93
+12795	Армейская ул.	93
+12796	Артекская ул.	93
+12797	Архивная ул.	93
+12798	Ахтубинская ул.	93
+12799	Аэропорт пос.	93
+12800	Баженова ул.	93
+12801	Байдакова (рп. Гумрак) ул.	93
+12802	Балтийская ул.	93
+12803	Балхашская ул.	93
+12804	Барбюса Анри ул.	93
+12805	Баргузинская ул.	93
+12806	Батайская ул.	93
+12807	Батумская ул.	93
+12808	Батурская ул.	93
+12809	Батюка полковника ул.	93
+12810	Безымянная ул.	93
+12811	Белозерская ул.	93
+12812	Беломорская ул.	93
+12813	Белостокская ул.	93
+12814	Березовская ул.	93
+12815	Береславская ул.	93
+12816	Берзарина генерала ул.	93
+12817	Бетонная ул.	93
+12818	Больничная ул.	93
+12819	Больничный пер.	93
+12820	Большая ул.	93
+12821	Большая Садовая ул.	93
+12822	Бригадная ул.	93
+12823	Бронзовый пер.	93
+12824	Брюллова ул.	93
+12825	Бугская ул.	93
+12826	Бузулукский пр-зд	93
+12827	Бурейская ул.	93
+12828	Быковская ул.	93
+12829	Быковский пер.	93
+12830	Васильковская ул.	93
+12831	Васильсурская ул.	93
+12832	Великолукская ул.	93
+12833	Верхнебалканская ул.	93
+12834	Витимская ул.	93
+12835	Водораздельная ул.	93
+12836	Волховская ул.	93
+12837	Волчанская ул.	93
+12838	Вольская ул.	93
+12839	Воровского ул.	93
+12840	В.-Казахстанская	93
+12841	Вьюжная ул.	93
+12842	Вятская ул.	93
+12843	Гатчинская ул.	93
+12844	Гейне ул.	93
+12845	Географическая ул.	93
+12846	Геофизиков пр-зд	93
+12847	Гнесиных ул.	93
+12848	Головнина ул.	93
+12849	Горная (рп. Гумрак) ул.	93
+12850	Городнянская ул.	93
+12851	Грузинская ул.	93
+12852	Гумрак р.п.	93
+12853	Гурова генерала ул.	93
+12854	Двинская ул.	93
+12855	Демидовская ул.	93
+12856	Демьянова ул.	93
+12857	Денисовская ул.	93
+12858	Джаныбековская ул.	93
+12859	Днепровская ул.	93
+12860	Днестровская ул.	93
+12861	Добринская ул.	93
+12862	Докучаева ул.	93
+12863	Домостроителей ул.	93
+12864	Донбасская ул.	93
+12865	Дорогобужская ул.	93
+12866	Дорожная ул.	93
+12867	Дорожников пр-зд	93
+12868	Дубовая Балка ул.	93
+12869	Думская ул.	93
+12870	Дышлового ул.	93
+12871	Егорьевская ул.	93
+12872	Енисейская ул.	93
+12873	Енотаевская ул.	93
+12874	Ессентукская ул.	93
+12875	Железнодорожная (рп. Гумрак) ул.	93
+12876	Жигулевская ул.	93
+12877	Жирновская ул.	93
+12878	Житкова ул.	93
+12879	Житкурская ул.	93
+12880	Жмеринская ул.	93
+12881	Жмеринский пер.	93
+12882	Жукова пр.	93
+12883	Жукова маршала(рп. Гумрак) ул.	93
+12884	Заводской пер.	93
+12885	Заволжская ул.	93
+12886	Задонская ул.	93
+12887	Закарпатская ул.	93
+12888	Заплавинская ул.	93
+12889	Заречная ул.	93
+12890	Затонский пер.	93
+12891	Зворыкина ул.	93
+12892	Зеленогорская ул.	93
+12893	Землячки ул.	93
+12894	Зенитчиков (рп. Гумрак) ул.	93
+12895	Знаменская ул.	93
+12896	Знаменский пер.	93
+12897	Игарская ул.	93
+12898	Илекская ул.	93
+12899	Иловлинская ул.	93
+12900	Ильина Николая ул.	93
+12901	Ингульская ул.	93
+12902	Иртышская ул.	93
+12903	Исетская ул.	93
+12904	Историческая ул.	93
+12905	Истринская ул.	93
+12906	Калеганова ул.	93
+12907	Календарная ул.	93
+12908	Каменный Буерак х-р	93
+12909	Камышовая ул.	93
+12910	Карпатский пр-зд	93
+12911	Карская ул.	93
+12912	Каспийская ул.	93
+12913	Качинцев ул.	93
+12914	Квартальный пер.	93
+12915	Кемеровская ул.	93
+12916	Киевская ул.	93
+12917	Киквидзе ул.	93
+12918	Кирпичная ул.	93
+12919	Кобринская ул.	93
+12920	Ковалевской Софьи ул.	93
+12921	Кожевникова ул.	93
+12922	Кокова В.М. ул.	93
+12923	Колесникова ул.	93
+12924	Колодезная ул.	93
+12925	Колпинская ул.	93
+12926	Конотопская ул.	93
+12927	Коперника ул.	93
+12928	Космонавтов ул.	93
+12929	Костровая ул.	93
+12930	Костромской пер.	93
+12931	Котовского ул.	93
+12932	Кочеткова (рп. Гумрак) ул.	93
+12933	Крайняя ул.	93
+12934	Красная ул.	93
+12935	Красноводская ул.	93
+12936	Краснополянская ул.	93
+12937	Красноярская ул.	93
+12938	Кроткая ул.	93
+12939	Крутой пр-зд	93
+12940	Крутоовражная ул.	93
+12941	Кубанская ул.	93
+12942	Кузнецкая ул. (Дзерж.)	93
+12943	Кунцевская ул.	93
+12944	Куринская ул.	93
+12945	Курская ул.	93
+12946	Кутузовская ул.	93
+12947	Лагерная ул.	93
+12948	Лебединская ул.	93
+12949	Лекарская ул.	93
+12950	Ленина В.И.(рп. Гумрак) ул.	93
+12951	Ленская ул.	93
+12952	Лесная ул.	93
+12953	Лесная (рп. Гумрак) ул.	93
+12954	Лесная 2-я ул.	93
+12955	Лесной (рп. Гумрак) пер.	93
+12956	Лесогорская ул.	93
+12957	Лесогорская 2-я ул.	93
+12958	Летчиков ул.	93
+12959	Либкнехта Карла ул.	93
+12960	Лисянского ул.	93
+12961	Луговая (рп. Гумрак) ул.	93
+12962	Луговой (рп. Гумрак) пер.	93
+12963	Магистральная ул.	93
+12964	Малая Садовая ул.	93
+12965	Манычская ул.	93
+12966	Мариновская ул.	93
+12967	Маркина комиссара ул.	93
+12968	Мартовская ул.	93
+12969	Мезенская ул.	93
+12970	Мемельская ул.	93
+12971	Механизаторов пр-зд	93
+12972	Мирный пр-зд	93
+12973	Миусская ул.	93
+12974	Могилевская ул.	93
+12975	Можайская ул.	93
+12976	Мокшанская ул.	93
+12977	Монюшко Станислава ул.	93
+12978	Морозова Павлика ул.	93
+12979	Московская ул.	93
+12980	Мостовой пр-зд	93
+12981	Моторная (рп. Гумрак) ул.	93
+12982	Мусоргского ул.	93
+12983	Нальчикская ул.	93
+12984	Нарвская ул.	93
+12985	Нефтянников пр-зд	93
+12986	Нильская ул.	93
+12987	Нововокзальная ул.	93
+12988	Новодвинская ул.	93
+12989	Новорядская ул.	93
+12990	Новосельская ул.	93
+12991	Новосокольническая ул.	93
+12992	Новоустюжский пер.	93
+12993	Ногинская ул.	93
+12994	Овражный х-р	93
+12995	Окская ул.	93
+12996	Октябрьская ул.	93
+12997	Онежская ул.	93
+12998	Осипенко Полины ул.	93
+12999	Охотская ул.	93
+13000	Памирский пр-зд	93
+13001	Паникахи Михаила ул.	93
+13002	Панкратовой ул.	93
+13003	Первомайская (рп. Гумрак) ул.	93
+13004	Перелазовская ул.	93
+13005	Пермская ул.	93
+13006	Персиковая ул.	93
+13007	Пехотинцев ул.	93
+13008	Печерская ул.	93
+13009	Пионерская ул.	93
+13010	Пирогова ул.	93
+13011	Погроменская ул.	93
+13012	Подмосковная ул.	93
+13013	Пойменная ул.	93
+13014	Полесская ул.	93
+13015	Ползунова ул.	93
+13016	Полоненко ул.	93
+13017	Полоцкая ул.	93
+13018	Попова ул.	93
+13019	Преображенская ул.	93
+13020	Приокская ул.	93
+13021	Продольная ул.	93
+13022	Прудовая ул.	93
+13023	Прутский пр-зд	93
+13024	Пятиизбянская ул.	93
+13025	Пятницкая ул.	93
+13026	Разгуляевский пр-зд	93
+13027	Раздольная ул.	93
+13028	Ракетчиков ул.	93
+13029	Рахинская ул.	93
+13030	Республиканская ул.	93
+13031	Рижская ул.	93
+13032	Римского-Корсакова ул.	93
+13033	Рионская ул.	93
+13034	Рокоссовского ул.	93
+13035	Рощинская ул.	93
+13036	Руднянская ул.	93
+13037	Рузаевская ул.	93
+13038	Рыбалко	93
+13039	Ряжская ул.	93
+13040	Савкина ул.	93
+13041	Сакко и Ванцетти ул.	93
+13042	Сальская ул.	93
+13043	Свияжская ул.	93
+13044	Севастопольская ул.	93
+13045	Северо-Крымская ул.	93
+13046	Севская ул.	93
+13047	Семигорская ул.	93
+13048	Серебряная ул.	93
+13049	Серебряный пер.	93
+13050	Серийный пр-зд	93
+13051	Сестрорецкая ул.	93
+13052	Силикатная ул.	93
+13053	Симонова Константина ул.	93
+13054	Скалистый пр-зд	93
+13055	Скифская ул.	93
+13056	Смоленская ул.	93
+13057	Смольная ул.	93
+13058	Солнечногорская ул.	93
+13059	Солнечный пер.	93
+13060	Сосновская ул.	93
+13061	Стародубская ул.	93
+13062	Старосельская ул.	93
+13063	Стемпковской Елены ул.	93
+13064	Степная ул.	93
+13065	Степновский пер.	93
+13066	Строителей (рп. Гумрак) ул.	93
+13067	Таврическая ул.	93
+13068	Таймырский (рп. Гумрак) пр-зд	93
+13069	Тайшетский пр-зд	93
+13070	Таловская ул.	93
+13071	Танкистов ул.	93
+13072	Твардовского ул.	93
+13073	Твена Марка ул.	93
+13074	Театральная ул.	93
+13075	Тернопольская ул.	93
+13076	Тибетский пр-зд	93
+13077	Тимофеева политрука ул.	93
+13078	Тихвинский пер.	93
+13079	Тихорецкая (рп. Гумрак) ул.	93
+13080	Тищенко ул.	93
+13081	Ткачева ул.	93
+13082	Толбухина маршала ул.	93
+13083	Толмачевых братьев ул.	93
+13084	Томская ул.	93
+13085	Третьяковская ул.	93
+13086	Трехгорная ул.	93
+13087	Троицкая ул.	93
+13088	Тропинина ул.	93
+13089	Трубный пр-зд	93
+13090	Туапсинская ул.	93
+13091	Тукая ул.	93
+13092	Тунисский пр-зд	93
+13093	Тургенева ул.	93
+13094	Узбекская ул.	93
+13095	Унжинская ул.	93
+13096	Университетская ул.	93
+13097	Усманский пер.	93
+13098	Ученическая ул.	93
+13099	Фастовская ул.	93
+13100	Фестивальная ул.	93
+13101	Фонтанная ул.	93
+13102	Хазова ул.	93
+13103	Халтурина ул.	93
+13104	Хиросимы ул. (Дзержинский)	93
+13105	Хорошева ул.	93
+13106	Хуторская ул.	93
+13107	Царицынская ул.	93
+13108	Чайкиной Лизы ул.	93
+13109	Чапаева ул.	93
+13110	Чапаева (рп. Гумрак) ул.	93
+13111	Черноморская ул.	93
+13112	Черняховского ул.	93
+13113	Чехова снайпера ул.	93
+13114	Чечено-Ингушская ул.	93
+13115	Чирская ул.	93
+13116	Чусовая ул.	93
+13117	Шапошникова ул.	93
+13118	Шебелинская ул.	93
+13119	Шекснинская ул.	93
+13120	Шишкова Вячеслава ул.	93
+13121	Шмидта лейтенанта ул.	93
+13122	Шопена ул.	93
+13123	Шуберта ул.	93
+13124	Щаденко ул.	93
+13125	Щербины комиссара ул.	93
+13126	Щукина ул.	93
+13127	Эльбрусская ул.	93
+13128	Эльтонская ул.	93
+13129	Южно-Украинская ул.	93
+13130	Яблочкина ул.	93
+13131	Яснополянская ул.	93
+13132	1-й пр-зд	94
+13133	26 июня ул.	94
+13134	2-й пр-зд	94
+13135	64-й Армии ул.	94
+13136	Абганеровская ул.	94
+13137	Абрикосовая ул.	94
+13138	Аврорская ул.	94
+13139	Алексеева ул.	94
+13140	Алычевая ул.	94
+13141	Анисовая ул.	94
+13142	Апанасенко генерала пер.	94
+13143	Апанасенко генерала ул.	94
+13144	Апельсиновая ул.	94
+13145	Апельсиновый пер.	94
+13146	Армавирская ул.	94
+13147	Астраханская ул.	94
+13148	Астраханский пер.	94
+13149	Астровая ул.	94
+13150	Ачинский пер.	94
+13151	Базарный пер.	94
+13152	Балаковский пер.	94
+13153	Балканский пер.	94
+13154	Бамбуковая ул.	94
+13155	Барбарисовая ул.	94
+13156	Бежицкая ул.	94
+13157	Бекетовский перекат (остров Сарпинский) х-р	94
+13158	Белинского ул.	94
+13159	Бестужева ул.	94
+13160	Бобыли (остров Сарпинский) х-р	94
+13161	Боровиковского ул.	94
+13162	Бородинская ул.	94
+13163	Братская ул.	94
+13164	Бурятская ул.	94
+13165	Быстрова ул.	94
+13166	Бытовая ул.	94
+13167	Варламова композитора ул.	94
+13168	Варненский пер.	94
+13169	Вельботная ул.	94
+13170	Верхнеднепровская ул.	94
+13171	Веселая Балка пос.	94
+13172	Вишневая ул.	94
+13173	Внуковская ул.	94
+13174	Войкова ул.	94
+13175	Волгострой (остров Сарпинский) х-р	94
+13176	Волжский пер.	94
+13177	Волоколамская ул.	94
+13178	Воронкова ул.	94
+13179	Воткинский пер.	94
+13180	н-я. Высоцкого Владимира	94
+13181	Вязовая ул.	94
+13182	Гастелло ул.	94
+13183	Гжатский пер.	94
+13184	Гороховский пер.	94
+13185	Горячкина ул.	94
+13186	Гранатовая ул.	94
+13187	Грекова ул.	94
+13188	Губкина ул.	94
+13189	Гурилева композитора ул.	94
+13190	Даниловский пер.	94
+13191	Дашавский пер.	94
+13192	Декабристов ул.	94
+13193	Денисенко ул.	94
+13194	Днепровский пер.	94
+13195	Добролюбова пер.	94
+13196	Добролюбова ул.	94
+13197	Доватора генерала ул.	94
+13198	Долгопрудная ул.	94
+13199	Достоевского пер.	94
+13200	Достоевского ул.	94
+13201	Дубовая ул.	94
+13202	Дубовский пер.	94
+13203	Еловая ул.	94
+13204	Железный пер.	94
+13205	Живописная ул.	94
+13206	Жуковского ул.	94
+13207	Забайкальская ул.	94
+13208	Зайчики (остров Сарпинский) х-р	94
+13209	Закавказская ул.	94
+13210	Залесский пер.	94
+13211	Земляничный пер.	94
+13212	Зоологическая ул.	94
+13213	Изоляторная ул.	94
+13214	Ильмовая ул.	94
+13215	Каменная ул.	94
+13216	Каменьщикова ул.	94
+13217	Камышинская ул.	94
+13218	Каплунова Ильи ул.	94
+13219	Капустная балка 1 ул.	94
+13220	Капустная балка 2 ул.	94
+13221	Капустная балка 3 ул.	94
+13222	Катальповая ул.	94
+13223	Катальповый пер.	94
+13224	Каунасская ул.	94
+13225	Каштановая ул.	94
+13226	Кедровая ул.	94
+13227	Кедровый пер.	94
+13228	Кизиловая ул.	94
+13229	Кипарисовая ул.	94
+13230	Кипренского ул.	94
+13231	Кирова ул.	94
+13232	Кирова пер.	94
+13233	Клайпедская ул.	94
+13234	Кленовая ул.	94
+13235	Кленовый пер.	94
+13236	Клубный пер.	94
+13237	Ключевой пер.	94
+13238	Клязьминская ул.	94
+13239	Ковыльная ул.	94
+13240	Ковыльный пер.	94
+13241	Кожзавод (остров Сарпинский) х-р	94
+13242	Козака ул.	94
+13243	Кокандская ул.	94
+13244	Колесовой Елены ул.	94
+13245	Коллонтай ул.	94
+13246	Коломенская ул.	94
+13247	Колосовая ул.	94
+13248	Конноармейская ул.	94
+13249	Короленко ул.	94
+13250	Короленко 1-й пер.	94
+13251	Короленко 2-й пер.	94
+13252	Косогорная ул.	94
+13253	Красногорская ул.	94
+13254	Краснодонский пер.	94
+13255	Краснолиманская ул.	94
+13256	Краснолиманский пер.	94
+13257	Красноозерная ул.	94
+13258	Красноуфимская ул.	94
+13259	Красных командиров ул.	94
+13260	Красных партизан ул.	94
+13261	Кременская ул.	94
+13262	Крестовый (остров Сарпинский) х-р	94
+13263	Курчатова ул.	94
+13264	Лавровая ул.	94
+13265	Лазарева ул.	94
+13266	Лазоревая ул.	94
+13267	Лескова 1-я ул.	94
+13268	Лескова 2-я ул.	94
+13269	Лесной (остров Сарпинский) х-р	94
+13270	Лесомелиоративная ул.	94
+13271	Лесопильная ул.	94
+13272	Лещев (остров Сарпинский) х-р	94
+13273	Лиговский пер.	94
+13274	Лимоновая ул.	94
+13275	Липовая ул.	94
+13276	Лиственная ул.	94
+13277	Литовская ул.	94
+13278	Лукина лейтенанта ул.	94
+13279	Луначарского ул.	94
+13280	Люберецкая ул.	94
+13281	Люблинская ул.	94
+13282	Люксембург Розы пер.	94
+13283	Люксембург Розы ул.	94
+13284	Ляпунова ул.	94
+13285	Магнитная ул.	94
+13286	Майская ул.	94
+13287	Майский 1-й пер.	94
+13288	Майский 2-й пер.	94
+13289	Маресевой Зины ул.	94
+13290	Маркина танкиста ул.	94
+13291	Матюшенко ул.	94
+13292	Маяковского ул.	94
+13293	Медвежьегорская ул.	94
+13294	Мелитопольская ул.	94
+13295	Мелитопольский пер.	94
+13296	Механическая ул.	94
+13297	Мингечаурская ул.	94
+13298	Миндальная ул.	94
+13299	Минеральная ул.	94
+13300	Минина Козьмы ул.	94
+13301	Михайловская ул.	94
+13302	Михайловский пер.	94
+13303	Молодежная ул.	94
+13304	Мопровская ул.	94
+13305	Московский пер.	94
+13306	Мраморный пер.	94
+13307	Набережный пер.	94
+13308	Набережный 1-й пер.	94
+13309	Нижнеднепровская ул.	94
+13310	Нижнетагильская ул.	94
+13311	Никитина ул.	94
+13312	Никитина 1-й пер.	94
+13313	Никитина 2-й пер.	94
+13314	Новокраматорский пер.	94
+13315	Одоевского ул.	94
+13316	Окружная ул.	94
+13317	Октябрьский пер.	94
+13318	Ольховский пер.	94
+13319	Омская ул.	94
+13320	Ореховая ул.	94
+13321	Офицерская ул.	94
+13322	Павловский (остров Сарпинский) х-р	94
+13323	Павлодарская ул.	94
+13324	Пальмовая ул.	94
+13325	Параллельная ул.	94
+13326	Партизанская ул.	94
+13327	Первой пятилетки ул.	94
+13328	Первоуральская ул.	94
+13329	Перещепинская ул.	94
+13330	Песчаная ул.	94
+13331	Песчаный-1 (остров Сарпинский) х-р	94
+13332	Песчаный-2 (остров Сарпинский) х-р	94
+13333	Песчаный-3 (остров Сарпинский) х-р	94
+13334	Пехотная ул.	94
+13335	Печатный пер.	94
+13336	Пилотская ул.	94
+13337	Пилотский пер.	94
+13338	Писарева пер.	94
+13339	Писемского ул.	94
+13340	Плановая ул.	94
+13341	Пограничный пер.	94
+13342	Подольская ул.	94
+13343	Пожарского ул.	94
+13344	Покровского ул.	94
+13345	Покровского 1-й проезд ул.	94
+13346	Покровского 2-й проезд ул.	94
+13347	Покровского 3-й проезд ул.	94
+13348	Покровского 4-й проезд ул.	94
+13349	Покровского 5-й проезд ул.	94
+13350	Покровского 6-й проезд ул.	94
+13351	Покровского 7-й проезд ул.	94
+13352	Покровского 8-й проезд ул.	94
+13353	Полотебнова ул.	94
+13354	Прибарачная ул.	94
+13355	Промысловая ул.	94
+13356	Псковский пер.	94
+13357	Пятигорская ул.	94
+13358	Радищева ул.	94
+13359	Рачкова капитана ул.	94
+13360	Репродукторная ул.	94
+13361	Розовая ул.	94
+13362	Розовый пер.	94
+13363	Роллана Ромена ул.	94
+13364	Ромашковая ул.	94
+13365	Роменская ул.	94
+13366	Рославльская ул.	94
+13367	Ртищевская ул.	94
+13368	Рубинштейна ул.	94
+13369	Рудная ул.	94
+13370	Рыбовод (остров Сарпинский) х-р	94
+13371	Рябиновая ул.	94
+13372	Самарская ул.	94
+13373	Санаторная ул.	94
+13374	Североморская ул.	94
+13375	Североозерная ул.	94
+13376	Североуральская ул.	94
+13377	Седова ул.	94
+13378	Селищева ул.	94
+13379	Сенная ул.	94
+13380	Серафимовича ул.	94
+13381	Сивашская ул.	94
+13382	Синельниковская ул.	94
+13383	Сиреневая ул.	94
+13384	Скоробогатовой Тани ул.	94
+13385	Советская ул.	94
+13386	Советский пер.	94
+13387	Сокольниковская ул.	94
+13388	Соленая ул.	94
+13389	Старополтавская ул.	94
+13390	Стрельца ул.	94
+13391	Строительная ул.	94
+13392	Сурикова ул.	94
+13393	Сухореченский пер.	94
+13394	Тепличный пер.	94
+13395	Терновая ул.	94
+13396	Тополевая ул.	94
+13397	Тополевый пер.	94
+13398	Травяная ул.	94
+13399	Тростниковая ул.	94
+13400	Турбинная ул.	94
+13401	Тутовая ул.	94
+13402	Тутовый пер.	94
+13403	Тюльпановая ул.	94
+13404	Успенского пер.	94
+13405	Успенского ул.	94
+13406	Усть-Бузулукская ул.	94
+13407	Усть-Каменогорский пер.	94
+13408	Учетная ул.	94
+13409	Федорова Ивана ул.	94
+13410	Федотова ул.	94
+13411	Фиалковая ул.	94
+13412	Фиалковый пер.	94
+13413	Финская ул.	94
+13414	Фруктовая ул.	94
+13415	Фрунзе Михаила ул.	94
+13416	Фурманова 1-й пер.	94
+13417	Фурманова 2-й пер.	94
+13418	Хвойная ул.	94
+13419	Химзаводская ул.	94
+13420	Хирургический пер.	94
+13421	Чекалина Саши ул.	94
+13422	Чекалина Саши пос.	94
+13423	Черемшанская ул.	94
+13424	Черемшанский пер.	94
+13425	Чернышевского ул.	94
+13426	Чехова ул.	94
+13427	Чирчикская ул.	94
+13428	Шаблиевская ул.	94
+13429	Шевченко ул.	94
+13430	Шекспира ул.	94
+13431	Шелковичная ул.	94
+13432	Шишкина ул.	94
+13433	Школьный пер.	94
+13434	Шлюзовая ул.	94
+13435	Шумилова генерала ул.	94
+13436	Щедрина ул.	94
+13437	Щелковская ул.	94
+13438	Щелковский пер.	94
+13439	Щербакова ул.	94
+13440	Энергетиков ул.	94
+13441	Южнобережная ул.	94
+13442	Южнобережный пер.	94
+13443	Южноуральская ул.	94
+13444	Ясеневая ул.	94
+13445	Военный городок 77 пос.	94
+13446	33-х Героев ул.	95
+13447	40 лет ВЛКСМ ул.	95
+13448	50 лет Октября ул.	95
+13449	Автодорожный пр-зд	95
+13450	Адлерская ул.	95
+13451	Адлерский пер.	95
+13452	Акмолинская ул.	95
+13453	Аксакова ул.	95
+13454	Алданская ул.	95
+13455	Алийская ул.	95
+13456	Альпийская ул.	95
+13457	Альпийский пер.	95
+13458	Андижанская ул.	95
+13459	Апрельская ул.	95
+13460	Арсеньева ул.	95
+13461	Банный (п. 19-го партсъезда) пер.	95
+13462	Барабинская ул.	95
+13463	Бахтурова ул.	95
+13464	Безымянный пер.	95
+13465	Бессарабская ул.	95
+13466	Бетонный пр-зд	95
+13467	Бобровская ул.	95
+13468	Ботаническая ул.	95
+13469	Бредихина ул.	95
+13470	Брестская ул.	95
+13471	Бугурусланская ул.	95
+13472	Булаткина ул.	95
+13473	Бутлерова ул.	95
+13474	Бутурлиновская ул.	95
+13475	Веселый пер.	95
+13476	Вилянская ул.	95
+13477	Водников ул.	95
+13478	Водопроводная ул.	95
+13479	Волжская ул.	95
+13480	Волкова ул.	95
+13481	Вучетича ул.	95
+13482	Вычегодская ул.	95
+13483	Гагринская ул.	95
+13484	Галилея ул.	95
+13485	Георгиевская ул.	95
+13486	Героев Малой Земли ул.	95
+13487	Героев Сталинграда пр.	95
+13488	Глубинная ул.	95
+13489	Голубева ул.	95
+13490	Горностаевская ул.	95
+13491	Городовикова ул.	95
+13492	Гражданская ул.	95
+13493	Гражданская площ.	95
+13494	Гражданский пер.	95
+13495	Гремячинская ул.	95
+13496	Дальневосточная ул.	95
+13497	Дальняя ул.	95
+13498	Дарасунская ул.	95
+13499	Дачная ул.	95
+13500	Дворовый пер.	95
+13501	Джанкойская ул.	95
+13502	Динамовская 2-я ул.	95
+13503	Довженко ул.	95
+13504	Доволенская ул.	95
+13505	Доценко ул.	95
+13506	Ергенинская ул.	95
+13507	Железнодорожная ул.	95
+13508	Железнодорожная (п. Соляной) ул.	95
+13509	Жлобы ул.	95
+13510	Заболотного ул.	95
+13511	Заканальная ул.	95
+13512	Замкнутый пер.	95
+13513	Заславского ул.	95
+13514	Затонская ул.	95
+13515	Зеленоградская ул.	95
+13516	Зеленоградский пер.	95
+13517	Зерновая ул.	95
+13518	Зерноградская ул.	95
+13519	Измайловская ул.	95
+13520	Изобильная ул.	95
+13521	Индустриальный пер.	95
+13522	Инженерная ул.	95
+13523	Кагальникская ул.	95
+13524	Каменец-Подольская ул.	95
+13525	Канальный (п. Соляной) пер.	95
+13526	Канатчиков п-т	95
+13527	Караванная ул.	95
+13528	Караванная 2-я ул.	95
+13529	Каракалпакская ул.	95
+13530	Катерный пер.	95
+13531	Качалинский пер.	95
+13532	Кедроградская ул.	95
+13533	Керамическая ул.	95
+13534	Керамический пер.	95
+13535	Кинешминская ул.	95
+13536	Клубный (п. 19-го партсъезда) пер.	95
+13537	Клубный (п. Соляной) пер.	95
+13538	Коксовый пер.	95
+13539	Коласа Якуба ул.	95
+13540	Колесная ул.	95
+13541	Колхозная ул.	95
+13542	Кольцова ул.	95
+13543	Коммуны ул.	95
+13544	Компасная ул.	95
+13545	Комсомольская (п. Соляной) ул.	95
+13546	Кооперативная ул.	95
+13547	Копецкого ул.	95
+13548	Короткая ул.	95
+13549	Корпусная ул.	95
+13550	Костомаровская ул.	95
+13551	Костюшко ул.	95
+13552	Краснозвездная ул.	95
+13553	Красных зорь ул.	95
+13554	Куйбышева ул.	95
+13555	Куликовская ул.	95
+13556	Лазоревый пер.	95
+13557	Латвийская ул.	95
+13558	Леваневского ул.	95
+13559	Ленинабадская ул.	95
+13560	Ленинаканская ул.	95
+13561	Лениногорская ул.	95
+13562	Лесобазовская ул.	95
+13563	Лесозаводская ул.	95
+13564	Лисичанская ул.	95
+13565	Ломакина ул.	95
+13566	Лондона Джека ул.	95
+13567	Луговая ул.	95
+13568	Лядова ул.	95
+13569	Макарова адмирала ул.	95
+13570	Малоземова ул.	95
+13571	Марата пер.	95
+13572	Марата ул.	95
+13573	Марийская ул.	95
+13574	Марковникова ул.	95
+13575	Мачтозаводская ул.	95
+13576	Медногорская ул.	95
+13577	Мелиоративная ул.	95
+13578	Миклухо-Маклая ул.	95
+13579	Минская ул.	95
+13580	Моисеенко ул.	95
+13581	Молдавская ул.	95
+13582	Морская ул.	95
+13583	Моцарта ул.	95
+13584	Мытищинская ул.	95
+13585	Набережная ул.	95
+13586	Набережная (п. Соляной) ул.	95
+13587	Навлинская ул.	95
+13588	Нагорный пос.	95
+13589	Нефтезаводская ул.	95
+13590	Нижнедонская ул.	95
+13591	Нижняя ул.	95
+13592	Николаевская ул.	95
+13593	Никольский пер.	95
+13594	Новоаннинская ул.	95
+13595	Новопортная ул.	95
+13596	Новый пер.	95
+13597	Новый (п. Соляной) пер.	95
+13598	Норильская ул.	95
+13599	Обводный пер.	95
+13600	Озерный пер.	95
+13601	Олимпийская ул.	95
+13602	Олимпийский пер.	95
+13603	Ольгинская ул.	95
+13604	Орденская ул.	95
+13605	Оросительная ул.	95
+13606	Оросительный пер.	95
+13607	Остравская ул.	95
+13608	Островная ул.	95
+13609	Палласовская ул.	95
+13610	Панферова ул.	95
+13611	Панчишкиной Клавы ул.	95
+13612	Парниковая ул.	95
+13613	Первошлюзная ул.	95
+13614	Перископская ул.	95
+13615	Пестеля ул.	95
+13616	Петропавловская ул.	95
+13617	Плеханова ул.	95
+13618	Подгорная ул.	95
+13619	Подгорный пер.	95
+13620	Полевая ул.	95
+13621	Полевой пер.	95
+13622	Политотдельская ул.	95
+13623	Полынная ул.	95
+13624	Помяловского ул.	95
+13625	Портовый пер.	95
+13626	Пригородная ул.	95
+13627	туп. Пригородный	95
+13628	Придонская ул.	95
+13629	Приканальная (п. 19-го партсъезда) ул.	95
+13630	Причальная ул.	95
+13631	Пролейская ул.	95
+13632	Пролетарская ул.	95
+13633	Пятиморская ул.	95
+13634	Раздорская ул.	95
+13635	Ровенский пер.	95
+13636	Романенко генерала ул.	95
+13637	Российская ул.	95
+13638	Рудь командира ул.	95
+13639	Руставели Шота ул.	95
+13640	Рылеева ул.	95
+13641	Савиной ул.	95
+13642	Садовая (п. Соляной) ул.	95
+13643	Сарпинская ул.	95
+13644	Саушинская ул.	95
+13645	Светлоярская ул.	95
+13646	Свободы площ.	95
+13647	Семипалатинская ул.	95
+13648	Семипалатинский пер.	95
+13649	Сердюкова Николая ул.	95
+13650	Сидорова ул.	95
+13651	Симферопольская ул.	95
+13652	Сквозной пер.	95
+13653	Совхозная ул.	95
+13654	Сологубова ул.	95
+13655	Соляной пос.	95
+13656	Союзная ул.	95
+13657	Стальского Сулеймана ул.	95
+13658	Староладожская ул.	95
+13659	Старорусская ул.	95
+13660	Стасова ул.	95
+13661	Столетова п-т	95
+13662	Судостроительная ул.	95
+13663	Таманская ул.	95
+13664	Танеева композитора ул.	95
+13665	Татьянка стан.	95
+13666	Татьянка 3-я пос.	95
+13667	Тельмана ул.	95
+13668	Тенистая (п. 19-го партсъезда) ул.	95
+13669	Токарева ул.	95
+13670	Тросовая ул.	95
+13671	Тушинская ул.	95
+13672	Тютчева ул.	95
+13673	Удмуртская ул.	95
+13674	Удыгейская ул.	95
+13675	Урожайная ул.	95
+13676	Фадеева ул.	95
+13677	Фролова ул.	95
+13678	Хабаровская ул.	95
+13679	Харабалинская ул.	95
+13680	Хвастанцева Михаила ул.	95
+13681	Холмская ул.	95
+13682	Цветочная ул.	95
+13683	Центральная ул.	95
+13684	Центральная (п. Соляной) ул.	95
+13685	Центральный пер.	95
+13686	Чаадаева ул.	95
+13687	Чакинский пер.	95
+13688	Черепановых ул.	95
+13689	Чойбалсана ул.	95
+13690	Шадринская ул.	95
+13691	Шамбрунский пер.	95
+13692	Шиллера ул.	95
+13693	Школьный (п. Соляной) пер.	95
+13694	Шлюзовой пер.	95
+13695	Шлюзовой (п. Соляной) пер.	95
+13696	Шпалозаводская ул.	95
+13697	Штурманская ул.	95
+13698	Штурманская 2-я ул.	95
+13699	Штурманский пер.	95
+13700	Экскаваторная ул.	95
+13701	Электростальская ул.	95
+13702	Энгельса б-р.	95
+13703	Энгельса ул.	95
+13704	Ялтинская ул.	95
+13705	39-я Гвардейская	96
+13706	4-й участок пос.	96
+13707	4-х связистов ул.	96
+13708	Автомагистральная ул.	96
+13709	Автономная ул.	96
+13710	Аграрная ул.	96
+13711	Адмиралтейская ул.	96
+13712	Айвазовского ул.	96
+13713	Алехина ул.	96
+13714	Анадырская ул.	96
+13715	Антипова ул.	96
+13716	Античная ул.	96
+13717	Апшеронская ул.	96
+13718	Араратская ул.	96
+13719	Араратский пер.	96
+13720	Архангельская ул.	96
+13721	Архитектурная ул.	96
+13722	Асланова ул.	96
+13723	Аэродромная ул.	96
+13724	Аэропортовский пер.	96
+13725	Аэрофлотская ул.	96
+13726	Бажова ул.	96
+13727	Базовая ул.	96
+13728	Башкирская ул.	96
+13729	Белебейская ул.	96
+13730	Белинского площ.	96
+13731	Береговая ул.	96
+13732	Библиотечная ул.	96
+13733	Богуйская ул.	96
+13734	Богунская ул.	96
+13735	Богучарская ул.	96
+13736	Большая кольцевая ул.	96
+13737	Большереченская ул.	96
+13738	Буровая ул.	96
+13739	Былинная ул.	96
+13740	Былинный 1-й пер.	96
+13741	Былинный 3-й пер.	96
+13742	Варшавская ул.	96
+13743	Ватутина генерала ул.	96
+13744	Верхоянская ул.	96
+13745	Верхоянский пер.	96
+13746	Вершинина ул.	96
+13747	Веселая ул.	96
+13748	Весенняя ул.	96
+13749	Винницкая ул.	96
+13750	Винницкий пер.	96
+13751	Вишневая балка стан.	96
+13752	Вишневая Балка пос.	96
+13753	Вогульская ул.	96
+13754	Вогульский пер.	96
+13755	Водопадная ул.	96
+13756	Возрождения ул.	96
+13757	Возрождения площ.	96
+13758	Волжский пр.	96
+13759	Волочаевская ул.	96
+13760	Волочаевская 2-я ул.	96
+13761	Волочаевский пер.	96
+13762	Волочаевский 2-й пер.	96
+13763	Воронова сержанта ул.	96
+13764	Воссоединения ул.	96
+13765	Высокая ул.	96
+13766	Вязниковский пер.	96
+13767	Газовая ул.	96
+13768	Гайдара ул.	96
+13769	Гаражная ул.	96
+13770	Гвардейская ул.	96
+13771	Геленджикская ул.	96
+13772	Геническая ул.	96
+13773	Героическая ул.	96
+13774	Герцена ул.	96
+13775	Глушко генерала ул.	96
+13776	Гончарова Петра ул.	96
+13777	Горловская ул.	96
+13778	Горная 2-я ул.	96
+13779	Городская ул.	96
+13780	Громовой Ульяны ул.	96
+13781	Гуртьева генерала ул.	96
+13782	Демократический пер.	96
+13783	Депутатская ул.	96
+13784	Димитрова ул.	96
+13785	Долинная ул.	96
+13786	Дороша лейтенанта ул.	96
+13787	Еланская ул.	96
+13788	Еланский 1-й пер.	96
+13789	Еланский 2-й пер.	96
+13790	Еременко ул.	96
+13791	Ермакова Афанасия ул.	96
+13792	Ермоловой ул.	96
+13793	Жданова ул.	96
+13794	Железноводская ул.	96
+13795	Жемчужная ул.	96
+13796	Житомирская ул.	96
+13797	Заводская 4-я ул.	96
+13798	Западная ул.	96
+13799	Заполярная ул.	96
+13800	Зеленая зона ул.	96
+13801	Земнухова Ивана пер.	96
+13802	Земнухова Ивана ул.	96
+13803	Зорге Рихарда ул.	96
+13804	Игнатовых братьев ул.	96
+13805	Инициативная ул.	96
+13806	Камчатская ул.	96
+13807	Камчатский пер.	96
+13808	Капитанская ул.	96
+13809	Касимовская ул.	96
+13810	Качалова ул.	96
+13811	Кибальчича Николая ул.	96
+13812	Ковалевой Ольги ул.	96
+13813	Колымская ул.	96
+13814	Кольская ул.	96
+13815	Кольцевая ул.	96
+13816	Коммунаров ул.	96
+13817	Кошевого Олега ул.	96
+13818	Кравченко ул.	96
+13819	Красивая ул.	96
+13820	Краснодонцев ул.	96
+13821	Краснокамская ул.	96
+13822	Краснофлотская ул.	96
+13823	Крейсера «Варяг» ул.	96
+13824	Крылова ул.	96
+13825	Кубинская ул.	96
+13826	Кузбасская ул.	96
+13827	Кузнецова ул.	96
+13828	Кунгурская ул.	96
+13829	Курильская ул.	96
+13830	Кустанайская ул.	96
+13831	Лазо Сергея ул.	96
+13832	Лазурная ул.	96
+13833	Ленина пр.	96
+13834	Лермонтова пер.	96
+13835	Лермонтова ул.	96
+13836	Лермонтова 2-я ул.	96
+13837	Летная ул.	96
+13838	Летный 1-й пер.	96
+13839	Летный 2-й пер.	96
+13840	Летный 3-й пер.	96
+13841	Летный 4-й пер.	96
+13842	Летняя ул.	96
+13843	Листопадная ул.	96
+13844	Ломоносова пер.	96
+13845	Ломоносова ул.	96
+13846	Лубянская ул.	96
+13847	Луговой пер.	96
+13848	Магаданская ул.	96
+13849	Малая ул.	96
+13850	Малая 2-я ул.	96
+13851	Малая кольцевая ул.	96
+13852	Малый пер.	96
+13853	Мамаевская ул.	96
+13854	Мамаевский пер.	96
+13855	Манежный 1-й пер.	96
+13856	Манежный 2-й пер.	96
+13857	Манежный 3-й пер.	96
+13858	Манежный 4-й пер.	96
+13859	Матевосяна ул.	96
+13860	Матросова Александра ул.	96
+13861	Медовая ул.	96
+13862	Менделеева ул.	96
+13863	Металлургов пр.	96
+13864	Металлургов площ.	96
+13865	Металлургов пос.	96
+13866	Мирный пос.	96
+13867	Мичурина ул.	96
+13868	Москворецкая ул.	96
+13869	Музыкальная ул.	96
+13870	Муромская ул.	96
+13871	Навигационная ул.	96
+13872	Навигационный пер.	96
+13873	Нежная ул.	96
+13874	Нестерова ул.	96
+13875	Нижнеамурская ул.	96
+13876	Нижнеамурский пер.	96
+13877	Никопольская ул.	96
+13878	Новаторская ул.	96
+13879	Новая ул.	96
+13880	Новинская ул.	96
+13881	Новоремесленная ул.	96
+13882	Новошахтинская ул.	96
+13883	Оборонная ул.	96
+13884	Обороны Ленинграда ул.	96
+13885	Обороны Одессы ул.	96
+13886	Обороны Севастополя ул.	96
+13887	Окраинная ул.	96
+13888	Осенняя ул.	96
+13889	Охотничий 1-й пер.	96
+13890	Охотничий 2-й пер.	96
+13891	Охотничий 3-й пер.	96
+13892	Павелецкая ул.	96
+13893	Пельше ул.	96
+13894	Первой конной Армии ул.	96
+13895	Планерная ул.	96
+13896	Плодовая ул.	96
+13897	Победы ул.	96
+13898	Поддубного ул.	96
+13899	Портальная ул.	96
+13900	Правды ул.	96
+13901	Пржевальского ул.	96
+13902	Прибалтийская ул.	96
+13903	Промышленная ул.	96
+13904	Промышленный 1-й пер.	96
+13905	Просторная ул.	96
+13906	Рабочий пер.	96
+13907	Радиальная ул.	96
+13908	Радистов ул.	96
+13909	Рахманинова ул.	96
+13910	Репина ул.	96
+13911	Репина 1-й пер.	96
+13912	Репина 2-й пер.	96
+13913	Романтиков ул.	96
+13914	Ромодановская ул.	96
+13915	Руднева пер.	96
+13916	Руднева ул.	96
+13917	Русская ул.	96
+13918	Саратовская ул.	96
+13919	Сахалинская ул.	96
+13920	Сахалинский пер.	96
+13921	Связистов ул.	96
+13922	Северный пер.	96
+13923	Северный городок ул.	96
+13924	Семашко ул.	96
+13925	Сеченова ул.	96
+13926	Слуцкая ул.	96
+13927	Смирнова Юрия ул.	96
+13928	Смирнова Юрия пер.	96
+13929	Снайперская ул.	96
+13930	Созидательская ул.	96
+13931	Сормовская ул.	96
+13932	Сорок домиков пос.	96
+13933	Сорокина ул.	96
+13934	Софийская ул.	96
+13935	Сочинская ул.	96
+13936	Спортивная 1-я ул.	96
+13937	Спортивная 2-я ул.	96
+13938	Старобельская ул.	96
+13939	Столбовая ул.	96
+13940	Стрелецкий пер.	96
+13941	Стрелковая ул.	96
+13942	Студеная ул.	96
+13943	Суздальская ул.	96
+13944	Сумская ул.	96
+13945	Сызранская ул.	96
+13946	Таганская ул.	96
+13947	Таймырская ул.	96
+13948	Таращанцев ул.	96
+13949	Тарифная ул.	96
+13950	Телефонная ул.	96
+13951	Техническая ул.	96
+13952	Типографская ул.	96
+13953	Тираспольская ул.	96
+13954	Титова площ.	96
+13955	Титова Германа ул.	96
+13956	Товарищеская ул.	96
+13957	Транспортный пер.	96
+13958	Триумфальная ул.	96
+13959	Тряскина капитана ул.	96
+13960	Туманяна ул.	96
+13961	Туристов ул.	96
+13962	Тюленина Сергея ул.	96
+13963	Тюленина Сергея пер.	96
+13964	Узловая ул.	96
+13965	Ульянова ул.	96
+13966	Уссурийская ул.	96
+13967	Ушинского ул.	96
+13968	Филатова ул.	96
+13969	Форш Ольги ул.	96
+13970	Хибинская ул.	96
+13971	Хибинский пер.	96
+13972	Химическая ул.	96
+13973	Хользунова ул.	96
+13974	Хрустальная ул.	96
+13975	Художественная ул.	96
+13976	Центральная аллея ул.	96
+13977	Цеткин Клары ул.	96
+13978	Чайковского ул.	96
+13979	Черниговская ул.	96
+13980	Черниговский пер.	96
+13981	Черноярская ул.	96
+13982	Чесменская ул.	96
+13983	Чистоозерная ул.	96
+13984	Шатурская ул.	96
+13985	Шевцовой Любови ул.	96
+13986	Шепетовская ул.	96
+13987	Штеменко ул.	96
+13988	Щорса ул.	96
+13989	Южная ул.	96
+13990	Южно-Сибирская ул.	96
+13991	25-летия Октября ул.	97
+13992	26 Бакинских комиссаров ул.	97
+13993	35-й Гвардейской ул.	97
+13994	36-й Гвардейской (п. Горный) ул.	97
+13995	50-летия ВЛКСМ ул.	97
+13996	Абоянская (с. Песчанка) ул.	97
+13997	Абхазская ул.	97
+13998	Аверченко (п. Горная Поляна) ул.	97
+13999	Аверченко (п. Горная Поляна) пер.	97
+14000	Авиаторская ул.	97
+14001	Автомобилистов ул.	97
+14002	Агашиной Маргариты(п. Горная Поляна) ул.	97
+14003	Аджарская ул.	97
+14004	Адыгейская ул.	97
+14005	Александрийская ул.	97
+14006	Алексеевская ул.	97
+14007	Амурская ул.	97
+14008	Антрацитная ул.	97
+14009	Аренского ул.	97
+14010	Армянская ул.	97
+14011	Арчединская ул.	97
+14012	Балакирева пер.	97
+14013	Балакирева ул.	97
+14014	Балыклейская ул.	97
+14015	Басаргинская (рп. Горьковский) ул.	97
+14016	Басина ул.	97
+14017	Баскакова Александра(п. Горная Поляна) ул.	97
+14018	Бекетовская ул.	97
+14019	Белгородская ул.	97
+14020	Беляева Александра ул.	97
+14021	Бирюзовая ул.	97
+14022	Бирюзовый (рп. Горьковский) пер.	97
+14023	Богатырская ул.	97
+14024	Богданова ул.	97
+14025	Богомолова (п. Горная Поляна) ул.	97
+14026	Бодрая ул.	97
+14027	Боровая ул.	97
+14028	Брестский пер.	97
+14029	Бударинская ул.	97
+14030	Буденного (рп. Горьковский) ул.	97
+14031	Булгакова (п. Горная Поляна) ул.	97
+14032	Бульварная ул.	97
+14033	Бунина (п. Горная Поляна) ул.	97
+14034	Бурденко ул.	97
+14035	Буркова (п. Горная Поляна) ул.	97
+14036	Вавилова ул.	97
+14037	Василевского ул.	97
+14038	Ващенко ул.	97
+14039	Ващенко пер.	97
+14040	Венская ул.	97
+14041	Вешенская ул.	97
+14042	Виноградная ул.	97
+14043	Виноградный пер.	97
+14044	Владимирская ул.	97
+14045	Внешняя ул.	97
+14046	Водная (п. Водный) ул.	97
+14047	Водный пос.	97
+14048	Вокзальная (рп. Горьковский) ул.	97
+14049	Волгоградская (п. Горная Поляна) ул.	97
+14050	Волгоградская (рп. Горьковский) ул.	97
+14051	Волгоградский (рп. Горьковский) пер.	97
+14052	Волнистая ул.	97
+14053	Вольная (п. Королевой) ул.	97
+14054	Воронежская (рп. Горьковский) ул.	97
+14055	Воронова маршала ул.	97
+14056	Восточная (рп. Горьковский) ул.	97
+14057	Восьмая ул.	97
+14058	Восьмой пер.	97
+14059	Выборгская ул.	97
+14060	Высотная ул.	97
+14061	Габышева ул.	97
+14062	Газонный пер.	97
+14063	Гвоздкова ул.	97
+14064	Геологическая (п. Королевой) ул.	97
+14065	Голубятникова (рп. Горьковский) ул.	97
+14066	Горина Григория(п. Горная Поляна) ул.	97
+14067	Горная Поляна пос.	97
+14068	Горно-Алтайская ул.	97
+14069	Горнополянская (п. Горная Поляна) ул.	97
+14070	Горный пос.	97
+14071	Горпитомник пос.	97
+14072	Горский пер.	97
+14073	Горьковская ул.	97
+14074	Горьковский р.п.	97
+14075	Горького (рп. Горьковский) ул.	97
+14076	Горького Максима стан.	97
+14077	Горячеводская ул.	97
+14078	Гудовская ул.	97
+14079	Гурьева генерала ул.	97
+14080	Даманская (п. Горная Поляна) ул.	97
+14081	Дарвина ул.	97
+14082	Даугавская ул.	97
+14083	Дворжака Антонина ул.	97
+14084	Дебальцевская ул.	97
+14085	Девятая ул.	97
+14086	Демченко ул.	97
+14087	Деповская (рп. Горьковский) ул.	97
+14088	Джабаева Джамбула ул.	97
+14089	Джапаридзе ул.	97
+14090	Днепростроевская ул.	97
+14091	Докторская ул.	97
+14092	Донская (рп. Горьковский) ул.	97
+14093	Донской (рп. Горьковский) пер.	97
+14094	Дубинина ул.	97
+14095	Дубравная ул.	97
+14096	Дуганская ул.	97
+14097	Дунайская ул.	97
+14098	Ежевичная ул.	97
+14099	Ежовская ул.	97
+14100	Ельшанка стан.	97
+14101	н-я. Ельшанская	97
+14102	Ельшанская 3-я ул.	97
+14103	Ереванская ул.	97
+14104	Железнодорожная (рп. Горьковский) ул.	97
+14105	Жердевская ул.	97
+14106	Журавлинская (п. Горный) ул.	97
+14107	Заветная ул.	97
+14108	Заповедная ул.	97
+14109	Запорожская ул.	97
+14110	Засекина Григория(п. Горная Поляна) ул.	97
+14111	Захарова (рп. Горьковский) ул.	97
+14112	Звездная ул.	97
+14113	Звонкая ул.	97
+14114	Зевина ул.	97
+14115	Землемерная ул.	97
+14116	Зональная ул.	97
+14117	Зощенко (п. Горная Поляна) ул.	97
+14118	Иваницкого (п. Майский) ул.	97
+14119	Иверская ул.	97
+14120	Иверский пер.	97
+14121	Изумрудная ул.	97
+14122	Инструментальная ул.	97
+14123	Интернациональная ул.	97
+14124	Кабардинская ул.	97
+14125	Кабардинский пер.	97
+14126	Казахская ул.	97
+14127	Казачья (рп. Горьковский) ул.	97
+14128	Кайсацкая ул.	97
+14129	Калининградская ул.	97
+14130	Каляева (с. Песчанка) ул.	97
+14131	Каневская ул.	97
+14132	Карагандинская ул.	97
+14133	Каральская ул.	97
+14134	Качуевской ул.	97
+14135	Киргизская ул.	97
+14136	Кирова (с. Песчанка) ул.	97
+14137	Кирпичного завода №8 пос.	97
+14138	Китайская ул.	97
+14139	Климчука полковника(п. Горный) ул.	97
+14140	Княгинская ул.	97
+14141	Коганова ул.	97
+14142	Кожанова ул.	97
+14143	Колхозная (с. Песчанка) ул.	97
+14144	Комарова академика ул.	97
+14145	Комсомольская (рп. Горьковский) ул.	97
+14146	Кондукторская ул.	97
+14147	Коневского пер.	97
+14148	Корганова ул.	97
+14149	Корейская ул.	97
+14150	Королева академика ул.	97
+14151	Королевой Гули пос.	97
+14152	Кошута ул.	97
+14153	Красикова (п. Майский) ул.	97
+14154	Красноармейская ул.	97
+14155	Красноволжская ул.	97
+14156	Краснопресненская ул.	97
+14157	Краснорядская ул.	97
+14158	Крепильная ул.	97
+14159	Крестьянская ул.	97
+14160	Криворожская ул.	97
+14161	Круглова Петра ул.	97
+14162	Крупской Надежды ул.	97
+14163	Крутая ул.	97
+14164	Крутенькая (рп. Горьковский) ул.	97
+14165	Крымская (рп. Горьковский) ул.	97
+14166	Крюкова Федора(п. Горная Поляна) ул.	97
+14167	Куйбышева площ.	97
+14168	Купалы Янки ул.	97
+14169	Курганная ул.	97
+14170	Курмоярская ул.	97
+14171	Курочкина (рп. Горьковский) ул.	97
+14172	Лапикова Ивана(п. Горная Поляна) ул.	97
+14173	Лебедева-Кумача ул.	97
+14174	Лемешкинская ул.	97
+14175	Леонова (п. Горный) ул.	97
+14176	Лесная (рп. Горьковский) ул.	97
+14177	Лесозащитная ул.	97
+14178	ЛЗС (с. Песчанка) ул.	97
+14179	Линейная ул.	97
+14180	Лихачева академика(п. Горная Поляна) ул.	97
+14181	Лихая (рп. Горьковский) ул.	97
+14182	Лиховская ул.	97
+14183	Логовская ул.	97
+14184	Локомотивная (рп. Горьковский) ул.	97
+14185	Лоцманская ул.	97
+14186	Лужниковская ул.	97
+14187	Лундышева (п. Майский) ул.	97
+14188	Лунная ул.	97
+14189	Любимая ул.	97
+14190	Любимова Николая(п. Горная Поляна) ул.	97
+14191	Лямина летчика(п. Горная Поляна) ул.	97
+14192	Майский пос.	97
+14193	Малиновая ул.	97
+14194	Мамина-Сибиряка ул.	97
+14195	Мариинская ул.	97
+14196	Мариупольская ул.	97
+14197	Маркса Карла пер.	97
+14198	Маркса Карла ул.	97
+14199	Межевая ул.	97
+14200	Мичурина (рп. Горьковский) ул.	97
+14201	Молодежная (рп. Горьковский) ул.	97
+14202	Монгольская ул.	97
+14203	Монтерская ул.	97
+14204	Морозовская ул.	97
+14205	Мостового лейтенанта(п. Королевой) ул.	97
+14206	Мостового лейтенанта(п. Королевой) пер.	97
+14207	Мостостроителей (рп. Горьковский) ул.	97
+14208	Мочалова ул.	97
+14209	Мушкетова (с. Песчанка) ул.	97
+14210	Навои Алишера пер.	97
+14211	Навои Алишера ул.	97
+14212	Надежды (п. Горный) ул.	97
+14213	Научная ул.	97
+14214	Невинномысская ул.	97
+14215	Некрасова ул.	97
+14216	Нижнечирская ул.	97
+14217	Новикова капитана милиции ул.	97
+14218	Новикова-Прибоя ул.	97
+14219	Новопреображенская ул.	97
+14220	Новосибирская ул.	97
+14221	Новостройка (с. Песчанка) ул.	97
+14222	Новочеркасская ул.	97
+14223	Овражная ул.	97
+14224	Окольная ул.	97
+14225	Октябрьская (рп. Горьковский) ул.	97
+14226	Окунева (п. Горная Поляна) ул.	97
+14227	Ольховская (с. Песчанка) ул.	97
+14228	Ольховский (с. Песчанка) пер.	97
+14229	Оранжерейная ул.	97
+14230	Орошаемая (п. Водный) ул.	97
+14231	Оршанский пер.	97
+14232	Осетинская ул.	97
+14233	Павленко ул.	97
+14234	Палехская ул.	97
+14235	Палиашвили (с. Песчанка) ул.	97
+14236	Панфиловская ул.	97
+14237	Папиной (п. Горная Поляна) ул.	97
+14238	Парковая ул.	97
+14239	Пассара Максима ул.	97
+14240	Педагогическая (п. Горный) ул.	97
+14241	Первая ул.	97
+14242	Первомайская (рп. Горьковский) ул.	97
+14243	Перекопская ул.	97
+14244	Песчаная (с. Песчанка) ул.	97
+14245	село Песчанка	97
+14246	Песчанокопская ул.	97
+14247	Петрова ул.	97
+14248	Петровская ул.	97
+14249	Петроградская ул.	97
+14250	Платонова (п. Горная Поляна) ул.	97
+14251	Плодородная ул.	97
+14252	Плотницкая ул.	97
+14253	Подтелковская ул.	97
+14254	Покровская ул.	97
+14255	Полухина пер.	97
+14256	Полухина ул.	97
+14257	Полярная ул.	97
+14258	Портовская (рп. Горьковский) ул.	97
+14259	Поселок Стройдеталь ул.	97
+14260	Прибрежная (п. Водный) ул.	97
+14261	Прилукская ул.	97
+14262	Продольная 2-я ул.	97
+14263	Проезжая ул.	97
+14264	Прожекторный пер.	97
+14265	Производственная ул.	97
+14266	Проселочная ул.	97
+14267	Прямая ул.	97
+14268	Путейская (рп. Горьковский) ул.	97
+14269	Путейский (рп. Горьковский) пер.	97
+14270	Пчелина ул.	97
+14271	Рабочая ул.	97
+14272	Радужная ул.	97
+14273	Райниса Яна ул.	97
+14274	Районная ул.	97
+14275	Райский пер.	97
+14276	Революционная ул.	97
+14277	Речная ул.	97
+14278	Родниковая ул.	97
+14279	Рубежная ул.	97
+14280	Рубиновый пер.	97
+14281	Рутковского ул.	97
+14282	Савеловская ул.	97
+14283	Савиловой ул.	97
+14284	Савицкого ул.	97
+14285	Садовая ул.	97
+14286	Садовая (рп. Горьковский) ул.	97
+14287	Сарафанова Николая пер.	97
+14288	Сарафанова Николая ул.	97
+14289	Светлая (п. Горный) ул.	97
+14290	Светогорская ул.	97
+14291	Сельскохозяйственная (п. Горный) ул.	97
+14292	Семушкина (п. Горный) ул.	97
+14293	Симеизская ул.	97
+14294	Сиреневый б-р.	97
+14295	Славская ул.	97
+14296	Слепцова (рп. Горьковский) ул.	97
+14297	Слесарная ул.	97
+14298	Смычки ул.	97
+14299	Совхозная (с. Песчанка) ул.	97
+14300	Солнцева ул.	97
+14301	Соловьиная ул.	97
+14302	Сорочинская (рп. Горьковский) ул.	97
+14303	Спасская ул.	97
+14304	Средневолжская ул.	97
+14305	Стадионная ул.	97
+14306	Сталеварная ул.	97
+14307	Станционная (рп. Горьковский) ул.	97
+14308	Старательская ул.	97
+14309	Старовознесенская ул.	97
+14310	Старый пер.	97
+14311	Стахановская ул.	97
+14312	Степная (п. Водный) ул.	97
+14313	Степная (рп. Горьковский) ул.	97
+14314	Сторожевая ул.	97
+14315	Стрельникова (п. Горный) ул.	97
+14316	Стругацких (п. Горная Поляна) ул.	97
+14317	Суворова ул.	97
+14318	Суровикинская ул.	97
+14319	Сухова ул.	97
+14320	Сухумская ул.	97
+14321	Сухумский пер.	97
+14322	Таежная ул.	97
+14323	Тбилисская ул.	97
+14324	Тбилисский пер.	97
+14325	Тверская ул.	97
+14326	Текстильная ул.	97
+14327	Теплова ул.	97
+14328	Терешковой (рп. Горьковский)	97
+14329	Тимирязева ул.	97
+14330	Толстого Льва ул.	97
+14331	Толстого Льва пер.	97
+14332	Тормосиновская ул.	97
+14333	Тракторная ул.	97
+14334	Транспортная (с. Песчанка) ул.	97
+14335	Третья ул.	97
+14336	Тринадцатая ул.	97
+14337	Трудовой пер.	97
+14338	Трыханкина ул.	97
+14339	Тулака пер.	97
+14340	Тулака ул.	97
+14341	Тунгусская ул.	97
+14342	Тунгусский овраг ул.	97
+14343	Туркменская	97
+14344	Угловая (п. Горная Поляна) ул.	97
+14345	Удмуртский пер.	97
+14346	Узорная ул.	97
+14347	Университетский пр.	97
+14348	Урюпинская ул.	97
+14349	Ухтомского ул.	97
+14350	Учительская ул.	97
+14351	Физкультурная ул.	97
+14352	Филоновская ул.	97
+14353	Фиолетова ул.	97
+14354	Фомина (с. Песчанка) ул.	97
+14355	Фучика Юлиуса ул.	97
+14356	Хвалынская ул.	97
+14357	Хвалынский пер.	97
+14358	Херсонская ул.	97
+14359	Хмелева (рп. Горьковский) ул.	97
+14360	Холодова летчика(п. Горная Поляна) ул.	97
+14361	Хрюкина генерала ул.	97
+14362	Чебышева ул.	97
+14363	Чембарова Михаила ул.	97
+14364	Черемуховая ул.	97
+14365	Чернышковская ул.	97
+14366	Четырнадцатая ул.	97
+14367	Чуркина ул.	97
+14368	Шауляйская ул.	97
+14369	Шахтерская ул.	97
+14370	Шахтинская ул.	97
+14371	Шварца Евгения(п. Горная Поляна) ул.	97
+14372	Шестнадцатая ул.	97
+14373	Шефская ул.	97
+14374	Широкая (рп. Горьковский) ул.	97
+14375	Школьная (п. Водный) ул.	97
+14376	Школьная (с. Песчанка) ул.	97
+14377	Шолохова М.А.(п. Горная Поляна) ул.	97
+14378	Шоферская ул.	97
+14379	Шукшина В.М.(п. Горная Поляна) ул.	97
+14380	Электролесовская	97
+14381	Юная (п. Королевой) ул.	97
+14382	Юрьевская ул.	97
+14383	Якутская ул.	97
+14384	Ямская ул.	97
+14385	Ярославская	97
+14386	62-й Армии ул.	98
+14387	95-я Гвардейская	98
+14388	Александрова ул.	98
+14389	Андреева ул.	98
+14390	Антонова Ивана ул.	98
+14391	Апатитовая ул.	98
+14392	Атласова ул.	98
+14393	Бакунина ул.	98
+14394	Бардина	98
+14395	Баскунчакская ул.	98
+14396	Батова ул.	98
+14397	Баумана ул.	98
+14398	Бедного	98
+14399	Березовая ул.	98
+14400	Бетховена ул.	98
+14401	Бехтерева ул.	98
+14402	Богомольца	98
+14403	Болвинова подполковника ул.	98
+14404	Борьбы ул.	98
+14405	Боткина ул.	98
+14406	Брасовская ул.	98
+14407	Брусничная ул.	98
+14408	Брюсова ул.	98
+14409	Бурмакова ул.	98
+14410	Бухарская ул.	98
+14411	Быкова ул.	98
+14412	Валуйская ул.	98
+14413	Верхняя ул.	98
+14414	Вильнюсская ул.	98
+14415	Водстрой р.п.	98
+14416	Воздушный пер.	98
+14417	Войкова пер.	98
+14418	Волжской флотилии наб.	98
+14419	Восстания ул.	98
+14420	Восточная (п. Заречный) ул.	98
+14421	Высоковольтная ул.	98
+14422	Вычугова ул.	98
+14423	Героев Тулы ул.	98
+14424	Героев Шипки ул.	98
+14425	Гидростроевский пер.	98
+14426	Гидростроителей ул.	98
+14427	Гороховцев ул.	98
+14428	Грамши ул.	98
+14429	Графитовая ул.	98
+14430	Гроссмана ул.	98
+14431	Дегтярева ул.	98
+14432	Дежнева ул.	98
+14433	Дзержинского площ.	98
+14434	Дзержинского ул.	98
+14435	Днепрогэсовская ул.	98
+14436	Дружбы народов ул.	98
+14437	Дундича ул.	98
+14438	Железнодорожный пер.	98
+14439	Жолудева ул.	98
+14440	Загорская ул.	98
+14441	Заозерная ул.	98
+14442	Заречный пос.	98
+14443	Здоровцева ул.	98
+14444	Зеленая (п. Заречный) ул.	98
+14445	Зеленодольская ул.	98
+14446	Зелинского академика ул.	98
+14447	Зенитчиков (рп. Водстрой) ул.	98
+14448	Кабардино-Балкарская ул.	98
+14449	Кавказская (п. Заречный) ул.	98
+14450	Калужская ул.	98
+14451	Карпова ул.	98
+14452	Кастерина ул.	98
+14453	Кварцевая ул.	98
+14454	Клименко ул.	98
+14455	Клубничная ул.	98
+14456	Колумба ул.	98
+14457	Колчеданная ул.	98
+14458	Королевой Гули ул.	98
+14459	Короткий пер.	98
+14460	Костычева ул.	98
+14461	Костюченко (рп. Водстрой) ул.	98
+14462	Котельникова ул.	98
+14463	Коцюбинского ул.	98
+14464	Красина пер.	98
+14465	Кристальная ул.	98
+14466	Кропоткина ул.	98
+14467	Лавренева ул.	98
+14468	Латошинская ул.	98
+14469	Левитана ул.	98
+14470	Лодыгина ул.	98
+14471	Луговского ул.	98
+14472	Луконина (рп. Водстрой) ул.	98
+14473	Лумумбы Патриса ул.	98
+14474	Льговская ул.	98
+14475	Малоярославецкая ул.	98
+14476	Мелиораторов (рп. Водстрой) ул.	98
+14477	Менжинского ул.	98
+14478	Метростроевская ул.	98
+14479	Мечетинская ул.	98
+14480	Мечникова ул.	98
+14481	Мещерякова ул.	98
+14482	Михайлова ул.	98
+14483	Могилевича ул.	98
+14484	Мозырьская ул.	98
+14485	Монтажный пер.	98
+14486	Моторный пер.	98
+14487	Мукачевская ул.	98
+14488	Мценская ул.	98
+14489	Мясникова ул.	98
+14490	Нахичеванская ул.	98
+14491	Низами ул.	98
+14492	Новослободский пер.	98
+14493	Ногина пер.	98
+14494	Областная ул.	98
+14495	Обливская ул.	98
+14496	Ополченская ул.	98
+14497	Орехово-Зуевская ул.	98
+14498	Оскольская ул.	98
+14499	Отрады Николая ул.	98
+14500	Очаковская ул.	98
+14501	Павлова академика ул.	98
+14502	Падунская ул.	98
+14503	Памирский пер.	98
+14504	Переяславская ул.	98
+14505	Перовской Софьи ул.	98
+14506	Песочная (п. Заречный) ул.	98
+14507	Позднышева ул.	98
+14508	Привокзальная ул.	98
+14509	Прокофьева композитора ул.	98
+14510	Прохладная ул.	98
+14511	Путиловская ул.	98
+14512	Пятая ул.	98
+14513	Рыкачева ул.	98
+14514	Садовая (п. Заречный) ул.	98
+14515	С.-Щедрина	98
+14516	Салуткина ул.	98
+14517	Самаркандская ул.	98
+14518	Саперная ул.	98
+14519	Сборочная ул.	98
+14520	Северокавказская ул.	98
+14521	Североосетинская ул.	98
+14522	Сенявина ул.	98
+14523	Серова ул.	98
+14524	Сланцевая ул.	98
+14525	Собинова ул.	98
+14526	Советская (п. Заречный) ул.	98
+14527	Тагильская ул.	98
+14528	Талалихина ул.	98
+14529	Таллинская ул.	98
+14530	Терская ул.	98
+14531	Технологический пер.	98
+14532	Тополиная ул.	98
+14533	Тракторостроителей ул.	98
+14534	Ушакова адмирала ул.	98
+14535	Фабричный пер.	98
+14536	Франко Ивана ул.	98
+14537	Хмельницкого Богдана ул.	98
+14538	Холмистая ул.	98
+14539	Чаплыгина ул.	98
+14540	Часовой пер.	98
+14541	Чекистов ул.	98
+14542	Чепурниковский пер.	98
+14543	Чугунолитейный пер.	98
+14544	Шаляпина ул.	98
+14545	Шкирятова ул.	98
+14546	Шурухина ул.	98
+14547	Щепкина ул.	98
+14548	Электрогорская ул.	98
+14549	Энтузиастов ул.	98
+14550	Янтарная ул.	98
+14551	Ярцевская ул.	98
+14552	Ясная ул.	98
+14553	Ясноморская ул.	98
+14554	10-й дивизии НКВД ул.	99
+14555	13-й Гвардейской ул.	99
+14556	н-я. 62-й Армии	99
+14557	7-й Гвардейской ул.	99
+14558	Аллея Героев ул.	99
+14559	Алябьева композитора ул.	99
+14560	Антарктидская ул.	99
+14561	Байкальская ул.	99
+14562	Бакинская ул.	99
+14563	Балонина Михаила ул.	99
+14564	Батальонная ул.	99
+14565	Вилейская ул.	99
+14566	Волгодонская ул.	99
+14567	Володарского ул.	99
+14568	Гагарина ул.	99
+14569	Гвардейская площ.	99
+14570	Глазкова ул.	99
+14571	Глубокоовражная ул.	99
+14572	Гоголя ул.	99
+14573	Голубинская ул.	99
+14574	Грозненская ул.	99
+14575	Донецкая ул.	99
+14576	Дымченко ул.	99
+14577	Желябова ул.	99
+14578	Землянского ул.	99
+14579	Камская ул.	99
+14580	Клетский пер.	99
+14581	Ковентри ул.	99
+14582	Коммунальная ул.	99
+14583	Коммунистическая ул.	99
+14584	Комсомольская ул.	99
+14585	Краснознаменская ул.	99
+14586	Ленина ул.	99
+14587	Ленина В.И. площ.	99
+14588	Мира ул.	99
+14589	Наумова ул.	99
+14590	Невская ул.	99
+14591	Некрасовская ул.	99
+14592	Новороссийская ул.	99
+14593	Орловская ул.	99
+14594	Островского ул.	99
+14595	Павших Борцов площ.	99
+14596	Пархоменко ул.	99
+14597	Печатная ул.	99
+14598	Порт-Саида ул.	99
+14599	Пражская ул.	99
+14600	Привокзальная площ.	99
+14601	Приозерная ул.	99
+14602	Пролеткультская ул.	99
+14603	Пушкина ул.	99
+14604	Родимцева ул.	99
+14605	Свирская ул.	99
+14606	Селенгинская ул.	99
+14607	Симбирцева ул.	99
+14608	Скосырева ул.	99
+14609	Совнаркомовская ул.	99
+14610	Соколова ул.	99
+14611	Сталинградской Победы площ.	99
+14612	Стекольная ул.	99
+14613	Уральская ул.	99
+14614	Хиросимы ул.	99
+14615	Хоперская ул.	99
+14616	Чуйкова ул.	99
+14617	Школьная ул.	99
+14618	п.Царицин	104
+14619	п.Царицин, ВЗБТ	104
+14620	Спартановка	98
+14621	Волгоградская	104
+14622	40 Домиков	96
+14623	12123213123	94
+14624	1111	94
+\.
+
+
+--
+-- TOC entry 2080 (class 0 OID 35506)
+-- Dependencies: 180 2092
+-- Data for Name: Terrace; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "Terrace" ("Id", "Name") FROM stdin;
+85	балк.
+86	2 балк.
+87	3 балк.
+88	4 балк.
+89	5 балк.
+90	лодж.
+91	2 лодж.
+92	3 лодж.
+93	4 лодж.
+94	5 лодж.
+95	балк. + лодж.
+96	з/балк.
+97	з/лодж.
+98	Нет
+\.
+
+
+--
+-- TOC entry 2081 (class 0 OID 35519)
+-- Dependencies: 182 2092
+-- Data for Name: ToiletType; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "ToiletType" ("Id", "Name") FROM stdin;
+25	Совм.
+26	Разд.
+27	Нет
+28	2 с/у
+\.
+
+
+--
+-- TOC entry 2075 (class 0 OID 35441)
+-- Dependencies: 170 2092
+-- Data for Name: WaterSupply; Type: TABLE DATA; Schema: public; Owner: nhibernate
+--
+
+COPY "WaterSupply" ("Id", "Name") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2043 (class 2606 OID 35586)
+-- Dependencies: 192 192 2093
+-- Name: Apartment_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Apartment"
+    ADD CONSTRAINT "Apartment_pkey" PRIMARY KEY ("BuildingId");
+
+
+--
+-- TOC entry 2039 (class 2606 OID 35576)
+-- Dependencies: 190 190 2093
+-- Name: Building_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Building"
+    ADD CONSTRAINT "Building_pkey" PRIMARY KEY ("RealEstateId");
+
+
+--
+-- TOC entry 1983 (class 2606 OID 35399)
+-- Dependencies: 162 162 2093
+-- Name: DealVariant_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "DealVariant"
+    ADD CONSTRAINT "DealVariant_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 1985 (class 2606 OID 35397)
+-- Dependencies: 162 162 2093
+-- Name: DealVariant_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "DealVariant"
+    ADD CONSTRAINT "DealVariant_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1987 (class 2606 OID 35412)
+-- Dependencies: 164 164 2093
+-- Name: District_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "District"
+    ADD CONSTRAINT "District_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 1989 (class 2606 OID 35410)
+-- Dependencies: 164 164 2093
+-- Name: District_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "District"
+    ADD CONSTRAINT "District_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2045 (class 2606 OID 35591)
+-- Dependencies: 193 193 2093
+-- Name: Flat_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Flat"
+    ADD CONSTRAINT "Flat_pkey" PRIMARY KEY ("ApartmentId");
+
+
+--
+-- TOC entry 2027 (class 2606 OID 35542)
+-- Dependencies: 184 184 2093
+-- Name: FloorLevel_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "FloorLevel"
+    ADD CONSTRAINT "FloorLevel_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2029 (class 2606 OID 35540)
+-- Dependencies: 184 184 2093
+-- Name: FloorLevel_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "FloorLevel"
+    ADD CONSTRAINT "FloorLevel_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2047 (class 2606 OID 35596)
+-- Dependencies: 194 194 2093
+-- Name: House_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "House"
+    ADD CONSTRAINT "House_pkey" PRIMARY KEY ("PlotId");
+
+
+--
+-- TOC entry 2003 (class 2606 OID 35464)
+-- Dependencies: 172 172 2093
+-- Name: Layout_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Layout"
+    ADD CONSTRAINT "Layout_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2005 (class 2606 OID 35462)
+-- Dependencies: 172 172 2093
+-- Name: Layout_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Layout"
+    ADD CONSTRAINT "Layout_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2007 (class 2606 OID 35477)
+-- Dependencies: 174 174 2093
+-- Name: Material_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Material"
+    ADD CONSTRAINT "Material_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2009 (class 2606 OID 35475)
+-- Dependencies: 174 174 2093
+-- Name: Material_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Material"
+    ADD CONSTRAINT "Material_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1991 (class 2606 OID 35425)
+-- Dependencies: 166 166 2093
+-- Name: Ownership_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Ownership"
+    ADD CONSTRAINT "Ownership_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 1993 (class 2606 OID 35423)
+-- Dependencies: 166 166 2093
+-- Name: Ownership_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Ownership"
+    ADD CONSTRAINT "Ownership_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2037 (class 2606 OID 35571)
+-- Dependencies: 189 189 2093
+-- Name: Plot_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Plot"
+    ADD CONSTRAINT "Plot_pkey" PRIMARY KEY ("RealEstateId");
+
+
+--
+-- TOC entry 2035 (class 2606 OID 35566)
+-- Dependencies: 188 188 2093
+-- Name: RealEstate_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "RealEstate"
+    ADD CONSTRAINT "RealEstate_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2031 (class 2606 OID 35555)
+-- Dependencies: 186 186 2093
+-- Name: RealtorAgency_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "RealtorAgency"
+    ADD CONSTRAINT "RealtorAgency_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2033 (class 2606 OID 35553)
+-- Dependencies: 186 186 2093
+-- Name: RealtorAgency_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "RealtorAgency"
+    ADD CONSTRAINT "RealtorAgency_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2011 (class 2606 OID 35490)
+-- Dependencies: 176 176 2093
+-- Name: Realtor_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Realtor"
+    ADD CONSTRAINT "Realtor_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2013 (class 2606 OID 35488)
+-- Dependencies: 176 176 2093
+-- Name: Realtor_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Realtor"
+    ADD CONSTRAINT "Realtor_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2041 (class 2606 OID 35581)
+-- Dependencies: 191 191 2093
+-- Name: Residence_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Residence"
+    ADD CONSTRAINT "Residence_pkey" PRIMARY KEY ("BuildingId");
+
+
+--
+-- TOC entry 2049 (class 2606 OID 35601)
+-- Dependencies: 195 195 2093
+-- Name: Room_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Room"
+    ADD CONSTRAINT "Room_pkey" PRIMARY KEY ("ApartmentId");
+
+
+--
+-- TOC entry 1995 (class 2606 OID 35438)
+-- Dependencies: 168 168 2093
+-- Name: Sewage_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Sewage"
+    ADD CONSTRAINT "Sewage_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 1997 (class 2606 OID 35436)
+-- Dependencies: 168 168 2093
+-- Name: Sewage_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Sewage"
+    ADD CONSTRAINT "Sewage_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2015 (class 2606 OID 35503)
+-- Dependencies: 178 178 2093
+-- Name: Street_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Street"
+    ADD CONSTRAINT "Street_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2017 (class 2606 OID 35501)
+-- Dependencies: 178 178 2093
+-- Name: Street_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Street"
+    ADD CONSTRAINT "Street_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2019 (class 2606 OID 35516)
+-- Dependencies: 180 180 2093
+-- Name: Terrace_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Terrace"
+    ADD CONSTRAINT "Terrace_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2021 (class 2606 OID 35514)
+-- Dependencies: 180 180 2093
+-- Name: Terrace_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "Terrace"
+    ADD CONSTRAINT "Terrace_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2023 (class 2606 OID 35529)
+-- Dependencies: 182 182 2093
+-- Name: ToiletType_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "ToiletType"
+    ADD CONSTRAINT "ToiletType_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2025 (class 2606 OID 35527)
+-- Dependencies: 182 182 2093
+-- Name: ToiletType_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "ToiletType"
+    ADD CONSTRAINT "ToiletType_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1999 (class 2606 OID 35451)
+-- Dependencies: 170 170 2093
+-- Name: WaterSupply_Name_key; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "WaterSupply"
+    ADD CONSTRAINT "WaterSupply_Name_key" UNIQUE ("Name");
+
+
+--
+-- TOC entry 2001 (class 2606 OID 35449)
+-- Dependencies: 170 170 2093
+-- Name: WaterSupply_pkey; Type: CONSTRAINT; Schema: public; Owner: nhibernate; Tablespace: 
+--
+
+ALTER TABLE ONLY "WaterSupply"
+    ADD CONSTRAINT "WaterSupply_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2060 (class 2606 OID 35652)
+-- Dependencies: 190 2038 192 2093
+-- Name: fk_apartmentid_buildingid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Apartment"
+    ADD CONSTRAINT fk_apartmentid_buildingid FOREIGN KEY ("BuildingId") REFERENCES "Building"("RealEstateId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2057 (class 2606 OID 35637)
+-- Dependencies: 188 190 2034 2093
+-- Name: fk_buildingid_realestateid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Building"
+    ADD CONSTRAINT fk_buildingid_realestateid FOREIGN KEY ("RealEstateId") REFERENCES "RealEstate"("Id") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2054 (class 2606 OID 35622)
+-- Dependencies: 188 162 1984 2093
+-- Name: fk_dealvariant_realestate; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealEstate"
+    ADD CONSTRAINT fk_dealvariant_realestate FOREIGN KEY ("DealVariantId") REFERENCES "DealVariant"("Id");
+
+
+--
+-- TOC entry 2051 (class 2606 OID 35607)
+-- Dependencies: 1988 188 164 2093
+-- Name: fk_district_realestate; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealEstate"
+    ADD CONSTRAINT fk_district_realestate FOREIGN KEY ("DistrictId") REFERENCES "District"("Id");
+
+
+--
+-- TOC entry 2050 (class 2606 OID 35602)
+-- Dependencies: 178 164 1988 2093
+-- Name: fk_district_street; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Street"
+    ADD CONSTRAINT fk_district_street FOREIGN KEY ("DistrictId") REFERENCES "District"("Id");
+
+
+--
+-- TOC entry 2064 (class 2606 OID 35672)
+-- Dependencies: 192 193 2042 2093
+-- Name: fk_flatid_apartmentidid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Flat"
+    ADD CONSTRAINT fk_flatid_apartmentidid FOREIGN KEY ("ApartmentId") REFERENCES "Apartment"("BuildingId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2063 (class 2606 OID 35667)
+-- Dependencies: 2028 184 192 2093
+-- Name: fk_floorlevel_apartment; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Apartment"
+    ADD CONSTRAINT fk_floorlevel_apartment FOREIGN KEY ("FloorLevelId") REFERENCES "FloorLevel"("Id");
+
+
+--
+-- TOC entry 2066 (class 2606 OID 35682)
+-- Dependencies: 2036 194 189 2093
+-- Name: fk_houseid_plotid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "House"
+    ADD CONSTRAINT fk_houseid_plotid FOREIGN KEY ("PlotId") REFERENCES "Plot"("RealEstateId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2061 (class 2606 OID 35657)
+-- Dependencies: 2004 172 192 2093
+-- Name: fk_layout_apartment; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Apartment"
+    ADD CONSTRAINT fk_layout_apartment FOREIGN KEY ("LayoutId") REFERENCES "Layout"("Id");
+
+
+--
+-- TOC entry 2058 (class 2606 OID 35642)
+-- Dependencies: 190 174 2008 2093
+-- Name: fk_material_building; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Building"
+    ADD CONSTRAINT fk_material_building FOREIGN KEY ("MaterialId") REFERENCES "Material"("Id");
+
+
+--
+-- TOC entry 2069 (class 2606 OID 35697)
+-- Dependencies: 2008 194 174 2093
+-- Name: fk_material_house; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "House"
+    ADD CONSTRAINT fk_material_house FOREIGN KEY ("MaterialId") REFERENCES "Material"("Id");
+
+
+--
+-- TOC entry 2055 (class 2606 OID 35627)
+-- Dependencies: 1992 166 188 2093
+-- Name: fk_ownership_realestate; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealEstate"
+    ADD CONSTRAINT fk_ownership_realestate FOREIGN KEY ("OwnershipId") REFERENCES "Ownership"("Id");
+
+
+--
+-- TOC entry 2056 (class 2606 OID 35632)
+-- Dependencies: 189 188 2034 2093
+-- Name: fk_plotid_realestateid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Plot"
+    ADD CONSTRAINT fk_plotid_realestateid FOREIGN KEY ("RealEstateId") REFERENCES "RealEstate"("Id") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2053 (class 2606 OID 35617)
+-- Dependencies: 188 176 2012 2093
+-- Name: fk_realtor_realestate; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealEstate"
+    ADD CONSTRAINT fk_realtor_realestate FOREIGN KEY ("RealtorId") REFERENCES "Realtor"("Id");
+
+
+--
+-- TOC entry 2059 (class 2606 OID 35647)
+-- Dependencies: 191 190 2038 2093
+-- Name: fk_residenceid_buildingid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Residence"
+    ADD CONSTRAINT fk_residenceid_buildingid FOREIGN KEY ("BuildingId") REFERENCES "Building"("RealEstateId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2070 (class 2606 OID 35702)
+-- Dependencies: 195 2042 192 2093
+-- Name: fk_roomid_apartmentid; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Room"
+    ADD CONSTRAINT fk_roomid_apartmentid FOREIGN KEY ("ApartmentId") REFERENCES "Apartment"("BuildingId") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2068 (class 2606 OID 35692)
+-- Dependencies: 168 1996 194 2093
+-- Name: fk_sewage_house; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "House"
+    ADD CONSTRAINT fk_sewage_house FOREIGN KEY ("SewageId") REFERENCES "Sewage"("Id");
+
+
+--
+-- TOC entry 2052 (class 2606 OID 35612)
+-- Dependencies: 188 2016 178 2093
+-- Name: fk_street_realestate; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "RealEstate"
+    ADD CONSTRAINT fk_street_realestate FOREIGN KEY ("StreetId") REFERENCES "Street"("Id");
+
+
+--
+-- TOC entry 2062 (class 2606 OID 35662)
+-- Dependencies: 192 2020 180 2093
+-- Name: fk_terrace_apartment; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Apartment"
+    ADD CONSTRAINT fk_terrace_apartment FOREIGN KEY ("TerraceId") REFERENCES "Terrace"("Id");
+
+
+--
+-- TOC entry 2065 (class 2606 OID 35677)
+-- Dependencies: 182 193 2024 2093
+-- Name: fk_toilettype_flat; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "Flat"
+    ADD CONSTRAINT fk_toilettype_flat FOREIGN KEY ("ToiletTypeId") REFERENCES "ToiletType"("Id");
+
+
+--
+-- TOC entry 2067 (class 2606 OID 35687)
+-- Dependencies: 170 194 2000 2093
+-- Name: fk_watersupply_house; Type: FK CONSTRAINT; Schema: public; Owner: nhibernate
+--
+
+ALTER TABLE ONLY "House"
+    ADD CONSTRAINT fk_watersupply_house FOREIGN KEY ("WaterSupplyId") REFERENCES "WaterSupply"("Id");
+
+
+--
+-- TOC entry 2098 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2012-11-28 23:51:26
+
+--
+-- PostgreSQL database dump complete
+--
+
