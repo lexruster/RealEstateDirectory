@@ -131,6 +131,8 @@ namespace RealEstateDirectory
 
 			Container.RegisterType<IViewsService, ViewsService>();
 			Container.RegisterType<IMessageService, MessageService>();
+
+            Container.RegisterType<IExcelService, ExcelService>();
 		}
 
 		private void RegisterViewModels()

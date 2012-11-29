@@ -54,6 +54,12 @@
                     <TextBlock Margin="10,0,0,0">Обновить</TextBlock>
                 </StackPanel>
             </Button>
+            <Button Margin="5" Width="70" Click="ExportToExcel" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/Img/EXCEL.png" />
+                    <TextBlock Margin="10,0,0,0">Excel</TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
 
         <Expander Header="Фильтр" Grid.Row="1" HorizontalAlignment="Stretch">
@@ -97,8 +103,8 @@
             </WrapPanel>
         </Expander>
 
-        <DataGrid Grid.Row="2" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" >
-            <DataGrid.InputBindings >
+        <DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" >
+            <DataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
             </DataGrid.InputBindings>
             <DataGrid.Columns>

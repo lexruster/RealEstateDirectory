@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using RealEstateDirectory.Services;
 using Xceed.Wpf.DataGrid;
 
 namespace RealEstateDirectory.MainFormTabs.Flat
@@ -14,6 +15,12 @@ namespace RealEstateDirectory.MainFormTabs.Flat
         public FlatListView()
         {
             InitializeComponent();
+        }
+
+        private void ExportToExcel(object sender, RoutedEventArgs e)
+        {
+            var excelService = new ExcelService(new MessageService());
+            excelService.ExportToExcel(DataList);
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.MainFormTabs.Residence
 {
@@ -23,5 +24,11 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		{
 			InitializeComponent();
 		}
+
+        private void ExportToExcel(object sender, RoutedEventArgs e)
+        {
+            var excelService = new ExcelService(new MessageService());
+            excelService.ExportToExcel(DataList);
+        }
 	}
 }
