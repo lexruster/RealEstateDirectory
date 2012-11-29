@@ -110,38 +110,32 @@
             </WrapPanel>
         </Expander>
 
-        <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities, Mode=OneWay}" AutoCreateColumns="False"
-                  SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"
-                         VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" >
-            <xcdg:DataGridControl.View>
-                <xcdg:TableView IsColumnVirtualizationEnabled="True" >
-                    <xcdg:TableView.Theme>
-                        <xcdg:AeroNormalColorTheme/>
-                    </xcdg:TableView.Theme>
-                </xcdg:TableView>
-            </xcdg:DataGridControl.View>
-            <xcdg:DataGridControl.Columns>
-                <xcdg:Column ReadOnly="True" Title="Район" FieldName="District.Name" Width="80"/>
-                <xcdg:Column ReadOnly="True" Title="Адрес" FieldName="Address"  MinWidth="100" Width="160"/>
-                <xcdg:Column ReadOnly="True" Title="Комнат" FieldName="RoomCount" MinWidth="30" Width="30"/>
-                <xcdg:Column ReadOnly="True" Title="Всего комнат"  FieldName="TotalRoomCount" MinWidth="30" Width="30"/>
-                <xcdg:Column ReadOnly="True" Title="Этаж" FieldName="FloorString" MinWidth="30" Width="35"/>
+        <DataGrid Grid.Row="2" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" IsReadOnly="True">
+            <DataGrid.InputBindings >
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="Район" Binding="{Binding District.Name}" Width="80"/>
+                <DataGridTextColumn  Header="Адрес" Binding="{Binding Address}"  MinWidth="100" Width="160"/>
+                <DataGridTextColumn  Header="Комнат" Binding="{Binding TotalRoomCount}" MinWidth="30" Width="30"/>
+                <DataGridTextColumn  Header="Этаж" Binding="{Binding FloorString}" MinWidth="30" Width="40"/>
 
-                <xcdg:Column ReadOnly="True" Title="Планировка"  FieldName="Layout.Name" MinWidth="40" Width="60"/>
-                <xcdg:Column ReadOnly="True" Title="Площадь"  FieldName="TotalSquareString" Width="40"/>
-                <xcdg:Column ReadOnly="True" Title="Балкон" FieldName="Terrace.Name" MinWidth="40" Width="50"/>
-                <xcdg:Column ReadOnly="True" Title="Материал" FieldName="Material.Name" MinWidth="60" Width="60"/>
-                <xcdg:Column ReadOnly="True" Title="Потолки" FieldName="FloorLevel.Name" Width="60"/>
-                <xcdg:Column ReadOnly="True" Title="Вариант" FieldName="DealVariant.Name" MinWidth="60" Width="80"/>
-                <xcdg:Column ReadOnly="True" Title="Собственность" FieldName="Ownership.Name" MinWidth="60" Width="80"/>
-                <xcdg:Column ReadOnly="True" Title="Комментарий" FieldName="Description" Width="*"/>
+                <DataGridTextColumn  Header="Планировка"  Binding="{Binding Layout.Name}" MinWidth="40" Width="60"/>
+                <DataGridTextColumn  Header="Площадь"  Binding="{Binding SquareString}" Width="80"/>
+                <DataGridTextColumn  Header="Балкон" Binding="{Binding Terrace.Name}" MinWidth="40" Width="50"/>
+                <DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
+                <DataGridTextColumn  Header="Сан. узел" Binding="{Binding ToiletType.Name}" MinWidth="60" Width="60"/>
+                <DataGridTextColumn  Header="Потолки" Binding="{Binding FloorLevel.Name}" Width="60"/>
+                <DataGridTextColumn  Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>
+                <DataGridTextColumn  Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>
+                <DataGridTextColumn  Header="Комментарий" Binding="{Binding Description}" Width="*"/>
 
-                <xcdg:Column ReadOnly="True" Title="Риэлтор" FieldName="RealtorString" Width="100" />
-                <xcdg:Column ReadOnly="True" Title="Цена т.р." FieldName="PriceString" Width="70"/>
-                <xcdg:Column ReadOnly="True" Title="Дата" FieldName="CreateDate" Width="75"/>
-                <xcdg:Column ReadOnly="True" Title="Видео" FieldName="HasVideo" Width="30" >
-                    <xcdg:Column.CellContentTemplate>
+                <DataGridTextColumn  Header="Риэлтор" Binding="{Binding RealtorString}" Width="100" />
+                <DataGridTextColumn  Header="Цена т.р." Binding="{Binding PriceString}" Width="70"/>
+                <DataGridTextColumn  Header="Дата" Binding="{Binding CreateDate}" Width="75"/>
+
+                <DataGridTemplateColumn  Header="Видео" Width="30" >
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Height="15" Width="15"  Source="../../Resources/Img/video.png" Visibility="{Binding HasVideo, Converter={StaticResource BoolToVisibleConverter}}" >
                                 <ToolTipService.ToolTip>
@@ -149,48 +143,33 @@
                                 </ToolTipService.ToolTip>
                             </Image>
                         </DataTemplate>
-                    </xcdg:Column.CellContentTemplate>
-                    <xcdg:Column.DisplayMemberBindingInfo>
-                        <xcdg:DataGridBindingInfo Path="." />
-                    </xcdg:Column.DisplayMemberBindingInfo>
-                </xcdg:Column>
-                <xcdg:Column ReadOnly="True" Title="ВДВ" FieldName="SubmitToVDV" Width="30"/>
-                <xcdg:Column ReadOnly="True" Title="Домино" FieldName="SubmitToDomino" Width="30"/>
-                <xcdg:Column ReadOnly="True" Title="Правка" FieldName="Edit" Width="60" >
-                    <xcdg:Column.DisplayMemberBindingInfo>
-                        <xcdg:DataGridBindingInfo Path="." />
-                    </xcdg:Column.DisplayMemberBindingInfo>
-                    <xcdg:Column.CellContentTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridCheckBoxColumn  Header="ВДВ" Binding="{Binding SubmitToVDV}" Width="30"/>
+                <DataGridCheckBoxColumn  Header="Домино" Binding="{Binding SubmitToDomino}" Width="30"/>
+                <DataGridTemplateColumn  Header="Правка" Width="60" >
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Command="{Binding ChangeInGridCommand}" ToolTip="Изменить" Margin="0,0,7,0">
-                                    <Button.DataContext>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
-                                    </Button.DataContext>
-                                    <Button.CommandParameter>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-                                    </Button.CommandParameter>
+                                <Button Command="{Binding DataContext.ChangeInGridCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" 
+                                        CommandParameter="{Binding}" ToolTip="Изменить" Margin="0,0,7,0">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Height="15" Width="15" Source="../../Resources/Img/edit.png"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Command="{Binding DeleteInGridCommand}" ToolTip="Удалить">
-                                    <Button.DataContext>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="DataContext"></Binding>
-                                    </Button.DataContext>
-                                    <Button.CommandParameter>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type xcdg:Cell}}" Path="DataContext"></Binding>
-                                    </Button.CommandParameter>
+                                <Button Command="{Binding DataContext.DeleteInGridCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" ToolTip="Удалить"
+                                             CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Height="15" Width="15" Source="../../Resources/Img/delete.png"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
-                    </xcdg:Column.CellContentTemplate>
-                </xcdg:Column>
-            </xcdg:DataGridControl.Columns>
-        </xcdg:DataGridControl>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
     </Grid>
 </UserControl>

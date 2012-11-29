@@ -40,15 +40,16 @@
         </Menu>
         <DockPanel Grid.Row="1">
             <TabControl HorizontalAlignment="Stretch" Style="{StaticResource MyTab}" >
+                <TabItem Header="Дома" Style="{StaticResource MyTabItem}" >
+                    <House:HouseListView DataContext="{Binding HousesDataContext}" />
+                </TabItem>
                 <TabItem Header="Квартиры" Style="{StaticResource MyTabItem}" >
                     <Flat:FlatListView DataContext="{Binding FlatsDataContext}" />
                 </TabItem>
                 <TabItem Header="Комнаты" Style="{StaticResource MyTabItem}" >
                     <Room:RoomListView DataContext="{Binding RoomsDataContext}" />
                 </TabItem>
-                <TabItem Header="Дома" Style="{StaticResource MyTabItem}" >
-                    <House:HouseListView DataContext="{Binding HousesDataContext}" />
-                </TabItem>
+                
                 <TabItem Header="Помещения" Style="{StaticResource MyTabItem}" >
 					<Residence:ResidenceListView DataContext="{Binding ResidenceDataContext}" />
                 </TabItem>
