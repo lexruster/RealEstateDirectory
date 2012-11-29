@@ -1,4 +1,5 @@
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -28,11 +29,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        
-
-        public override bool IsPossibilityToDelete(Ownership entity)
+		public override ValidationResult IsPossibilityToDelete(Ownership entity)
         {
-            return Repository.IsPossibleToDeleteOwnership(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteOwnership(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
 		public Ownership Create(string name)

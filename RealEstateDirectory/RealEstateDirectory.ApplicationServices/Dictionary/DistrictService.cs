@@ -1,4 +1,5 @@
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
@@ -27,9 +28,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        public override bool IsPossibilityToDelete(District entity)
+		public override ValidationResult IsPossibilityToDelete(District entity)
         {
-            return Repository.IsPossibleToDeleteDistrict(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteDistrict(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
 	    public District Create(string name)

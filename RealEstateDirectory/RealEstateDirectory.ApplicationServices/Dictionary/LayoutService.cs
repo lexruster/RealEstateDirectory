@@ -1,4 +1,5 @@
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -28,9 +29,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        public override bool IsPossibilityToDelete(Layout entity)
+		public override ValidationResult IsPossibilityToDelete(Layout entity)
         {
-            return Repository.IsPossibleToDeleteLayout(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteLayout(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
 		public Layout Create(string name)

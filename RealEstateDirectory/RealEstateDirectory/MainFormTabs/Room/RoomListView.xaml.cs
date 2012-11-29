@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using RealEstateDirectory.Services;
 using Xceed.Wpf.DataGrid;
 
 namespace RealEstateDirectory.MainFormTabs.Room
@@ -35,5 +36,10 @@ namespace RealEstateDirectory.MainFormTabs.Room
         //            else
         //                col.Width = col.GetFittedWidth() < 64 ? 64 : col.GetFittedWidth();
         //}
+        private void ExportToExcel(object sender, RoutedEventArgs e)
+        {
+            var excelService = new ExcelService(new MessageService());
+            excelService.ExportToExcel(DataList);
+        }
     }
 }

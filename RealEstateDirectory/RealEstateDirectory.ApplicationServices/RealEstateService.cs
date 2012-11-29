@@ -35,7 +35,7 @@ namespace RealEstateDirectory.ApplicationServices
 
         #region Методы
 
-        public void StartSession()
+	    public void StartSession()
         {
             Session = new DbSession(ServiceLocator.GetInstance<IPersistenceContext>());
         }
@@ -88,10 +88,11 @@ namespace RealEstateDirectory.ApplicationServices
             }
         }
 
-        public bool IsPossibilityToDelete(T entity)
-        {
+		public ValidationResult IsPossibilityToDelete(T entity)
+		{
+			var result = new ValidationResult();
             //Пока удалять можно все
-            return true;
+			return result;
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ for your own use before compile tests in VisualStudio.
 	<session-factory name="NHibernate.Test">
 		<property name="connection.driver_class">NHibernate.Driver.NpgsqlDriver</property>
 		<property name="connection.connection_string">
-		Server=127.0.0.1;Port=5432;Database=RealEstateDictionary;UserId=nhibernate;Password=nhibernate
+		Server=127.0.0.1;Port=5432;Database=RealEstateDirectory;UserId=nhibernate;Password=nhibernate
 		</property>
     <property name="dialect">NHibernate.Dialect.PostgreSQL82Dialect</property>
     <mapping assembly="RealEstateDirectory.Domain.Data" />

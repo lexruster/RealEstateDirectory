@@ -1,4 +1,5 @@
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -28,9 +29,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        public override bool IsPossibilityToDelete(ToiletType entity)
+		public override ValidationResult IsPossibilityToDelete(ToiletType entity)
         {
-            return Repository.IsPossibleToDeleteToiletType(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteToiletType(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
 		public ToiletType Create(string name)

@@ -77,7 +77,8 @@ namespace RealEstateDirectory.Domain.Data.Config
 			propertycustomizer.Key(x => x.Column(member.GetContainerEntity(modelinspector).Name + "Id"));
 			propertycustomizer.Cascade(Cascade.All);
 			propertycustomizer.Inverse(false);
-			propertycustomizer.Lazy(CollectionLazy.Lazy);
+			//propertycustomizer.Lazy(CollectionLazy.Lazy);
+			propertycustomizer.Lazy(CollectionLazy.NoLazy);
 		}
 
 		public static void AutoMapper_BeforeMapClass(IModelInspector modelInspector, Type type,
