@@ -44,6 +44,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			ClearFilterCommand = new DelegateCommand(ClearFilter);
 			ApplyFilterCommand = new DelegateCommand(ApplyFilter);
 
+			//SelectAndChangeCommand=new DelegateCommand(Change);
 			ChangeInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(ChangeInGrid);
 			DeleteInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(DeleteInGrid);
 		}
@@ -267,6 +268,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public ICommand UpdateCommand { get; private set; }
 		public ICommand ApplyFilterCommand { get; private set; }
 		public ICommand ClearFilterCommand { get; private set; }
+		//public ICommand SelectAndChangeCommand { get; protected set; }
 
 		protected void Add()
 		{

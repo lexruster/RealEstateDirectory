@@ -106,7 +106,7 @@
             </WrapPanel>
         </Expander>
 
-        <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities, Mode=OneWay}" AutoCreateColumns="False"
+        <!--<xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities, Mode=OneWay}" AutoCreateColumns="False"
                   SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"
                          VirtualizingStackPanel.IsVirtualizing="True">
@@ -187,7 +187,7 @@
                     </xcdg:Column.CellContentTemplate>
                 </xcdg:Column>
             </xcdg:DataGridControl.Columns>
-        </xcdg:DataGridControl>
+        </xcdg:DataGridControl>-->
         <TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
     </Grid>
 </UserControl>

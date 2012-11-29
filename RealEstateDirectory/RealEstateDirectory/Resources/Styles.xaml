@@ -39,6 +39,23 @@
         <Setter Property="FontWeight" Value="Bold"></Setter>
         <Setter Property="Margin" Value="3"></Setter>
     </Style>
+
+    <Style x:Key="MainGrid"  TargetType="{x:Type DataGrid}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+
+        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+        <Setter Property="GridLinesVisibility" Value="None"></Setter>
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"></Setter>
+        <Setter Property="EnableRowVirtualization" Value="True"></Setter>
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"></Setter>
+        <Setter Property="SelectionMode" Value="Single"></Setter>
+        <Setter Property="SelectionUnit" Value="FullRow"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+
+        <Setter Property="AlternatingRowBackground" Value="#E7E7EB"></Setter>
+        <Setter Property="AlternationCount" Value="2"></Setter>
+    </Style>
+    
     <l:BoolToVisible x:Key="BoolToVisibleConverter" />
 </ResourceDictionary>
     
