@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="RealEstateDirectory.MainFormTabs.House.HouseListView"
+﻿
+<UserControl x:Class="RealEstateDirectory.MainFormTabs.House.HouseListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,19 +9,6 @@
              mc:Ignorable="d" >
     <UserControl.Resources>
         <ResourceDictionary>
-            <!--Стили для грида-->
-            <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
-                <Setter Property="NoGroupContent" Value="Перетащите сюда заголовок колонки для группировки"/>
-                <Setter Property="Background" Value="white"/>
-            </Style>
-
-            <Style TargetType="{x:Type xcdg:ColumnManagerCell}" >
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-            </Style>
-
-            <Style TargetType="{x:Type xcdg:DataCell}">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
-            </Style>
             <DataTemplate DataType="{x:Type Dictionaries:Realtor}">
                 <TextBlock>
                     <TextBlock.Text>
@@ -106,6 +94,66 @@
             </WrapPanel>
         </Expander>
 
+        <DataGrid Grid.Row="2" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
+            <DataGrid.InputBindings >
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Район" Binding="{Binding District.Name}" Width="80"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Адрес" Binding="{Binding Address}"  MinWidth="100" Width="160"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Комнат" Binding="{Binding TotalRoomCount}" MinWidth="30" Width="30"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Этаж" Binding="{Binding FloorString}" MinWidth="30" Width="40"/>
+
+                <DataGridTextColumn IsReadOnly="True" Header="Планировка"  Binding="{Binding Layout.Name}" MinWidth="40" Width="60"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Площадь"  Binding="{Binding SquareString}" Width="80"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Балкон" Binding="{Binding Terrace.Name}" MinWidth="40" Width="50"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Сан. узел" Binding="{Binding ToiletType.Name}" MinWidth="60" Width="60"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Потолки" Binding="{Binding FloorLevel.Name}" Width="60"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Комментарий" Binding="{Binding Description}" Width="*"/>
+
+                <DataGridTextColumn IsReadOnly="True" Header="Риэлтор" Binding="{Binding RealtorString}" Width="100" />
+                <DataGridTextColumn IsReadOnly="True" Header="Цена т.р." Binding="{Binding PriceString}" Width="70"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Дата" Binding="{Binding CreateDate}" Width="75"/>
+
+                <DataGridTemplateColumn IsReadOnly="True" Header="Видео" Width="30" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="15" Width="15"  Source="../../Resources/Img/video.png" Visibility="{Binding HasVideo, Converter={StaticResource BoolToVisibleConverter}}" >
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="Есть видео" IsEnabled="True"></ToolTip>
+                                </ToolTipService.ToolTip>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridCheckBoxColumn IsReadOnly="True" Header="ВДВ" Binding="{Binding SubmitToVDV}" Width="30"/>
+                <DataGridCheckBoxColumn IsReadOnly="True" Header="Домино" Binding="{Binding SubmitToDomino}" Width="30"/>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Правка" Width="60" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Command="{Binding DataContext.ChangeInGridCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" 
+                                        CommandParameter="{Binding}" ToolTip="Изменить" Margin="0,0,7,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="15" Width="15" Source="../../Resources/Img/edit.png"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Command="{Binding DataContext.DeleteInGridCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" ToolTip="Удалить"
+                                             CommandParameter="{Binding}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="15" Width="15" Source="../../Resources/Img/delete.png"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <!--<xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities, Mode=OneWay}" AutoCreateColumns="False"
                   SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"

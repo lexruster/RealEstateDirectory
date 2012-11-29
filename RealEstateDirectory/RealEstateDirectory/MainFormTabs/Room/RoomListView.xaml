@@ -113,9 +113,9 @@
         <xcdg:DataGridControl  Grid.Row="2" ItemsSource="{Binding Entities, Mode=OneWay}" AutoCreateColumns="False"
                   SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             SelectionMode="Single" SelectionUnit="Row"  ItemScrollingBehavior="Immediate" NavigationBehavior="RowOnly"
-                         VirtualizingStackPanel.IsVirtualizing="True">
+                         VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" >
             <xcdg:DataGridControl.View>
-                <xcdg:TableView IsColumnVirtualizationEnabled="True">
+                <xcdg:TableView IsColumnVirtualizationEnabled="True" >
                     <xcdg:TableView.Theme>
                         <xcdg:AeroNormalColorTheme/>
                     </xcdg:TableView.Theme>
