@@ -30,9 +30,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        public override bool IsPossibilityToDelete(Street entity)
+		public override ValidationResult IsPossibilityToDelete(Street entity)
         {
-            return Repository.IsPossibleToDeleteStreet(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteStreet(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
         public override ValidationResult IsValid(Street entity, int id = 0)

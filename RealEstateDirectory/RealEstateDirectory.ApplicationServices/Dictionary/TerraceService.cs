@@ -1,4 +1,5 @@
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -28,9 +29,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        public override bool IsPossibilityToDelete(Terrace entity)
+        public override ValidationResult IsPossibilityToDelete(Terrace entity)
         {
-            return Repository.IsPossibleToDeleteTerrace(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteTerrace(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
 		public Terrace Create(string name)

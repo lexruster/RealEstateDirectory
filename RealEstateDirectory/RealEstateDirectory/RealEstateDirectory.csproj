@@ -83,8 +83,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Dictionaries\Common\RealEstateEntityViewModel.cs" />
-    <Compile Include="Dictionaries\Common\RealEstateListViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntitiesViewModel.cs" />
     <Compile Include="Dictionaries\Common\DictionaryWithOnlyNameEntityViewModel.cs" />
     <Compile Include="Dictionaries\RealtorAgencyDictionary\RealtorAgencyDictionaryView.xaml.cs">

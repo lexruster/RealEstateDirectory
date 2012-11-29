@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Practices.ServiceLocation;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -30,9 +31,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region Методы
 
-        public override bool IsPossibilityToDelete(DealVariant entity)
+        public override ValidationResult IsPossibilityToDelete(DealVariant entity)
         {
-            return Repository.IsPossibleToDeleteDealVariant(entity);
+	        var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteDealVariant(entity))
+			{
+				result.FailValidation("Элемент уже используется в системе");
+			}
+
+	        return result;
         }
 
 		public DealVariant Create(string name)

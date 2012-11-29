@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Dictionaries.Common;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
@@ -327,7 +328,14 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 		protected override bool IsCanRemove(StreetViewModel entityViewModel, out string errorText)
 		{
 			errorText = null;
-			return _DictionaryService.IsPossibilityToDelete(entityViewModel.DbEntity);
+
+			ValidationResult validation = _DictionaryService.IsPossibilityToDelete(entityViewModel.DbEntity);
+			if (!validation.IsValid)
+			{
+				errorText = validation.GetReasons();
+			}
+
+			return validation.IsValid;
 		}
 
 		protected override void RemoveEntityFromDatabase(Street entity)
