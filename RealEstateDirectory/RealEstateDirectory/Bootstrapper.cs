@@ -92,8 +92,12 @@ namespace RealEstateDirectory
             Application.Current.MainWindow = (Window) Shell;
         }
 
-	    public override void Run(bool runWithDefaultConfiguration)
+		public override void Run(bool runWithDefaultConfiguration)
 		{
+#if DEBUG
+			HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+#endif
+
 			base.Run(runWithDefaultConfiguration);
 			Application.Current.MainWindow.Show();
 		}

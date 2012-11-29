@@ -51,7 +51,7 @@
         <Setter Property="SelectionMode" Value="Single"></Setter>
         <Setter Property="SelectionUnit" Value="FullRow"></Setter>
         <Setter Property="AutoGenerateColumns" Value="False"></Setter>
-
+        <Setter Property="IsReadOnly" Value="True"></Setter>
         <Setter Property="AlternatingRowBackground" Value="#E7E7EB"></Setter>
         <Setter Property="AlternationCount" Value="2"></Setter>
     </Style>

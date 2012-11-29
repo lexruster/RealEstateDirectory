@@ -8,19 +8,6 @@
              mc:Ignorable="d" >
     <UserControl.Resources>
         <ResourceDictionary>
-            <!--Стили для грида-->
-            <Style TargetType="{x:Type xcdg:HierarchicalGroupByControl}">
-                <Setter Property="NoGroupContent" Value="Перетащите сюда заголовок колонки для группировки"/>
-                <Setter Property="Background" Value="white"/>
-            </Style>
-
-            <Style TargetType="{x:Type xcdg:ColumnManagerCell}" >
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-            </Style>
-
-            <Style TargetType="{x:Type xcdg:DataCell}">
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
-            </Style>
             <DataTemplate DataType="{x:Type Dictionaries:Realtor}">
                 <TextBlock>
                     <TextBlock.Text>
@@ -110,21 +97,21 @@
             </WrapPanel>
         </Expander>
 
-        <DataGrid Grid.Row="2" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" IsReadOnly="True">
+        <DataGrid Grid.Row="2" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
             <DataGrid.InputBindings >
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
             </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="Район" Binding="{Binding District.Name}" Width="80"/>
                 <DataGridTextColumn  Header="Адрес" Binding="{Binding Address}"  MinWidth="100" Width="160"/>
-                <DataGridTextColumn  Header="Комнат" Binding="{Binding TotalRoomCount}" MinWidth="30" Width="30"/>
-                <DataGridTextColumn  Header="Этаж" Binding="{Binding FloorString}" MinWidth="30" Width="40"/>
+                <DataGridTextColumn  Header="Комнат" Binding="{Binding RoomCount}" MinWidth="30" Width="30"/>
+                <DataGridTextColumn  Header="Всего комнат"  Binding="{Binding TotalRoomCount}" MinWidth="30" Width="30"/>
+                <DataGridTextColumn  Header="Этаж" Binding="{Binding FloorString}" MinWidth="30" Width="35"/>
 
                 <DataGridTextColumn  Header="Планировка"  Binding="{Binding Layout.Name}" MinWidth="40" Width="60"/>
-                <DataGridTextColumn  Header="Площадь"  Binding="{Binding SquareString}" Width="80"/>
+                <DataGridTextColumn  Header="Площадь"  Binding="{Binding TotalSquareString}" Width="40"/>
                 <DataGridTextColumn  Header="Балкон" Binding="{Binding Terrace.Name}" MinWidth="40" Width="50"/>
                 <DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
-                <DataGridTextColumn  Header="Сан. узел" Binding="{Binding ToiletType.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Потолки" Binding="{Binding FloorLevel.Name}" Width="60"/>
                 <DataGridTextColumn  Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>
                 <DataGridTextColumn  Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>
@@ -132,7 +119,7 @@
 
                 <DataGridTextColumn  Header="Риэлтор" Binding="{Binding RealtorString}" Width="100" />
                 <DataGridTextColumn  Header="Цена т.р." Binding="{Binding PriceString}" Width="70"/>
-                <DataGridTextColumn  Header="Дата" Binding="{Binding CreateDate}" Width="75"/>
+                <DataGridTextColumn  Header="Дата" Binding="{Binding CreateDate,  StringFormat={}\{0:dd.MM.yyyy HH:mm\}}" Width="75"/>
 
                 <DataGridTemplateColumn  Header="Видео" Width="30" >
                     <DataGridTemplateColumn.CellTemplate>

@@ -53,7 +53,23 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return result;
         }
 
-        /// <summary>
+		public override void Save(Street entity)
+		{
+			using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
+			{
+				if (entity.Id == 0)
+				{
+					var distict = entity.District;
+					distict.Streets.Add(entity);
+					Repository.SaveOrUpdate(distict);
+				}
+				Repository.SaveOrUpdate(entity);
+
+				transaction.Commit();
+			}
+		}
+
+	    /// <summary>
         /// Удалить сущность
         /// </summary>
         /// <param name="entity"></param>
