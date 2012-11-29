@@ -6,11 +6,11 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 {
 	public class ResidenceMap : JoinedSubclassMapping<Residence>
 	{
-        public ResidenceMap()
+		public ResidenceMap()
 		{
 			Key(k =>
 				{
-                    k.Column("BuildingId");
+					k.Column("BuildingId");
 					k.OnDelete(OnDeleteAction.Cascade);
 					k.ForeignKey("FK_ResidenceId_BuildingId");
 				});
