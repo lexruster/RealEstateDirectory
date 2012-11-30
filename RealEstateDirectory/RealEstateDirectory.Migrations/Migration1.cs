@@ -8,75 +8,109 @@ namespace RealEstateDirectory.Migrations
     {
 	    public override void Up()
 	    {
-			Create.Table("Apartment")
-				.WithColumn("BuildingId").AsInt32().PrimaryKey().ForeignKey("FK_Apartment_Building", "Building", "RealEstateId").OnDelete(Rule.Cascade)
-				.WithColumn("TotalRoomCount").AsInt32().Nullable()
-			
-			//Create.Table("Area")
-			//	.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-			//	.WithColumn("Name").AsString().NotNullable();
+			CreateDictionaryTable("DealVariant");
+			CreateDictionaryTable("District");
+			CreateDictionaryTable("FloorLevel");
+			CreateDictionaryTable("Layout");
+			CreateDictionaryTable("Material");
+			CreateDictionaryTable("Ownership");
+			CreateDictionaryTable("Realtor");
+			CreateDictionaryTable("RealtorAgency");
+			CreateDictionaryTable("Sewage");
+			CreateDictionaryTable("Street");
+			CreateDictionaryTable("Terrace");
+			CreateDictionaryTable("ToiletType");
+			CreateDictionaryTable("WaterSupply");
 
-			//Create.Table("Layout")
-			//	.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-			//	.WithColumn("Name").AsString().NotNullable();
+		    Create.Table("RealEstate")
+			    .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+			    .WithColumn("TerritorialNumber").AsString().Nullable()
+			    .WithColumn("Description").AsString().Nullable()
+			    .WithColumn("HasVideo").AsBoolean().NotNullable()
+			    .WithColumn("SubmitToVDV").AsBoolean().NotNullable()
+			    .WithColumn("SubmitToDomino").AsBoolean().NotNullable()
+			    .WithColumn("Price").AsDecimal(19, 5).Nullable()
+			    .WithColumn("CreateDate").AsDateTime().NotNullable()
+			    .WithColumn("DistrictId").AsInt32().Nullable().ForeignKey("FK_RealEstate_District", "District", "Id")
+			    .WithColumn("StreetId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Street", "Street", "Id")
+			    .WithColumn("RealtorId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Realtor", "Realtor", "Id")
+			    .WithColumn("DealVariantId").AsInt32().Nullable().ForeignKey("FK_RealEstate_DealVariant", "DealVariant", "Id")
+			    .WithColumn("OwnershipId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Ownership", "DealVariant", "Id");
 
-			//Create.Table("Sewage")
-			//	.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-			//	.WithColumn("Name").AsString().NotNullable();
+		    Create.Table("Building")
+			    .WithColumn("RealEstateId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Building_RealEstate", "RealEstate", "Id").OnDelete(Rule.Cascade)
+			    .WithColumn("Floor").AsInt32().Nullable()
+			    .WithColumn("TotalFloor").AsInt32().Nullable()
+			    .WithColumn("TotalSquare").AsDecimal(19,5).Nullable()
+			    .WithColumn("MaterialId").AsInt32().Nullable().ForeignKey("FK_Building_Material", "Material", "Id");
 
-			//Create.Table("Street")
-			//	.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-			//	.WithColumn("Name").AsString().NotNullable();
+		    Create.Table("Apartment")
+			    .WithColumn("BuildingId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Apartment_Building", "Building", "RealEstateId").OnDelete(Rule.Cascade)
+			    .WithColumn("TotalRoomCount").AsInt32().Nullable()
+			    .WithColumn("LayoutId").AsInt32().Nullable().ForeignKey("FK_Apartment_Layout", "Layout", "Id")
+			    .WithColumn("TerraceId").AsInt32().Nullable().ForeignKey("FK_Apartment_Terrace", "Terrace", "Id")
+			    .WithColumn("FloorLevelId").AsInt32().Nullable().ForeignKey("FK_Apartment_FloorLevel", "FloorLevel", "Id");
 
-			//Create.Table("State")
-			//	.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-			//	.WithColumn("Name").AsString().NotNullable();
+		    Create.Table("Flat")
+				.WithColumn("ApartmentId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Flat_Apartment", "Apartment", "BuildingId").OnDelete(Rule.Cascade)
+			    .WithColumn("ResidentialSquare").AsDecimal(19,5).Nullable()
+			    .WithColumn("KitchenSquare").AsDecimal(19,5).Nullable()
+				.WithColumn("ToiletTypeId").AsInt32().Nullable().ForeignKey("FK_Flat_ToiletType", "ToiletType", "Id");
 
-			//Create.Table("RealEstate")
-			//	.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-			//	.WithColumn("IsSale").AsBoolean().Nullable()
-			//	.WithColumn("Price").AsCurrency().Nullable()
-			//	.WithColumn("AreaId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Area", "Area", "Id").OnDeleteOrUpdate(Rule.SetNull)
-			//	.WithColumn("StreetId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Street", "Street", "Id").OnDeleteOrUpdate(Rule.SetNull)
-			//	.WithColumn("Additional").AsString().Nullable();
+		    Create.Table("Plot")
+			    .WithColumn("RealEstateId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Plot_RealEstate", "RealEstate", "Id").OnDelete(Rule.Cascade)
+			    .WithColumn("PlotSquare").AsDecimal(19, 5).Nullable();
 
-			//Create.Table("Residential")
-			//	.WithColumn("RealEstateId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_Residential_RealEstate", "RealEstate", "Id")
-			//	.WithColumn("LivingSquare").AsDecimal(3, 10).Nullable()
-			//	.WithColumn("TotalSquare").AsDecimal(3, 10).Nullable()
-			//	.WithColumn("RoomsCount").AsInt32().Nullable()
-			//	.WithColumn("StateId").AsInt32().Nullable().ForeignKey("FK_Residential_State", "State", "Id").OnDeleteOrUpdate(Rule.SetNull)
-			//	.WithColumn("Number").AsString().Nullable();
+		    Create.Table("House")
+				.WithColumn("PlotId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_House_Plot", "Plot", "RealEstateId").OnDelete(Rule.Cascade)
+			    .WithColumn("TotalFloor").AsInt32().Nullable()
+			    .WithColumn("HouseSquare").AsDecimal(19, 5).Nullable()
+			    .WithColumn("HasBathhouse").AsBoolean().Nullable()
+			    .WithColumn("HasGarage").AsBoolean().Nullable()
+			    .WithColumn("HasGas").AsBoolean().Nullable()
+			    .WithColumn("WaterSupplyId").AsInt32().Nullable().ForeignKey("FK_House_WaterSupply", "WaterSupply", "Id")
+			    .WithColumn("SewageId").AsInt32().Nullable().ForeignKey("FK_House_Sewage", "Sewage", "Id")
+			    .WithColumn("MaterialId").AsInt32().Nullable().ForeignKey("FK_House_Material", "Material", "Id");
 
-			//Create.Table("Apartment")
-			//	.WithColumn("ResidentialId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_Apartment_Residential", "Residential", "RealEstateId")
-			//	.WithColumn("Floor").AsInt32().Nullable()
-			//	.WithColumn("TotalFloors").AsInt32().Nullable()
-			//	.WithColumn("LayoutId").AsInt32().Nullable().ForeignKey("FK_Apartment_Layout", "Layout", "Id").OnDeleteOrUpdate(Rule.SetNull)
-			//	.WithColumn("IsSeparateBathroom").AsBoolean().Nullable();
+		    Create.Table("Residence")
+				.WithColumn("BuildingId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Residence_Building", "Building", "RealEstateId").OnDelete(Rule.Cascade);
 
-			//Create.Table("House")
-			//	.WithColumn("ResidentialId").AsInt32().PrimaryKey().Identity().NotNullable().ForeignKey("K_House_Residential", "Residential", "RealEstateId")
-			//	.WithColumn("Floors").AsInt32().Nullable()
-			//	.WithColumn("Square").AsDecimal(3, 10).Nullable()
-			//	.WithColumn("WithGarage").AsBoolean().Nullable()
-			//	.WithColumn("ExtBuilt").AsString().Nullable()
-			//	.WithColumn("IsElectricityPresent").AsBoolean().Nullable()
-			//	.WithColumn("IsGasPresent").AsBoolean().Nullable()
-			//	.WithColumn("SewageId").AsInt32().Nullable().ForeignKey("FK_House_Sewage", "Sewage", "Id").OnDeleteOrUpdate(Rule.SetNull);
+		    Create.Table("Room")
+				.WithColumn("ApartmentId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Room_Apartment", "Apartment", "BuildingId").OnDelete(Rule.Cascade)
+			    .WithColumn("RoomCount").AsInt32().Nullable();
 	    }
+
+		private void CreateDictionaryTable(string tableName)
+		{
+			Create.Table(tableName)
+				.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+				.WithColumn("Name").AsString().NotNullable();
+		}
 
 	    public override void Down()
 	    {
-			//Delete.Table("House");
-			//Delete.Table("Apartment");
-			//Delete.Table("Residential");
-			//Delete.Table("RealEstate");
-			//Delete.Table("State");
-			//Delete.Table("Street");
-			//Delete.Table("Sewage");
-			//Delete.Table("Layout");
-			//Delete.Table("Area");
-	    }
+		    Delete.Table("Room");
+			Delete.Table("Residence");
+			Delete.Table("House");
+			Delete.Table("Plot");
+			Delete.Table("Flat");
+			Delete.Table("Apartment");
+			Delete.Table("Building");
+			Delete.Table("RealEstate");
+
+			Delete.Table("DealVariant");
+			Delete.Table("District");
+			Delete.Table("FloorLevel");
+			Delete.Table("Layout");
+			Delete.Table("Material");
+			Delete.Table("Ownership");
+			Delete.Table("Realtor");
+			Delete.Table("RealtorAgency");
+			Delete.Table("Sewage");
+			Delete.Table("Street");
+			Delete.Table("Terrace");
+			Delete.Table("ToiletType");
+			Delete.Table("WaterSupply");
+		}
     }
 }
