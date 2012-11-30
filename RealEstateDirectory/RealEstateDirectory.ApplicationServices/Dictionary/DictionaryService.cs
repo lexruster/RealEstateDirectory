@@ -94,10 +94,11 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             }
         }
 
-        public virtual bool IsPossibilityToDelete(T entity)
+		public virtual ValidationResult IsPossibilityToDelete(T entity)
         {
+			var result = new ValidationResult();
             //Пока удалять можно все
-            return true;
+			return result;
         }
 
         protected bool IsNameUniquenessInner(T entity, int id=0)

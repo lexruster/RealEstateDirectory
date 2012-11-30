@@ -45,7 +45,7 @@ namespace RealEstateDirectory.AbstractApplicationServices
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        bool IsPossibilityToDelete(T entity);
+		ValidationResult IsPossibilityToDelete(T entity);
 
         void StartSession();
         void StopSession();

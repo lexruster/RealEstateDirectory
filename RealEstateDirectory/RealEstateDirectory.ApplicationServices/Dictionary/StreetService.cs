@@ -30,9 +30,15 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
         #region ћетоды
 
-        public override bool IsPossibilityToDelete(Street entity)
+		public override ValidationResult IsPossibilityToDelete(Street entity)
         {
-            return Repository.IsPossibleToDeleteStreet(entity);
+			var result = new ValidationResult();
+			if (!Repository.IsPossibleToDeleteStreet(entity))
+			{
+				result.FailValidation("Ёлемент уже используетс€ в системе");
+			}
+
+			return result;
         }
 
         public override ValidationResult IsValid(Street entity, int id = 0)
@@ -53,7 +59,23 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             return result;
         }
 
-        /// <summary>
+		public override void Save(Street entity)
+		{
+			using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
+			{
+				if (entity.Id == 0)
+				{
+					var distict = entity.District;
+					distict.Streets.Add(entity);
+					Repository.SaveOrUpdate(distict);
+				}
+				Repository.SaveOrUpdate(entity);
+
+				transaction.Commit();
+			}
+		}
+
+	    /// <summary>
         /// ”далить сущность
         /// </summary>
         /// <param name="entity"></param>

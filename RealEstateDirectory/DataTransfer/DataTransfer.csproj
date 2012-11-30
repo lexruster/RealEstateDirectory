@@ -42,9 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -83,10 +81,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
-      <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
-      <Name>RealEstateDirectory.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Domain.Data\RealEstateDirectory.Domain.Data.csproj">
       <Project>{dbbce386-9154-4588-9a61-07f924c651cb}</Project>
       <Name>RealEstateDirectory.Domain.Data</Name>
@@ -94,10 +88,6 @@
     <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
       <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
       <Name>RealEstateDirectory.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RealEstateDirectory.Infrastructure.NHibernate\RealEstateDirectory.Infrastructure.NHibernate.csproj">
-      <Project>{b705b080-4c52-43b3-b880-7c175eac660f}</Project>
-      <Name>RealEstateDirectory.Infrastructure.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
       <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>

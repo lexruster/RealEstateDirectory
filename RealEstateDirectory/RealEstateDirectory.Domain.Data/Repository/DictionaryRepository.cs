@@ -26,8 +26,8 @@ namespace RealEstateDirectory.Domain.Data.Repository
 
         public bool IsPossibleToDeleteDistrict(District entity)
         {
-            return (CurrentSession.Query<RealEstate>().Count(x => x.District == entity) == 0) &&
-                   (CurrentSession.Query<Street>().Count(x => x.District == entity) == 0);
+	        return CurrentSession.Query<RealEstate>().Count(x => x.District == entity) == 0;
+	        //&&(CurrentSession.Query<Street>().Count(x => x.District == entity) == 0);
         }
 
         public bool IsPossibleToDeleteWaterSupply(WaterSupply entity)

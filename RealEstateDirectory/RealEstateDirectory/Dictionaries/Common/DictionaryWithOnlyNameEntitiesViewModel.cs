@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.Services;
@@ -63,7 +64,12 @@ namespace RealEstateDirectory.Dictionaries.Common
 		protected override bool IsCanRemove(TEntityViewModel entityViewModel, out string errorText)
 		{
 			errorText = null;
-			return _DictionaryService.IsPossibilityToDelete(entityViewModel.DbEntity);
+			ValidationResult validation = _DictionaryService.IsPossibilityToDelete(entityViewModel.DbEntity);
+			if (!validation.IsValid)
+			{
+				errorText = validation.GetReasons();
+			}
+			return validation.IsValid;
 		}
 
 		protected override void RemoveEntityFromDatabase(TEntity entity)
