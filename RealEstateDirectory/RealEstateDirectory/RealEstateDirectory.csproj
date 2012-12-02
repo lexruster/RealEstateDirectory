@@ -81,9 +81,6 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
-    <Reference Include="Xceed.Wpf.DataGrid">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-    </Reference>
     <Reference Include="NotifyPropertyWeaver">
       <HintPath>$(SolutionDir)..\Dependencies\NotifyPropertyWeaver\NotifyPropertyWeaver.dll</HintPath>
     </Reference>

@@ -1,0 +1,18 @@
+Copyright © 2010-2012 VgrSoft
+
+End-user License Agreement for the ILProtector v1.0.6 
+
+This End-User License Agreement ("EULA") is a legal agreement between you (a developer of software applications) and VgrSoft for the ILProtector software ("SOFTWARE") contained in this installation file.
+
+1. GRANT OF LICENSE. You are granted a right to install the SOFTWARE and use it in order to process your own software with the SOFTWARE. You are permitted to protect and redistribute any number of non-commercial or commercial software you develop.
+
+2. RESTRICTIONS. You may not reverse engineer, decompile, create derivative works, or disassemble the SOFTWARE. You may not rent, lease, or lend the SOFTWARE.
+
+3. DISCLAIMER OF WARRANTY. VgrSoft expressly disclaims any warranty for the SOFTWARE. The SOFTWARE and any related documentation is provided "as is" without warranty of any kind, either express or implied, including, without limitation, the implied warranties of merchantability, fitness for a particular purpose, or noninfringement. The entire risk arising out of use or performance of the SOFTWARE remains with you.
+
+4. LIMITATIONS ON LIABILITY. In no event shall VgrSoft be liable to you for any consequential, special, incidental, or indirect damages of any kind arising out of the delivery, performance, or use of the SOFTWARE, even if VgrSoft has been advised of the possibility of such damages.
+
+Credits
+
+Mono.Cecil by Jb Evain [http://www.mono-project.com/Cecil]
+Some icons by Yusuke Kamiyamane [http://p.yusukekamiyamane.com]
