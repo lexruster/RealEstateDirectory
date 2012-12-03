@@ -83,6 +83,10 @@
       <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
       <Name>RealEstateDirectory.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Utils\RealEstateDirectory.Utils.csproj">
+      <Project>{1e000376-2cf4-4bfd-a266-414d0b93536e}</Project>
+      <Name>RealEstateDirectory.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,21 +11,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace RealEstateDirectory.Shell
+namespace RealEstateDirectory.Misc
 {
 	/// <summary>
-	/// Interaction logic for ShellView.xaml
+	/// Interaction logic for About.xaml
 	/// </summary>
-	public partial class ShellView : Window
+	public partial class About : Window
 	{
-		public ShellView()
+		public About()
 		{
 			InitializeComponent();
-
-			Closing += (sender, args) =>
-				{
-					Application.Current.Shutdown();
-				};
 		}
 	}
 }

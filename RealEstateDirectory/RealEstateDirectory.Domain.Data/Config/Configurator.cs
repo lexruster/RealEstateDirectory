@@ -26,7 +26,8 @@ namespace RealEstateDirectory.Domain.Data.Config
 						//c.UseMinimalPuts = true;
 					});
 
-			cfg.DataBaseIntegration(properties => properties.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnectionString"].ToString());
+			Utils.Config.Load();
+			cfg.DataBaseIntegration(properties => properties.ConnectionString = Utils.Config.GetProperty("DefaultConnectionString"));
 
 			InitProperties(cfg);
 

@@ -51,6 +51,7 @@ namespace RealEstateDirectory.Shell
 			TerraceDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<TerraceDictionaryViewModel>());
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
+			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog()); 
 
 			FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
 			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
@@ -83,6 +84,7 @@ namespace RealEstateDirectory.Shell
 		public ICommand TerraceDictionaryCommand { get; private set; }
 		public ICommand ToiletTypeDictionaryCommand { get; private set; }
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
+		public ICommand AboutCommand { get; private set; }
 
 		public FlatListViewModel FlatsDataContext { get; private set; }
 		public RoomListViewModel RoomsDataContext { get; private set; }

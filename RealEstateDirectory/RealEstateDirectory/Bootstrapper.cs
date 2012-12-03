@@ -7,6 +7,7 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices;
 using RealEstateDirectory.ApplicationServices.Dictionary;
+using RealEstateDirectory.Config;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;

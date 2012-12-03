@@ -25,6 +25,7 @@ using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Room;
+using RealEstateDirectory.Misc;
 
 namespace RealEstateDirectory.Services
 {
@@ -227,5 +228,11 @@ namespace RealEstateDirectory.Services
                 view.Close();
             }
         }
+
+	    public void OpenAboutDialog()
+	    {
+			var newView = new About();
+			newView.ShowDialog();
+	    }
     }
 }
