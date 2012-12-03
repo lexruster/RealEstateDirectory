@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -37,6 +39,8 @@ namespace RealEstateDirectory.Shell
 	[NotifyForAll]
 	public class ShellViewModel : NotificationObject
 	{
+		private DispatcherTimer _timer;
+
 		public ShellViewModel(IViewsService viewsService, IServiceLocator serviceLocator)
 		{
 			_ViewsService = viewsService;
@@ -65,16 +69,18 @@ namespace RealEstateDirectory.Shell
 			PlotsDataContext = _ServiceLocator.GetInstance<PlotListViewModel>();
 			HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();
 			ResidenceDataContext = _ServiceLocator.GetInstance<ResidenceListViewModel>();
-			
-			var timer = new DispatcherTimer();
-			timer.Tick += timerTick;
-			timer.Interval = new TimeSpan(0, 0, 5);
-			timer.Start();
+
+			_timer = new DispatcherTimer();
+			_timer.Tick += timerTick;
+			_timer.Interval = new TimeSpan(0, 0, 5);
+			_timer.Start();
 		}
 
 		private void timerTick(object sender, EventArgs e)
 		{
-			CheckUpdates();
+			_timer.Stop();
+			var thread = new Thread(CheckUpdates);
+			thread.Start();
 		}
 
 		#region Infrastructure
@@ -116,7 +122,6 @@ namespace RealEstateDirectory.Shell
 			try
 			{
 				var webRequest = new HTTP();
-
 				var remoteVersion = webRequest.ReadFromServer(ConfigurationManager.AppSettings["GetVersionUrl"], 10000);
 				var localVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -130,6 +135,11 @@ namespace RealEstateDirectory.Shell
 					                               buttons: MessageBoxButton.OKCancel) == MessageBoxResult.OK)
 					{
 						Process.Start(ConfigurationManager.AppSettings["UpdateUrl"]);
+					}
+					else
+					{
+						_timer.Interval = new TimeSpan(0, 10, 0);
+						_timer.Start();
 					}
 				}
 			}
