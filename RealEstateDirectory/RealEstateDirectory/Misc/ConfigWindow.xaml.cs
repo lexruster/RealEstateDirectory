@@ -30,7 +30,7 @@ namespace RealEstateDirectory.Misc
 			this.Close();
 		}
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
+		private void WindowLoaded(object sender, RoutedEventArgs e)
 		{
 			Utils.Config.Load();
 			var prop = Utils.Config.GetProperty("DefaultConnectionString");
