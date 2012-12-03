@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Configuration;
+using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RealEstateDirectory.Misc
 {
@@ -21,6 +14,22 @@ namespace RealEstateDirectory.Misc
 		public About()
 		{
 			InitializeComponent();
+			GetAsemblyInfo();
+		}
+
+		public void GetAsemblyInfo()
+		{
+			Assembly app = Assembly.GetExecutingAssembly();
+			Version version = app.GetName().Version;
+			txtVersion.Text = String.Format("Версия {0}", version);
+			hlUpdate.NavigateUri = new Uri(ConfigurationManager.AppSettings["UpdateUrl"]);
+		}
+
+		private void Hyperlink_RequestNavigate
+			(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+		{
+			Process.Start(e.Uri.ToString());
 		}
 	}
 }
+	

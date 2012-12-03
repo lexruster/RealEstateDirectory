@@ -39,6 +39,7 @@
 
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе" Command="{Binding AboutCommand}" />
+                <MenuItem Header="Проверить обновления" Command="{Binding CheckUpdatesCommand}" />
             </MenuItem>
         </Menu>
         <DockPanel Grid.Row="1">
