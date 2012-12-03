@@ -62,7 +62,7 @@ namespace RealEstateDirectory.Shell
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
 			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog());
-			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates());
+			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates(true));
 			ConfigCommand=new DelegateCommand(() => _ViewsService.OpenConfigDialog());
 
 			FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
@@ -80,7 +80,7 @@ namespace RealEstateDirectory.Shell
 		private void timerTick(object sender, EventArgs e)
 		{
 			_timer.Stop();
-			var thread = new Thread(CheckUpdates);
+			var thread = new Thread(CheckUpdatesOnTimer);
 			thread.Start();
 		}
 
@@ -118,7 +118,12 @@ namespace RealEstateDirectory.Shell
 		public HouseListViewModel HousesDataContext { get; private set; }
 		public ResidenceListViewModel ResidenceDataContext { get; private set; }
 
-		public void CheckUpdates()
+		public void CheckUpdatesOnTimer()
+		{
+			CheckUpdates(false);
+		}
+
+		public void CheckUpdates(bool showSucces)
 		{
 			var messageService = _ServiceLocator.GetInstance<IMessageService>();
 			try
@@ -138,17 +143,26 @@ namespace RealEstateDirectory.Shell
 					{
 						Process.Start(ConfigurationManager.AppSettings["UpdateUrl"]);
 					}
-					else
+				}
+				else
+				{
+					if (showSucces)
 					{
-						_timer.Interval = new TimeSpan(0, 10, 0);
-						_timer.Start();
+						messageService.ShowMessage("Вы используете самую последнюю версию.", "Программа обновлена",
+						                           image: MessageBoxImage.Information);
 					}
 				}
 			}
 			catch (Exception)
 			{
-				messageService.ShowMessage("Ошибка определения наличия обновлений.", "Ошибка", image: MessageBoxImage.Error);
+				if (showSucces)
+				{
+					messageService.ShowMessage("Ошибка определения наличия обновлений.", "Ошибка", image: MessageBoxImage.Error);
+				}
 			}
+
+			_timer.Interval = new TimeSpan(0, 30, 0);
+			_timer.Start();
 		}
 	}
 }
