@@ -7,7 +7,6 @@ using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices;
 using RealEstateDirectory.ApplicationServices.Dictionary;
-using RealEstateDirectory.Config;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
@@ -32,6 +31,7 @@ using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Residence;
 using RealEstateDirectory.MainFormTabs.Room;
+using RealEstateDirectory.Misc;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Shell;
 using Environment = System.Environment;
@@ -59,39 +59,44 @@ namespace RealEstateDirectory
 			return Container.Resolve<ShellView>();
 		}
 
-        protected override void InitializeShell()
-        {
-            base.InitializeShell();
-            try
-            {
-                ((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
-            }
-            catch (Exception e)
-            {
-                MessageService ms = new MessageService();
-                var error = e.Message;
-                if (e.InnerException != null)
-                {
-                    error += Environment.NewLine + e.InnerException.Message;
-                    if (e.InnerException.InnerException != null)
-                    {
-                        error += Environment.NewLine + e.InnerException.InnerException.Message;
-                        if (e.InnerException.InnerException.InnerException != null)
-                        {
-                            error += Environment.NewLine + e.InnerException.InnerException.InnerException.Message;
-                            if (e.InnerException.InnerException.InnerException.InnerException != null)
-                            {
-                                error += Environment.NewLine +
-                                         e.InnerException.InnerException.InnerException.InnerException.Message;
-                            }
-                        }
-                    }
-                }
-                ms.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
-            }
+		protected override void InitializeShell()
+		{
+			base.InitializeShell();
+			try
+			{
+				((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
+			}
+			catch (Exception e)
+			{
+				MessageService ms = new MessageService();
+				var error = e.Message;
+				if (e.InnerException != null)
+				{
+					error += Environment.NewLine + e.InnerException.Message;
+					if (e.InnerException.InnerException != null)
+					{
+						error += Environment.NewLine + e.InnerException.InnerException.Message;
+						if (e.InnerException.InnerException.InnerException != null)
+						{
+							error += Environment.NewLine + e.InnerException.InnerException.InnerException.Message;
+							if (e.InnerException.InnerException.InnerException.InnerException != null)
+							{
+								error += Environment.NewLine +
+								         e.InnerException.InnerException.InnerException.InnerException.Message;
+							}
+						}
+					}
+				}
+				ms.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
 
-            Application.Current.MainWindow = (Window) Shell;
-        }
+				var configWindow = new ConfigWindow();
+				var result = configWindow.ShowDialog();
+				Application.Current.Shutdown();
+				return;
+			}
+
+			Application.Current.MainWindow = (Window) Shell;
+		}
 
 		public override void Run(bool runWithDefaultConfiguration)
 		{
@@ -133,7 +138,7 @@ namespace RealEstateDirectory
 			Container.RegisterType<IViewsService, ViewsService>();
 			Container.RegisterType<IMessageService, MessageService>();
 
-            Container.RegisterType<IExcelService, ExcelService>();
+			Container.RegisterType<IExcelService, ExcelService>();
 		}
 
 		private void RegisterViewModels()
@@ -151,10 +156,10 @@ namespace RealEstateDirectory
 			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
-            Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
-            Container.RegisterType<FlatListViewModel>(new InjectionMethod("Initialize"));
-            Container.RegisterType<PlotListViewModel>(new InjectionMethod("Initialize"));
-            Container.RegisterType<HouseListViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<FlatListViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<PlotListViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<HouseListViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<ResidenceListViewModel>(new InjectionMethod("Initialize"));
 		}
 	}

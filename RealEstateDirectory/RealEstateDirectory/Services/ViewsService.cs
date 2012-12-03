@@ -234,5 +234,11 @@ namespace RealEstateDirectory.Services
 			var newView = new About();
 			newView.ShowDialog();
 	    }
+
+	    public void OpenConfigDialog()
+	    {
+			var newView = new ConfigWindow();
+			newView.ShowDialog();
+	    }
     }
 }

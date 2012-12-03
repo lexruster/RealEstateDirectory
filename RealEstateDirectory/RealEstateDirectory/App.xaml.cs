@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows;
-using RealEstateDirectory.Config;
+using RealEstateDirectory.Misc;
 
 namespace RealEstateDirectory
 {

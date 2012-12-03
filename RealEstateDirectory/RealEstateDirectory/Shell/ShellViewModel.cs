@@ -63,6 +63,7 @@ namespace RealEstateDirectory.Shell
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
 			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog());
 			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates());
+			ConfigCommand=new DelegateCommand(() => _ViewsService.OpenConfigDialog());
 
 			FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
 			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
@@ -109,6 +110,7 @@ namespace RealEstateDirectory.Shell
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
 		public ICommand AboutCommand { get; private set; }
 		public ICommand CheckUpdatesCommand { get; private set; }
+		public ICommand ConfigCommand { get; private set; }
 
 		public FlatListViewModel FlatsDataContext { get; private set; }
 		public RoomListViewModel RoomsDataContext { get; private set; }

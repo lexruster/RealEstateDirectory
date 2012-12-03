@@ -18,6 +18,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Файл">
+                <MenuItem Header="Настройки соединения" Command="{Binding ConfigCommand}" />
                 <MenuItem Header="Выход" Command="{Binding ExitCommand}" />
             </MenuItem>
 

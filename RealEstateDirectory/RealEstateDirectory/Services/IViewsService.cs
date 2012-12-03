@@ -28,5 +28,6 @@ namespace RealEstateDirectory.Services
         void CloseHouseDialog();
 
 		void OpenAboutDialog();
+		void OpenConfigDialog();
 	}
 }
