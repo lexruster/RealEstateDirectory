@@ -16,7 +16,7 @@
         <TextBlock Style="{StaticResource TextBlock}" Text="Логин:" ></TextBlock>
         <TextBox Margin="3" HorizontalAlignment="Stretch" Text="nhibernate" Name="txtLogin"/>
         <TextBlock Style="{StaticResource TextBlock}" Text="Пароль:" ></TextBlock>
-        <TextBox Margin="3" HorizontalAlignment="Stretch" Text="nhibernate" Name="txtPassword"/>
+        <PasswordBox PasswordChar="*" Margin="3" HorizontalAlignment="Stretch" Password="nhibernate" Name="txtPassword"/>
 
         <Button  Content="Сохранить" Click="Save" Margin="5"/>
         <Button  Content="Выйти" Click="ExitClick" Margin="5"/>

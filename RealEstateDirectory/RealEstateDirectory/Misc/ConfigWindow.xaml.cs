@@ -18,7 +18,7 @@ namespace RealEstateDirectory.Misc
 			Utils.Config.Load();
 			Utils.Config.AddProperty("DefaultConnectionString",
 			                         String.Format("Server={0};Port={1};Database={2};UserId={3};Password={4}", txtIp.Text,
-			                                       txtPort.Text, txtBD.Text, txtLogin.Text, txtPassword.Text));
+												   txtPort.Text, txtBD.Text, txtLogin.Text, txtPassword.Password));
 			Utils.Config.Save();
 
 			DialogResult = true;
@@ -43,7 +43,7 @@ namespace RealEstateDirectory.Misc
 					txtPort.Text = data[1].Replace("Port=", "");
 					txtBD.Text = data[2].Replace("Database=", "");
 					txtLogin.Text = data[3].Replace("UserId=", "");
-					txtPassword.Text = data[4].Replace("Password=", "");
+					txtPassword.Password = data[4].Replace("Password=", "");
 				}
 				catch (Exception)
 				{
