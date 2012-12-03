@@ -15,11 +15,11 @@ AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-LicenseFile=D:\Document\BUISNES\Coding\RealEstateDirectory\Deploy\License.txt
-OutputDir=D:\Document\BUISNES\Coding\RealEstateDirectory\Deploy\Instal
+LicenseFile=License.txt
+OutputDir=Instal
 ;OutputDir=Deploy\Instal
 OutputBaseFilename=setup
-SetupIconFile=D:\Document\BUISNES\Coding\RealEstateDirectory\RealEstateDirectory\RealEstateDirectory\Resources\Img\favicon.ico
+SetupIconFile=Misc\favicon.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -30,8 +30,8 @@ Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Document\BUISNES\Coding\RealEstateDirectory\RealEstateDirectory\RealEstateDirectory\bin\Release\RealEstateDirectory.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Document\BUISNES\Coding\RealEstateDirectory\Deploy\Obfuscated\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "Obfuscated\RealEstateDirectory.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Obfuscated\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
