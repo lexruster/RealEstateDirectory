@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using FluentMigrator;
 
 namespace RealEstateDirectory.Migrations
@@ -25,7 +26,7 @@ namespace RealEstateDirectory.Migrations
 		    Create.Table("RealEstate")
 			    .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
 			    .WithColumn("TerritorialNumber").AsString().Nullable()
-			    .WithColumn("Description").AsString().Nullable()
+			    .WithColumn("Description").AsString(Int32.MaxValue).Nullable()
 			    .WithColumn("HasVideo").AsBoolean().NotNullable()
 			    .WithColumn("SubmitToVDV").AsBoolean().NotNullable()
 			    .WithColumn("SubmitToDomino").AsBoolean().NotNullable()
@@ -84,7 +85,7 @@ namespace RealEstateDirectory.Migrations
 		{
 			Create.Table(tableName)
 				.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-				.WithColumn("Name").AsString().NotNullable();
+				.WithColumn("Name").AsString(2000).Unique("IX_" + tableName + "_Name").NotNullable();
 		}
 
 	    public override void Down()
