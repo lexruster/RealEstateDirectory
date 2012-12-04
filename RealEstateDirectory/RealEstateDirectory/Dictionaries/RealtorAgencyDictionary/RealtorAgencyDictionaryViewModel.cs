@@ -102,7 +102,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 							_MessageService.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
 						}
 					}
-					
+
 					ButtonUpdate();
 				}, CanOk);
 
@@ -122,7 +122,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 					ButtonUpdate();
 				}, CanCancel);
 
-			SelectAndChangeCommand=new DelegateCommand(()=>
+			SelectAndChangeCommand = new DelegateCommand(() =>
 				{
 					UpdateSelectedRealtorAgency();
 					UpdateState(State.Edit);
@@ -146,23 +146,27 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		public string Contacts { get; set; }
 		public string Address { get; set; }
 		public RealtorAgencyViewModel SelectedRealtorAgency { get; set; }
-		
+
 		/// <summary>
 		/// Текстовое представление состояний формы
 		/// </summary>
 		public string StateStr { get; set; }
+
 		/// <summary>
 		/// Форма в режиме чтения, грид активен, поля ввода не активны
 		/// </summary>
 		public bool ReadOnly { get; set; }
+
 		/// <summary>
 		/// Поля ввода автивны
 		/// </summary>
 		public bool Enabled { get; set; }
+
 		/// <summary>
 		/// Видимост секции управления коллекцией
 		/// </summary>
 		public Visibility CollectionChangeSectionVisibility { get; set; }
+
 		/// <summary>
 		/// Видимость секции редактирования
 		/// </summary>
@@ -171,7 +175,7 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		#endregion
 
 		#region Свойства
-		
+
 		/// <summary>
 		/// Текущее состояние формы
 		/// </summary>
@@ -199,8 +203,8 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 					StateStr = "Просмотр";
 					ReadOnly = true;
 					Enabled = false;
-					EditSectionVisibility=Visibility.Hidden;
-					CollectionChangeSectionVisibility=Visibility.Visible;
+					EditSectionVisibility = Visibility.Hidden;
+					CollectionChangeSectionVisibility = Visibility.Visible;
 					break;
 
 				case State.Add:

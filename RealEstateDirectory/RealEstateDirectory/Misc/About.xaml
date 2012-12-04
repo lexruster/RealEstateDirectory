@@ -1,0 +1,17 @@
+﻿<Window x:Class="RealEstateDirectory.Misc.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="О программе" Height="241" Width="326" WindowStyle="ToolWindow" ResizeMode="NoResize">
+    <Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
+        <StackPanel>
+            <TextBlock Style="{StaticResource TextBlock}" Text="Справочник недвижимости" Margin="5" ></TextBlock>
+            <TextBlock  Name="txtVersion" Margin="5"/>
+            <TextBlock TextWrapping="Wrap"  Margin="5" Text="Справочник недвижимости - программное обеспечение (ПО), для ведения баз недвижимости."></TextBlock>
+            <TextBlock TextWrapping="Wrap"  Margin="5" Text="По вопросам работы с ПО обращаться: lexruster@gmail.com"/>
+            <TextBlock Margin="5">
+            <Hyperlink Name="hlUpdate" NavigateUri="https://www.googledrive.com/host/0BzCV5A4NusB1WmQ4ZE9KbEwxdFk/setup.exe" 
+                        RequestNavigate="Hyperlink_RequestNavigate">Скачать последнюю версию</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Border>
+</Window> 

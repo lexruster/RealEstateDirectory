@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Reflection;
 using NHibernate.Cfg;
 using NHibernate.Context;
@@ -7,6 +8,7 @@ using NHibernate.Mapping.ByCode.Impl;
 using RealEstateDirectory.Domain.Data.Mapping;
 using RealEstateDirectory.Domain.Data.Mapping.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
+using Configuration = NHibernate.Cfg.Configuration;
 
 namespace RealEstateDirectory.Domain.Data.Config
 {
@@ -23,6 +25,9 @@ namespace RealEstateDirectory.Domain.Data.Config
 						//c.UseQueryCache = true;
 						//c.UseMinimalPuts = true;
 					});
+
+			Utils.Config.Load();
+			cfg.DataBaseIntegration(properties => properties.ConnectionString = Utils.Config.GetProperty("DefaultConnectionString"));
 
 			InitProperties(cfg);
 

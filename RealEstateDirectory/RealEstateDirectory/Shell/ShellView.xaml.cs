@@ -22,7 +22,10 @@ namespace RealEstateDirectory.Shell
 		{
 			InitializeComponent();
 
-			Closing += (sender, args) => Application.Current.Shutdown();
+			Closing += (sender, args) =>
+				{
+					Application.Current.Shutdown();
+				};
 		}
 	}
 }

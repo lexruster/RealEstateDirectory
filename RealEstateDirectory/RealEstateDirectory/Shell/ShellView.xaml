@@ -18,6 +18,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Файл">
+                <MenuItem Header="Настройки соединения" Command="{Binding ConfigCommand}" />
                 <MenuItem Header="Выход" Command="{Binding ExitCommand}" />
             </MenuItem>
 
@@ -35,6 +36,11 @@
                 <MenuItem Header="Тип балкона" Command="{Binding TerraceDictionaryCommand}" />
                 <MenuItem Header="Сан. узел" Command="{Binding ToiletTypeDictionaryCommand}" />
                 <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
+            </MenuItem>
+
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе" Command="{Binding AboutCommand}" />
+                <MenuItem Header="Проверить обновления" Command="{Binding CheckUpdatesCommand}" />
             </MenuItem>
         </Menu>
         <DockPanel Grid.Row="1">

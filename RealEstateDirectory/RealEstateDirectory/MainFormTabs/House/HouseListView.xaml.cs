@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using RealEstateDirectory.Services;
-using Xceed.Wpf.DataGrid;
 
 namespace RealEstateDirectory.MainFormTabs.House
 {
