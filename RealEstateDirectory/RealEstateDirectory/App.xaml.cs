@@ -43,7 +43,7 @@ namespace RealEstateDirectory
 		{
 			var context = new RunnerContext(new NullAnnouncer())
 				{
-					Database = "postgresql",
+					Database = "postgres",
 					Connection = Utils.Config.GetProperty("DefaultConnectionString"),
 					Target = Assembly.GetAssembly(typeof (MigrationsBeacon)).Location,
 					PreviewOnly = false,
