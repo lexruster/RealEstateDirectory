@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <ProductVersion>1.0.6</ProductVersion>
+    <ProjectGuid>{6CC29976-5D14-4011-813E-84C1C66176BA}</ProjectGuid>
+    <OutputPath>Obfuscated\</OutputPath>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyKeyFile />
+    <VerifyAssembly>true</VerifyAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Protect Include="Bin\RealEstateDirectory.AbstractApplicationServices.dll" />
+    <Protect Include="Bin\RealEstateDirectory.ApplicationServices.dll" />
+    <Protect Include="Bin\RealEstateDirectory.DataAccess.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Domain.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Domain.Data.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Infrastructure.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Infrastructure.NHibernate.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Migrations.dll" />
+    <Protect Include="Bin\RealEstateDirectory.exe" />
+  </ItemGroup>
+</Project>

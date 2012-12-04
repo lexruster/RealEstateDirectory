@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DBBCE386-9154-4588-9A61-07F924C651CB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RealEstateDirectory.Domain.Data</RootNamespace>
+    <AssemblyName>RealEstateDirectory.Domain.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\Dependencies\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\Configurator.cs" />
+    <Compile Include="Config\PostgresNamingStrategy.cs" />
+    <Compile Include="Mapping\ApartmentMap.cs" />
+    <Compile Include="Mapping\Dictionaries\RealtorAgencyMap.cs" />
+    <Compile Include="Mapping\Dictionaries\FloorLevelMap.cs" />
+    <Compile Include="Mapping\Dictionaries\SewageMap.cs" />
+    <Compile Include="Mapping\Dictionaries\OwnershipMap.cs" />
+    <Compile Include="Mapping\Dictionaries\WaterSupplyMap.cs" />
+    <Compile Include="Mapping\FlatMap.cs" />
+    <Compile Include="Mapping\HouseMap.cs" />
+    <Compile Include="Mapping\PlotMap.cs" />
+    <Compile Include="Mapping\ResidenceMap.cs" />
+    <Compile Include="Mapping\RoomMap.cs" />
+    <Compile Include="Mapping\Dictionaries\LayoutMap.cs" />
+    <Compile Include="Mapping\Dictionaries\MaterialMap.cs" />
+    <Compile Include="Mapping\Dictionaries\RealtorMap.cs" />
+    <Compile Include="Mapping\Dictionaries\StreetMap.cs" />
+    <Compile Include="Mapping\Dictionaries\TerraceMap.cs" />
+    <Compile Include="Mapping\Dictionaries\ToiletTypeMap.cs" />
+    <Compile Include="Mapping\Dictionaries\DealVariantMap.cs" />
+    <Compile Include="Mapping\Dictionaries\DistrictMap.cs" />
+    <Compile Include="Mapping\RealEstateMap.cs" />
+    <Compile Include="Mapping\BuildingMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\RealEstateRepository.cs" />
+    <Compile Include="Repository\DictionaryRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RealEstateDirectory.DataAccess\RealEstateDirectory.DataAccess.csproj">
+      <Project>{f20b25cc-e85b-4688-a54d-d5826631d063}</Project>
+      <Name>RealEstateDirectory.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Domain\RealEstateDirectory.Domain.csproj">
+      <Project>{22be708c-1bf3-4a52-963b-f397ae709792}</Project>
+      <Name>RealEstateDirectory.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure.NHibernate\RealEstateDirectory.Infrastructure.NHibernate.csproj">
+      <Project>{b705b080-4c52-43b3-b880-7c175eac660f}</Project>
+      <Name>RealEstateDirectory.Infrastructure.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
+      <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
+      <Name>RealEstateDirectory.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Utils\RealEstateDirectory.Utils.csproj">
+      <Project>{1e000376-2cf4-4bfd-a266-414d0b93536e}</Project>
+      <Name>RealEstateDirectory.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
