@@ -96,6 +96,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -239,11 +240,13 @@
     <Compile Include="MainFormTabs\Room\RoomListViewModel.cs" />
     <Compile Include="Services\BoolToVisible.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
-    <Compile Include="Services\WordService.cs" />
-    <Compile Include="Services\IWordService.cs" />
+    <Compile Include="Services\Export\DataExportService.cs" />
+    <Compile Include="Services\Export\ExcelService.cs" />
+    <Compile Include="Services\Export\IDataExportService.cs" />
+    <Compile Include="Services\Export\IExcelService.cs" />
+    <Compile Include="Services\Export\IWordService.cs" />
+    <Compile Include="Services\Export\WordService.cs" />
     <Compile Include="Services\EnhancedObservableCollection.cs" />
-    <Compile Include="Services\ExcelService.cs" />
-    <Compile Include="Services\IExcelService.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IViewsService.cs" />
     <Compile Include="Services\MessageService.cs" />
@@ -437,6 +440,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Img\WORD.png" />
     <Resource Include="Resources\Img\EXCEL.png" />
     <Resource Include="Resources\Img\favicon.png" />
     <Resource Include="favicon.ico" />

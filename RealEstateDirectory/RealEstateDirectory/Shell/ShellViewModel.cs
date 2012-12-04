@@ -87,7 +87,6 @@ namespace RealEstateDirectory.Shell
 		#region Infrastructure
 
 		private readonly IViewsService _ViewsService;
-
 		private readonly IServiceLocator _ServiceLocator;
 
 		#endregion

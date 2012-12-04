@@ -54,10 +54,14 @@
                     <TextBlock Margin="10,0,0,0">Обновить</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Margin="5" Width="70" Click="ExportToExcel" >
+            <Button Margin="5" Width="40" Click="ExportToExcel" ToolTip="Экспортировать в Excel">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Img/EXCEL.png" />
-                    <TextBlock Margin="10,0,0,0">Excel</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Width="40" Click="ExportToRTF" ToolTip="Экспортировать в Word">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/Img/WORD.png" />
                 </StackPanel>
             </Button>
         </StackPanel>
