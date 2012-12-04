@@ -16,6 +16,7 @@
     <Protect Include="Bin\RealEstateDirectory.Domain.Data.dll" />
     <Protect Include="Bin\RealEstateDirectory.Infrastructure.dll" />
     <Protect Include="Bin\RealEstateDirectory.Infrastructure.NHibernate.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Migrations.dll" />
     <Protect Include="Bin\RealEstateDirectory.exe" />
   </ItemGroup>
 </Project>
