@@ -35,10 +35,12 @@
     <Reference Include="FluentMigrator">
       <HintPath>..\..\Dependencies\FluentMigrator\FluentMigrator.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migration1.cs" />
+    <Compile Include="MigrationsBeacon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

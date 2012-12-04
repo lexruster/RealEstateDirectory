@@ -53,6 +53,9 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentMigrator.Runner">
+      <HintPath>..\..\Dependencies\FluentMigrator\FluentMigrator.Runner.dll</HintPath>
+    </Reference>
     <Reference Include="HibernatingRhinos.Profiler.Appender">
       <HintPath>..\..\Dependencies\HibernatingRhinos.Profiler\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
@@ -418,6 +421,10 @@
     <ProjectReference Include="..\RealEstateDirectory.Infrastructure\RealEstateDirectory.Infrastructure.csproj">
       <Project>{ad6e8321-c385-4483-9ff1-03b88abf8ae6}</Project>
       <Name>RealEstateDirectory.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealEstateDirectory.Migrations\RealEstateDirectory.Migrations.csproj">
+      <Project>{b7c14ccf-0d88-43e1-b49e-be70010efca6}</Project>
+      <Name>RealEstateDirectory.Migrations</Name>
     </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.Utils\RealEstateDirectory.Utils.csproj">
       <Project>{1e000376-2cf4-4bfd-a266-414d0b93536e}</Project>
