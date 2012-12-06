@@ -12,7 +12,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 				{
                     k.Column("ApartmentId");
 					k.OnDelete(OnDeleteAction.Cascade);
-					k.ForeignKey("FK_RoomId_ApartmentId");
+					k.ForeignKey("\"FK_Room_Apartment\"");
 				});
 			Property(x => x.RoomCount);
 		}

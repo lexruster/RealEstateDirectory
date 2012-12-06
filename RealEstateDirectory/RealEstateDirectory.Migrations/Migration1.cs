@@ -40,8 +40,8 @@ namespace RealEstateDirectory.Migrations
 
 			Create.Table("RealEstate")
 				.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-				.WithColumn("TerritorialNumber").AsString().Nullable()
-				.WithColumn("Description").AsString(Int32.MaxValue).Nullable()
+				.WithColumn("TerritorialNumber").AsString(400).Nullable()
+				.WithColumn("Description").AsString(4000).Nullable()
 				.WithColumn("HasVideo").AsBoolean().NotNullable()
 				.WithColumn("SubmitToVDV").AsBoolean().NotNullable()
 				.WithColumn("SubmitToDomino").AsBoolean().NotNullable()
@@ -51,7 +51,7 @@ namespace RealEstateDirectory.Migrations
 				.WithColumn("StreetId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Street", "Street", "Id")
 				.WithColumn("RealtorId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Realtor", "Realtor", "Id")
 				.WithColumn("DealVariantId").AsInt32().Nullable().ForeignKey("FK_RealEstate_DealVariant", "DealVariant", "Id")
-				.WithColumn("OwnershipId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Ownership", "DealVariant", "Id");
+				.WithColumn("OwnershipId").AsInt32().Nullable().ForeignKey("FK_RealEstate_Ownership", "Ownership", "Id");
 
 			Create.Table("Building")
 				.WithColumn("RealEstateId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Building_RealEstate", "RealEstate", "Id").OnDelete(Rule.Cascade)
@@ -81,9 +81,9 @@ namespace RealEstateDirectory.Migrations
 				.WithColumn("PlotId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_House_Plot", "Plot", "RealEstateId").OnDelete(Rule.Cascade)
 				.WithColumn("TotalFloor").AsInt32().Nullable()
 				.WithColumn("HouseSquare").AsDecimal(19, 5).Nullable()
-				.WithColumn("HasBathhouse").AsBoolean().Nullable()
-				.WithColumn("HasGarage").AsBoolean().Nullable()
-				.WithColumn("HasGas").AsBoolean().Nullable()
+				.WithColumn("HasBathhouse").AsBoolean().NotNullable()
+				.WithColumn("HasGarage").AsBoolean().NotNullable()
+				.WithColumn("HasGas").AsBoolean().NotNullable()
 				.WithColumn("WaterSupplyId").AsInt32().Nullable().ForeignKey("FK_House_WaterSupply", "WaterSupply", "Id")
 				.WithColumn("SewageId").AsInt32().Nullable().ForeignKey("FK_House_Sewage", "Sewage", "Id")
 				.WithColumn("MaterialId").AsInt32().Nullable().ForeignKey("FK_House_Material", "Material", "Id");

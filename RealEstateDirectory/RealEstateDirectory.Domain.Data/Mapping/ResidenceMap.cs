@@ -12,11 +12,15 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 				{
 					k.Column("BuildingId");
 					k.OnDelete(OnDeleteAction.Cascade);
-					k.ForeignKey("FK_ResidenceId_BuildingId");
+					k.ForeignKey("\"FK_Residence_Building\"");
 				});
 			Property(x => x.Floor);
 			Property(x => x.TotalFloor);
-			Property(x => x.TotalSquare);
+			Property(x => x.TotalSquare, m =>
+				{
+					m.Precision(19);
+					m.Scale(5);
+				});
 			ManyToOne(x => x.Material);
 		}
 	}

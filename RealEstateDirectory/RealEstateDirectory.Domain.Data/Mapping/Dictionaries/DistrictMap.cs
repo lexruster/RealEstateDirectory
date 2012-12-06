@@ -13,7 +13,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
             Property(x => x.Name, m =>
             {
                 m.NotNullable(true);
-                m.Length(2048);
+                m.Length(2000);
                 m.Unique(true);
             });
 

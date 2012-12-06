@@ -6,17 +6,25 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 {
 	public class FlatMap : JoinedSubclassMapping<Flat>
 	{
-        public FlatMap()
+		public FlatMap()
 		{
 			Key(k =>
 				{
-                    k.Column("ApartmentId");
+					k.Column("ApartmentId");
 					k.OnDelete(OnDeleteAction.Cascade);
-					k.ForeignKey("FK_FlatId_ApartmentIdId");
+					k.ForeignKey("\"FK_Flat_Apartment\"");
 				});
-            ManyToOne(x => x.ToiletType);
-			Property(x => x.ResidentialSquare);
-			Property(x => x.KitchenSquare);
+			ManyToOne(x => x.ToiletType);
+			Property(x => x.ResidentialSquare, m =>
+				{
+					m.Precision(19);
+					m.Scale(5);
+				});
+			Property(x => x.KitchenSquare, m =>
+				{
+					m.Precision(19);
+					m.Scale(5);
+				});
 		}
 	}
 }

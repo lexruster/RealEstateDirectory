@@ -27,7 +27,8 @@ namespace RealEstateDirectory.Domain.Data.Config
 					});
 
 			Utils.Config.Load();
-			cfg.DataBaseIntegration(properties => properties.ConnectionString = Utils.Config.GetProperty("DefaultConnectionString"));
+			cfg.DataBaseIntegration(
+				properties => properties.ConnectionString = Utils.Config.GetProperty("DefaultConnectionString"));
 
 			InitProperties(cfg);
 
@@ -82,7 +83,6 @@ namespace RealEstateDirectory.Domain.Data.Config
 			propertycustomizer.Key(x => x.Column(member.GetContainerEntity(modelinspector).Name + "Id"));
 			propertycustomizer.Cascade(Cascade.All);
 			propertycustomizer.Inverse(false);
-			//propertycustomizer.Lazy(CollectionLazy.Lazy);
 			propertycustomizer.Lazy(CollectionLazy.NoLazy);
 		}
 
@@ -104,20 +104,15 @@ namespace RealEstateDirectory.Domain.Data.Config
 			if (null != pi)
 			{
 				propertyCustomizer.Column(k => k.Name(pi.PropertyType.Name + "Id"));
-				propertyCustomizer.ForeignKey(GenerateForeignKeyName(pi.PropertyType.Name,pi.DeclaringType.Name, pi.ReflectedType.Name));
+				propertyCustomizer.ForeignKey(GenerateForeignKeyName(pi.PropertyType.Name, pi.DeclaringType.Name,
+				                                                     pi.ReflectedType.Name));
 			}
 		}
+
 		public static string GenerateForeignKeyName(string typeName, string propertyName, string referenceTypeName)
 		{
-			return propertyName == referenceTypeName
-					   ? String.Format("FK_{0}_{1}", typeName, referenceTypeName)
-					   : String.Format("FK_{0}_{1}_{2}", typeName, GenerateForeignKeyColumnName(propertyName),
-									   referenceTypeName);
-		}
+			return String.Format("\"FK_{0}_{1}\"", referenceTypeName, typeName);
 
-		public static string GenerateForeignKeyColumnName(string propertyName)
-		{
-			return String.Format("{0}{1}", propertyName, "Id"); 
 		}
 	}
 }
