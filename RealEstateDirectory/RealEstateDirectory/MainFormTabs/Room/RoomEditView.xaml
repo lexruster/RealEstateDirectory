@@ -44,7 +44,7 @@
                 <GroupBox Header ="Параметры" Grid.Column="2" Grid.Row="0" Margin="3">
                     <StackPanel >
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Общая площадь"/>
-                        <TextBox  Style="{StaticResource ValidationTemplateStyle}" Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
+						<TextBox  Style="{StaticResource ValidationTemplateStyle}" Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Комнат"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBox  Style="{StaticResource ValidationTemplateStyle}" Width="60" Margin="0,0,10,0" Text="{Binding RoomCount,ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
@@ -64,7 +64,7 @@
                 <GroupBox Header ="Параметры продажи" Grid.Column="0" Grid.Row="1" Margin="3">
                     <StackPanel>
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Цена"/>
-                        <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue =''}" />
+                        <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue ='', StringFormat='{}{0:#,0.###}'}" />
                         <TextBlock Style="{StaticResource TextBlock}" Text="Собственность"  />
                         <ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
                         <TextBlock Style="{StaticResource TextBlock}" Text="Вариант сделки"  />

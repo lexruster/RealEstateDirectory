@@ -1,8 +1,8 @@
 rmdir Bin /s /q
 mkdir Bin
 
-rmdir Instal /s /q
-mkdir Instal
+::rmdir Instal /s /q
+::mkdir Instal
 
 rmdir Obfuscated /s /q
 mkdir Obfuscated

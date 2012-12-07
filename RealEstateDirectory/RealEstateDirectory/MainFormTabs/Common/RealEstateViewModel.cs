@@ -36,7 +36,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public string PriceString
 		{
-			get { return String.Format("{0:0,0.00}", Price); }
+			get { return String.Format("{0:#,0.###}", Price); }
 		}
 
         public string Address

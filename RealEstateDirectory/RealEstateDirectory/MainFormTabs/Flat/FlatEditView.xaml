@@ -49,15 +49,16 @@
                         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch">
                             <StackPanel >
                                 <TextBlock Style="{StaticResource TextBlock}"  Text="Общая"/>
-                                <TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
+                                <TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" 
+										 Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
                             </StackPanel>
                             <StackPanel >
                                 <TextBlock Style="{StaticResource TextBlock}"  Text="Жилая"/>
-                                <TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding ResidentialSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
+								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding ResidentialSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
                             </StackPanel>
                             <StackPanel >
                                 <TextBlock Style="{StaticResource TextBlock}"  Text="Кухня"/>
-                                <TextBox  Width="60" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding KitchenSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
+								<TextBox  Width="60" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding KitchenSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
                             </StackPanel>
                         </StackPanel>
                         
@@ -77,7 +78,7 @@
                 <GroupBox Header ="Параметры продажи" Grid.Column="0" Grid.Row="1" Margin="3">
                     <StackPanel>
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Цена"/>
-                        <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue =''}" />
+						<TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue ='', StringFormat='{}{0:#,0.###}'}" />
                         <TextBlock Style="{StaticResource TextBlock}" Text="Собственность"  />
                         <ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
                         <TextBlock Style="{StaticResource TextBlock}" Text="Вариант сделки"  />
