@@ -135,14 +135,26 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 
 		private readonly IStreetService _DictionaryService;
 		private readonly IDistrictService _DistrictService;
+		
 
 		#endregion
 
-		#region Свойства  INotifi
+		#region Свойства  INotify
 
 		public string Name { get; set; }
 		public District District { get; set; }
-		public StreetViewModel SelectedStreet { get; set; }
+		public StreetViewModel SelectedStreet
+		{
+			get { return _selectedStreet; }
+			set
+			{
+				if (_selectedStreet == value || value == null)
+					return;
+				_selectedStreet = value;
+				RaisePropertyChanged(PropertySupport.ExtractPropertyName(() => SelectedStreet));
+			}
+		}
+
 		public District SelectedDistrict { get; set; }
 		public List<District> DistrictList { get; set; }
 
@@ -175,6 +187,7 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 		/// Текущее состояние формы
 		/// </summary>
 		protected State StateEnum { get; set; }
+		private StreetViewModel _selectedStreet;
 
 		#endregion
 

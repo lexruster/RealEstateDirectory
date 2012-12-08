@@ -136,16 +136,28 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 
 		private readonly IRealtorAgencyService _DictionaryService;
 
+
 		#endregion
 
-		#region Свойства  INotifi
+		#region Свойства  INotify
 
 		public string Name { get; set; }
 		public string Director { get; set; }
 		public string Description { get; set; }
 		public string Contacts { get; set; }
 		public string Address { get; set; }
-		public RealtorAgencyViewModel SelectedRealtorAgency { get; set; }
+
+		public RealtorAgencyViewModel SelectedRealtorAgency
+		{
+			get { return _selectedRealtorAgency; }
+			set
+			{
+				if (_selectedRealtorAgency == value || value == null)
+					return;
+				_selectedRealtorAgency = value;
+				RaisePropertyChanged(PropertySupport.ExtractPropertyName(() => SelectedRealtorAgency));
+			}
+		}
 
 		/// <summary>
 		/// Текстовое представление состояний формы
@@ -180,6 +192,8 @@ namespace RealEstateDirectory.Dictionaries.RealtorAgencyDictionary
 		/// Текущее состояние формы
 		/// </summary>
 		protected State StateEnum { get; set; }
+
+		private RealtorAgencyViewModel _selectedRealtorAgency;
 
 		#endregion
 
