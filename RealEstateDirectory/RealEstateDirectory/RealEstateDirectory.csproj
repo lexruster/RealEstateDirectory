@@ -452,7 +452,7 @@
   <ItemGroup>
     <Resource Include="Resources\Img\WORD.png" />
     <Resource Include="Resources\Img\EXCEL.png" />
-    <Resource Include="Resources\Img\favicon.png" />
+    <SplashScreen Include="Resources\Img\favicon.png" />
     <Resource Include="favicon.ico" />
     <Content Include="ALCrypto3NET.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
