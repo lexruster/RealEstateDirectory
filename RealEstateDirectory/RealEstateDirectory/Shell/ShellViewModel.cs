@@ -128,7 +128,8 @@ namespace RealEstateDirectory.Shell
 			try
 			{
 				var webRequest = new HTTP();
-				var remoteVersion = webRequest.ReadFromServer(ConfigurationManager.AppSettings["GetVersionUrl"], 10000);
+				var remoteVersion =
+					Version.Parse(webRequest.ReadFromServer(ConfigurationManager.AppSettings["GetVersionUrl"], 10000));
 				var localVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
 				if (remoteVersion.CompareTo(localVersion.ToString()) > 0)

@@ -12,6 +12,7 @@ namespace RealEstateDirectory.Services.Export
 	public class DataExportService : IDataExportService
 	{
 		private readonly IMessageService _MessageService;
+		private const int SkipEndRows = 4;
 
 		public DataExportService(IMessageService messageService)
 		{
@@ -67,7 +68,7 @@ namespace RealEstateDirectory.Services.Export
 		{
 			var headers = new List<string>();
 
-			for (int j = 0; j < grid.Columns.Count - 1; j++)
+			for (int j = 0; j < grid.Columns.Count - 1 - SkipEndRows; j++)
 			{
 				headers.Add(grid.Columns[j].Header.ToString());
 			}
@@ -84,7 +85,7 @@ namespace RealEstateDirectory.Services.Export
 			for (int rowNum = 0; rowNum < list.Count; rowNum++)
 			{
 				var item = list[rowNum];
-				for (int colNum = 0; colNum < grid.Columns.Count; colNum++)
+				for (int colNum = 0; colNum < grid.Columns.Count - SkipEndRows; colNum++)
 				{
 					DataGridColumn gridColumn = grid.Columns[colNum];
 					string[] path = GetPath(gridColumn);

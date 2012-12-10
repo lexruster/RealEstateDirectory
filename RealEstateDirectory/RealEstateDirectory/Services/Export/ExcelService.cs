@@ -1,10 +1,13 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using NLog;
 
 namespace RealEstateDirectory.Services.Export
 {
 	public class ExcelService : IExcelService
 	{
+		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly IMessageService _MessageService;
 		private readonly IDataExportService _DataExportService;
 
@@ -22,8 +25,9 @@ namespace RealEstateDirectory.Services.Export
 				var data = _DataExportService.GetData(grid);
 				ExportToExcelInner(headers, data);
 			}
-			catch
+			catch (Exception e)
 			{
+				Log.ErrorException("Не удалось экспортировать в EXCEL", e);
 				_MessageService.ShowMessage(@"Не удалось экспортировать объявления в Ms Excel", @"Ошибка",
 				                            image: MessageBoxImage.Error);
 			}
@@ -35,8 +39,9 @@ namespace RealEstateDirectory.Services.Export
 			{
 				ExportToExcelInner(headers, data);
 			}
-			catch
+			catch (Exception e)
 			{
+				Log.ErrorException("Не удалось экспортировать в EXCEL", e);
 				_MessageService.ShowMessage(@"Не удалось экспортировать объявления в Ms Excel", @"Ошибка",
 				                            image: MessageBoxImage.Error);
 			}
