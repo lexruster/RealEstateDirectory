@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
+using NLog;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices;
@@ -42,6 +43,7 @@ namespace RealEstateDirectory
 {
 	public class Bootstrapper : UnityBootstrapper
 	{
+		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		protected override void ConfigureContainer()
 		{
 			base.ConfigureContainer();
@@ -69,29 +71,15 @@ namespace RealEstateDirectory
 			}
 			catch (Exception e)
 			{
-				MessageService ms = new MessageService();
+				var ms = new MessageService();
 				var error = e.Message;
-				if (e.InnerException != null)
-				{
-					error += Environment.NewLine + e.InnerException.Message;
-					if (e.InnerException.InnerException != null)
-					{
-						error += Environment.NewLine + e.InnerException.InnerException.Message;
-						if (e.InnerException.InnerException.InnerException != null)
-						{
-							error += Environment.NewLine + e.InnerException.InnerException.InnerException.Message;
-							if (e.InnerException.InnerException.InnerException.InnerException != null)
-							{
-								error += Environment.NewLine +
-								         e.InnerException.InnerException.InnerException.InnerException.Message;
-							}
-						}
-					}
-				}
+				
 				ms.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
 
 				var configWindow = new ConfigWindow();
 				var result = configWindow.ShowDialog();
+				Log.ErrorException("Ошибка запуска приложения", e);
+				Log.Info("Приложение завершает работу");
 				Application.Current.Shutdown();
 				return;
 			}

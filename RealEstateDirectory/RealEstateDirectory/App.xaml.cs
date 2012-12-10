@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using ActiveLock3_6NET;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
+using NHibernate.Cfg;
+using NLog;
 using RealEstateDirectory.Migrations;
 using RealEstateDirectory.Misc;
+using Environment = System.Environment;
 
 namespace RealEstateDirectory
 {
@@ -17,46 +17,113 @@ namespace RealEstateDirectory
 	/// </summary>
 	public partial class App : Application
 	{
+		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
         private _IActiveLock _activeLock;
         private ActiveLockEventNotifier _activeLockEventNotifier;
+		private bool _appShutdown = false;
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			Log.Info("      ");
+			Log.Info("==================   START  ==========================");
+			Log.Info("Приложение запущено");
 			base.OnStartup(e);
 
 		    InitConfig();
-
+			if (_appShutdown) return;
 			LoadConfig();
+			if (_appShutdown) return;
+			TryConfigureConnection();
+			if (_appShutdown) return;
 			RunMigrations();
+			if (_appShutdown) return;
 
 			var bootstrapper = new Bootstrapper();
+			Log.Info("Бутстрапер создан");
 			bootstrapper.Run();
+			Log.Info("Бутстрапер запущен");
 		}
 
-		private static void LoadConfig()
+		private void LoadConfig()
 		{
 			Utils.Config.Load();
-			if (String.IsNullOrEmpty(Utils.Config.GetProperty("DefaultConnectionString")))
+			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
+			Log.Info("Строка подключения загружена {0}", connectionString);
+			if (String.IsNullOrEmpty(connectionString))
 			{
 				var configWindow = new ConfigWindow();
 				var result = configWindow.ShowDialog();
 				if (!result.HasValue || !result.Value)
+				{
 					Current.Shutdown();
+					_appShutdown = true;
+				}
 			}
+		}
+
+		private void TryConfigureConnection()
+		{
+			while (!TestConnection())
+			{
+				var configWindow = new ConfigWindow();
+				var result = configWindow.ShowDialog();
+				if (!result.HasValue || !result.Value)
+				{
+					_appShutdown = true;
+					Current.Shutdown();
+				}
+				if (_appShutdown) return;
+			}
+		}
+
+		public bool TestConnection()
+		{
+			var result = true;
+			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
+			Log.Info("Тест подключения со строкой {0}", connectionString);
+			var config = new NHibernate.Cfg.Configuration();
+			config.Configure("hibernate.cfg.xml");
+			config.DataBaseIntegration(
+				properties => properties.ConnectionString = connectionString);
+			
+			try
+			{
+				using (var session = config.BuildSessionFactory().OpenSession())
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				result = false;
+				Log.ErrorException("Тест подключения провалился", ex);
+			}
+
+			return result;
 		}
 
 		private void RunMigrations()
 		{
-			var context = new RunnerContext(new NullAnnouncer())
-				{
-					Database = "postgres",
-					Connection = Utils.Config.GetProperty("DefaultConnectionString"),
-					Target = Assembly.GetAssembly(typeof (MigrationsBeacon)).Location,
-					PreviewOnly = false,
-					NestedNamespaces = false,
-					Task = "migrate"
-				};
-			new TaskExecutor(context).Execute();
+			Log.Info("Миграции запущены");
+			try
+			{
+				var context = new RunnerContext(new NullAnnouncer())
+					{
+						Database = "postgres",
+						Connection = Utils.Config.GetProperty("DefaultConnectionString"),
+						Target = Assembly.GetAssembly(typeof(MigrationsBeacon)).Location,
+						PreviewOnly = false,
+						NestedNamespaces = false,
+						Task = "migrate"
+					};
+				new TaskExecutor(context).Execute();
+				Log.Info("Миграции завершены");
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Не удалось проверить актуальность БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Log.ErrorException("Миграции провалены", e);
+				_appShutdown = true;
+			}
 		}
 
         private void InitConfig()
@@ -64,6 +131,7 @@ namespace RealEstateDirectory
             var tempResult = true;
             try
             {
+				Log.Info("Начало поиска лицензии");
                 var myAl = new Globals();
                 _activeLock = myAl.NewInstance();
                 _activeLock.SoftwareName = "RealEstateDirectory";
@@ -89,6 +157,7 @@ namespace RealEstateDirectory
             }
             catch (Exception ex)
             {
+				Log.ErrorException("Лицензия не определена", ex);
                 LoadRubrics();
                 tempResult = false;
             }
@@ -104,6 +173,7 @@ namespace RealEstateDirectory
                 }
                 catch (Exception ex)
                 {
+					Log.ErrorException("Лицензия отсутсвует", ex);
                     LoadRubrics();
                     tempResult = false;
                 }
@@ -111,6 +181,8 @@ namespace RealEstateDirectory
 
             if (!tempResult)
             {
+				_appShutdown = true;
+				Log.Info("Приложение закрывается - не пройдена проверка лицензии");
                 Current.Shutdown();
             }
         }
