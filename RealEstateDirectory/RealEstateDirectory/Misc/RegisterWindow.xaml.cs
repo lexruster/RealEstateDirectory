@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using ActiveLock3_6NET;
 
@@ -15,7 +16,7 @@ namespace RealEstateDirectory.Misc
             _activeLock = activeLock;
 			InitializeComponent();
 		}
-
+		
         private void Generate(object sender, RoutedEventArgs e)
 		{
             var text = txtUser.Text;
@@ -36,6 +37,12 @@ namespace RealEstateDirectory.Misc
             {
                 MessageBox.Show(@"Введите имя пользователя.", @"Внимание");
             }
+		}
+
+		private void OpenFolder(object sender, RoutedEventArgs e)
+		{
+			var path = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+			Process.Start(path);
 		}
 	}
 }
