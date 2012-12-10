@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows;
 using ActiveLock3_6NET;
-using FluentMigrator.Runner.Announcers;
-using FluentMigrator.Runner.Initialization;
-using NHibernate.Cfg;
 using NLog;
-using RealEstateDirectory.Migrations;
 using RealEstateDirectory.Misc;
 using Environment = System.Environment;
 
@@ -31,99 +26,11 @@ namespace RealEstateDirectory
 
 		    InitConfig();
 			if (_appShutdown) return;
-			LoadConfig();
-			if (_appShutdown) return;
-			TryConfigureConnection();
-			if (_appShutdown) return;
-			RunMigrations();
-			if (_appShutdown) return;
 
 			var bootstrapper = new Bootstrapper();
 			Log.Info("Бутстрапер создан");
 			bootstrapper.Run();
 			Log.Info("Бутстрапер запущен");
-		}
-
-		private void LoadConfig()
-		{
-			Utils.Config.Load();
-			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
-			Log.Info("Строка подключения загружена {0}", connectionString);
-			if (String.IsNullOrEmpty(connectionString))
-			{
-				var configWindow = new ConfigWindow();
-				var result = configWindow.ShowDialog();
-				if (!result.HasValue || !result.Value)
-				{
-					Current.Shutdown();
-					_appShutdown = true;
-				}
-			}
-		}
-
-		private void TryConfigureConnection()
-		{
-			while (!TestConnection())
-			{
-				var configWindow = new ConfigWindow();
-				var result = configWindow.ShowDialog();
-				if (!result.HasValue || !result.Value)
-				{
-					_appShutdown = true;
-					Current.Shutdown();
-				}
-				if (_appShutdown) return;
-			}
-		}
-
-		public bool TestConnection()
-		{
-			var result = true;
-			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
-			Log.Info("Тест подключения со строкой {0}", connectionString);
-			var config = new NHibernate.Cfg.Configuration();
-			config.Configure("hibernate.cfg.xml");
-			config.DataBaseIntegration(
-				properties => properties.ConnectionString = connectionString);
-			
-			try
-			{
-				using (var session = config.BuildSessionFactory().OpenSession())
-				{
-				}
-			}
-			catch (Exception ex)
-			{
-				result = false;
-				Log.ErrorException("Тест подключения провалился", ex);
-			}
-
-			return result;
-		}
-
-		private void RunMigrations()
-		{
-			Log.Info("Миграции запущены");
-			try
-			{
-				var context = new RunnerContext(new NullAnnouncer())
-					{
-						Database = "postgres",
-						Connection = Utils.Config.GetProperty("DefaultConnectionString"),
-						Target = Assembly.GetAssembly(typeof(MigrationsBeacon)).Location,
-						PreviewOnly = false,
-						NestedNamespaces = false,
-						Task = "migrate"
-					};
-				new TaskExecutor(context).Execute();
-				Log.Info("Миграции завершены");
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show("Не удалось проверить актуальность БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-				Log.ErrorException("Миграции провалены", e);
-				_appShutdown = true;
-			}
 		}
 
         private void InitConfig()

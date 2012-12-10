@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
+using FluentMigrator.Runner.Announcers;
+using FluentMigrator.Runner.Initialization;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
@@ -26,17 +29,15 @@ using RealEstateDirectory.Domain.AbstractRepositories;
 using RealEstateDirectory.Domain.Data.Config;
 using RealEstateDirectory.Domain.Data.Repository;
 using RealEstateDirectory.Infrastructure.NHibernate.PersistenceContext;
-using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Residence;
-using RealEstateDirectory.MainFormTabs.Room;
+using RealEstateDirectory.Migrations;
 using RealEstateDirectory.Misc;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Services.Export;
 using RealEstateDirectory.Shell;
-using Environment = System.Environment;
 using RoomListViewModel = RealEstateDirectory.MainFormTabs.Room.RoomListViewModel;
 
 namespace RealEstateDirectory
@@ -44,17 +45,22 @@ namespace RealEstateDirectory
 	public class Bootstrapper : UnityBootstrapper
 	{
 		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+		private bool _appShutdown = false;
+
+		#region Перегрузки
+
 		protected override void ConfigureContainer()
 		{
 			base.ConfigureContainer();
-
+			Log.Info("Контейнер сконфигурирован");
 			Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
-			                                      new InjectionFactory(container => Configurator.GetConfig()));
-
+												  new InjectionFactory(container => Configurator.GetConfig()));
+			Log.Info("Конфигурация БД получена");
 			Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
 			RegisterRepositories();
 			RegisterServices();
 			RegisterViewModels();
+			Log.Info("Типы зарегистрированы");
 		}
 
 		protected override DependencyObject CreateShell()
@@ -65,26 +71,29 @@ namespace RealEstateDirectory
 		protected override void InitializeShell()
 		{
 			base.InitializeShell();
+			Log.Info("Инициализация оболочки");
+			Application.Current.MainWindow = (Window)Shell;
+			Application.Current.MainWindow.Show();
+
+			LoadConfig();
+			if (_appShutdown) return;
+			TryConfigureConnection();
+			if (_appShutdown) return;
+			RunMigrations();
+			if (_appShutdown) return;
+
 			try
 			{
-				((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
+				((ShellView)Shell).DataContext = Container.Resolve<ShellViewModel>();
 			}
 			catch (Exception e)
 			{
 				var ms = new MessageService();
-				var error = e.Message;
-				
-				ms.ShowMessage(error, "Ошибка", image: MessageBoxImage.Error);
-
-				var configWindow = new ConfigWindow();
-				var result = configWindow.ShowDialog();
+				ms.ShowMessage("Не удалось запустить приложение", "Ошибка", image: MessageBoxImage.Error);
 				Log.ErrorException("Ошибка запуска приложения", e);
 				Log.Info("Приложение завершает работу");
 				Application.Current.Shutdown();
-				return;
 			}
-
-			Application.Current.MainWindow = (Window) Shell;
 		}
 
 		public override void Run(bool runWithDefaultConfiguration)
@@ -92,10 +101,12 @@ namespace RealEstateDirectory
 #if DEBUG
 			HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 #endif
-
 			base.Run(runWithDefaultConfiguration);
-			Application.Current.MainWindow.Show();
 		}
+
+		#endregion
+
+		#region Регистрации
 
 		private void RegisterRepositories()
 		{
@@ -151,5 +162,96 @@ namespace RealEstateDirectory
 			Container.RegisterType<HouseListViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<ResidenceListViewModel>(new InjectionMethod("Initialize"));
 		}
+
+		#endregion
+
+		#region Инициализация
+
+		private void LoadConfig()
+		{
+			Utils.Config.Load();
+			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
+			Log.Info("Строка подключения загружена {0}", connectionString);
+			if (String.IsNullOrEmpty(connectionString))
+			{
+				var configWindow = new ConfigWindow();
+				var result = configWindow.ShowDialog();
+				if (!result.HasValue || !result.Value)
+				{
+					Application.Current.Shutdown();
+					_appShutdown = true;
+				}
+			}
+		}
+
+		private void TryConfigureConnection()
+		{
+			while (!TestConnection())
+			{
+				var configWindow = new ConfigWindow();
+				var result = configWindow.ShowDialog();
+				if (!result.HasValue || !result.Value)
+				{
+					_appShutdown = true;
+					Application.Current.Shutdown();
+				}
+				if (_appShutdown) return;
+			}
+		}
+
+		public bool TestConnection()
+		{
+			var result = true;
+			Utils.Config.Load();
+			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
+			Log.Info("Тест подключения со строкой {0}", connectionString);
+			var config = new NHibernate.Cfg.Configuration();
+			config.Configure("hibernate.cfg.xml");
+			config.DataBaseIntegration(
+				properties => properties.ConnectionString = connectionString);
+
+			try
+			{
+				using (var session = config.BuildSessionFactory().OpenSession())
+				{
+				}
+			}
+			catch (Exception ex)
+			{
+				result = false;
+				Log.ErrorException("Тест подключения провалился", ex);
+			}
+
+			return result;
+		}
+
+		private void RunMigrations()
+		{
+			Utils.Config.Load();
+			Log.Info("Миграции запущены");
+			try
+			{
+				var context = new RunnerContext(new NullAnnouncer())
+				{
+					Database = "postgres",
+					Connection = Utils.Config.GetProperty("DefaultConnectionString"),
+					Target = Assembly.GetAssembly(typeof(MigrationsBeacon)).Location,
+					PreviewOnly = false,
+					NestedNamespaces = false,
+					Task = "migrate"
+				};
+				new TaskExecutor(context).Execute();
+				Log.Info("Миграции завершены");
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Не удалось проверить актуальность БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Log.ErrorException("Миграции провалены", e);
+				Application.Current.Shutdown();
+				_appShutdown = true;
+			}
+		}
+
+		#endregion
 	}
 }
