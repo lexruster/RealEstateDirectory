@@ -132,7 +132,7 @@ namespace RealEstateDirectory.Shell
 					Version.Parse(webRequest.ReadFromServer(ConfigurationManager.AppSettings["GetVersionUrl"], 10000));
 				var localVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-				if (remoteVersion.CompareTo(localVersion.ToString()) > 0)
+				if (remoteVersion.CompareTo(localVersion) > 0)
 				{
 					var message =
 						String.Format(
