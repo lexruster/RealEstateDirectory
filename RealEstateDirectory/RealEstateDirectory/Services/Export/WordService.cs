@@ -11,6 +11,7 @@ using System.Windows.Data;
 //using ExportToRTF;
 using ESCommon;
 using ESCommon.Rtf;
+using Misc.WordProvider;
 using NLog;
 using FontStyle = System.Drawing.FontStyle;
 
@@ -62,69 +63,70 @@ namespace RealEstateDirectory.Services.Export
 
 		private void ExportToWordInner(string[] headers, string[,] data, string fileName)
 		{
-			RtfWriter rtfWriter = new RtfWriter();
-			rtf = new RtfDocument();
-			rtf.IsLandscape = true;
-			rtf.PageWidth = 16848;
-			rtf.PageHeight = 11952;
-			rtf.MarginLeft = 700;
-			rtf.MarginBottom = 700;
-			rtf.MarginRight = 700;
-			rtf.MarginTop = 1400;
+			WordProvider.Generate(headers, data, fileName);
+			//RtfWriter rtfWriter = new RtfWriter();
+			//rtf = new RtfDocument();
+			//rtf.IsLandscape = true;
+			//rtf.PageWidth = 16848;
+			//rtf.PageHeight = 11952;
+			//rtf.MarginLeft = 700;
+			//rtf.MarginBottom = 700;
+			//rtf.MarginRight = 700;
+			//rtf.MarginTop = 1400;
 
-			rtf.FontTable.Add(new RtfFont("Calibri"));
-			rtf.FontTable.Add(new RtfFont("Constantia"));
-			rtf.ColorTable.AddRange(new RtfColor[]
-				{
-					new RtfColor(Color.Black),
-					new RtfColor(0, 0, 255)
-				});
+			//rtf.FontTable.Add(new RtfFont("Calibri"));
+			//rtf.FontTable.Add(new RtfFont("Constantia"));
+			//rtf.ColorTable.AddRange(new RtfColor[]
+			//	{
+			//		new RtfColor(Color.Black),
+			//		new RtfColor(0, 0, 255)
+			//	});
 
-			RtfParagraphFormatting LeftAligned12 = new RtfParagraphFormatting(8, RtfTextAlign.Left);
-			RtfParagraphFormatting Centered10 = new RtfParagraphFormatting(8, RtfTextAlign.Center);
-			RtfFormattedParagraph header = new RtfFormattedParagraph(new RtfParagraphFormatting(16, RtfTextAlign.Center));
+			//RtfParagraphFormatting LeftAligned12 = new RtfParagraphFormatting(8, RtfTextAlign.Left);
+			//RtfParagraphFormatting Centered10 = new RtfParagraphFormatting(8, RtfTextAlign.Center);
+			//RtfFormattedParagraph header = new RtfFormattedParagraph(new RtfParagraphFormatting(16, RtfTextAlign.Center));
 
-			var t = new RtfTable(RtfTableAlign.Center, headers.Length, data.Length + 1);
-			header.Formatting.SpaceAfter = TwipConverter.ToTwip(8F, MetricUnit.Point);
-			header.AppendText(new RtfFormattedText("Недвижимость", RtfCharacterFormatting.Bold));
-			t.Width = TwipConverter.ToTwip(26, MetricUnit.Centimeter);
+			//var t = new RtfTable(RtfTableAlign.Center, headers.Length, data.Length + 1);
+			//header.Formatting.SpaceAfter = TwipConverter.ToTwip(8F, MetricUnit.Point);
+			//header.AppendText(new RtfFormattedText("Недвижимость", RtfCharacterFormatting.Bold));
+			//t.Width = TwipConverter.ToTwip(26, MetricUnit.Centimeter);
 
-			foreach (RtfTableRow row in t.Rows)
-			{
-				row.Height = TwipConverter.ToTwip(2, MetricUnit.Centimeter);
-			}
+			//foreach (RtfTableRow row in t.Rows)
+			//{
+			//	row.Height = TwipConverter.ToTwip(2, MetricUnit.Centimeter);
+			//}
 
-			t.DefaultCellStyle = new RtfTableCellStyle(RtfBorderSetting.All, Centered10);
+			//t.DefaultCellStyle = new RtfTableCellStyle(RtfBorderSetting.All, Centered10);
 
-			for (int j = 0; j < headers.Length; j++)
-			{
-				t[j, 0].Formatting = new RtfParagraphFormatting(8, RtfTextAlign.Center);
-				t[j, 0].Formatting.TextColorIndex = 1;
-				t[j, 0].AppendText(headers[j]);
-			}
+			//for (int j = 0; j < headers.Length; j++)
+			//{
+			//	t[j, 0].Formatting = new RtfParagraphFormatting(8, RtfTextAlign.Center);
+			//	t[j, 0].Formatting.TextColorIndex = 1;
+			//	t[j, 0].AppendText(headers[j]);
+			//}
 
-			for (int i = 0; i < data.GetLength(0); i++)
-			{
-				for (int j = 0; j < headers.Length; j++)
-				{
-					t[j, i + 1].Definition.Style = new RtfTableCellStyle(RtfBorderSetting.All, LeftAligned12,
-					                                                     RtfTableCellVerticalAlign.Bottom);
-					t[j, i + 1].AppendText(data[i, j] ?? "");
-				}
-			}
+			//for (int i = 0; i < data.GetLength(0); i++)
+			//{
+			//	for (int j = 0; j < headers.Length; j++)
+			//	{
+			//		t[j, i + 1].Definition.Style = new RtfTableCellStyle(RtfBorderSetting.All, LeftAligned12,
+			//															 RtfTableCellVerticalAlign.Bottom);
+			//		t[j, i + 1].AppendText(data[i, j] ?? "");
+			//	}
+			//}
 
-			rtf.Contents.AddRange(new RtfDocumentContentBase[]
-				{
-					header,
-					t,
-				});
+			//rtf.Contents.AddRange(new RtfDocumentContentBase[]
+			//	{
+			//		header,
+			//		t,
+			//	});
 
-			using (TextWriter writer = new StreamWriter(fileName))
-			{
-				rtfWriter.Write(writer, rtf);
-				writer.Flush();
-				writer.Close();
-			}
+			//using (TextWriter writer = new StreamWriter(fileName))
+			//{
+			//	rtfWriter.Write(writer, rtf);
+			//	writer.Flush();
+			//	writer.Close();
+			//}
 
 			Process.Start(fileName);
 		}

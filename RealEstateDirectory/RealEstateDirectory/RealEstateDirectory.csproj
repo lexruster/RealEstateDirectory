@@ -62,18 +62,6 @@
     <Reference Include="HibernatingRhinos.Profiler.Appender">
       <HintPath>..\..\Dependencies\HibernatingRhinos.Profiler\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.Excel">
-      <HintPath>..\..\Dependencies\Excel\Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Interop.Microsoft.Office.Core">
-      <HintPath>..\..\Dependencies\Excel\Interop.Microsoft.Office.Core.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Interop.VBIDE">
-      <HintPath>..\..\Dependencies\Excel\Interop.VBIDE.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\..\Dependencies\Prism\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
@@ -421,6 +409,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Misc.ExcelProvider\Misc.ExcelProvider.csproj">
+      <Project>{0296a2cb-4b46-4b93-971a-04161617223d}</Project>
+      <Name>Misc.ExcelProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Misc.WordProvider\Misc.WordProvider.csproj">
+      <Project>{76dc2e17-ede4-4165-a332-3cb018fbad2a}</Project>
+      <Name>Misc.WordProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RealEstateDirectory.AbstractApplicationServices\RealEstateDirectory.AbstractApplicationServices.csproj">
       <Project>{057d6555-af8e-4f1c-8b76-b0bf0b9a8187}</Project>
       <Name>RealEstateDirectory.AbstractApplicationServices</Name>
