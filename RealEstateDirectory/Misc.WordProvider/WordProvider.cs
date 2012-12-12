@@ -46,89 +46,86 @@ namespace Misc.WordProvider
 				Word.WdParagraphAlignment.wdAlignParagraphCenter; // Set right alignment 
 			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekMainDocument; // set pop up header 
 
-			wordApp.Selection.ParagraphFormat.LineSpacing = 15f; // Set file line spacing
-			wordApp.Selection.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
 
-			//wordApp.ActiveWindow.View.Type = Word.WdViewType.wdNormalView;
-			//wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
-			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter("E-8");
+			wordApp.ActiveWindow.View.Type = Word.WdViewType.wdOutlineView;
+			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
+			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter(String.Format("{0:dd.MM.yyyy}", DateTime.Now));
 			wordApp.Selection.ParagraphFormat.Alignment =
-				Word.WdParagraphAlignment.wdAlignParagraphRight; // Set right alignment 
+				Word.WdParagraphAlignment.wdAlignParagraphLeft; // Set right alignment 
 			wordApp.ActiveWindow.View.SeekView =
 				Word.WdSeekView.wdSeekMainDocument; // set pop up header 
 
 			wordApp.Selection.ParagraphFormat.LineSpacing = 15f; // Set file line spacing
 			wordApp.Selection.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
 
-			// Move focus and newline
-			object count = 14;
-			object WdLine = Word.WdUnits.wdLine; //newline;
-			wordApp.Selection.MoveDown(ref WdLine, ref count, ref nothing); //move focus
-			wordApp.Selection.TypeParagraph(); // insert paragraph
 
-			// Create table in Word file
-			Word.Table newTable = wordDoc.Tables.Add
-				(wordApp.Selection.Range, 12, 3, ref nothing, ref nothing);
-			// Set table style
-			newTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleThickThinLargeGap;
-			newTable.Borders.InsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
-			newTable.Columns[1].Width = 100f;
-			newTable.Columns[2].Width = 220f;
-			newTable.Columns[3].Width = 105f;
+			foreach (ExportTable table in exportObject.Tables)
+			{
+				var title = table.Title;
+				var headers= table.Headers;
+				var data= table.Data;
 
-			// Fill in table
-			newTable.Cell(1, 1).Range.Text = "Product information table";
-			newTable.Cell(1, 1).Range.Bold = 2; // Set text font as bold in Cells
-			// Merge cells
-			newTable.Cell(1, 1).Merge(newTable.Cell(1, 3));
-			wordApp.Selection.Cells.VerticalAlignment =
-				Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter; // Center Vertically 
-			wordApp.Selection.ParagraphFormat.Alignment =
-				Word.WdParagraphAlignment.wdAlignParagraphCenter; // Center Horizontal 
+				//wordApp.ActiveWindow.View.Type = Word.WdViewType.wdNormalView;
+				//wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
+				wordApp.ActiveWindow.ActivePane.Selection.InsertAfter(title);
+				wordApp.Selection.ParagraphFormat.Alignment =
+					Word.WdParagraphAlignment.wdAlignParagraphCenter; // Set right alignment 
+				wordApp.ActiveWindow.View.SeekView =
+					Word.WdSeekView.wdSeekMainDocument; // set pop up header 
 
-			// Fill in table
-			newTable.Cell(2, 1).Range.Text = " Product information table ";
-			newTable.Cell(2, 1).Range.Font.Color =
-				Word.WdColor.wdColorDarkBlue; // Set   text color in Cells
-			//Merge Cells
-			newTable.Cell(2, 1).Merge(newTable.Cell(2, 3));
-			wordApp.Selection.Cells.VerticalAlignment =
-				Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+				// Move focus and newline
+				object count = 2;
+				object WdLine = Word.WdUnits.wdLine; //newline;
+				wordApp.Selection.MoveDown(ref WdLine, ref count, ref nothing); //move focus
+				wordApp.Selection.TypeParagraph(); // insert paragraph
 
-			// Fill in table
-			newTable.Cell(3, 1).Range.Text = "Brandname";
-			newTable.Cell(3, 2).Range.Text = "BrandName";
-			// merge cells longitudinal 
-			newTable.Cell(3, 3).Select(); // choose a row
-			object moveUnit = Word.WdUnits.wdLine;
-			object moveCount = 5;
-			object moveExtend = Word.WdMovementType.wdExtend;
-			wordApp.Selection.MoveDown(ref moveUnit, ref moveCount, ref moveExtend);
-			wordApp.Selection.Cells.Merge();
-			// insert image
-			//string FileName = @"d:\Media\Musik\Infected Mushroom\Infected Mushroom-BP Empire 2001\BP Empire.jpg"; // image path
-			//object LinkToFile = false;
-			//object SaveWithDocument = true;
-			//object Anchor = WordDoc.Application.Selection.Range;
-			//WordDoc.Application.ActiveDocument.InlineShapes.AddPicture
-			//				(FileName, ref LinkToFile, ref SaveWithDocument, ref Anchor);
-			//WordDoc.Application.ActiveDocument.InlineShapes[1].Width = 100f; //image width
-			//WordDoc.Application.ActiveDocument.InlineShapes[1].Height = 100f; //image height
-			// Set image layout as Square 
-			//Word.Shape s =
-			//				WordDoc.Application.ActiveDocument.InlineShapes[1].ConvertToShape();
-			//		s.WrapFormat.Type = Word.WdWrapType.wdWrapSquare;
+				// Create table in Word file
+				
+				Word.Table newTable = wordDoc.Tables.Add
+					(wordApp.Selection.Range, data.GetLength(0), headers.Length, ref nothing, ref nothing);
+				// Set table style
+				newTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+				newTable.Borders.InsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+				/*newTable.Columns[1].Width = 100f;
+				newTable.Columns[2].Width = 220f;
+				newTable.Columns[3].Width = 105f;*/
+				newTable.AllowAutoFit = true;
+				var t = new Word.WdAutoFitBehavior();
+				
+				newTable.AutoFitBehavior(t);
 
-			newTable.Cell(12, 1).Range.Text = "product special attribute";
-			newTable.Cell(12, 1).Merge(newTable.Cell(12, 3));
-			// Add rows in table
-			wordDoc.Content.Tables[1].Rows.Add(ref nothing);
+				// Fill in table
+				for (int j = 0; j < headers.Length; j++)
+				{
+					newTable.Cell(1, j).Range.Text = headers[j];
+					newTable.Cell(1, j).Range.Bold = 2;
+				}
 
-			wordDoc.Paragraphs.Last.Range.Text = "Created date：" +
-												 DateTime.Now.ToString(); //“Alignment”
-			wordDoc.Paragraphs.Last.Alignment =
-				Word.WdParagraphAlignment.wdAlignParagraphRight;
+				for (int i = 0; i < data.GetLength(0); i++)
+				{
+					for (int j = 0; j < headers.Length; j++)
+					{
+						newTable.Cell(i + 1, j).Range.Text = data[i, j] ?? "";	
+					}
+				}
 
+				wordApp.Selection.Cells.VerticalAlignment =Word.WdCellVerticalAlignment.wdCellAlignVerticalTop; // Center Vertically 
+				wordApp.Selection.ParagraphFormat.Alignment =Word.WdParagraphAlignment.wdAlignParagraphCenter; // Center Horizontal 
+
+				
+				//// merge cells longitudinal 
+				//newTable.Cell(3, 3).Select(); // choose a row
+				//object moveUnit = Word.WdUnits.wdLine;
+				//object moveCount = 5;
+				//object moveExtend = Word.WdMovementType.wdExtend;
+				//wordApp.Selection.MoveDown(ref moveUnit, ref moveCount, ref moveExtend);
+				//wordApp.Selection.Cells.Merge();
+				
+				wordDoc.Paragraphs.Last.Range.Text = "Created date：" +
+				                                     DateTime.Now.ToString(); //“Alignment”
+				wordDoc.Paragraphs.Last.Alignment =
+					Word.WdParagraphAlignment.wdAlignParagraphRight;
+			}
 			// Save file
 			object fileNameL = fileName;
 			wordDoc.SaveAs(ref fileNameL, ref nothing, ref nothing,
@@ -138,7 +135,7 @@ namespace Misc.WordProvider
 
 			Type doctype = wordDoc.GetType();
 			doctype.InvokeMember("SaveAs", System.Reflection.BindingFlags.InvokeMethod, null, wordDoc, new
-				object[] { fileName, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatRTF });
+				object[] { fileName+".rtf", Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatRTF });
 
 			wordDoc.Close(ref nothing, ref nothing, ref nothing);
 			wordApp.Quit(ref nothing, ref nothing, ref nothing);
