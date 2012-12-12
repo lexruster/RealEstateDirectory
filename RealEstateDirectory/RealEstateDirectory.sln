@@ -43,8 +43,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misc.WordProvider", "Misc.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misc.Miscellaneous", "Misc.Miscellaneous\Misc.Miscellaneous.csproj", "{549E8BE7-6EE0-445A-A17D-EC195497E84C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wordTest", "wordTest\wordTest.csproj", "{5A6A00D3-4BEB-4EF6-970A-C4918A2A1AE2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,10 +109,6 @@ Global
 		{549E8BE7-6EE0-445A-A17D-EC195497E84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{549E8BE7-6EE0-445A-A17D-EC195497E84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{549E8BE7-6EE0-445A-A17D-EC195497E84C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A6A00D3-4BEB-4EF6-970A-C4918A2A1AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A6A00D3-4BEB-4EF6-970A-C4918A2A1AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A6A00D3-4BEB-4EF6-970A-C4918A2A1AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A6A00D3-4BEB-4EF6-970A-C4918A2A1AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +129,5 @@ Global
 		{0296A2CB-4B46-4B93-971A-04161617223D} = {DFC31115-39AE-43D2-A084-F95CF07F80A7}
 		{76DC2E17-EDE4-4165-A332-3CB018FBAD2A} = {DFC31115-39AE-43D2-A084-F95CF07F80A7}
 		{549E8BE7-6EE0-445A-A17D-EC195497E84C} = {DFC31115-39AE-43D2-A084-F95CF07F80A7}
-		{5A6A00D3-4BEB-4EF6-970A-C4918A2A1AE2} = {DFC31115-39AE-43D2-A084-F95CF07F80A7}
 	EndGlobalSection
 EndGlobal
