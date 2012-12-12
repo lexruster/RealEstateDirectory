@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Misc.Miscellaneous
 {
 	/// <summary>
@@ -5,16 +7,18 @@ namespace Misc.Miscellaneous
 	/// </summary>
 	public class ExportTable
 	{
-		public ExportTable(string[] headers, string[,] data)
+		public ExportTable(string title, List<string> headers, List<List<string>> data)
 		{
+			Title = title;
 			Headers = headers;
 			Data = data;
 		}
 
-		public ExportTable(string title, string[] headers, string[,] data)
-			: this(headers, data)
+		public ExportTable(string title)
 		{
 			Title = title;
+			Headers=new List<string>();
+			Data =new List<List<string>>();
 		}
 
 		/// <summary>
@@ -25,11 +29,11 @@ namespace Misc.Miscellaneous
 		/// <summary>
 		/// Заголовки
 		/// </summary>
-		public string[] Headers { get; set; }
+		public List<string> Headers { get; set; }
 
 		/// <summary>
 		/// Данные
 		/// </summary>
-		public string[,] Data { get; set; }
+		public List<List<string>> Data { get; set; }
 	}
 }

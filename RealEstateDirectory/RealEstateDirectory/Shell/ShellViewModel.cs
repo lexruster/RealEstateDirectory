@@ -3,13 +3,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
+using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
@@ -24,14 +24,13 @@ using RealEstateDirectory.Dictionaries.StreetDictionary;
 using RealEstateDirectory.Dictionaries.TerraceDictionary;
 using RealEstateDirectory.Dictionaries.ToiletTypeDictionary;
 using RealEstateDirectory.Dictionaries.WaterSupplyDictionary;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
-using RealEstateDirectory.MainFormTabs;
 using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Residence;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
+using RealEstateDirectory.Services.Export;
 using RealEstateDirectory.Utils;
 
 namespace RealEstateDirectory.Shell
@@ -61,9 +60,11 @@ namespace RealEstateDirectory.Shell
 			TerraceDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<TerraceDictionaryViewModel>());
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
+			
 			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog());
 			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates(true));
 			ConfigCommand=new DelegateCommand(() => _ViewsService.OpenConfigDialog());
+			ExportToWordCommand = new DelegateCommand(ExportToWord);
 
 			FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
 			RoomsDataContext = _ServiceLocator.GetInstance<RoomListViewModel>();
@@ -75,13 +76,6 @@ namespace RealEstateDirectory.Shell
 			_timer.Tick += timerTick;
 			_timer.Interval = new TimeSpan(0, 0, 5);
 			_timer.Start();
-		}
-
-		private void timerTick(object sender, EventArgs e)
-		{
-			_timer.Stop();
-			var thread = new Thread(CheckUpdatesOnTimer);
-			thread.Start();
 		}
 
 		#region Infrastructure
@@ -110,12 +104,34 @@ namespace RealEstateDirectory.Shell
 		public ICommand AboutCommand { get; private set; }
 		public ICommand CheckUpdatesCommand { get; private set; }
 		public ICommand ConfigCommand { get; private set; }
-
+		public ICommand ExportToWordCommand { get; private set; }
+		
 		public FlatListViewModel FlatsDataContext { get; private set; }
 		public RoomListViewModel RoomsDataContext { get; private set; }
 		public PlotListViewModel PlotsDataContext { get; private set; }
 		public HouseListViewModel HousesDataContext { get; private set; }
 		public ResidenceListViewModel ResidenceDataContext { get; private set; }
+
+		private void ExportToWord()
+		{
+			var _wordService = _ServiceLocator.GetInstance<IWordService>();
+			var obj = new ExportObject();
+
+			obj.Tables.Add(FlatsDataContext.GetExportedTable(true));
+			obj.Tables.Add(RoomsDataContext.GetExportedTable(true));
+			obj.Tables.Add(PlotsDataContext.GetExportedTable(true));
+			obj.Tables.Add(HousesDataContext.GetExportedTable(true));
+			obj.Tables.Add(ResidenceDataContext.GetExportedTable(true));
+
+			_wordService.ExportToWord(obj);
+		}
+
+		private void timerTick(object sender, EventArgs e)
+		{
+			_timer.Stop();
+			var thread = new Thread(CheckUpdatesOnTimer);
+			thread.Start();
+		}
 
 		public void CheckUpdatesOnTimer()
 		{

@@ -38,7 +38,11 @@
                 <MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
             </MenuItem>
 
-            <MenuItem Header="Справка">
+			<MenuItem Header="Дополнительно">
+				<MenuItem Header="Выгрузить все в Word" Command="{Binding ExportToWordCommand}" />
+			</MenuItem>
+			
+			<MenuItem Header="Справка">
                 <MenuItem Header="О программе" Command="{Binding AboutCommand}" />
                 <MenuItem Header="Проверить обновления" Command="{Binding CheckUpdatesCommand}" />
             </MenuItem>

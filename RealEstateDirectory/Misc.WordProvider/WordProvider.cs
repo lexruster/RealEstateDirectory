@@ -1,144 +1,93 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+using System.Drawing;
+using System.Linq;
 using Misc.Miscellaneous;
+using Novacode;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace Misc.WordProvider
 {
 	public static class WordProvider
-    {
+	{
 		public static void Generate(ExportObject exportObject, string fileName)
 		{
-			//for (int j = 0; j < headers.Length; j++)
-			//{
-			//	t[j, 0].Formatting = new RtfParagraphFormatting(8, RtfTextAlign.Center);
-			//	t[j, 0].Formatting.TextColorIndex = 1;
-			//	t[j, 0].AppendText(headers[j]);
-			//}
-
-			//for (int i = 0; i < data.GetLength(0); i++)
-			//{
-			//	for (int j = 0; j < headers.Length; j++)
-			//	{
-			//		t[j, i + 1].Definition.Style = new RtfTableCellStyle(RtfBorderSetting.All, LeftAligned12,
-			//															 RtfTableCellVerticalAlign.Bottom);
-			//		t[j, i + 1].AppendText(data[i, j] ?? "");
-			//	}
-			//}
-
-
-			Object nothing = System.Reflection.Missing.Value;
-			//Directory.CreateDirectory("C:/CNSI"); // Create file category 
-			//string name = "CNSI_" + "53asdf" + ".doc";
-			//object filename = "C://CNSI//" + name; // file save path
-			// create Word file
-			Word.Application wordApp = new Word.ApplicationClass();
-			Word.Document wordDoc = wordApp.Documents.Add(ref nothing, ref nothing, ref nothing, ref nothing);
-
-			
-			// Add header
-			wordApp.ActiveWindow.View.Type = Word.WdViewType.wdNormalView;
-			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
-			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter("E-8");
-			wordApp.Selection.ParagraphFormat.Alignment =
-				Word.WdParagraphAlignment.wdAlignParagraphCenter; // Set right alignment 
-			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekMainDocument; // set pop up header 
-
-
-			wordApp.ActiveWindow.View.Type = Word.WdViewType.wdOutlineView;
-			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
-			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter(String.Format("{0:dd.MM.yyyy}", DateTime.Now));
-			wordApp.Selection.ParagraphFormat.Alignment =
-				Word.WdParagraphAlignment.wdAlignParagraphLeft; // Set right alignment 
-			wordApp.ActiveWindow.View.SeekView =
-				Word.WdSeekView.wdSeekMainDocument; // set pop up header 
-
-			wordApp.Selection.ParagraphFormat.LineSpacing = 15f; // Set file line spacing
-			wordApp.Selection.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
-
-
-			foreach (ExportTable table in exportObject.Tables)
+			using (DocX document = DocX.Create(fileName + ".docx"))
 			{
-				var title = table.Title;
-				var headers= table.Headers;
-				var data= table.Data;
+				document.PageLayout.Orientation = Orientation.Landscape;
 
-				//wordApp.ActiveWindow.View.Type = Word.WdViewType.wdNormalView;
-				//wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
-				wordApp.ActiveWindow.ActivePane.Selection.InsertAfter(title);
-				wordApp.Selection.ParagraphFormat.Alignment =
-					Word.WdParagraphAlignment.wdAlignParagraphCenter; // Set right alignment 
-				wordApp.ActiveWindow.View.SeekView =
-					Word.WdSeekView.wdSeekMainDocument; // set pop up header 
+				Paragraph p = document.InsertParagraph();
+				p.Append("E-8").Font(new FontFamily("Times New Roman")).Bold();
+				p.Alignment = Alignment.center;
 
-				// Move focus and newline
-				object count = 2;
-				object WdLine = Word.WdUnits.wdLine; //newline;
-				wordApp.Selection.MoveDown(ref WdLine, ref count, ref nothing); //move focus
-				wordApp.Selection.TypeParagraph(); // insert paragraph
+				Paragraph pDate = document.InsertParagraph();
+				pDate.Append(String.Format("{0:dd.MM.yyyy}", DateTime.Now)).Font(new FontFamily("Times New Roman"));
+				pDate.Alignment = Alignment.left;
 
-				// Create table in Word file
-				
-				Word.Table newTable = wordDoc.Tables.Add
-					(wordApp.Selection.Range, data.GetLength(0), headers.Length, ref nothing, ref nothing);
-				// Set table style
-				newTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
-				newTable.Borders.InsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
-				/*newTable.Columns[1].Width = 100f;
-				newTable.Columns[2].Width = 220f;
-				newTable.Columns[3].Width = 105f;*/
-				newTable.AllowAutoFit = true;
-				var t = new Word.WdAutoFitBehavior();
-				
-				newTable.AutoFitBehavior(t);
-
-				// Fill in table
-				for (int j = 0; j < headers.Length; j++)
+				foreach (ExportTable table in exportObject.Tables)
 				{
-					newTable.Cell(1, j).Range.Text = headers[j];
-					newTable.Cell(1, j).Range.Bold = 2;
-				}
+					var title = table.Title;
+					var headers = table.Headers;
+					var data = table.Data;
 
-				for (int i = 0; i < data.GetLength(0); i++)
-				{
-					for (int j = 0; j < headers.Length; j++)
+					var tableHeader = document.InsertParagraph();
+
+					tableHeader.Append(title).Font(new FontFamily("Times New Roman")).Bold();
+					tableHeader.Alignment = Alignment.center;
+
+					Table tab = document.AddTable(data.Count + 1, headers.Count);
+					tab.Alignment = Alignment.center;
+
+					for (int j = 0; j < headers.Count; j++)
 					{
-						newTable.Cell(i + 1, j).Range.Text = data[i, j] ?? "";	
+						tab.Rows[0].Cells[j].Paragraphs.First().Append(headers[j]).Font(new FontFamily("Times New Roman")).Bold();
 					}
+
+					for (int i = 0; i < data.Count; i++)
+					{
+						for (int j = 0; j < headers.Count; j++)
+						{
+							tab.Rows[i + 1].Cells[j].Paragraphs.First().Append(data[i][j] ?? "").Font(new FontFamily("Times New Roman"));
+						}
+					}
+
+					tab.AutoFit = AutoFit.Contents;
+					document.InsertTable(tab);
+					document.InsertParagraph();
 				}
 
-				wordApp.Selection.Cells.VerticalAlignment =Word.WdCellVerticalAlignment.wdCellAlignVerticalTop; // Center Vertically 
-				wordApp.Selection.ParagraphFormat.Alignment =Word.WdParagraphAlignment.wdAlignParagraphCenter; // Center Horizontal 
-
-				
-				//// merge cells longitudinal 
-				//newTable.Cell(3, 3).Select(); // choose a row
-				//object moveUnit = Word.WdUnits.wdLine;
-				//object moveCount = 5;
-				//object moveExtend = Word.WdMovementType.wdExtend;
-				//wordApp.Selection.MoveDown(ref moveUnit, ref moveCount, ref moveExtend);
-				//wordApp.Selection.Cells.Merge();
-				
-				wordDoc.Paragraphs.Last.Range.Text = "Created date：" +
-				                                     DateTime.Now.ToString(); //“Alignment”
-				wordDoc.Paragraphs.Last.Alignment =
-					Word.WdParagraphAlignment.wdAlignParagraphRight;
+				document.Save();
+				Convert(fileName + ".docx", fileName, Word.WdSaveFormat.wdFormatRTF);
 			}
-			// Save file
-			object fileNameL = fileName;
-			wordDoc.SaveAs(ref fileNameL, ref nothing, ref nothing,
-						   ref nothing, ref nothing, ref nothing, ref nothing,
-						   ref nothing, ref nothing, ref nothing, ref nothing,
-						   ref nothing, ref nothing, ref nothing, ref nothing, ref nothing);
-
-			Type doctype = wordDoc.GetType();
-			doctype.InvokeMember("SaveAs", System.Reflection.BindingFlags.InvokeMethod, null, wordDoc, new
-				object[] { fileName+".rtf", Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatRTF });
-
-			wordDoc.Close(ref nothing, ref nothing, ref nothing);
-			wordApp.Quit(ref nothing, ref nothing, ref nothing);
 		}
-    }
+
+		// Convert a Word 2008 .docx to Word 2003 .doc
+		public static void Convert(string input, string output, Word.WdSaveFormat format)
+		{
+			// Create an instance of Word.exe
+			Word._Application oWord = new Word.Application();
+
+			// Make this instance of word invisible (Can still see it in the taskmgr).
+			oWord.Visible = false;
+
+			// Interop requires objects.
+			object oMissing = System.Reflection.Missing.Value;
+			object isVisible = true;
+			object readOnly = false;
+			object oInput = input;
+			object oOutput = output;
+			object oFormat = format;
+
+			// Load a document into our instance of word.exe
+			Word._Document oDoc = oWord.Documents.Open(ref oInput, ref oMissing, ref readOnly, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref isVisible, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+			// Make this document the active document.
+			oDoc.Activate();
+
+			// Save this document in Word 2003 format.
+			oDoc.SaveAs(ref oOutput, ref oFormat, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+			// Always close Word.exe.
+			oWord.Quit(ref oMissing, ref oMissing, ref oMissing);
+		}
+	}
 }

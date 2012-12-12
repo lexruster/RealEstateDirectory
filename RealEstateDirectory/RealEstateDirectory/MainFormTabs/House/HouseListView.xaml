@@ -54,17 +54,17 @@
                     <TextBlock Margin="10,0,0,0">Обновить</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Margin="5" Width="40" Click="ExportToExcel" ToolTip="Экспортировать в Excel">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/Img/EXCEL.png" />
-                </StackPanel>
-            </Button>
-            <Button Margin="5" Width="40" Click="ExportToRTF" ToolTip="Экспортировать в Word">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/Img/WORD.png" />
-                </StackPanel>
-            </Button>
-        </StackPanel>
+			<Button Margin="5" Width="40" ToolTip="Экспортировать в Excel" Command="{Binding ExportToExcelCommand}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Resources/Img/EXCEL.png" />
+				</StackPanel>
+			</Button>
+			<Button Margin="5" Width="40" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordCommand}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Resources/Img/WORD.png" />
+				</StackPanel>
+			</Button>
+		</StackPanel>
 
         <Expander Header="Фильтр" Grid.Row="1" HorizontalAlignment="Stretch">
             <WrapPanel>

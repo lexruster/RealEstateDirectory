@@ -29,17 +29,27 @@ namespace RealEstateDirectory.MainFormTabs.Room
             get { return String.Format("{0:0.0}", TotalSquare); }
         }
 
-        public string FloorString
-        {
-            get
-            {
-                if(Floor.HasValue|| TotalFloor.HasValue)
-                    return String.Format("{0}/{1}", Floor, TotalFloor);
-                return "";
-            }
-        }
+	    public string FloorString
+	    {
+		    get
+		    {
+			    if (Floor.HasValue || TotalFloor.HasValue)
+				    return String.Format("{0}/{1}", Floor, TotalFloor);
+			    return "";
+		    }
+	    }
 
-        #endregion
+		public string RoomString
+		{
+			get
+			{
+				if (RoomCount.HasValue || TotalRoomCount.HasValue)
+					return String.Format("{0}/{1}", RoomCount, TotalRoomCount);
+				return "";
+			}
+		}
+
+	    #endregion
 
         #region Методы
 

@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace RealEstateDirectory.Services.Export
 {
-	public class DataExportService : IDataExportService
+	public class DataGridExportService : IDataGridExportService
 	{
 		private readonly IMessageService _MessageService;
 		private const int SkipEndRows = 4;
 
-		public DataExportService(IMessageService messageService)
+		public DataGridExportService(IMessageService messageService)
 		{
 			_MessageService = messageService;
 		}
@@ -64,7 +63,7 @@ namespace RealEstateDirectory.Services.Export
 			return string.IsNullOrEmpty(path) ? null : path.Split('.');
 		}
 
-		public string[] GetHeader(DataGrid grid)
+		public List<string> GetHeader(DataGrid grid)
 		{
 			var headers = new List<string>();
 
@@ -73,18 +72,19 @@ namespace RealEstateDirectory.Services.Export
 				headers.Add(grid.Columns[j].Header.ToString());
 			}
 
-			return headers.ToArray();
+			return headers;
 		}
 
-		public string[,] GetData(DataGrid grid)
+		public List<List<string>> GetData(DataGrid grid)
 		{
 			List<object> list = grid.ItemsSource.Cast<object>().ToList();
 
-			var data = new string[list.Count(),grid.Columns.Count];
+			var data = new List<List<string>>();
 
 			for (int rowNum = 0; rowNum < list.Count; rowNum++)
 			{
 				var item = list[rowNum];
+				data[rowNum]=new List<string>();
 				for (int colNum = 0; colNum < grid.Columns.Count - SkipEndRows; colNum++)
 				{
 					DataGridColumn gridColumn = grid.Columns[colNum];
@@ -102,11 +102,12 @@ namespace RealEstateDirectory.Services.Export
 							{
 								text = "Нет";
 							}
-							data[rowNum, colNum] = text.ToString();
+							data[rowNum].Add(text.ToString());
 						}
 					}
 				}
 			}
+
 			return data;
 		}
 	}

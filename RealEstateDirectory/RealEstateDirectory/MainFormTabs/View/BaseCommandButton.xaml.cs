@@ -11,17 +11,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using RealEstateDirectory.Services;
-using RealEstateDirectory.Services.Export;
 
-namespace RealEstateDirectory.MainFormTabs.Residence
+namespace RealEstateDirectory.MainFormTabs.View
 {
 	/// <summary>
-	/// Interaction logic for ResidenceListView.xaml
+	/// Interaction logic for BaseCommandButton.xaml
 	/// </summary>
-	public partial class ResidenceListView : UserControl
+	public partial class BaseCommandButton : UserControl
 	{
-		public ResidenceListView()
+		public BaseCommandButton()
 		{
 			InitializeComponent();
 		}

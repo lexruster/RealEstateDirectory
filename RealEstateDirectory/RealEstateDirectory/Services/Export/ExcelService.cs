@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Misc.ExcelProvider;
@@ -11,20 +12,20 @@ namespace RealEstateDirectory.Services.Export
 	{
 		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly IMessageService _MessageService;
-		private readonly IDataExportService _DataExportService;
+		private readonly IDataGridExportService _dataGridExportService;
 
-		public ExcelService(IMessageService messageService, IDataExportService dataExportService)
+		public ExcelService(IMessageService messageService, IDataGridExportService dataGridExportService)
 		{
 			_MessageService = messageService;
-			_DataExportService = dataExportService;
+			_dataGridExportService = dataGridExportService;
 		}
 
 		public void ExportToExcel(DataGrid grid)
 		{
 			try
 			{
-				var headers = _DataExportService.GetHeader(grid);
-				var data = _DataExportService.GetData(grid);
+				var headers = _dataGridExportService.GetHeader(grid);
+				var data = _dataGridExportService.GetData(grid);
 				ExportToExcelInner(headers, data);
 			}
 			catch (Exception e)
@@ -35,11 +36,11 @@ namespace RealEstateDirectory.Services.Export
 			}
 		}
 
-		public void ExportToExcel(string[] headers, string[,] data)
+		public void ExportToExcel(ExportObject data)
 		{
 			try
 			{
-				ExportToExcelInner(headers, data);
+				ExportToExcelInner(data.Tables[0].Headers, data.Tables[0].Data);
 			}
 			catch (Exception e)
 			{
@@ -49,9 +50,9 @@ namespace RealEstateDirectory.Services.Export
 			}
 		}
 
-		private void ExportToExcelInner(string[] headers, string[,] data)
+		private void ExportToExcelInner(List<string> headers, List<List<string>> data)
 		{
-			var table = new ExportTable(headers, data);
+			var table = new ExportTable("", headers, data);
 			ExcelProvider.Generate(table);
 		}
 	}

@@ -85,9 +85,6 @@
       <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
-    <Reference Include="Rtf">
-      <HintPath>..\..\Dependencies\RTF\Rtf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
@@ -107,6 +104,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainFormTabs\View\BaseCommandButton.xaml.cs">
+      <DependentUpon>BaseCommandButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Misc\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -237,9 +237,9 @@
     </Compile>
     <Compile Include="Services\BoolToVisible.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
-    <Compile Include="Services\Export\DataExportService.cs" />
+    <Compile Include="Services\Export\DataGridExportService.cs" />
     <Compile Include="Services\Export\ExcelService.cs" />
-    <Compile Include="Services\Export\IDataExportService.cs" />
+    <Compile Include="Services\Export\IDataGridExportService.cs" />
     <Compile Include="Services\Export\IExcelService.cs" />
     <Compile Include="Services\Export\IWordService.cs" />
     <Compile Include="Services\Export\WordService.cs" />
@@ -257,6 +257,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="MainFormTabs\View\BaseCommandButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Misc\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

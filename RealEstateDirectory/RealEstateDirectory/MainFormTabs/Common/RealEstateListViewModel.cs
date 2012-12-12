@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
+using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
@@ -15,6 +16,7 @@ using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Services;
+using RealEstateDirectory.Services.Export;
 
 namespace RealEstateDirectory.MainFormTabs.Common
 {
@@ -27,7 +29,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public RealEstateListViewModel(IRealEstateService<T> service, IMessageService messageService,
 		                               IDistrictService districtService, IRealtorService realtorService,
 		                               IOwnershipService ownershipService, IDealVariantService dealVariantService,
-		                               IServiceLocator serviceLocator)
+		                               IExcelService excelService, IWordService wordService, IServiceLocator serviceLocator)
 		{
 			_RealEstateService = service;
 			_MessageService = messageService;
@@ -36,6 +38,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_OwnershipService = ownershipService;
 			_DealVariantService = dealVariantService;
 			_ServiceLocator = serviceLocator;
+			_excelService = excelService;
+			_wordService = wordService;
 
 			AddCommand = new DelegateCommand(Add);
 			ChangeCommand = new DelegateCommand(Change);
@@ -43,8 +47,9 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			UpdateCommand = new DelegateCommand(Update);
 			ClearFilterCommand = new DelegateCommand(ClearFilter);
 			ApplyFilterCommand = new DelegateCommand(ApplyFilter);
+			ExportToExcelCommand = new DelegateCommand(ExportToExcel);
+			ExportToWordCommand = new DelegateCommand(ExportToWord);
 
-			//SelectAndChangeCommand=new DelegateCommand(Change);
 			ChangeInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(ChangeInGrid);
 			DeleteInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(DeleteInGrid);
 		}
@@ -53,13 +58,15 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		#region Infrastructure
 
-		private readonly IRealEstateService<T> _RealEstateService;
+		protected IRealEstateService<T> _RealEstateService;
 		private readonly IMessageService _MessageService;
 		private readonly IDistrictService _DistrictService;
 		private readonly IRealtorService _RealtorService;
 		private readonly IOwnershipService _OwnershipService;
 		private readonly IDealVariantService _DealVariantService;
 		protected readonly IServiceLocator _ServiceLocator;
+		private readonly IExcelService _excelService;
+		private readonly IWordService _wordService;
 
 		public void Initialize()
 		{
@@ -153,15 +160,18 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			FilterDistrict = _AllDistricts;
 			UpdateStreet();
 
-			RealtorList = new ObservableCollection<Realtor>((new[] {_AllRealtors, _NoneRealtors}).Concat(_RealtorService.GetAll()).ToList());
+			RealtorList =
+				new ObservableCollection<Realtor>((new[] {_AllRealtors, _NoneRealtors}).Concat(_RealtorService.GetAll()).ToList());
 			FilterRealtor = _AllRealtors;
 
 			DealVariantList =
-				new ObservableCollection<DealVariant>((new[] {_AllDealVariant, _NoneDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
+				new ObservableCollection<DealVariant>(
+					(new[] {_AllDealVariant, _NoneDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
 			FilterDealVariant = _AllDealVariant;
 
 			OwnershipList =
-				new ObservableCollection<Ownership>((new[] {_AllOwnership, _NoneOwnership}).Concat(_OwnershipService.GetAll()).ToList());
+				new ObservableCollection<Ownership>(
+					(new[] {_AllOwnership, _NoneOwnership}).Concat(_OwnershipService.GetAll()).ToList());
 			FilterOwnership = _AllOwnership;
 
 			MinPrice = null;
@@ -173,22 +183,22 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		private void InitFilters()
 		{
 			PropertyChanged += (sender, args) =>
-			{
-				if (_FilterEnabled)
 				{
-					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDealVariant)
-					    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterOwnership)
-					    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterRealtor)
-					    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterStreet))
-						UpdateEntityList();
-
-					if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDistrict))
+					if (_FilterEnabled)
 					{
-						UpdateStreet();
-						UpdateEntityList();
+						if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDealVariant)
+						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterOwnership)
+						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterRealtor)
+						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterStreet))
+							UpdateEntityList();
+
+						if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDistrict))
+						{
+							UpdateStreet();
+							UpdateEntityList();
+						}
 					}
-				}
-			};
+				};
 		}
 
 		protected void UpdateEntityList()
@@ -204,14 +214,14 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			var street = FilterStreet;
 			if (street != null && !Equals(street, _AllStreets))
 				entities = Equals(street, _NoneStreets)
-							   ? entities.Where(room => room.Street == null)
-							   : entities.Where(room => room.Street != null && Equals(room.Street, street));
+					           ? entities.Where(room => room.Street == null)
+					           : entities.Where(room => room.Street != null && Equals(room.Street, street));
 
 			var realtor = FilterRealtor;
 			if (realtor != null && !Equals(realtor, _AllRealtors))
 				entities = Equals(realtor, _NoneRealtors)
 					           ? entities.Where(room => room.Realtor == null)
-							   : entities.Where(room => room.Realtor != null && Equals(room.Realtor, realtor));
+					           : entities.Where(room => room.Realtor != null && Equals(room.Realtor, realtor));
 
 			var dealVariant = FilterDealVariant;
 			if (dealVariant != null && !Equals(dealVariant, _AllDealVariant))
@@ -234,7 +244,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 			entities = UpdateChildFilterData(entities);
 
-
 			Entities = new ObservableCollection<RealEstateViewModel<T>>(entities.Select(CreateNewViewModel).ToArray());
 			EntityCountString = String.Format("Всего: {0} предложений", Entities.Count());
 		}
@@ -255,6 +264,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected abstract RealEstateEditViewModel<T> GetEditEntityViewModel();
 		protected abstract IEnumerable<T> UpdateChildFilterData(IEnumerable<T> entities);
 		protected abstract void LoadChildFiltersData();
+		public abstract ExportTable GetExportedTable(bool forAll = false);
 
 		#endregion
 
@@ -268,7 +278,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public ICommand UpdateCommand { get; private set; }
 		public ICommand ApplyFilterCommand { get; private set; }
 		public ICommand ClearFilterCommand { get; private set; }
-		//public ICommand SelectAndChangeCommand { get; protected set; }
+		public ICommand ExportToExcelCommand { get; private set; }
+		public ICommand ExportToWordCommand { get; private set; }
 
 		protected void Add()
 		{
@@ -341,6 +352,22 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			UpdateEntityList();
 		}
 
+		protected void ExportToExcel()
+		{
+			var data = GetExportedTable();
+			var obj = new ExportObject();
+			obj.Tables.Add(data);
+			_excelService.ExportToExcel(obj);
+		}
+
+		protected void ExportToWord()
+		{
+			var data = GetExportedTable();
+			var obj = new ExportObject();
+			obj.Tables.Add(data);
+			_wordService.ExportToWord(obj);
+		}
+
 		#endregion
 
 		#region Методы проверки команд
@@ -365,6 +392,15 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			{
 				CurrentEntity.LoadViewModel(entity);
 			}
+		}
+
+		#endregion
+
+		#region Helper
+
+		public string GetBaseDictionaryName(BaseDictionary dictionary)
+		{
+			return dictionary == null ? "" : dictionary.Name;
 		}
 
 		#endregion
