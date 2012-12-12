@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:l="clr-namespace:RealEstateDirectory.Services">
+
+    <Style x:Key="DictionaryWindow" TargetType="{x:Type Window}">
+        <Setter Property="WindowStyle" Value="ThreeDBorderWindow"></Setter>
+        <Setter Property="Width" Value="400"></Setter>
+        <Setter Property="Height" Value="650"></Setter>
+        <Setter Property="MinHeight" Value="400"></Setter>
+        <Setter Property="MinWidth" Value="300"></Setter>
+        <Setter Property="Title" Value="{Binding DictionaryName}"></Setter>
+    </Style>
+
+    <Style x:Key="EntityWindow" TargetType="{x:Type Window}">
+        <Setter Property="Height" Value="500"/>
+        <Setter Property="Width" Value="780"/>
+        <Setter Property="WindowStyle" Value="ToolWindow"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+    </Style>
+
+    <Style x:Key="TextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Margin" Value="3"></Setter>
+    </Style>
+
+    <Style x:Key="ValidateTextBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CheckBox"  TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Margin" Value="3"></Setter>
+    </Style>
+
+    <Style x:Key="MainGrid"  TargetType="{x:Type DataGrid}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+
+        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+        <Setter Property="GridLinesVisibility" Value="None"></Setter>
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"></Setter>
+        <Setter Property="EnableRowVirtualization" Value="True"></Setter>
+        <Setter Property="EnableColumnVirtualization" Value="True"></Setter>
+        <Setter Property="SelectionMode" Value="Single"></Setter>
+        <Setter Property="SelectionUnit" Value="FullRow"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+        <Setter Property="AlternatingRowBackground" Value="#E7E7EB"></Setter>
+        <Setter Property="AlternationCount" Value="2"></Setter>
+    </Style>
+    
+    <l:BoolToVisible x:Key="BoolToVisibleConverter" />
+</ResourceDictionary>
+    
+    
+    

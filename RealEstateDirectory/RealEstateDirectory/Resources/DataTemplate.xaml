@@ -1,0 +1,62 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain">
+    <!--Отображение сущностей-->
+    <DataTemplate DataType="{x:Type Dictionaries:District}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Street}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:DealVariant}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Ownership}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Layout}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:FloorLevel}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Material}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Realtor}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:RealtorAgency}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Sewage}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:Terrace}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:ToiletType}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type Dictionaries:WaterSupply}">
+        <TextBlock Text="{Binding Name}"></TextBlock>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type System:DateTime}">
+        <TextBlock Text="{Binding StringFormat={}\{0:dd.MM.yyyy HH:mm\}}"></TextBlock>
+    </DataTemplate>
+</ResourceDictionary>
+
