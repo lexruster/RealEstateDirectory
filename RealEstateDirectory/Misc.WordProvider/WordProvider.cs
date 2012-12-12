@@ -9,9 +9,8 @@ namespace Misc.WordProvider
 {
 	public static class WordProvider
     {
-		public static void Generate(string[] headers, string[,] data, string fileName)
+		public static void Generate(ExportObject exportObject, string fileName)
 		{
-
 			//for (int j = 0; j < headers.Length; j++)
 			//{
 			//	t[j, 0].Formatting = new RtfParagraphFormatting(8, RtfTextAlign.Center);
@@ -37,21 +36,29 @@ namespace Misc.WordProvider
 			// create Word file
 			Word.Application wordApp = new Word.ApplicationClass();
 			Word.Document wordDoc = wordApp.Documents.Add(ref nothing, ref nothing, ref nothing, ref nothing);
-			
-			
-			
 
+			
 			// Add header
-			wordApp.ActiveWindow.View.Type = Word.WdViewType.wdOutlineView;
+			wordApp.ActiveWindow.View.Type = Word.WdViewType.wdNormalView;
 			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
-			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter("slon");
+			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter("E-8");
+			wordApp.Selection.ParagraphFormat.Alignment =
+				Word.WdParagraphAlignment.wdAlignParagraphCenter; // Set right alignment 
+			wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekMainDocument; // set pop up header 
+
+			wordApp.Selection.ParagraphFormat.LineSpacing = 15f; // Set file line spacing
+			wordApp.Selection.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
+
+			//wordApp.ActiveWindow.View.Type = Word.WdViewType.wdNormalView;
+			//wordApp.ActiveWindow.View.SeekView = Word.WdSeekView.wdSeekPrimaryHeader;
+			wordApp.ActiveWindow.ActivePane.Selection.InsertAfter("E-8");
 			wordApp.Selection.ParagraphFormat.Alignment =
 				Word.WdParagraphAlignment.wdAlignParagraphRight; // Set right alignment 
 			wordApp.ActiveWindow.View.SeekView =
 				Word.WdSeekView.wdSeekMainDocument; // set pop up header 
 
 			wordApp.Selection.ParagraphFormat.LineSpacing = 15f; // Set file line spacing
-			wordApp.Selection.PageSetup.Orientation=Word.WdOrientation.wdOrientLandscape;
+			wordApp.Selection.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
 
 			// Move focus and newline
 			object count = 14;
@@ -87,7 +94,7 @@ namespace Misc.WordProvider
 			newTable.Cell(2, 1).Merge(newTable.Cell(2, 3));
 			wordApp.Selection.Cells.VerticalAlignment =
 				Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-			
+
 			// Fill in table
 			newTable.Cell(3, 1).Range.Text = "Brandname";
 			newTable.Cell(3, 2).Range.Text = "BrandName";
@@ -104,13 +111,13 @@ namespace Misc.WordProvider
 			//object SaveWithDocument = true;
 			//object Anchor = WordDoc.Application.Selection.Range;
 			//WordDoc.Application.ActiveDocument.InlineShapes.AddPicture
-//				(FileName, ref LinkToFile, ref SaveWithDocument, ref Anchor);
+			//				(FileName, ref LinkToFile, ref SaveWithDocument, ref Anchor);
 			//WordDoc.Application.ActiveDocument.InlineShapes[1].Width = 100f; //image width
 			//WordDoc.Application.ActiveDocument.InlineShapes[1].Height = 100f; //image height
 			// Set image layout as Square 
 			//Word.Shape s =
-//				WordDoc.Application.ActiveDocument.InlineShapes[1].ConvertToShape();
-	//		s.WrapFormat.Type = Word.WdWrapType.wdWrapSquare;
+			//				WordDoc.Application.ActiveDocument.InlineShapes[1].ConvertToShape();
+			//		s.WrapFormat.Type = Word.WdWrapType.wdWrapSquare;
 
 			newTable.Cell(12, 1).Range.Text = "product special attribute";
 			newTable.Cell(12, 1).Merge(newTable.Cell(12, 3));
@@ -135,11 +142,6 @@ namespace Misc.WordProvider
 
 			wordDoc.Close(ref nothing, ref nothing, ref nothing);
 			wordApp.Quit(ref nothing, ref nothing, ref nothing);
-		}
-
-		public static void Generate(ExportObject exportObject, string fileName)
-		{
-			//void Generate(exportObject.Tables headers, string[,] data, string fileName)
 		}
     }
 }
