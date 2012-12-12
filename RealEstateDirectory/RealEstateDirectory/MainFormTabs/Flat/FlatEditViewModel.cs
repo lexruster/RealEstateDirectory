@@ -37,7 +37,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
             _ToiletTypeService = toiletTypeService;
         }
 
-        #endregion
+	    #endregion
 
         #region Infrastructure
 
@@ -50,19 +50,49 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 
         #endregion
 
-        #region Свойства  INotifi
+		#region  Свойства сущности
 
-        public decimal? TotalSquare { get; set; }
-        public decimal? KitchenSquare { get; set; }
-        public decimal? ResidentialSquare { get; set; }
+		public string TotalSquare { get; set; }
+        public string KitchenSquare { get; set; }
+        public string ResidentialSquare { get; set; }
         public int? TotalRoomCount { get; set; }
-        public int? TotalFloor { get; set; }
         public ListCollectionView Terrace { get; set; }
         public ListCollectionView Material { get; set; }
         public ListCollectionView Layout { get; set; }
         public ListCollectionView FloorLevel { get; set; }
         public ListCollectionView ToiletType { get; set; }
-        public int? Floor { get; set; }
+
+	    private int? _TotalFloor;
+
+		[DoNotNotify]
+	    public int? TotalFloor
+	    {
+		    get { return _TotalFloor; }
+			set
+			{
+				if (_TotalFloor == value)
+					return;
+				_TotalFloor = value;
+				RaisePropertyChanged(() => TotalFloor);
+				RaisePropertyChanged(() => Floor);
+			}
+	    }
+
+	    private int? _Floor;
+
+		[DoNotNotify]
+	    public int? Floor
+	    {
+		    get { return _Floor; }
+			set
+			{
+				if (_Floor == value)
+					return;
+				_Floor = value;
+				RaisePropertyChanged(() => Floor);
+				RaisePropertyChanged(() => TotalFloor);
+			}
+	    }
 
         #endregion
 
@@ -128,51 +158,79 @@ namespace RealEstateDirectory.MainFormTabs.Flat
             flat.ToiletType = ResolveDictionary<ToiletType>(ToiletType);
         }
 
-        protected override string ChildDataError(string propertyName)
-        {
-            
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
-            {
-                if (TotalSquare < 0)
-                    return "Площадь не может быть отрицательной";
-            }
+		public override string this[string propertyName]
+		{
+			get
+			{
+				var baseResult = base[propertyName];
+				if (baseResult != null)
+					return baseResult;
 
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
-            {
-                if (ResidentialSquare < 0)
-                    return "Площадь не может быть отрицательной";
-            }
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !String.IsNullOrWhiteSpace(TotalSquare))
+				{
+					decimal totalSquare, residentialSquare, kitchenSquare;
+					if (!Decimal.TryParse(TotalSquare, out totalSquare))
+						return "Общая площадь введена некорректно";
+					if (totalSquare < 0)
+						return "Общая площадь не может быть отрицательной";
 
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
-            {
-                if (KitchenSquare < 0)
-                    return "Площадь не может быть отрицательной";
-            }
+					if (Decimal.TryParse(ResidentialSquare, out residentialSquare) && residentialSquare >= 0
+						&& Decimal.TryParse(KitchenSquare, out kitchenSquare) && kitchenSquare >= 0)
+				}
 
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount))
-            {
-                if (TotalRoomCount < 0)
-                    return "Число комнат не может быть отрицательным";
-            }
+				if (propertyName == PropertySupport.ExtractPropertyName(() => ResidentialSquare))
+				{
+					if (ResidentialSquare < 0)
+						return "Площадь не может быть отрицательной";
+				}
 
-            if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
-            {
-                if (Floor < 0)
-                    return "Этаж не может быть отрицательным";
-                if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
-                    return "Этаж не может быть больше общего числа этажей";
-            }
+				if (propertyName == PropertySupport.ExtractPropertyName(() => KitchenSquare))
+				{
+					if (KitchenSquare < 0)
+						return "Площадь не может быть отрицательной";
+				}
 
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor))
-            {
-                if (TotalFloor < 0)
-                    return "Всего этажей не может быть отрицательным";
-                if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
-                    return "Этаж не может быть больше общего числа этажей";
-            }
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount))
+				{
+					if (TotalRoomCount < 0)
+						return "Число комнат не может быть отрицательным";
+				}
 
-            return null;
-        }
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
+				{
+					if (Floor < 0)
+						return "Этаж не может быть отрицательным";
+					if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
+						return "Этаж не может быть больше общего числа этажей";
+				}
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor))
+				{
+					if (TotalFloor < 0)
+						return "Всего этажей не может быть отрицательным";
+					if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
+						return "Этаж не может быть больше общего числа этажей";
+				}
+
+				return null;
+			}
+		}
+
+		protected override IEnumerable<string> ValidatableProperties
+		{
+			get
+			{
+				foreach (var validatableProperty in base.ValidatableProperties)
+					yield return validatableProperty;
+
+				yield return PropertySupport.ExtractPropertyName(() => TotalSquare);
+				yield return PropertySupport.ExtractPropertyName(() => ResidentialSquare);
+				yield return PropertySupport.ExtractPropertyName(() => KitchenSquare);
+				yield return PropertySupport.ExtractPropertyName(() => TotalRoomCount);
+				yield return PropertySupport.ExtractPropertyName(() => Floor);
+				yield return PropertySupport.ExtractPropertyName(() => TotalFloor);
+			}
+		}
 
         protected override void InitCollection()
         {

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.ViewModel;
+using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
@@ -10,6 +11,7 @@ using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.MainFormTabs.Residence
 {
+	[NotifyForAll]
 	public class ResidenceEditViewModel : RealEstateEditViewModel<Domain.Entities.Residence>
 	{
 		public ResidenceEditViewModel(IResidenceService residenceService, IMessageService messageService,
@@ -32,9 +34,39 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		#region Свойства  INotifi
 
 		public decimal? TotalSquare { get; set; }
-		public int? TotalFloor { get; set; }
 		public ListCollectionView Material { get; set; }
-		public int? Floor { get; set; }
+
+		private int? _TotalFloor;
+
+		[DoNotNotify]
+		public int? TotalFloor
+		{
+			get { return _TotalFloor; }
+			set
+			{
+				if (_TotalFloor == value)
+					return;
+				_TotalFloor = value;
+				RaisePropertyChanged(() => TotalFloor);
+				RaisePropertyChanged(() => Floor);
+			}
+		}
+
+		private int? _Floor;
+
+		[DoNotNotify]
+		public int? Floor
+		{
+			get { return _Floor; }
+			set
+			{
+				if (_Floor == value)
+					return;
+				_Floor = value;
+				RaisePropertyChanged(() => Floor);
+				RaisePropertyChanged(() => TotalFloor);
+			}
+		}
 
 		#endregion
 
