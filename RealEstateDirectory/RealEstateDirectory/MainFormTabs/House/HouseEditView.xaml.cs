@@ -11,15 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RealEstateDirectory.MainFormTabs.View;
 
 namespace RealEstateDirectory.MainFormTabs.House
 {
 	/// <summary>
     /// Interaction logic for HouseEditView.xaml
 	/// </summary>
-    public partial class HouseEditView : Window
+	public partial class HouseEditView : EntityEditWindow
 	{
-        public HouseEditView()
+		public HouseEditView()
 		{
 			InitializeComponent();
 		}

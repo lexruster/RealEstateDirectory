@@ -17,8 +17,9 @@
     <Style x:Key="EntityWindow" TargetType="{x:Type Window}">
         <Setter Property="Height" Value="500"/>
         <Setter Property="Width" Value="780"/>
-        <Setter Property="WindowStyle" Value="ToolWindow"/>
-        <Setter Property="ResizeMode" Value="NoResize"/>
+        <!--<Setter Property="WindowStyle" Value="ToolWindow"/>-->
+		<!--<Setter Property="WindowStyle" Value="ThreeDBorderWindow"/>
+        <Setter Property="ResizeMode" Value="CanMinimize"/>-->
 		<Setter Property="TextOptions.TextRenderingMode" Value="ClearType"></Setter>
 		<Setter Property="TextOptions.TextFormattingMode" Value="Display"></Setter>
 		<Setter Property="SnapsToDevicePixels" Value="True"></Setter>

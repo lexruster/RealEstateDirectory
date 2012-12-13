@@ -1,5 +1,6 @@
-﻿<Window x:Class="RealEstateDirectory.MainFormTabs.Residence.ResidenceEditView"
+﻿<EntityWindow:EntityEditWindow x:Class="RealEstateDirectory.MainFormTabs.Residence.ResidenceEditView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:EntityWindow="clr-namespace:RealEstateDirectory.MainFormTabs.View"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Здание" Style="{StaticResource EntityWindow}">
 	<Border Width="Auto" Height="Auto" Name="windowFrame" Background="{DynamicResource WindowBackgroundBrush}" >
@@ -84,4 +85,4 @@
 			</Grid>
 		</AdornerDecorator>
 	</Border>
-</Window>
+</EntityWindow:EntityEditWindow>

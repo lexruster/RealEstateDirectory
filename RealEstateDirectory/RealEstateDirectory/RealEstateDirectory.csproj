@@ -107,6 +107,7 @@
     <Compile Include="MainFormTabs\View\BaseCommandButton.xaml.cs">
       <DependentUpon>BaseCommandButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainFormTabs\View\EntityEditWindow.cs" />
     <Compile Include="Misc\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>

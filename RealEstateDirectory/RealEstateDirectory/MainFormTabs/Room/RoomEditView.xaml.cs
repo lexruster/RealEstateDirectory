@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RealEstateDirectory.MainFormTabs.View;
 
 namespace RealEstateDirectory.MainFormTabs.Room
 {
 	/// <summary>
 	/// Interaction logic for RoomEditView.xaml
 	/// </summary>
-	public partial class RoomEditView : Window
+	public partial class RoomEditView : EntityEditWindow
 	{
         public RoomEditView()
 		{

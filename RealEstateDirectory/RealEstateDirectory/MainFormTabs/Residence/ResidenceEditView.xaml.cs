@@ -10,15 +10,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RealEstateDirectory.MainFormTabs.View;
 
 namespace RealEstateDirectory.MainFormTabs.Residence
 {
 	/// <summary>
     /// Interaction logic for ResidenceEditView.xaml
 	/// </summary>
-	public partial class ResidenceEditView : Window
+	public partial class ResidenceEditView : EntityEditWindow
 	{
-        public ResidenceEditView()
+		public ResidenceEditView()
 		{
 			InitializeComponent();
 		}

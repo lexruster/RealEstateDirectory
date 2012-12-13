@@ -11,15 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RealEstateDirectory.MainFormTabs.View;
 
 namespace RealEstateDirectory.MainFormTabs.Plot
 {
 	/// <summary>
 	/// Interaction logic for PlotEditView.xaml
 	/// </summary>
-	public partial class PlotEditView : Window
+	public partial class PlotEditView : EntityEditWindow
 	{
-        public PlotEditView()
+		public PlotEditView()
 		{
 			InitializeComponent();
 		}
