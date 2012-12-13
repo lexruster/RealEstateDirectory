@@ -131,8 +131,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
             Street = new ListCollectionView((new[] { NullStreet }).ToList());
 			Realtor = new ListCollectionView(_RealtorService.GetAll().ToList());
 			Ownership = new ListCollectionView((new[] {NullOwnership}).Concat(_OwnershipService.GetAll()).ToList());
-			DealVariant =
-				new ListCollectionView((new[] {NullDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
+			DealVariant = new ListCollectionView((new[] {NullDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
 			InitCollection();
 
 			DbEntity = room;
@@ -193,7 +192,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		}
 
 		protected abstract void UpdateValuesFromConcreteModel();
-		protected abstract void UpdateConcreteModelFromValues();
+		protected abstract void UpdateConcreteModelFromValues(T databaseModel);
 		protected abstract void CloseDialog();
 		protected abstract void OpenDialog();
 
@@ -272,10 +271,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 				if (propertyName == PropertySupport.ExtractPropertyName(() => Price) && !String.IsNullOrWhiteSpace(Price))
 				{
 					decimal price;
-					if (!Decimal.TryParse(Price, out price))
+					if (!Decimal.TryParse(Price, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out price))
 						return "Цена указана некорректно";
-					if (price < 0)
-						return "Цена не может быть отрицательной";
 				}
 
 				if (propertyName == PropertySupport.ExtractPropertyName(() => CurrentRealtor) && CurrentRealtor == null)
