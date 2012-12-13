@@ -9,7 +9,8 @@
         xmlns:House="clr-namespace:RealEstateDirectory.MainFormTabs.House"
         xmlns:Residence="clr-namespace:RealEstateDirectory.MainFormTabs.Residence"
         mc:Ignorable="d" Title="Справочник недвижимости"  Width="1280" Height="700"
-        MinHeight="720" MinWidth="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        MinHeight="720" MinWidth="1000" WindowStartupLocation="CenterScreen"
+		Style="{StaticResource MainWindow}" 
         Background="{DynamicResource WindowBackgroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
