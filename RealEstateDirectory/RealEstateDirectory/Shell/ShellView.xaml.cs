@@ -1,5 +1,7 @@
-﻿using System.Printing;
+﻿using System;
+using System.Printing;
 using System.Windows;
+using System.Windows.Controls;
 using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
@@ -79,7 +81,6 @@ namespace RealEstateDirectory.Shell
 			{
 				MessageBox.Show("Произошла ошибка при печати", "Ошибка");
 			}
-
 		}
 	}
 }
