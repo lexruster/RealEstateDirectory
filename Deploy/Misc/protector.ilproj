@@ -17,6 +17,10 @@
     <Protect Include="Bin\RealEstateDirectory.Infrastructure.dll" />
     <Protect Include="Bin\RealEstateDirectory.Infrastructure.NHibernate.dll" />
     <Protect Include="Bin\RealEstateDirectory.Migrations.dll" />
+    <Protect Include="Bin\Misc.ExcelProvider.dll" />
+    <Protect Include="Bin\Misc.Miscellaneous.dll" />
+    <Protect Include="Bin\Misc.WordProvider.dll" />
+    <Protect Include="Bin\RealEstateDirectory.Utils.dll" />
     <Protect Include="Bin\RealEstateDirectory.exe" />
   </ItemGroup>
 </Project>

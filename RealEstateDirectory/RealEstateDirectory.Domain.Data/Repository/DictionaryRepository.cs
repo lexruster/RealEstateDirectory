@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NHibernate.Linq;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Domain.AbstractRepositories;
@@ -8,7 +6,6 @@ using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.Infrastructure.NHibernate.Repositories;
-using RealEstateDirectory.Infrastructure.Repositories;
 
 namespace RealEstateDirectory.Domain.Data.Repository
 {
