@@ -85,6 +85,7 @@
       <HintPath>..\..\Dependencies\PostgreSql\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
@@ -249,6 +250,7 @@
     <Compile Include="Services\IViewsService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\ViewsService.cs" />
+    <Compile Include="Shell\CustomDataGridDocumentPaginator.cs" />
     <Compile Include="Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
