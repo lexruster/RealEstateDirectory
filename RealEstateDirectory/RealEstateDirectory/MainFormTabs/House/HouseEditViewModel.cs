@@ -89,6 +89,8 @@ namespace RealEstateDirectory.MainFormTabs.House
 					if (!Int32.TryParse(TotalFloor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out totalFloor))
 						return "Количество этажей введено некорректно";
 				}
+
+				return null;
 			}
 		}
 

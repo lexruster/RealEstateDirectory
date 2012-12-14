@@ -24,7 +24,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 			_MaterialService = materialService;
 		}
 
-		#region Infrastructure
+		#region Инфраструктура
 
 		private readonly IViewsService _ViewsService;
 		private readonly IMaterialService _MaterialService;

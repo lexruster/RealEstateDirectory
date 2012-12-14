@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.ComponentModel;
 using System.Windows;
@@ -32,74 +33,99 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 
         #endregion
 
-        #region Infrastructure
+        #region Инфраструктура
 
         private readonly IViewsService _ViewsService;
 
         #endregion
 
-        #region Свойства  INotify
+		#region Сущность
 
-        public decimal? PlotSquare { get; set; }
+		#region Свойства
 
-        #endregion
+		public string PlotSquare { get; set; }
 
-        #region Свойства
+		#endregion
 
-        #endregion
+		#region Валидация
 
-        #region Перегрузки
+		public override string this[string propertyName]
+		{
+			get
+			{
+				var baseResult = base[propertyName];
+				if (baseResult != null)
+					return baseResult;
 
-        protected override void UpdateValuesFromConcreteModel()
+				if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare) && !String.IsNullOrWhiteSpace(PlotSquare))
+				{
+					decimal plotSquare;
+					if (!Decimal.TryParse(PlotSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out plotSquare))
+						return "Площадь участка введена некорректно";
+				}
+
+				return null;
+			}
+		}
+
+		protected override IEnumerable<string> ValidatableProperties
+		{
+			get
+			{
+				foreach (var validatableProperty in base.ValidatableProperties)
+					yield return validatableProperty;
+
+				yield return PropertySupport.ExtractPropertyName(() => PlotSquare);
+			}
+		}
+
+		#endregion
+
+		#region Взаимодействие с моделью БД
+
+		protected override Domain.Entities.Plot CreateNewModel()
+		{
+			var plot = new Domain.Entities.Plot();
+			UpdateConcreteModelFromValues(plot);
+			SetRealEstateValues(plot);
+
+			return plot;
+		}
+
+		protected override void UpdateValuesFromConcreteModel()
+		{
+			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0:0.#") : String.Empty;
+		}
+
+        protected override void UpdateConcreteModelFromValues(Domain.Entities.Plot plot)
         {
-            PlotSquare = DbEntity.PlotSquare;
+			plot.PlotSquare = String.IsNullOrWhiteSpace(PlotSquare) ? null : new decimal?(Decimal.Parse(PlotSquare));
         }
 
-        protected override void UpdateConcreteModelFromValues()
-        {
-            SetPlotValues(DbEntity);
-        }
+		#endregion
 
-        protected override void CloseDialog()
+		#endregion
+
+		#region Свойства
+
+		#endregion
+
+		#region Перегрузки
+
+	    protected override void InitCollection()
+	    {
+	    }
+
+	    protected override void CloseDialog()
         {
             _ViewsService.ClosePlotDialog();
         }
 
-        protected override void OpenDialog()
+	    protected override void OpenDialog()
         {
             _ViewsService.OpenPlotDialog(this);
         }
 
-        protected override Domain.Entities.Plot CreateNewModel()
-        {
-            var plot = new Domain.Entities.Plot();
-            SetPlotValues(plot);
-            SetRealEstateValues(plot);
-
-            return plot;
-        }
-
-        protected void SetPlotValues(Domain.Entities.Plot plot)
-        {
-            plot.PlotSquare = PlotSquare;
-        }
-
-        protected override string ChildDataError(string propertyName)
-        {
-
-            if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare))
-            {
-                if (PlotSquare < 0)
-                    return "Площадь не может быть отрицательной";
-            }
-
-            return null;
-        }
-
-        protected override void InitCollection()
-        {
-        }
-
-        #endregion
+	    #endregion
     }
 }
