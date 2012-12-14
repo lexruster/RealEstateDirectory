@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\ConditionService.cs" />
     <Compile Include="Dictionary\RealtorAgencyService.cs" />
     <Compile Include="FlatService.cs" />
     <Compile Include="HouseService.cs" />

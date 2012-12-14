@@ -113,6 +113,7 @@
                 <DataGridTextColumn  Header="Этаж" Binding="{Binding FloorString}" MinWidth="30" Width="40"/>
                 <DataGridTextColumn  Header="Площадь"  Binding="{Binding TotalSquareString}" Width="50"/>
                 <DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="80"/>
+				<DataGridTextColumn  Header="Состояние" Binding="{Binding Condition.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>
                 <DataGridTextColumn  Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>
                 <DataGridTextColumn  Header="Комментарий" Binding="{Binding Description}" Width="*"/>

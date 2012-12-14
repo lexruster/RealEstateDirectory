@@ -8,7 +8,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
     [NotifyForAll]
     public class FlatViewModel : RealEstateViewModel<Domain.Entities.Flat>
     {
-        #region Свойства  INotifi
+        #region Свойства  INotify
 
         public decimal? TotalSquare { get; set; }
         public decimal? ResidentialSquare { get; set; }

@@ -125,6 +125,7 @@
                 <DataGridTextColumn  Header="Площадь"  Binding="{Binding SquareString}" Width="80"/>
                 <DataGridTextColumn  Header="Балкон" Binding="{Binding Terrace.Name}" MinWidth="40" Width="50"/>
                 <DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
+				<DataGridTextColumn  Header="Состояние" Binding="{Binding Condition.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Сан. узел" Binding="{Binding ToiletType.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Потолки" Binding="{Binding FloorLevel.Name}" Width="60"/>
                 <DataGridTextColumn  Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>

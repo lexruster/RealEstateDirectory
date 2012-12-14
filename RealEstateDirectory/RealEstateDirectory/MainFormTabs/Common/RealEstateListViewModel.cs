@@ -29,6 +29,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public RealEstateListViewModel(IRealEstateService<T> service, IMessageService messageService,
 		                               IDistrictService districtService, IRealtorService realtorService,
 		                               IOwnershipService ownershipService, IDealVariantService dealVariantService,
+									   IConditionService conditionService,
 		                               IExcelService excelService, IWordService wordService, IServiceLocator serviceLocator)
 		{
 			_RealEstateService = service;
@@ -37,6 +38,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_RealtorService = realtorService;
 			_OwnershipService = ownershipService;
 			_DealVariantService = dealVariantService;
+			_ConditionService = conditionService;
 			_ServiceLocator = serviceLocator;
 			_excelService = excelService;
 			_wordService = wordService;
@@ -64,6 +66,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		private readonly IRealtorService _RealtorService;
 		private readonly IOwnershipService _OwnershipService;
 		private readonly IDealVariantService _DealVariantService;
+		private readonly IConditionService _ConditionService;
 		protected readonly IServiceLocator _ServiceLocator;
 		private readonly IExcelService _excelService;
 		private readonly IWordService _wordService;
@@ -79,7 +82,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		#endregion
 
-		#region Свойства  INotifi
+		#region Свойства  INotify
 
 		public RealEstateViewModel<T> CurrentEntity { get; set; }
 		public ObservableCollection<RealEstateViewModel<T>> Entities { get; set; }

@@ -111,6 +111,7 @@
                 <DataGridTextColumn  Header="Район" Binding="{Binding District.Name}" Width="120"/>
                 <DataGridTextColumn  Header="Адрес" Binding="{Binding Address}"  MinWidth="100" Width="180"/>
                 <DataGridTextColumn  Header="Площадь участка"  Binding="{Binding PlotSquareString}" Width="80"/>
+				<DataGridTextColumn  Header="Состояние" Binding="{Binding Condition.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>
                 <DataGridTextColumn  Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>
                 <DataGridTextColumn  Header="Комментарий" Binding="{Binding Description}" Width="*"/>

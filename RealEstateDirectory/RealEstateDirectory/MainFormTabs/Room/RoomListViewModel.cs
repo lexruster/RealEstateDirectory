@@ -23,10 +23,10 @@ namespace RealEstateDirectory.MainFormTabs.Room
 	{
 		public RoomListViewModel(IRoomService service, IMessageService messageService,
 		                         IDistrictService districtService, IRealtorService realtorService,
-		                         IOwnershipService ownershipService, IDealVariantService dealVariantService,
+		                         IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService,
 		                         IExcelService excelService, IWordService wordService,
 		                         IServiceLocator serviceLocator)
-			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, excelService,
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService, excelService,
 			       wordService, serviceLocator)
 		{
 		}
@@ -67,6 +67,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 							"Площадь",
 							"Балкон",
 							"Материал",
+							"Состояние",
 							"Потолки",
 							"Вариант",
 							"Собственность",
@@ -89,6 +90,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 						room.TotalSquareString,
 						GetBaseDictionaryName(room.Terrace),
 						GetBaseDictionaryName(room.Material),
+						GetBaseDictionaryName(room.Condition),
 						GetBaseDictionaryName(room.FloorLevel),
 						GetBaseDictionaryName(room.DealVariant),
 						GetBaseDictionaryName(room.Ownership),

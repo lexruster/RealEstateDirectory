@@ -17,10 +17,10 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 	{
 		public PlotListViewModel(IPlotService service, IMessageService messageService,
 		                         IDistrictService districtService, IRealtorService realtorService,
-		                         IOwnershipService ownershipService, IDealVariantService dealVariantService,
+								 IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService,
 		                         IExcelService excelService, IWordService wordService,
 		                         IServiceLocator serviceLocator)
-			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, excelService,
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService, excelService,
 			       wordService, serviceLocator)
 		{
 		}
@@ -53,6 +53,7 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 							"Район",
 							"Адрес",
 							"Площадь участка",
+							"Состояние",
 							"Вариант",
 							"Собственность",
 							"Комментарий",
@@ -70,6 +71,7 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 						GetBaseDictionaryName(plot.District),
 						plot.Address,
 						plot.PlotSquareString,
+						GetBaseDictionaryName(plot.Condition),
 						GetBaseDictionaryName(plot.DealVariant),
 						GetBaseDictionaryName(plot.Ownership),
 						plot.Description,

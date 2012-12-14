@@ -15,11 +15,11 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 	{
 		public ResidenceListViewModel(IResidenceService residenceService, IMessageService messageService,
 		                              IDistrictService districtService, IRealtorService realtorService,
-		                              IOwnershipService ownershipService, IDealVariantService dealVariantService,
+									  IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService,
 		                              IExcelService excelService, IWordService wordService,
 		                              IServiceLocator serviceLocator)
 			: base(
-				residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService,
+				residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService,
 				excelService, wordService, serviceLocator)
 		{
 
@@ -57,6 +57,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 							"Этаж",
 							"Площадь",
 							"Материал",
+							"Состояние",
 							"Вариант",
 							"Собственность",
 							"Комментарий",
@@ -76,6 +77,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 						residence.FloorString,
 						residence.TotalSquareString,
 						GetBaseDictionaryName(residence.Material),
+						GetBaseDictionaryName(residence.Condition),
 						GetBaseDictionaryName(residence.DealVariant),
 						GetBaseDictionaryName(residence.Ownership),
 						residence.Description,

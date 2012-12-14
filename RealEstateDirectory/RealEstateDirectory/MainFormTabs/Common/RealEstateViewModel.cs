@@ -28,6 +28,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public District District { get; set; }
 		public string Description { get; set; }
 		public DealVariant DealVariant { get; set; }
+		public Condition Condition { get; set; }
 		public DateTime CreateDate { get; set; }
 
 		#endregion
@@ -70,6 +71,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		{
 			CreateDate = DbEntity.CreateDate;
 			DealVariant = DbEntity.DealVariant;
+			Condition = DbEntity.Condition;
 			Description = DbEntity.Description;
 			District = DbEntity.District;
 			HasVideo = DbEntity.HasVideo;

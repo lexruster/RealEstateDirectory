@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.Dictionaries.Common;
+using RealEstateDirectory.Dictionaries.ConditionDictionary;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
@@ -68,7 +69,8 @@ namespace RealEstateDirectory.Services
                                                                typeof (ToiletTypeDictionaryView)));
             _viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof (WaterSupplyDictionaryViewModel),
                                                                typeof (WaterSupplyDictionaryView)));
-
+			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(ConditionDictionaryViewModel),
+															   typeof(ConditionDictionaryView)));
         }
 
         #region Infrastructure

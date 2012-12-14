@@ -24,11 +24,11 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 	{
 		public FlatListViewModel(IFlatService service, IMessageService messageService,
 		                         IDistrictService districtService, IRealtorService realtorService,
-		                         IOwnershipService ownershipService, IDealVariantService dealVariantService,
+		                         IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService,
 		                         IExcelService excelService, IWordService wordService,
 		                         IServiceLocator serviceLocator)
 			: base(
-				service, messageService, districtService, realtorService, ownershipService, dealVariantService, excelService,
+				service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService, excelService,
 				wordService, serviceLocator)
 		{
 		}
@@ -69,6 +69,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 							"Площадь",
 							"Балкон",
 							"Материал",
+							"Состояние",
 							"Сан. узел",
 							"Потолки",
 							"Вариант",
@@ -93,6 +94,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 						flat.SquareString,
 						GetBaseDictionaryName(flat.Terrace),
 						GetBaseDictionaryName(flat.Material),
+						GetBaseDictionaryName(flat.Condition),
 						GetBaseDictionaryName(flat.ToiletType),
 						GetBaseDictionaryName(flat.FloorLevel),
 						GetBaseDictionaryName(flat.DealVariant),

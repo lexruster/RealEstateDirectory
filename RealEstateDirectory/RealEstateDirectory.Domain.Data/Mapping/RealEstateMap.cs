@@ -27,6 +27,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 			Property(x => x.TerritorialNumber, m => m.Length(400));
 			Property(x => x.CreateDate, m => m.NotNullable(true));
 			ManyToOne(x => x.Ownership);
+			ManyToOne(x => x.Condition);
 		}
 	}
 }

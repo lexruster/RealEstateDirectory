@@ -26,8 +26,8 @@ namespace RealEstateDirectory.MainFormTabs.Flat
                                  IRealtorService realtorService, IOwnershipService ownershipService,
                                  IDealVariantService dealVariantService,
                                  ITerraceService terraceService, IMaterialService materialService,
-                                 ILayoutService layoutService, IFloorLevelService floorLevelService, IToiletTypeService toiletTypeService)
-            : base(service, messageService, districtService, realtorService, ownershipService, dealVariantService)
+								 ILayoutService layoutService, IFloorLevelService floorLevelService, IToiletTypeService toiletTypeService, IConditionService conditionalService)
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
         {
             _ViewsService = viewsService;
             _TerraceService = terraceService;

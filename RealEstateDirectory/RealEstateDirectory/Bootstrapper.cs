@@ -12,6 +12,7 @@ using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.ApplicationServices;
 using RealEstateDirectory.ApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
+using RealEstateDirectory.Dictionaries.ConditionDictionary;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
@@ -116,6 +117,7 @@ namespace RealEstateDirectory
 
 		private void RegisterServices()
 		{
+			Container.RegisterType<IConditionService, ConditionService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IDealVariantService, DealVariantService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IDistrictService, DistrictService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IFloorLevelService, FloorLevelService>(new ContainerControlledLifetimeManager());
@@ -146,6 +148,7 @@ namespace RealEstateDirectory
 		private void RegisterViewModels()
 		{
 			Container.RegisterType<DealVariantsDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<ConditionDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<DistrictsDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<FloorLevelDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<LayoutDictionaryViewModel>(new InjectionMethod("Initialize"));

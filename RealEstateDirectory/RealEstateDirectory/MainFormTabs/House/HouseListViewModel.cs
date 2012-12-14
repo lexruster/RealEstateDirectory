@@ -23,10 +23,10 @@ namespace RealEstateDirectory.MainFormTabs.House
 	{
 		public HouseListViewModel(IHouseService service, IMessageService messageService,
 		                          IDistrictService districtService, IRealtorService realtorService,
-		                          IOwnershipService ownershipService, IDealVariantService dealVariantService,
+		                          IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService,
 		                          IExcelService excelService, IWordService wordService,
 		                          IServiceLocator serviceLocator)
-			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, excelService,
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService, excelService,
 			       wordService, serviceLocator)
 		{
 		}
@@ -65,6 +65,7 @@ namespace RealEstateDirectory.MainFormTabs.House
 							"Площадь дома",
 							"Этажей",
 							"Материал",
+							"Состояние",
 							"Канализация",
 							"Вода",
 							"Вариант",
@@ -87,6 +88,7 @@ namespace RealEstateDirectory.MainFormTabs.House
 						house.HouseSquareString,
 						house.TotalFloor.ToString(),
 						GetBaseDictionaryName(house.Material),
+						GetBaseDictionaryName(house.Condition),
 						GetBaseDictionaryName(house.Sewage),
 						GetBaseDictionaryName(house.WaterSupply),
 						GetBaseDictionaryName(house.DealVariant),

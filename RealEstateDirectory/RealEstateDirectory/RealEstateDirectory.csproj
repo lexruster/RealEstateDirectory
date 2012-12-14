@@ -105,6 +105,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dictionaries\ConditionDictionary\ConditionDictionaryView.xaml.cs">
+      <DependentUpon>ConditionDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\ConditionDictionary\ConditionDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\ConditionDictionary\ConditionViewModel.cs" />
     <Compile Include="MainFormTabs\View\BaseCommandButton.xaml.cs">
       <DependentUpon>BaseCommandButton.xaml</DependentUpon>
     </Compile>
@@ -260,6 +265,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dictionaries\ConditionDictionary\ConditionDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainFormTabs\View\BaseCommandButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
