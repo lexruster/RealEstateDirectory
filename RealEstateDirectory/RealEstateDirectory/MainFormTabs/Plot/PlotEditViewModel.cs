@@ -24,8 +24,8 @@ namespace RealEstateDirectory.MainFormTabs.Plot
         public PlotEditViewModel(IPlotService service, IMessageService messageService,
                                  IDistrictService districtService, IViewsService viewsService,
                                  IRealtorService realtorService, IOwnershipService ownershipService,
-                                 IDealVariantService dealVariantService)
-            : base(service, messageService, districtService, realtorService, ownershipService, dealVariantService)
+								 IDealVariantService dealVariantService, IConditionService conditionalService)
+            : base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
         {
             _ViewsService = viewsService;
         }

@@ -61,12 +61,12 @@
 					<StackPanel>
 						<TextBlock Style="{StaticResource TextBlock}" Text="Материал"  />
 						<ComboBox ItemsSource="{Binding Material, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<TextBlock Style="{StaticResource TextBlock}" Text="Состояние"  />
+						<ComboBox ItemsSource="{Binding Condition, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
 					</StackPanel>
 				</GroupBox>
 				<GroupBox Header ="Параметры продажи" Grid.Column="0" Grid.Row="1" Margin="3">
 					<StackPanel>
-						
-						
 						<TextBlock Style="{StaticResource TextBlock}" Text="Вариант сделки"  />
 						<ComboBox ItemsSource="{Binding DealVariant, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
 						<TextBlock Style="{StaticResource TextBlock}" Text="Собственность"  />

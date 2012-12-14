@@ -11,6 +11,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
+using RealEstateDirectory.Dictionaries.ConditionDictionary;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
@@ -60,10 +61,11 @@ namespace RealEstateDirectory.Shell
 			TerraceDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<TerraceDictionaryViewModel>());
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
-			
+			ConditionDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ConditionDictionaryViewModel>());
+
 			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog());
 			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates(true));
-			ConfigCommand=new DelegateCommand(() => _ViewsService.OpenConfigDialog());
+			ConfigCommand = new DelegateCommand(() => _ViewsService.OpenConfigDialog());
 			ExportToWordCommand = new DelegateCommand(ExportToWord);
 
 			FlatsDataContext = _ServiceLocator.GetInstance<FlatListViewModel>();
@@ -101,11 +103,13 @@ namespace RealEstateDirectory.Shell
 		public ICommand TerraceDictionaryCommand { get; private set; }
 		public ICommand ToiletTypeDictionaryCommand { get; private set; }
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
+		public ICommand ConditionDictionaryCommand { get; private set; }
+
 		public ICommand AboutCommand { get; private set; }
 		public ICommand CheckUpdatesCommand { get; private set; }
 		public ICommand ConfigCommand { get; private set; }
 		public ICommand ExportToWordCommand { get; private set; }
-		
+
 		public FlatListViewModel FlatsDataContext { get; private set; }
 		public RoomListViewModel RoomsDataContext { get; private set; }
 		public PlotListViewModel PlotsDataContext { get; private set; }
@@ -125,6 +129,8 @@ namespace RealEstateDirectory.Shell
 
 			_wordService.ExportToWord(obj);
 		}
+
+		#region проверка обновлений
 
 		private void timerTick(object sender, EventArgs e)
 		{
@@ -180,5 +186,7 @@ namespace RealEstateDirectory.Shell
 			_timer.Interval = new TimeSpan(0, 30, 0);
 			_timer.Start();
 		}
+
+		#endregion
 	}
 }

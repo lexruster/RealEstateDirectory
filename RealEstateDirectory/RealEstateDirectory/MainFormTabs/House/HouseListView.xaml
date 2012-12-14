@@ -114,6 +114,7 @@
                 <DataGridTextColumn  Header="Дом (м2)"  Binding="{Binding HouseSquareString}" Width="40"/>
                 <DataGridTextColumn  Header="Этажей"  Binding="{Binding TotalFloor}" Width="50"/>
                 <DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
+				<DataGridTextColumn  Header="Состояние" Binding="{Binding Condition.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Канализация" Binding="{Binding Sewage.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Водоснабжение" Binding="{Binding WaterSupply.Name}" MinWidth="60" Width="60"/>
                 <DataGridCheckBoxColumn  Header="Ванная" Binding="{Binding HasBathhouse}" Width="30"/>

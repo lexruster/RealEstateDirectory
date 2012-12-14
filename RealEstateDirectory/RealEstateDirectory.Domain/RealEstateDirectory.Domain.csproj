@@ -44,6 +44,7 @@
     <Compile Include="Entities\Dictionaries\Sewage.cs" />
     <Compile Include="Entities\Dictionaries\Ownership.cs" />
     <Compile Include="Entities\Dictionaries\WaterSupply.cs" />
+    <Compile Include="Entities\Dictionaries\Condition.cs" />
     <Compile Include="Entities\Plot.cs" />
     <Compile Include="Entities\House.cs" />
     <Compile Include="Entities\Residence.cs" />

@@ -69,6 +69,11 @@ namespace RealEstateDirectory.Domain.Entities
         /// </summary>
         public virtual Ownership Ownership { get; set; }
 
+		/// <summary>
+		/// Состояние
+		/// </summary>
+		public virtual Condition Condition { get; set; }
+
         #region Конструкторы
 
         public RealEstate()

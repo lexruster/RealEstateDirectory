@@ -22,8 +22,11 @@
     <DataTemplate DataType="{x:Type Dictionaries:Layout}">
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
+	<DataTemplate DataType="{x:Type Dictionaries:Condition}">
+		<TextBlock Text="{Binding Name}"></TextBlock>
+	</DataTemplate>
 
-    <DataTemplate DataType="{x:Type Dictionaries:FloorLevel}">
+	<DataTemplate DataType="{x:Type Dictionaries:FloorLevel}">
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
 

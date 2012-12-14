@@ -5,7 +5,7 @@ namespace RealEstateDirectory.Migrations
 {
 	public static class MigrationExtensions
 	{
-		public static ICreateTableColumnOptionOrWithColumnSyntax DictionaryTable(this ICreateExpressionRoot createExpressionRoot, string tableName)
+		public static ICreateTableWithColumnSyntax DictionaryTable(this ICreateExpressionRoot createExpressionRoot, string tableName)
 		{
 			return createExpressionRoot.Table(tableName)
 				.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()

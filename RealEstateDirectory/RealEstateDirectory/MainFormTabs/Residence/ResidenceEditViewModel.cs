@@ -15,8 +15,8 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		public ResidenceEditViewModel(IResidenceService residenceService, IMessageService messageService,
 		                              IDistrictService districtService, IViewsService viewsService, IRealtorService realtorService,
 		                              IOwnershipService ownershipService, IDealVariantService dealVariantService,
-		                              IMaterialService materialService)
-			: base(residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService)
+									  IMaterialService materialService, IConditionService conditionalService)
+			: base(residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
 		{
 			_ViewsService = viewsService;
 			_MaterialService = materialService;

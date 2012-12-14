@@ -14,6 +14,7 @@ using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.Infrastructure.Entities;
 using RealEstateDirectory.Services;
+using Condition = RealEstateDirectory.Domain.Entities.Dictionaries.Condition;
 
 namespace RealEstateDirectory.MainFormTabs.Common
 {
@@ -32,7 +33,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public RealEstateEditViewModel(IRealEstateService<T> service, IMessageService messageService,
 		                               IDistrictService districtService, IRealtorService realtorService,
-		                               IOwnershipService ownershipService, IDealVariantService dealVariantService)
+									   IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService)
 		{
 			_RealEstateService = service;
 			_MessageService = messageService;
@@ -40,7 +41,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_RealtorService = realtorService;
 			_OwnershipService = ownershipService;
 			_DealVariantService = dealVariantService;
-            PropertyChanged += (sender, args) =>
+			_ConditionService = conditionService;
+			PropertyChanged += (sender, args) =>
             {
                 OkCommand.RaiseCanExecuteChanged();
             };
@@ -80,16 +82,18 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		private readonly IRealtorService _RealtorService;
 		private readonly IOwnershipService _OwnershipService;
 		private readonly IDealVariantService _DealVariantService;
+		private readonly IConditionService _ConditionService;
 
 		#endregion
 
-		#region Свойства  INotifi
+		#region Свойства  INotify
 
 		public ListCollectionView District { get; set; }
 		public ListCollectionView Street { get; set; }
 		public ListCollectionView Realtor { get; set; }
 		public ListCollectionView Ownership { get; set; }
 		public ListCollectionView DealVariant { get; set; }
+		public ListCollectionView Condition { get; set; }
 
 		public string TerritorialNumber { get; set; }
 		public bool SubmitToVDV { get; set; }
@@ -114,6 +118,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected Street NullStreet = new Street("");
 		//protected Realtor NullRealtor = new Realtor("");
 		protected DealVariant NullDealVariant = new DealVariant("");
+		protected Condition NullCondition = new Condition("");
 		protected Ownership NullOwnership = new Ownership("");
 		protected Terrace NullTerrace = new Terrace("");
 		protected Material NullMaterial = new Material("");
@@ -130,8 +135,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
             Street = new ListCollectionView((new[] { NullStreet }).ToList());
 			Realtor = new ListCollectionView(_RealtorService.GetAll().ToList());
 			Ownership = new ListCollectionView((new[] {NullOwnership}).Concat(_OwnershipService.GetAll()).ToList());
-			DealVariant =
-				new ListCollectionView((new[] {NullDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
+			DealVariant = new ListCollectionView((new[] {NullDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
+			Condition = new ListCollectionView((new[] { NullCondition }).Concat(_ConditionService.GetAll()).ToList());
 			InitCollection();
 
 			DbEntity = room;
@@ -182,6 +187,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			Id = DbEntity.Id;
 			CreateDate = DbEntity.CreateDate;
 			DealVariant.MoveCurrentTo(DbEntity.DealVariant);
+			Condition.MoveCurrentTo(DbEntity.Condition);
 			Description = DbEntity.Description;
 			HasVideo = DbEntity.HasVideo;
 			Id = DbEntity.Id;
@@ -232,6 +238,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			entity.Street = ResolveDictionary<Street>(Street);
 
 			entity.DealVariant = ResolveDictionary<DealVariant>(DealVariant);
+			entity.Condition = ResolveDictionary<Condition>(Condition);
 			entity.Description = Description;
 			entity.HasVideo = HasVideo;
 			entity.Ownership = ResolveDictionary<Ownership>(Ownership);
