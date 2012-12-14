@@ -9,16 +9,16 @@ namespace RealEstateDirectory.Migrations
 	{
 		public override void Up()
 		{
-			CreateDictionaryTable("DealVariant");
-			CreateDictionaryTable("District");
-			CreateDictionaryTable("FloorLevel");
-			CreateDictionaryTable("Layout");
-			CreateDictionaryTable("Material");
-			CreateDictionaryTable("Ownership");
-			CreateDictionaryTable("Sewage");
-			CreateDictionaryTable("Terrace");
-			CreateDictionaryTable("ToiletType");
-			CreateDictionaryTable("WaterSupply");
+			Create.DictionaryTable("DealVariant");
+			Create.DictionaryTable("District");
+			Create.DictionaryTable("FloorLevel");
+			Create.DictionaryTable("Layout");
+			Create.DictionaryTable("Material");
+			Create.DictionaryTable("Ownership");
+			Create.DictionaryTable("Sewage");
+			Create.DictionaryTable("Terrace");
+			Create.DictionaryTable("ToiletType");
+			Create.DictionaryTable("WaterSupply");
 
 			Create.Table("Street")
 				.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -94,13 +94,6 @@ namespace RealEstateDirectory.Migrations
 			Create.Table("Room")
 				.WithColumn("ApartmentId").AsInt32().PrimaryKey().NotNullable().ForeignKey("FK_Room_Apartment", "Apartment", "BuildingId").OnDelete(Rule.Cascade)
 				.WithColumn("RoomCount").AsInt32().Nullable();
-		}
-
-		private void CreateDictionaryTable(string tableName)
-		{
-			Create.Table(tableName)
-				.WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-				.WithColumn("Name").AsString(2000).Unique("IX_" + tableName + "_Name").NotNullable();
 		}
 
 		public override void Down()
