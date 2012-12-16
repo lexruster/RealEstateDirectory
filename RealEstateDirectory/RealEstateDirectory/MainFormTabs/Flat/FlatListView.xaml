@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+			xmlns:Interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
-             xmlns:CommandButton="clr-namespace:RealEstateDirectory.MainFormTabs.View" mc:Ignorable="d" >
+             xmlns:CommandButton="clr-namespace:RealEstateDirectory.MainFormTabs.View"
+             xmlns:Behaviors="clr-namespace:RealEstateDirectory.Behaviors" mc:Ignorable="d" >
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<DataTemplate DataType="{x:Type Dictionaries:Realtor}">
@@ -121,8 +123,11 @@
 			</WrapPanel>
 		</Expander>
 
-		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" 
+		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}"
 				  SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
+			<Interactivity:Interaction.Behaviors>
+				<Behaviors:DataGridViewBoundSelectedItemsBehavior SelectedItems="{Binding 'sadf'sdaf}" />
+			</Interactivity:Interaction.Behaviors>
 			<DataGrid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
 			</DataGrid.InputBindings>
