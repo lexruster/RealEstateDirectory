@@ -87,34 +87,22 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public RealEstateViewModel<T> CurrentEntity { get; set; }
 		public ObservableCollection<RealEstateViewModel<T>> Entities { get; set; }
 
-		public ObservableCollection<District> DistrictList { get; set; }
-		public ObservableCollection<Street> StreetList { get; set; }
-		public ObservableCollection<Realtor> RealtorList { get; set; }
-		public ObservableCollection<Ownership> OwnershipList { get; set; }
-		public ObservableCollection<DealVariant> DealVariantList { get; set; }
+		
 
-		public District FilterDistrict { get; set; }
-		public Street FilterStreet { get; set; }
-		public Realtor FilterRealtor { get; set; }
-		public Ownership FilterOwnership { get; set; }
-		public DealVariant FilterDealVariant { get; set; }
-
-		public decimal? MinPrice { get; set; }
-		public decimal? MaxPrice { get; set; }
-
-		public string TerritorialNumber { get; set; }
-		public bool SubmitToVDV { get; set; }
-		public bool SubmitToDomino { get; set; }
-		public decimal? Price { get; set; }
-		public int Id { get; set; }
-		public bool HasVideo { get; set; }
-		public string Description { get; set; }
-		public DateTime CreateDate { get; set; }
+		//public string TerritorialNumber { get; set; }
+		//public bool SubmitToVDV { get; set; }
+		//public bool SubmitToDomino { get; set; }
+		//public decimal? Price { get; set; }
+		//public int Id { get; set; }
+		//public bool HasVideo { get; set; }
+		//public string Description { get; set; }
+		//public DateTime CreateDate { get; set; }
+		
 		public string EntityCountString { get; set; }
 
 		#endregion
 
-		#region Свойства
+		#region Фильтры
 
 		protected readonly District _AllDistricts = new District("< все >");
 		protected readonly District _NoneDistricts = new District("< не указано >");
@@ -131,12 +119,83 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected readonly Ownership _AllOwnership = new Ownership("< все >");
 		protected readonly Ownership _NoneOwnership = new Ownership("< не указано >");
 
+		protected readonly Terrace _AllTerrace = new Terrace("< все >");
+		protected readonly Terrace _ExistTerrace = new Terrace("Есть балкон");
+
 		/// <summary>
 		/// Для сброса фильтров, чтобы каждый фильтр не вызывал перерисовку
 		/// </summary>
 		protected bool _FilterEnabled;
 
-		#endregion
+		public District FilterDistrict { get; set; }
+		public Street FilterStreet { get; set; }
+		public Realtor FilterRealtor { get; set; }
+		public Ownership FilterOwnership { get; set; }
+		public DealVariant FilterDealVariant { get; set; }
+		public Terrace FilterTerrace { get; set; }
+
+		public ObservableCollection<District> DistrictList { get; set; }
+		public ObservableCollection<Street> StreetList { get; set; }
+		public ObservableCollection<Realtor> RealtorList { get; set; }
+		public ObservableCollection<Ownership> OwnershipList { get; set; }
+		public ObservableCollection<DealVariant> DealVariantList { get; set; }
+		public ObservableCollection<Terrace> TerraceList { get; set; }
+
+		public decimal? MinPrice { get; set; }
+		public decimal? MaxPrice { get; set; }
+
+		private void LoadFiltersData()
+		{
+			DistrictList = null;
+			StreetList = null;
+			RealtorList = null;
+			DealVariantList = null;
+			OwnershipList = null;
+
+			DistrictList = new ObservableCollection<District>((new[] { _AllDistricts, _NoneDistricts }).Concat(
+				_DistrictService.GetAll()).ToList());
+			FilterDistrict = _AllDistricts;
+			UpdateStreet();
+
+			RealtorList =
+				new ObservableCollection<Realtor>((new[] { _AllRealtors, _NoneRealtors }).Concat(_RealtorService.GetAll()).ToList());
+			FilterRealtor = _AllRealtors;
+
+			DealVariantList =
+				new ObservableCollection<DealVariant>(
+					(new[] { _AllDealVariant, _NoneDealVariant }).Concat(_DealVariantService.GetAll()).ToList());
+			FilterDealVariant = _AllDealVariant;
+
+			OwnershipList =
+				new ObservableCollection<Ownership>(
+					(new[] { _AllOwnership, _NoneOwnership }).Concat(_OwnershipService.GetAll()).ToList());
+			FilterOwnership = _AllOwnership;
+
+			TerraceList =
+				new ObservableCollection<Terrace>(
+					(new[] { _AllTerrace, _ExistTerrace }).ToList());
+			FilterTerrace = _AllTerrace;
+
+			MinPrice = null;
+			MaxPrice = null;
+
+			LoadChildFiltersData();
+		}
+
+		protected void ApplyFilter()
+		{
+			UpdateEntityList();
+		}
+
+		protected void ClearFilter()
+		{
+			_FilterEnabled = false;
+			LoadFiltersData();
+			_FilterEnabled = true;
+			UpdateEntityList();
+		}
+
+		#endregion 
 
 		#region Методы
 
@@ -150,39 +209,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			}
 		}
 
-		private void LoadFiltersData()
-		{
-			DistrictList = null;
-			StreetList = null;
-			RealtorList = null;
-			DealVariantList = null;
-			OwnershipList = null;
-
-			DistrictList = new ObservableCollection<District>((new[] {_AllDistricts, _NoneDistricts}).Concat(
-				_DistrictService.GetAll()).ToList());
-			FilterDistrict = _AllDistricts;
-			UpdateStreet();
-
-			RealtorList =
-				new ObservableCollection<Realtor>((new[] {_AllRealtors, _NoneRealtors}).Concat(_RealtorService.GetAll()).ToList());
-			FilterRealtor = _AllRealtors;
-
-			DealVariantList =
-				new ObservableCollection<DealVariant>(
-					(new[] {_AllDealVariant, _NoneDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
-			FilterDealVariant = _AllDealVariant;
-
-			OwnershipList =
-				new ObservableCollection<Ownership>(
-					(new[] {_AllOwnership, _NoneOwnership}).Concat(_OwnershipService.GetAll()).ToList());
-			FilterOwnership = _AllOwnership;
-
-			MinPrice = null;
-			MaxPrice = null;
-
-			LoadChildFiltersData();
-		}
-
 		private void InitFilters()
 		{
 			PropertyChanged += (sender, args) =>
@@ -192,7 +218,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 						if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDealVariant)
 						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterOwnership)
 						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterRealtor)
-						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterStreet))
+						    || args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterStreet)
+							|| args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterTerrace))
 							UpdateEntityList();
 
 						if (args.PropertyName == PropertySupport.ExtractPropertyName(() => FilterDistrict))
@@ -341,20 +368,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_FilterEnabled = true;
 			UpdateEntityList();
 		}
-
-		protected void ApplyFilter()
-		{
-			UpdateEntityList();
-		}
-
-		protected void ClearFilter()
-		{
-			_FilterEnabled = false;
-			LoadFiltersData();
-			_FilterEnabled = true;
-			UpdateEntityList();
-		}
-
+		
 		protected void ExportToExcel()
 		{
 			var data = GetExportedTable();

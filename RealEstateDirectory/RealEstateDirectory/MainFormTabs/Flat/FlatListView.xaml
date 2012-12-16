@@ -108,7 +108,11 @@
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Цена до"/>
                     <TextBox Text="{Binding MaxPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
                 </StackPanel>
-            </WrapPanel>
+				<StackPanel>
+					<TextBlock Style="{StaticResource TextBlock}"  Text="Наличие балкона"  />
+					<ComboBox  ItemsSource="{Binding TerraceList}" SelectedItem="{Binding FilterTerrace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+				</StackPanel>
+			</WrapPanel>
         </Expander>
 
         <DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" >

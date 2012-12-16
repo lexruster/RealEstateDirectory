@@ -104,6 +104,10 @@
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Цена до"/>
                     <TextBox Text="{Binding MaxPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="150"/>
                 </StackPanel>
+				<StackPanel>
+					<TextBlock Style="{StaticResource TextBlock}"  Text="Наличие балкона"  />
+					<ComboBox  ItemsSource="{Binding TerraceList}" SelectedItem="{Binding FilterTerrace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
+				</StackPanel>
             </WrapPanel>
         </Expander>
 

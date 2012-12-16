@@ -47,7 +47,16 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 
 		protected override IEnumerable<Domain.Entities.Flat> UpdateChildFilterData(IEnumerable<Domain.Entities.Flat> entities)
 		{
-			return TotalRoomCount.HasValue ? entities.Where(room => room.TotalRoomCount == TotalRoomCount.Value) : entities;
+			entities = TotalRoomCount.HasValue
+				           ? entities.Where(room => room.TotalRoomCount == TotalRoomCount.Value)
+				           : entities;
+
+			if (FilterTerrace != null && !Equals(FilterTerrace, _AllTerrace))
+			{
+				entities = entities.Where(room => room.Terrace != null && room.Terrace.Name.ToLower() != "Нет".ToLower());
+			}
+
+			return entities;
 		}
 
 		protected override void LoadChildFiltersData()
