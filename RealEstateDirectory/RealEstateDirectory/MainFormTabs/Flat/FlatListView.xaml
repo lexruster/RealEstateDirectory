@@ -67,11 +67,10 @@
 				</StackPanel>
 			</Button>
 
-			<Button Margin="5" Width="100" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordSelectedCommand}"
-					CommandParameter="{Binding ElementName=DataList, Path=SelectedItems}" >
+			<Button Margin="5" Width="100" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordSelectedCommand}">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Resources/Img/WORD.png" />
-					<TextBlock Margin="10,0,0,0">выбранного</TextBlock>
+					<TextBlock Margin="10,0,0,0">Выбранные</TextBlock>
 				</StackPanel>
 			</Button>
 		</StackPanel>
@@ -126,7 +125,7 @@
 		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}"
 				  SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
 			<Interactivity:Interaction.Behaviors>
-				<Behaviors:DataGridViewBoundSelectedItemsBehavior SelectedItems="{Binding 'sadf'sdaf}" />
+				<Behaviors:DataGridViewBoundSelectedItemsBehavior SelectedItems="{Binding SelectedEntities}" />
 			</Interactivity:Interaction.Behaviors>
 			<DataGrid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
@@ -15,12 +16,7 @@ namespace RealEstateDirectory.Behaviors
 
 			((ObservableCollection<object>)AssociatedObject.SelectedItems).CollectionChanged += GridSelectedItems_CollectionChanged;
 
-			if (SelectedItems == null)
-				return;
-
-			SelectedItems.Clear();
-			foreach (var item in AssociatedObject.SelectedItems)
-				SelectedItems.Add(item);
+			ResetSelectedItems();
 		}
 
 		protected override void OnDetaching()
@@ -30,24 +26,30 @@ namespace RealEstateDirectory.Behaviors
 			base.OnDetaching();
 		}
 
-		/// <summary>
-		/// Dependency property for SelectedItems.
-		/// </summary>
-		public static readonly DependencyProperty SelectedItemsProperty =
-			DependencyProperty.Register("SelectedItems", typeof(IList), typeof(DataGridViewBoundSelectedItemsBehavior), new PropertyMetadata(default(IList)));
+		private void ResetSelectedItems()
+		{
+			if (SelectedItems == null)
+				return;
 
-		/// <summary>
-		/// Binded ViewModel property.
-		/// </summary>
+			SelectedItems.Clear();
+			foreach (var item in AssociatedObject.SelectedItems)
+				SelectedItems.Add(item);
+		}
+
+		public static readonly DependencyProperty SelectedItemsProperty =
+			DependencyProperty.Register("SelectedItems", typeof(IList), typeof(DataGridViewBoundSelectedItemsBehavior), new PropertyMetadata(default(IList), SelectedItems_Changed));
+
+		private static void SelectedItems_Changed(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+		{
+			((DataGridViewBoundSelectedItemsBehavior)dependencyObject).ResetSelectedItems();
+		}
+
 		public IList SelectedItems
 		{
 			get { return (IList)GetValue(SelectedItemsProperty); }
 			set { SetValue(SelectedItemsProperty, value); }
 		}
 
-		/// <summary>
-		/// Does actions from RadGridView property to ViewModel property.
-		/// </summary>
 		private void GridSelectedItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (SelectedItems == null)

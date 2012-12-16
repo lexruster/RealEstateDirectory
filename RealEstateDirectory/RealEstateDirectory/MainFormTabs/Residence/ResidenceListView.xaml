@@ -5,7 +5,8 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 		xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
 		xmlns:Dictionaries="clr-namespace:RealEstateDirectory.Domain.Entities.Dictionaries;assembly=RealEstateDirectory.Domain"
-		mc:Ignorable="d" d:DataContext="{d:DesignInstance}">
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Behaviors="clr-namespace:RealEstateDirectory.Behaviors" mc:Ignorable="d" d:DataContext="{d:DesignInstance}">
     <UserControl.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type Dictionaries:Realtor}">
@@ -36,7 +37,7 @@
                     <TextBlock Margin="10,0,0,0">Добавить</TextBlock>
                 </StackPanel>
             </Button>
-            <Button Margin="5" Width="100" Command="{Binding ChangeCommand}" >
+            <!--<Button Margin="5" Width="100" Command="{Binding ChangeCommand}" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Img/Edit.png" />
                     <TextBlock Margin="10,0,0,0">Изменить</TextBlock>
@@ -47,7 +48,7 @@
                     <Image Source="../../Resources/Img/delete.png" />
                     <TextBlock Margin="10,0,0,0">Удалить</TextBlock>
                 </StackPanel>
-            </Button>
+            </Button>-->
             <Button Margin="5" Width="100" Command="{Binding UpdateCommand}" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Img/refresh.png" />
@@ -62,6 +63,12 @@
 			<Button Margin="5" Width="40" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordCommand}">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Resources/Img/WORD.png" />
+				</StackPanel>
+			</Button>
+			<Button Margin="5" Width="100" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordSelectedCommand}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Resources/Img/WORD.png" />
+					<TextBlock Margin="10,0,0,0">Выбранные</TextBlock>
 				</StackPanel>
 			</Button>
 		</StackPanel>
@@ -107,6 +114,9 @@
             <DataGrid.InputBindings >
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
             </DataGrid.InputBindings>
+			<i:Interaction.Behaviors>
+				<Behaviors:DataGridViewBoundSelectedItemsBehavior SelectedItems="{Binding SelectedEntities}" />
+			</i:Interaction.Behaviors>
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="Район" Binding="{Binding District.Name}" Width="80"/>
                 <DataGridTextColumn  Header="Адрес" Binding="{Binding Address}"  MinWidth="100" Width="180"/>

@@ -53,10 +53,12 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			ApplyFilterCommand = new DelegateCommand(ApplyFilter);
 			ExportToExcelCommand = new DelegateCommand(ExportToExcel);
 			ExportToWordCommand = new DelegateCommand(ExportToWord);
-			ExportToWordSelectedCommand = new DelegateCommand<object>(ExportToWordSelected);
+			ExportToWordSelectedCommand = new DelegateCommand(ExportToWordSelected);
 
 			ChangeInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(ChangeInGrid);
 			DeleteInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(DeleteInGrid);
+
+			SelectedEntities=new List<RealEstateViewModel<T>>();
 		}
 
 		#endregion
@@ -370,22 +372,14 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_excelService.ExportToExcel(obj);
 		}
 
-		protected void ExportToWordSelected(object selectionObject)
+		protected void ExportToWordSelected()
 		{
-			List<RealEstateViewModel<T>> selection = selectionObject as List<RealEstateViewModel<T>>;
-			//var t = ((System.Windows.Controls.SelectedItemCollection)selectionObject).Count;
-			//foreach (var t1 in selectionObject as RealEstateViewModel<T>[])
-			//{
-			//	var yy = t1;
-			//}
-
-			if (selection == null || selection.Count == 0)
+			if (SelectedEntities == null || SelectedEntities.Count == 0)
 			{
 				_MessageService.ShowMessage("Не выбраны объекты", "Ошибка", image: MessageBoxImage.Error);
 			}
 			else
 			{
-				SelectedEntities = selection;
 				var data = GetExportedTable(ExportMode.Selected);
 				var obj = new ExportObject();
 				obj.Tables.Add(data);
