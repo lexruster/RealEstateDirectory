@@ -19,6 +19,7 @@ namespace RealEstateDirectory.Dictionaries.Common
 			: base(serviceLocator, messageService)
 		{
 			_DictionaryService = dictionaryService;
+			
 
 			PropertyChanged += (sender, args) =>
 				{

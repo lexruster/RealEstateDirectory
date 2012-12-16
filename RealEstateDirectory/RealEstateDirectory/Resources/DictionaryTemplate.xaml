@@ -16,13 +16,18 @@
                             <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True}" Header="Наименование" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Grid Grid.Row="2" Margin="0, 5, 0, 0">
+                    <Grid Grid.Row="3" Margin="0, 5, 0, 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Margin="5,0,0,0" Width="100" Grid.Column="1" Command="{Binding AddCommand}">Добавить</Button>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Margin="5,0,0,0" Width="100" Grid.Column="1" Grid.Row="0" Command="{Binding AddCommand}">Добавить</Button>
+						<Button Margin="5,5,0,0" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding DeleteCommand}">Удалить выбранную запись</Button>
                     </Grid>
                 </Grid>
             </AdornerDecorator>

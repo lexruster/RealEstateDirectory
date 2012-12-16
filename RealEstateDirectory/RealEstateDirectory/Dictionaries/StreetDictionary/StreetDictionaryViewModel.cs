@@ -273,7 +273,7 @@ namespace RealEstateDirectory.Dictionaries.StreetDictionary
 		{
 			return ReadOnly;
 		}
-
+		
 		protected bool CanSelectAndChange()
 		{
 			return ReadOnly;

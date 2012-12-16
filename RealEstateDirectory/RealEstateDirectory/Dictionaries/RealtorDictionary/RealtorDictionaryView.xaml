@@ -25,6 +25,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -34,7 +35,8 @@
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="1" Text="Телефон:"  ></TextBlock>
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox Margin="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button Margin="3" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  Width="Auto" Command="{Binding AddCommand}">Добавить</Button>
+                    <Button Margin="3" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"  Width="Auto" Command="{Binding AddCommand}">Добавить</Button>
+					<Button Margin="3" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding DeleteCommand}">Удалить выбранного риэлтора</Button>
                 </Grid>
             </Grid>
         </AdornerDecorator>

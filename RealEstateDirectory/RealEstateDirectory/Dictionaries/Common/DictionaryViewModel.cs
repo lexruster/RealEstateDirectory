@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.Commands;
@@ -22,7 +23,8 @@ namespace RealEstateDirectory.Dictionaries.Common
 			_MessageService = messageService;
 
 			Entities = new ListCollectionView(_Entities);
-			
+			Entities.CurrentChanged += (sender, args) => DeleteCommand.RaiseCanExecuteChanged();
+
 			AddCommand = new DelegateCommand(() =>
 				{
 					var viewModel = CreateNewViewModel(CreateNewModel());
@@ -39,6 +41,20 @@ namespace RealEstateDirectory.Dictionaries.Common
 					}
 					AddCommand.RaiseCanExecuteChanged();
 				}, CanAdd);
+
+			DeleteCommand = new DelegateCommand(() =>
+				{
+					if (Entities.CurrentItem != null)
+					{
+						var current = Entities.CurrentItem;
+						Entities.Remove(current);
+					}
+					else
+					{
+						_MessageService.ShowMessage("Выберите удаляемый элемент", "Ошибка", image: MessageBoxImage.Error);
+					}
+					DeleteCommand.RaiseCanExecuteChanged();
+				}, CanDelete);
 		}
 
 		#region Infrastructure
@@ -66,8 +82,14 @@ namespace RealEstateDirectory.Dictionaries.Common
 		public ListCollectionView Entities { get; protected set; }
 
 		public DelegateCommand AddCommand { get; protected set; }
+		public DelegateCommand DeleteCommand { get; protected set; }
 
 		protected abstract bool CanAdd();
+
+		protected bool CanDelete()
+		{
+			return Entities.CurrentItem != null;
+		}
 
 		protected abstract void ClearProperties();
 
