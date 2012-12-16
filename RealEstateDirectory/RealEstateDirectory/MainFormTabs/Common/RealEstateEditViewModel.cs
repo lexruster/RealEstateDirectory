@@ -96,8 +96,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public ListCollectionView Condition { get; set; }
 
 		public string TerritorialNumber { get; set; }
-		public bool SubmitToVDV { get; set; }
-		public bool SubmitToDomino { get; set; }
 		public decimal? Price { get; set; }
 		public int Id { get; set; }
 		public bool HasVideo { get; set; }
@@ -195,8 +193,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			Ownership.MoveCurrentTo(DbEntity.Ownership);
 			Price = DbEntity.Price;
 			Realtor.MoveCurrentTo(DbEntity.Realtor);
-			SubmitToDomino = DbEntity.SubmitToDomino;
-			SubmitToVDV = DbEntity.SubmitToVDV;
 			TerritorialNumber = DbEntity.TerritorialNumber;
 			UpdateValuesFromConcreteModel();
 		}
@@ -245,8 +241,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			entity.Ownership = ResolveDictionary<Ownership>(Ownership);
 			entity.Price = Price;
 			entity.Realtor = ResolveDictionary<Realtor>(Realtor);
-			entity.SubmitToDomino = SubmitToDomino;
-			entity.SubmitToVDV = SubmitToVDV;
 			entity.TerritorialNumber = TerritorialNumber;
 		}
 
@@ -274,7 +268,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		#endregion
 
 		#region Перегрузки
-
 
 		#region IDataErrorInfo
 

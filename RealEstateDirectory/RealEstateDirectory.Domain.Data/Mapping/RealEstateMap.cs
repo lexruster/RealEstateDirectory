@@ -22,8 +22,6 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 
 			ManyToOne(x => x.Realtor);
 			ManyToOne(x => x.Street);
-			Property(x => x.SubmitToDomino, m => m.NotNullable(true));
-			Property(x => x.SubmitToVDV, m => m.NotNullable(true));
 			Property(x => x.TerritorialNumber, m => m.Length(400));
 			Property(x => x.CreateDate, m => m.NotNullable(true));
 			ManyToOne(x => x.Ownership);

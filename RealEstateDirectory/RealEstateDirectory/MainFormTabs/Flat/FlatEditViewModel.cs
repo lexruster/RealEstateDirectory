@@ -50,7 +50,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 
         #endregion
 
-        #region Свойства  INotifi
+        #region Свойства  INotify
 
         public decimal? TotalSquare { get; set; }
         public decimal? KitchenSquare { get; set; }

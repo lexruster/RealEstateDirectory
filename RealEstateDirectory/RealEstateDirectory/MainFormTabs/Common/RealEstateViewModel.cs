@@ -14,11 +14,9 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		#endregion
 
-		#region Свойства  INotifi
+		#region Свойства  INotify
 
 		public string TerritorialNumber { get; set; }
-		public bool SubmitToVDV { get; set; }
-		public bool SubmitToDomino { get; set; }
 		public Street Street { get; set; }
 		public Realtor Realtor { get; set; }
 		public decimal? Price { get; set; }
@@ -80,8 +78,6 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			Price = DbEntity.Price;
 			Realtor = DbEntity.Realtor;
 			Street = DbEntity.Street;
-			SubmitToDomino = DbEntity.SubmitToDomino;
-			SubmitToVDV = DbEntity.SubmitToVDV;
 			TerritorialNumber = DbEntity.TerritorialNumber;
 
 			UpdateValuesFromConcreteModel();

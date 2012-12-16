@@ -35,16 +35,6 @@ namespace RealEstateDirectory.Domain.Entities
         public virtual bool HasVideo { get; set; }
 
         /// <summary>
-        /// Объявление в ВДВ
-        /// </summary>
-        public virtual bool SubmitToVDV { get; set; }
-
-        /// <summary>
-        /// Объявление в "Домино"
-        /// </summary>
-        public virtual bool SubmitToDomino { get; set; }
-
-        /// <summary>
         /// Цена (т.р.)
         /// </summary>
         public virtual decimal? Price { get; set; }

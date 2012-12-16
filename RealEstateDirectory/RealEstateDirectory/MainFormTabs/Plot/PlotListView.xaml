@@ -132,8 +132,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridCheckBoxColumn  Header="ВДВ" Binding="{Binding SubmitToVDV}" Width="30"/>
-                <DataGridCheckBoxColumn  Header="Домино" Binding="{Binding SubmitToDomino}" Width="30"/>
                 <DataGridTemplateColumn  Header="Правка" Width="60" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
