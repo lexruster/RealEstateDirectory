@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
@@ -44,25 +43,25 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 		{
 		}
 
-		public override ExportTable GetExportedTable(bool forAll = false)
+		public override ExportTable GetExportedTable(ExportMode mode)
 		{
 			var table = new ExportTable("Земельные участки")
-			{
-				Headers = new List<string>
+				{
+					Headers = new List<Header>
 						{
-							"Район",
-							"Адрес",
-							"Площадь участка",
-							"Состояние",
-							"Вариант",
-							"Собственность",
-							"Комментарий",
-							"Риэлтор",
-							"Цена т.р."
+							new Header("Район"),
+							new Header("Адрес"),
+							new Header("Площадь"),
+							new Header("Собств."),
+							new Header("Комментарий"),
+							new Header("Вариант"),
+							new Header("Цена т.р."),
+							new Header("В.", 100),
+							new Header("Риэлтор"),
 						}
-			};
+				};
 
-			var collection = forAll ? _RealEstateService.GetAll().Select(CreateNewViewModel).ToArray() : Entities.ToArray();
+			var collection = GetCollectionForExport(mode);
 			foreach (var item in collection)
 			{
 				var plot = item as PlotViewModel;
@@ -71,12 +70,13 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 						GetBaseDictionaryName(plot.District),
 						plot.Address,
 						plot.PlotSquareString,
-						GetBaseDictionaryName(plot.Condition),
-						GetBaseDictionaryName(plot.DealVariant),
 						GetBaseDictionaryName(plot.Ownership),
 						plot.Description,
+						GetBaseDictionaryName(plot.DealVariant),
+						plot.PriceString,
+						plot.HasVideo ? "В" : "",
 						plot.Realtor == null ? "" : plot.Realtor.Phone,
-						plot.PriceString
+						
 					};
 				table.Data.Add(row);
 			}

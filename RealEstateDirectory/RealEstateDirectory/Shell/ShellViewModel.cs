@@ -124,11 +124,11 @@ namespace RealEstateDirectory.Shell
 			var _wordService = _ServiceLocator.GetInstance<IWordService>();
 			var obj = new ExportObject();
 
-			obj.Tables.Add(FlatsDataContext.GetExportedTable(true));
-			obj.Tables.Add(RoomsDataContext.GetExportedTable(true));
-			obj.Tables.Add(PlotsDataContext.GetExportedTable(true));
-			obj.Tables.Add(HousesDataContext.GetExportedTable(true));
-			obj.Tables.Add(ResidenceDataContext.GetExportedTable(true));
+			obj.Tables.Add(FlatsDataContext.GetExportedTable(ExportMode.All));
+			obj.Tables.Add(RoomsDataContext.GetExportedTable(ExportMode.All));
+			obj.Tables.Add(PlotsDataContext.GetExportedTable(ExportMode.All));
+			obj.Tables.Add(HousesDataContext.GetExportedTable(ExportMode.All));
+			obj.Tables.Add(ResidenceDataContext.GetExportedTable(ExportMode.All));
 
 			_wordService.ExportToWord(obj);
 		}

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Misc.Miscellaneous;
 
 namespace RealEstateDirectory.Services.Export
 {
@@ -63,13 +64,13 @@ namespace RealEstateDirectory.Services.Export
 			return string.IsNullOrEmpty(path) ? null : path.Split('.');
 		}
 
-		public List<string> GetHeader(DataGrid grid)
+		public List<Header> GetHeader(DataGrid grid)
 		{
-			var headers = new List<string>();
+			var headers = new List<Header>();
 
 			for (int j = 0; j < grid.Columns.Count - 1 - SkipEndRows; j++)
 			{
-				headers.Add(grid.Columns[j].Header.ToString());
+				headers.Add(new Header(grid.Columns[j].Header.ToString()));
 			}
 
 			return headers;

@@ -50,7 +50,7 @@ namespace RealEstateDirectory.Services.Export
 			}
 		}
 
-		private void ExportToExcelInner(List<string> headers, List<List<string>> data)
+		private void ExportToExcelInner(List<Header> headers, List<List<string>> data)
 		{
 			var table = new ExportTable("", headers, data);
 			ExcelProvider.Generate(table);

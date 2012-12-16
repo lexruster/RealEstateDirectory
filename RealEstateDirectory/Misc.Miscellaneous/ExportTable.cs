@@ -7,7 +7,7 @@ namespace Misc.Miscellaneous
 	/// </summary>
 	public class ExportTable
 	{
-		public ExportTable(string title, List<string> headers, List<List<string>> data)
+		public ExportTable(string title, List<Header> headers, List<List<string>> data)
 		{
 			Title = title;
 			Headers = headers;
@@ -17,7 +17,7 @@ namespace Misc.Miscellaneous
 		public ExportTable(string title)
 		{
 			Title = title;
-			Headers=new List<string>();
+			Headers=new List<Header>();
 			Data =new List<List<string>>();
 		}
 
@@ -29,7 +29,7 @@ namespace Misc.Miscellaneous
 		/// <summary>
 		/// Заголовки
 		/// </summary>
-		public List<string> Headers { get; set; }
+		public List<Header> Headers { get; set; }
 
 		/// <summary>
 		/// Данные

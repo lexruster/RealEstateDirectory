@@ -69,7 +69,7 @@ namespace RealEstateDirectory.Services.Export
 			}
 		}
 
-		private void ExportToWordInner(List<string> headers, List<List<string>> data, string fileName)
+		private void ExportToWordInner(List<Header> headers, List<List<string>> data, string fileName)
 		{
 			var table = new ExportTable("", headers, data);
 			var exportObject = new ExportObject();

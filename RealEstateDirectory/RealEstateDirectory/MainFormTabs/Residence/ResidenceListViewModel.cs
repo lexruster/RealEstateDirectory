@@ -15,11 +15,13 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 	{
 		public ResidenceListViewModel(IResidenceService residenceService, IMessageService messageService,
 		                              IDistrictService districtService, IRealtorService realtorService,
-									  IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService,
+		                              IOwnershipService ownershipService, IDealVariantService dealVariantService,
+		                              IConditionService conditionService,
 		                              IExcelService excelService, IWordService wordService,
 		                              IServiceLocator serviceLocator)
 			: base(
-				residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService,
+				residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService,
+				conditionService,
 				excelService, wordService, serviceLocator)
 		{
 
@@ -46,27 +48,28 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 
 		}
 
-		public override ExportTable GetExportedTable(bool forAll = false)
+		public override ExportTable GetExportedTable(ExportMode mode)
 		{
 			var table = new ExportTable("Помещения")
-			{
-				Headers = new List<string>
+				{
+					Headers = new List<Header>
 						{
-							"Район",
-							"Адрес",
-							"Этаж",
-							"Площадь",
-							"Материал",
-							"Состояние",
-							"Вариант",
-							"Собственность",
-							"Комментарий",
-							"Риэлтор",
-							"Цена т.р."
+							new Header("Район"),
+							new Header("Адрес"),
+							new Header("Этаж"),
+							new Header("Площадь"),
+							new Header("Материал"),
+							new Header("Назначение"),
+							new Header("Состояние"),
+							new Header("Вариант"),
+							new Header("Собственность"),
+							new Header("Комментарий"),
+							new Header("Риэлтор"),
+							new Header("Цена т.р."),
 						}
-			};
+				};
 
-			var collection = forAll ? _RealEstateService.GetAll().Select(CreateNewViewModel).ToArray() : Entities.ToArray();
+			var collection = GetCollectionForExport(mode);
 			foreach (var item in collection)
 			{
 				var residence = item as ResidenceViewModel;
@@ -77,6 +80,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 						residence.FloorString,
 						residence.TotalSquareString,
 						GetBaseDictionaryName(residence.Material),
+						GetBaseDictionaryName(residence.Destination),
 						GetBaseDictionaryName(residence.Condition),
 						GetBaseDictionaryName(residence.DealVariant),
 						GetBaseDictionaryName(residence.Ownership),

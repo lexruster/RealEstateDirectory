@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -51,6 +52,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			ApplyFilterCommand = new DelegateCommand(ApplyFilter);
 			ExportToExcelCommand = new DelegateCommand(ExportToExcel);
 			ExportToWordCommand = new DelegateCommand(ExportToWord);
+			ExportToWordSelectedCommand = new DelegateCommand<object>(ExportToWordSelected);
 
 			ChangeInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(ChangeInGrid);
 			DeleteInGridCommand = new DelegateCommand<RealEstateViewModel<T>>(DeleteInGrid);
@@ -85,19 +87,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		#region Свойства  INotify
 
 		public RealEstateViewModel<T> CurrentEntity { get; set; }
+		public IList<RealEstateViewModel<T>> SelectedEntities { get; set; }
 		public ObservableCollection<RealEstateViewModel<T>> Entities { get; set; }
-
-		
-
-		//public string TerritorialNumber { get; set; }
-		//public bool SubmitToVDV { get; set; }
-		//public bool SubmitToDomino { get; set; }
-		//public decimal? Price { get; set; }
-		//public int Id { get; set; }
-		//public bool HasVideo { get; set; }
-		//public string Description { get; set; }
-		//public DateTime CreateDate { get; set; }
-		
 		public string EntityCountString { get; set; }
 
 		#endregion
@@ -294,7 +285,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected abstract RealEstateEditViewModel<T> GetEditEntityViewModel();
 		protected abstract IEnumerable<T> UpdateChildFilterData(IEnumerable<T> entities);
 		protected abstract void LoadChildFiltersData();
-		public abstract ExportTable GetExportedTable(bool forAll = false);
+		public abstract ExportTable GetExportedTable(ExportMode mode);
 
 		#endregion
 
@@ -310,7 +301,8 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public ICommand ClearFilterCommand { get; private set; }
 		public ICommand ExportToExcelCommand { get; private set; }
 		public ICommand ExportToWordCommand { get; private set; }
-
+		public ICommand ExportToWordSelectedCommand { get; private set; }
+		
 		protected void Add()
 		{
 			var roomViewModel = GetEditEntityViewModel();
@@ -371,18 +363,62 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		
 		protected void ExportToExcel()
 		{
-			var data = GetExportedTable();
+			var data = GetExportedTable(ExportMode.Selected);
 			var obj = new ExportObject();
 			obj.Tables.Add(data);
 			_excelService.ExportToExcel(obj);
 		}
 
+		protected void ExportToWordSelected(object selectionObject)
+		{
+			List<RealEstateViewModel<T>> selection = selectionObject as List<RealEstateViewModel<T>>;
+			//var t = ((System.Windows.Controls.SelectedItemCollection)selectionObject).Count;
+			//foreach (var t1 in selectionObject as RealEstateViewModel<T>[])
+			//{
+			//	var yy = t1;
+			//}
+
+			if (selection == null || selection.Count == 0)
+			{
+				_MessageService.ShowMessage("Не выбраны объекты", "Ошибка", image: MessageBoxImage.Error);
+			}
+			else
+			{
+				SelectedEntities = selection;
+				var data = GetExportedTable(ExportMode.Selected);
+				var obj = new ExportObject();
+				obj.Tables.Add(data);
+				_wordService.ExportToWord(obj);
+			}
+		}
+
 		protected void ExportToWord()
 		{
-			var data = GetExportedTable();
+			var data = GetExportedTable(ExportMode.Filtered);
 			var obj = new ExportObject();
 			obj.Tables.Add(data);
 			_wordService.ExportToWord(obj);
+		}
+
+		protected List<RealEstateViewModel<T>> GetCollectionForExport(ExportMode mode)
+		{
+			var collection = new List<RealEstateViewModel<T>>();
+			switch (mode)
+			{
+				case ExportMode.Selected:
+					collection = SelectedEntities.ToList();
+					break;
+
+				case ExportMode.All:
+					collection = _RealEstateService.GetAll().Select(CreateNewViewModel).ToList();
+					break;
+
+				case ExportMode.Filtered:
+					collection = Entities.ToList();
+					break;
+			}
+		
+			return collection;
 		}
 
 		#endregion

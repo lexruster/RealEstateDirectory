@@ -16,4 +16,14 @@ namespace Misc.Miscellaneous
 
 		public List<ExportTable> Tables { get; set; }
 	}
+
+	/// <summary>
+	/// Как экспортировать
+	/// </summary>
+	public enum ExportMode
+	{
+		All = 1,
+		Filtered = 2,
+		Selected = 3
+	}
 }

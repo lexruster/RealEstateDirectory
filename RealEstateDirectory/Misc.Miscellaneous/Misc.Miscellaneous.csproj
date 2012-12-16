@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="ExportObject.cs" />
     <Compile Include="ExportTable.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

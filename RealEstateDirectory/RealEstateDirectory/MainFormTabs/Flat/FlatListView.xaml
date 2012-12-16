@@ -18,8 +18,6 @@
 					</TextBlock.Text>
 				</TextBlock>
 			</DataTemplate>
-
-
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -38,7 +36,7 @@
 					<TextBlock Margin="10,0,0,0">Добавить</TextBlock>
 				</StackPanel>
 			</Button>
-			<Button Margin="5" Width="100" Command="{Binding ChangeCommand}" >
+			<!--<Button Margin="5" Width="100" Command="{Binding ChangeCommand}" >
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Resources/Img/Edit.png" />
 					<TextBlock Margin="10,0,0,0">Изменить</TextBlock>
@@ -49,7 +47,7 @@
 					<Image Source="../../Resources/Img/delete.png" />
 					<TextBlock Margin="10,0,0,0">Удалить</TextBlock>
 				</StackPanel>
-			</Button>
+			</Button>-->
 			<Button Margin="5" Width="100" Command="{Binding UpdateCommand}" >
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Resources/Img/refresh.png" />
@@ -64,6 +62,14 @@
 			<Button Margin="5" Width="40" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordCommand}">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="../../Resources/Img/WORD.png" />
+				</StackPanel>
+			</Button>
+
+			<Button Margin="5" Width="100" ToolTip="Экспортировать в Word" Command="{Binding ExportToWordSelectedCommand}"
+					CommandParameter="{Binding ElementName=DataList, Path=SelectedItems}" >
+				<StackPanel Orientation="Horizontal">
+					<Image Source="../../Resources/Img/WORD.png" />
+					<TextBlock Margin="10,0,0,0">выбранного</TextBlock>
 				</StackPanel>
 			</Button>
 		</StackPanel>
@@ -115,7 +121,8 @@
 			</WrapPanel>
 		</Expander>
 
-		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}" >
+		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" 
+				  SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
 			<DataGrid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
 			</DataGrid.InputBindings>

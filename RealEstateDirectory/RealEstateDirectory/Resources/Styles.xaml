@@ -62,7 +62,7 @@
         <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"></Setter>
         <Setter Property="EnableRowVirtualization" Value="True"></Setter>
         <Setter Property="EnableColumnVirtualization" Value="True"></Setter>
-        <Setter Property="SelectionMode" Value="Single"></Setter>
+        <Setter Property="SelectionMode" Value="Extended"></Setter>
         <Setter Property="SelectionUnit" Value="FullRow"></Setter>
         <Setter Property="AutoGenerateColumns" Value="False"></Setter>
         <Setter Property="IsReadOnly" Value="True"></Setter>

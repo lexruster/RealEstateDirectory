@@ -1,17 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Data;
-using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
 using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Services.Export;
@@ -53,30 +46,30 @@ namespace RealEstateDirectory.MainFormTabs.House
 		{
 		}
 
-		public override ExportTable GetExportedTable(bool forAll = false)
+		public override ExportTable GetExportedTable(ExportMode mode)
 		{
 			var table = new ExportTable("Дома")
 				{
-					Headers = new List<string>
+					Headers = new List<Header>
 						{
-							"Район",
-							"Адрес",
-							"Площадь участка",
-							"Площадь дома",
-							"Этажей",
-							"Материал",
-							"Состояние",
-							"Канализация",
-							"Вода",
-							"Вариант",
-							"Собственность",
-							"Комментарий",
-							"Риэлтор",
-							"Цена т.р."
+							new Header("Район"),
+							new Header("Адрес"),
+							new Header("Площадь участка"),
+							new Header("Площадь дома"),
+							new Header("Этажей"),
+							new Header("Материал"),
+							new Header("Состояние"),
+							new Header("Канализация"),
+							new Header("Вода"),
+							new Header("Вариант"),
+							new Header("Собственность"),
+							new Header("Комментарий"),
+							new Header("Риэлтор"),
+							new Header("Цена т.р."),
 						}
 				};
 
-			var collection = forAll ? _RealEstateService.GetAll().Select(CreateNewViewModel).ToArray() : Entities.ToArray();
+			var collection = GetCollectionForExport(mode);
 			foreach (var item in collection)
 			{
 				var house = item as HouseViewModel;
