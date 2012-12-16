@@ -59,6 +59,7 @@ namespace RealEstateDirectory.Domain.Data.Config
 			mapper.AddMapping<FloorLevelMap>();
 			mapper.AddMapping<RealtorAgencyMap>();
 			mapper.AddMapping<ConditionMap>();
+			mapper.AddMapping<DestinationMap>();
 
 			mapper.AddMapping<RealEstateMap>();
 			mapper.AddMapping<PlotMap>();

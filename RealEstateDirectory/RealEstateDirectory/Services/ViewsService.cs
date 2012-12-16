@@ -7,6 +7,7 @@ using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.Dictionaries.Common;
 using RealEstateDirectory.Dictionaries.ConditionDictionary;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
+using RealEstateDirectory.Dictionaries.DestinationDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
 using RealEstateDirectory.Dictionaries.LayoutDictionary;
@@ -71,6 +72,9 @@ namespace RealEstateDirectory.Services
                                                                typeof (WaterSupplyDictionaryView)));
 			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(ConditionDictionaryViewModel),
 															   typeof(ConditionDictionaryView)));
+			_viewModelViewMap.Add(new KeyValuePair<Type, Type>(typeof(DestinationDictionaryViewModel),
+															   typeof(DestinationDictionaryView)));
+			
         }
 
         #region Infrastructure

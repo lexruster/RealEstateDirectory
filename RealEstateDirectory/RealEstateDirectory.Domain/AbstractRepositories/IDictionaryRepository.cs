@@ -19,9 +19,11 @@ namespace RealEstateDirectory.Domain.AbstractRepositories
 		bool IsPossibleToDeleteOwnership(Ownership entity);
 		bool IsPossibleToDeleteLayout(Layout entity);
 		bool IsPossibleToDeleteFloorLevel(FloorLevel entity);
+		bool IsPossibleToDeleteCondition(Condition entity);
+		bool IsPossibleToDeleteDestination(Destination entity);
 
 		bool IsNameUniqueness<T>(T entity, int id = 0) where T : BaseDictionary;
 		bool IsPossibleToDeleteRealtorAgency(RealtorAgency entity);
-		bool IsPossibleToDeleteCondition(Condition entity);
+		
 	}
 }

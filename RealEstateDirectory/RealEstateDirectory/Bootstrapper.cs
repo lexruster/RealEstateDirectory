@@ -14,6 +14,7 @@ using RealEstateDirectory.ApplicationServices.Dictionary;
 using RealEstateDirectory.DataAccess;
 using RealEstateDirectory.Dictionaries.ConditionDictionary;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
+using RealEstateDirectory.Dictionaries.DestinationDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
 using RealEstateDirectory.Dictionaries.LayoutDictionary;
@@ -130,6 +131,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<ITerraceService, TerraceService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IToiletTypeService, ToiletTypeService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IWaterSupplyService, WaterSupplyService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IDestinationService, DestinationService>(new ContainerControlledLifetimeManager());
+
 			Container.RegisterType<IFlatService, FlatService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IRoomService, RoomService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IResidenceService, ResidenceService>(new ContainerControlledLifetimeManager());
@@ -160,6 +163,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<TerraceDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
+			Container.RegisterType<DestinationDictionaryViewModel>(new InjectionMethod("Initialize"));
+			
 			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<FlatListViewModel>(new InjectionMethod("Initialize"));

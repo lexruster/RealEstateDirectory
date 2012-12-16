@@ -15,17 +15,19 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		public ResidenceEditViewModel(IResidenceService residenceService, IMessageService messageService,
 		                              IDistrictService districtService, IViewsService viewsService, IRealtorService realtorService,
 		                              IOwnershipService ownershipService, IDealVariantService dealVariantService,
-									  IMaterialService materialService, IConditionService conditionalService)
+									  IMaterialService materialService, IConditionService conditionalService, IDestinationService destinationService)
 			: base(residenceService, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
 		{
 			_ViewsService = viewsService;
 			_MaterialService = materialService;
+			_DestinationService = destinationService;
 		}
 
 		#region Infrastructure
 
 		private readonly IViewsService _ViewsService;
 		private readonly IMaterialService _MaterialService;
+		private readonly IDestinationService _DestinationService;
 
 		#endregion
 
@@ -34,6 +36,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		public decimal? TotalSquare { get; set; }
 		public int? TotalFloor { get; set; }
 		public ListCollectionView Material { get; set; }
+		public ListCollectionView Destination { get; set; }
 		public int? Floor { get; set; }
 
 		#endregion
@@ -46,6 +49,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 			TotalFloor = DbEntity.TotalFloor;
 			Floor = DbEntity.Floor;
 			Material.MoveCurrentTo(DbEntity.Material);
+			Destination.MoveCurrentTo(DbEntity.Destination);
 		}
 
 		protected override void UpdateConcreteModelFromValues()
@@ -78,6 +82,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 			residence.TotalFloor = TotalFloor;
 			residence.Floor = Floor;
 			residence.Material = ResolveDictionary<Material>(Material);
+			residence.Destination = ResolveDictionary<Destination>(Destination);
 		}
 
 		protected override string ChildDataError(string propertyName)
@@ -110,6 +115,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		protected override void InitCollection()
 		{
 			Material = new ListCollectionView((new[] { NullMaterial }).Concat(_MaterialService.GetAll()).ToList());
+			Destination = new ListCollectionView((new[] { NullDestination }).Concat(_DestinationService.GetAll()).ToList());
 		}
 
 		#endregion

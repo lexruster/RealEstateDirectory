@@ -13,6 +13,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		public decimal? TotalSquare { get; set; }
 		public int? TotalFloor { get; set; }
 		public Material Material { get; set; }
+		public Destination Destination { get; set; }
 		public int? Floor { get; set; }
 
 		#endregion
@@ -44,6 +45,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 			Material = DbEntity.Material;
 			TotalFloor = DbEntity.TotalFloor;
 			TotalSquare = DbEntity.TotalSquare;
+			Destination = DbEntity.Destination;
 		}
 
 		#endregion

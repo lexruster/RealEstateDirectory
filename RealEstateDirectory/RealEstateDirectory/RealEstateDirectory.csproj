@@ -110,6 +110,11 @@
     </Compile>
     <Compile Include="Dictionaries\ConditionDictionary\ConditionDictionaryViewModel.cs" />
     <Compile Include="Dictionaries\ConditionDictionary\ConditionViewModel.cs" />
+    <Compile Include="Dictionaries\DestinationDictionary\ConditionDictionaryView.xaml.cs">
+      <DependentUpon>ConditionDictionaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionaries\DestinationDictionary\ConditionDictionaryViewModel.cs" />
+    <Compile Include="Dictionaries\DestinationDictionary\ConditionViewModel.cs" />
     <Compile Include="MainFormTabs\View\BaseCommandButton.xaml.cs">
       <DependentUpon>BaseCommandButton.xaml</DependentUpon>
     </Compile>
@@ -266,6 +271,10 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Page Include="Dictionaries\ConditionDictionary\ConditionDictionaryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\DestinationDictionary\ConditionDictionaryView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

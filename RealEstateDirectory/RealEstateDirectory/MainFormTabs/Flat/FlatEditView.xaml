@@ -48,13 +48,14 @@
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Площадь"/>
 						<StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch">
 							<StackPanel >
+								<TextBlock Style="{StaticResource TextBlock}"  Text="Жилая"/>
+								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding ResidentialSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
+								
+							</StackPanel>
+							<StackPanel >
 								<TextBlock Style="{StaticResource TextBlock}"  Text="Общая"/>
 								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" 
 										 Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
-							</StackPanel>
-							<StackPanel >
-								<TextBlock Style="{StaticResource TextBlock}"  Text="Жилая"/>
-								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding ResidentialSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
 							</StackPanel>
 							<StackPanel >
 								<TextBlock Style="{StaticResource TextBlock}"  Text="Кухня"/>

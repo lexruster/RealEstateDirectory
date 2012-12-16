@@ -122,6 +122,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected Ownership NullOwnership = new Ownership("");
 		protected Terrace NullTerrace = new Terrace("");
 		protected Material NullMaterial = new Material("");
+		protected Destination NullDestination = new Destination("");
 		protected Layout NullLayout = new Layout("");
 		protected FloorLevel NullFloorLevel = new FloorLevel("");
 

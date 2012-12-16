@@ -42,6 +42,7 @@
     <Compile Include="Config\PostgresNamingStrategy.cs" />
     <Compile Include="Mapping\ApartmentMap.cs" />
     <Compile Include="Mapping\Dictionaries\ConditionMap.cs" />
+    <Compile Include="Mapping\Dictionaries\DestinationMap.cs" />
     <Compile Include="Mapping\Dictionaries\RealtorAgencyMap.cs" />
     <Compile Include="Mapping\Dictionaries\FloorLevelMap.cs" />
     <Compile Include="Mapping\Dictionaries\SewageMap.cs" />

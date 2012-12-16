@@ -22,6 +22,7 @@
     <DataTemplate DataType="{x:Type Dictionaries:Layout}">
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
+	
 	<DataTemplate DataType="{x:Type Dictionaries:Condition}">
 		<TextBlock Text="{Binding Name}"></TextBlock>
 	</DataTemplate>
@@ -58,6 +59,10 @@
         <TextBlock Text="{Binding Name}"></TextBlock>
     </DataTemplate>
 
+	<DataTemplate DataType="{x:Type Dictionaries:Destination}">
+		<TextBlock Text="{Binding Name}"></TextBlock>
+	</DataTemplate>
+	
     <DataTemplate DataType="{x:Type System:DateTime}">
         <TextBlock Text="{Binding StringFormat={}\{0:dd.MM.yyyy HH:mm\}}"></TextBlock>
     </DataTemplate>

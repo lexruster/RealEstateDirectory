@@ -13,6 +13,7 @@ using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.Dictionaries.ConditionDictionary;
 using RealEstateDirectory.Dictionaries.DealVariantDictionary;
+using RealEstateDirectory.Dictionaries.DestinationDictionary;
 using RealEstateDirectory.Dictionaries.DistrictDictionary;
 using RealEstateDirectory.Dictionaries.FloorLevelDictionary;
 using RealEstateDirectory.Dictionaries.LayoutDictionary;
@@ -62,7 +63,8 @@ namespace RealEstateDirectory.Shell
 			ToiletTypeDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ToiletTypeDictionaryViewModel>());
 			WaterSupplyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<WaterSupplyDictionaryViewModel>());
 			ConditionDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<ConditionDictionaryViewModel>());
-
+			DestinationDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DestinationDictionaryViewModel>());
+			
 			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog());
 			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates(true));
 			ConfigCommand = new DelegateCommand(() => _ViewsService.OpenConfigDialog());
@@ -104,7 +106,8 @@ namespace RealEstateDirectory.Shell
 		public ICommand ToiletTypeDictionaryCommand { get; private set; }
 		public ICommand WaterSupplyDictionaryCommand { get; private set; }
 		public ICommand ConditionDictionaryCommand { get; private set; }
-
+		public ICommand DestinationDictionaryCommand { get; private set; }
+		
 		public ICommand AboutCommand { get; private set; }
 		public ICommand CheckUpdatesCommand { get; private set; }
 		public ICommand ConfigCommand { get; private set; }

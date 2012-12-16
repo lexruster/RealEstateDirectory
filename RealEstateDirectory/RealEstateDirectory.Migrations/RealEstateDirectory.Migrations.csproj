@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Migration1.cs" />
     <Compile Include="Migration2.cs" />
+    <Compile Include="Migration3.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="MigrationsBeacon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

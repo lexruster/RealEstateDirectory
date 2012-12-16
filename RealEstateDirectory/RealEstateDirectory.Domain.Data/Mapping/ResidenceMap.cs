@@ -22,6 +22,7 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 					m.Scale(5);
 				});
 			ManyToOne(x => x.Material);
+			ManyToOne(x => x.Destination);
 		}
 	}
 }

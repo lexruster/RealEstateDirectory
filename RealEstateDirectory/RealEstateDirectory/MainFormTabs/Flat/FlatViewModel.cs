@@ -43,7 +43,7 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 
         public string SquareString
         {
-            get { return String.Format("{0:0.0}/{1:0.0}/{2:0.0}", TotalSquare, ResidentialSquare, KitchenSquare); }
+            get { return String.Format("{0:0.0}/{1:0.0}/{2:0.0}", ResidentialSquare, TotalSquare, KitchenSquare); }
         }
 
         public string FloorString

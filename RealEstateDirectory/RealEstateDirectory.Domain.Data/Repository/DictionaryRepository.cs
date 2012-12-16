@@ -83,6 +83,11 @@ namespace RealEstateDirectory.Domain.Data.Repository
 			return CurrentSession.Query<RealEstate>().Count(x => x.Condition == entity) == 0;
 		}
 
+		public bool IsPossibleToDeleteDestination(Destination entity)
+		{
+			return CurrentSession.Query<Residence>().Count(x => x.Destination == entity) == 0;
+		}
+
 		public bool IsNameUniqueness<T>(T entity, int id = 0) where T : BaseDictionary
 		{
 			var localId = id == 0 ? entity.Id : id;

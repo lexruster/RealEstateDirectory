@@ -30,6 +30,7 @@
 				<MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
 				<MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />
 				<MenuItem Header="Материалы" Command="{Binding MaterialDictionaryCommand}" />
+				<MenuItem Header="Назначение" Command="{Binding DestinationDictionaryCommand}" />
 				<MenuItem Header="Планировка" Command="{Binding LayoutDictionaryCommand}" />
 				<MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
 				<MenuItem Header="Риэлторы" Command="{Binding RealtorDictionaryCommand}" />
