@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using Microsoft.Practices.Prism.ViewModel;
@@ -33,29 +35,120 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 
 		#endregion
 
-		#region Свойства  INotifi
+		#region Сущность
 
-		public decimal? TotalSquare { get; set; }
+		#region Свойства
+
 		public ListCollectionView Material { get; set; }
 		public ListCollectionView Destination { get; set; }
-		public int? Floor { get; set; }
+
+		public string TotalSquare { get; set; }
+
+		[NotifyProperty(AlsoNotifyFor = new[] { "TotalFloor" })]
+		public string Floor { get; set; }
+
+		[NotifyProperty(AlsoNotifyFor = new[] { "Floor" })]
+		public string TotalFloor { get; set; }
 
 		#endregion
 
-		#region Перегрузки
+		#region Валидация
+
+		public override string this[string propertyName]
+		{
+			get
+			{
+				var baseResult = base[propertyName];
+				if (baseResult != null)
+					return baseResult;
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !String.IsNullOrWhiteSpace(TotalSquare))
+				{
+					decimal totalSquare;
+					if (!Decimal.TryParse(TotalSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out totalSquare))
+						return "Общая площадь введена некорректно";
+				}
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !String.IsNullOrWhiteSpace(TotalFloor))
+				{
+					int totalFloor;
+					if (!Int32.TryParse(TotalFloor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out totalFloor))
+						return "Количество этажей введено некорректно";
+				}
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor) && !String.IsNullOrWhiteSpace(Floor))
+				{
+					int floor;
+					if (!Int32.TryParse(Floor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out floor))
+						return "Этаж введен некорректно";
+				}
+
+				if ((propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor)
+					|| propertyName == PropertySupport.ExtractPropertyName(() => Floor))
+					&& !String.IsNullOrWhiteSpace(TotalFloor) && !String.IsNullOrWhiteSpace(Floor))
+				{
+					var totalFloor = Int32.Parse(TotalFloor);
+					var floor = Int32.Parse(Floor);
+					if (floor > totalFloor)
+						return "Этаж не может быть больше общего количества этажй";
+				}
+
+				return null;
+			}
+		}
+
+		protected override IEnumerable<string> ValidatableProperties
+		{
+			get
+			{
+				foreach (var validatableProperty in base.ValidatableProperties)
+					yield return validatableProperty;
+
+				yield return PropertySupport.ExtractPropertyName(() => TotalSquare);
+				yield return PropertySupport.ExtractPropertyName(() => Floor);
+				yield return PropertySupport.ExtractPropertyName(() => TotalFloor);
+			}
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Взаимодействие с моделью БД
+
+		protected override Domain.Entities.Residence CreateNewModel()
+		{
+			var residence = new Domain.Entities.Residence();
+			SetResidenceValues(residence);
+			SetRealEstateValues(residence);
+
+			return residence;
+		}
 
 		protected override void UpdateValuesFromConcreteModel()
 		{
-			TotalSquare = DbEntity.TotalSquare;
-			TotalFloor = DbEntity.TotalFloor;
-			Floor = DbEntity.Floor;
+			TotalSquare = DbEntity.TotalSquare.HasValue ? DbEntity.TotalSquare.Value.ToString("0:0.#") : String.Empty;
+			TotalFloor = DbEntity.TotalFloor.HasValue ? DbEntity.TotalFloor.Value.ToString() : String.Empty;
+			Floor = DbEntity.Floor.HasValue ? DbEntity.Floor.Value.ToString() : String.Empty;
 			Material.MoveCurrentTo(DbEntity.Material);
 			Destination.MoveCurrentTo(DbEntity.Destination);
 		}
 
-		protected override void UpdateConcreteModelFromValues()
+		protected override void UpdateConcreteModelFromValues(Domain.Entities.Residence residence)
 		{
-			SetResidenceValues(DbEntity);
+			residence.TotalSquare = String.IsNullOrWhiteSpace(TotalSquare) ? null : new decimal?(Decimal.Parse(TotalSquare));
+			residence.TotalFloor = String.IsNullOrWhiteSpace(TotalSquare) ? null : new int?(Int32.Parse(TotalFloor));
+			residence.Floor = String.IsNullOrWhiteSpace(TotalSquare) ? null : new int?(Int32.Parse(Floor));
+			residence.Material = ResolveDictionary<Material>(Material);
+			residence.Destination = ResolveDictionary<Destination>(Destination);
+		}
+
+		#endregion
+
+		protected override void InitCollection()
+		{
+			Material = new ListCollectionView((new[] { NullMaterial }).Concat(_MaterialService.GetAll()).ToList());
+			Destination = new ListCollectionView((new[] { NullDestination }).Concat(_DestinationService.GetAll()).ToList());
 		}
 
 		protected override void CloseDialog()
@@ -67,58 +160,5 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		{
 			_ViewsService.OpenResidenceDialog(this);
 		}
-
-		protected override Domain.Entities.Residence CreateNewModel()
-		{
-			var residence = new Domain.Entities.Residence();
-			SetResidenceValues(residence);
-			SetRealEstateValues(residence);
-
-			return residence;
-		}
-
-		private void SetResidenceValues(Domain.Entities.Residence residence)
-		{
-			residence.TotalSquare = TotalSquare;
-			residence.TotalFloor = TotalFloor;
-			residence.Floor = Floor;
-			residence.Material = ResolveDictionary<Material>(Material);
-			residence.Destination = ResolveDictionary<Destination>(Destination);
-		}
-
-		protected override string ChildDataError(string propertyName)
-		{
-			if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
-			{
-				if (TotalSquare < 0)
-					return "Площадь не может быть отрицательной";
-			}
-
-			if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
-			{
-				if (Floor < 0)
-					return "Этаж не может быть отрицательным";
-				if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
-					return "Этаж не может быть больше общего числа этажей";
-			}
-
-			if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor))
-			{
-				if (TotalFloor < 0)
-					return "Всего этажей не может быть отрицательным";
-				if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
-					return "Этаж не может быть больше общего числа этажей";
-			}
-
-			return null;
-		}
-
-		protected override void InitCollection()
-		{
-			Material = new ListCollectionView((new[] { NullMaterial }).Concat(_MaterialService.GetAll()).ToList());
-			Destination = new ListCollectionView((new[] { NullDestination }).Concat(_DestinationService.GetAll()).ToList());
-		}
-
-		#endregion
 	}
 }

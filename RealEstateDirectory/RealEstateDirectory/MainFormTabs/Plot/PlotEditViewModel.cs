@@ -17,27 +17,27 @@ using RealEstateDirectory.Services;
 
 namespace RealEstateDirectory.MainFormTabs.Plot
 {
-    [NotifyForAll]
-    public class PlotEditViewModel : RealEstateEditViewModel<Domain.Entities.Plot>
-    {
-        #region Конструктор
+	[NotifyForAll]
+	public class PlotEditViewModel : RealEstateEditViewModel<Domain.Entities.Plot>
+	{
+		#region Конструктор
 
-        public PlotEditViewModel(IPlotService service, IMessageService messageService,
-                                 IDistrictService districtService, IViewsService viewsService,
-                                 IRealtorService realtorService, IOwnershipService ownershipService,
-								 IDealVariantService dealVariantService, IConditionService conditionalService)
-            : base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
-        {
-            _ViewsService = viewsService;
-        }
+		public PlotEditViewModel(IPlotService service, IMessageService messageService,
+			IDistrictService districtService, IViewsService viewsService,
+			IRealtorService realtorService, IOwnershipService ownershipService,
+			IDealVariantService dealVariantService, IConditionService conditionalService)
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
+		{
+			_ViewsService = viewsService;
+		}
 
-        #endregion
+		#endregion
 
-        #region Инфраструктура
+		#region Инфраструктура
 
-        private readonly IViewsService _ViewsService;
+		private readonly IViewsService _ViewsService;
 
-        #endregion
+		#endregion
 
 		#region Сущность
 
@@ -45,62 +45,62 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 
 		public string PlotSquare { get; set; }
 
-        #endregion
+		#endregion
 
 		#region Валидация
 
 		public override string this[string propertyName]
 		{
 			get
-        {
+			{
 				var baseResult = base[propertyName];
 				if (baseResult != null)
 					return baseResult;
 
 				if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare) && !String.IsNullOrWhiteSpace(PlotSquare))
-        {
+				{
 					decimal plotSquare;
 					if (!Decimal.TryParse(PlotSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out plotSquare))
 						return "Площадь участка введена некорректно";
-        }
+				}
 
 				return null;
 			}
-        }
+		}
 
 		protected override IEnumerable<string> ValidatableProperties
 		{
 			get
-        {
+			{
 				foreach (var validatableProperty in base.ValidatableProperties)
 					yield return validatableProperty;
 
 				yield return PropertySupport.ExtractPropertyName(() => PlotSquare);
 			}
-        }
+		}
 
 		#endregion
 
 		#region Взаимодействие с моделью БД
 
-        protected override Domain.Entities.Plot CreateNewModel()
-        {
-            var plot = new Domain.Entities.Plot();
+		protected override Domain.Entities.Plot CreateNewModel()
+		{
+			var plot = new Domain.Entities.Plot();
 			UpdateConcreteModelFromValues(plot);
-            SetRealEstateValues(plot);
+			SetRealEstateValues(plot);
 
-            return plot;
-        }
+			return plot;
+		}
 
 		protected override void UpdateValuesFromConcreteModel()
-        {
+		{
 			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0:0.#") : String.Empty;
-        }
+		}
 
-        protected override void UpdateConcreteModelFromValues(Domain.Entities.Plot plot)
-        {
+		protected override void UpdateConcreteModelFromValues(Domain.Entities.Plot plot)
+		{
 			plot.PlotSquare = String.IsNullOrWhiteSpace(PlotSquare) ? null : new decimal?(Decimal.Parse(PlotSquare));
-        }
+		}
 
 		#endregion
 
@@ -112,20 +112,20 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 
 		#region Перегрузки
 
-	    protected override void InitCollection()
-            {
-            }
+		protected override void InitCollection()
+		{
+		}
 
-	    protected override void CloseDialog()
-        {
-            _ViewsService.ClosePlotDialog();
-        }
+		protected override void CloseDialog()
+		{
+			_ViewsService.ClosePlotDialog();
+		}
 
-	    protected override void OpenDialog()
-        {
-            _ViewsService.OpenPlotDialog(this);
-        }
+		protected override void OpenDialog()
+		{
+			_ViewsService.OpenPlotDialog(this);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

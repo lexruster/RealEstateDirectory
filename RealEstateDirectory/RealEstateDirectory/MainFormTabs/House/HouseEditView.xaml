@@ -35,12 +35,12 @@
                         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch">
                             <StackPanel >
                                 <TextBlock Style="{StaticResource TextBlock}"  Text="Участка"/>
-								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding PlotSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
+								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding PlotSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
                             </StackPanel>
 
                             <StackPanel >
                                 <TextBlock Style="{StaticResource TextBlock}"  Text="Дома"/>
-								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding HouseSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
+								<TextBox Width="60" Margin="0,0,10,0" Style="{StaticResource ValidationTemplateStyle}" Text="{Binding HouseSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''" />
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Этажей"/>
