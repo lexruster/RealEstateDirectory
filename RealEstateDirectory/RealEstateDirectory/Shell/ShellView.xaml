@@ -26,7 +26,7 @@
             <MenuItem Header="Справочники">
                 <MenuItem Header="Агентства" Command="{Binding RealtorAgencyDictionaryCommand}" />
                 <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />
-				<MenuItem Header="Виды потолков" Command="{Binding FloorLevelDictionaryCommand}" />
+				<MenuItem Header="Высота этажа" Command="{Binding FloorLevelDictionaryCommand}" />
 				<MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
 				<MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />
 				<MenuItem Header="Материалы" Command="{Binding MaterialDictionaryCommand}" />

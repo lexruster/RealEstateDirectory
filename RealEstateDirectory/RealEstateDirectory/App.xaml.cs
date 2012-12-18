@@ -24,7 +24,9 @@ namespace RealEstateDirectory
 			Log.Info("Приложение запущено");
 			base.OnStartup(e);
 
+#if !DEBUG
 		    InitConfig();
+#endif
 			if (_appShutdown) return;
 
 			var bootstrapper = new Bootstrapper();

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using FluentMigrator.Runner.Announcers;
@@ -35,12 +37,13 @@ using RealEstateDirectory.MainFormTabs.Flat;
 using RealEstateDirectory.MainFormTabs.House;
 using RealEstateDirectory.MainFormTabs.Plot;
 using RealEstateDirectory.MainFormTabs.Residence;
+using RealEstateDirectory.MainFormTabs.Room;
 using RealEstateDirectory.Migrations;
 using RealEstateDirectory.Misc;
 using RealEstateDirectory.Services;
 using RealEstateDirectory.Services.Export;
 using RealEstateDirectory.Shell;
-using RoomListViewModel = RealEstateDirectory.MainFormTabs.Room.RoomListViewModel;
+using Configuration = NHibernate.Cfg.Configuration;
 
 namespace RealEstateDirectory
 {
@@ -56,7 +59,7 @@ namespace RealEstateDirectory
 			base.ConfigureContainer();
 			Log.Info("Контейнер сконфигурирован");
 			Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager(),
-												  new InjectionFactory(container => Configurator.GetConfig()));
+			                                      new InjectionFactory(container => Configurator.GetConfig()));
 			Log.Info("Конфигурация БД получена");
 			Container.RegisterType<IPersistenceContext, PersistenceContext>(new ContainerControlledLifetimeManager());
 			RegisterRepositories();
@@ -74,19 +77,21 @@ namespace RealEstateDirectory
 		{
 			base.InitializeShell();
 			Log.Info("Инициализация оболочки");
-			Application.Current.MainWindow = (Window)Shell;
+			Application.Current.MainWindow = (Window) Shell;
 			Application.Current.MainWindow.Show();
 
 			LoadConfig();
 			if (_appShutdown) return;
 			TryConfigureConnection();
 			if (_appShutdown) return;
+			CheckMigrationVersion();
+			if (_appShutdown) return;
 			RunMigrations();
 			if (_appShutdown) return;
 
 			try
 			{
-				((ShellView)Shell).DataContext = Container.Resolve<ShellViewModel>();
+				((ShellView) Shell).DataContext = Container.Resolve<ShellViewModel>();
 			}
 			catch (Exception e)
 			{
@@ -141,7 +146,8 @@ namespace RealEstateDirectory
 			Container.RegisterType<IRealtorAgencyService, RealtorAgencyService>(new ContainerControlledLifetimeManager());
 
 			Container.RegisterType<IViewsService, ViewsService>();
-			Container.RegisterType<IMessageService, MessageService>();
+			Container.RegisterType<IMessageService, MessageService>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IUpdateService, UpdateService>();
 
 			Container.RegisterType<IExcelService, ExcelService>();
 			Container.RegisterType<IWordService, WordService>();
@@ -164,7 +170,7 @@ namespace RealEstateDirectory
 			Container.RegisterType<ToiletTypeDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<WaterSupplyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<DestinationDictionaryViewModel>(new InjectionMethod("Initialize"));
-			
+
 			Container.RegisterType<RealtorAgencyDictionaryViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<RoomListViewModel>(new InjectionMethod("Initialize"));
 			Container.RegisterType<FlatListViewModel>(new InjectionMethod("Initialize"));
@@ -242,14 +248,14 @@ namespace RealEstateDirectory
 			try
 			{
 				var context = new RunnerContext(new NullAnnouncer())
-				{
-					Database = "postgres",
-					Connection = Utils.Config.GetProperty("DefaultConnectionString"),
-					Target = Assembly.GetAssembly(typeof(MigrationsBeacon)).Location,
-					PreviewOnly = false,
-					NestedNamespaces = false,
-					Task = "migrate"
-				};
+					{
+						Database = "postgres",
+						Connection = Utils.Config.GetProperty("DefaultConnectionString"),
+						Target = Assembly.GetAssembly(typeof (MigrationsBeacon)).Location,
+						PreviewOnly = false,
+						NestedNamespaces = false,
+						Task = "migrate"
+					};
 				new TaskExecutor(context).Execute();
 				Log.Info("Миграции завершены");
 			}
@@ -257,6 +263,65 @@ namespace RealEstateDirectory
 			{
 				MessageBox.Show("Не удалось проверить актуальность БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 				Log.ErrorException("Миграции провалены", e);
+				Application.Current.Shutdown();
+				_appShutdown = true;
+			}
+		}
+
+		private int GetBdMigrationVersion()
+		{
+			var version = 0;
+			Utils.Config.Load();
+			var connectionString = Utils.Config.GetProperty("DefaultConnectionString");
+			Log.Info("Получение версии бд со строкой {0}", connectionString);
+			var config = new NHibernate.Cfg.Configuration();
+			config.Configure("hibernate.cfg.xml");
+			config.DataBaseIntegration(
+				properties => properties.ConnectionString = connectionString);
+
+			try
+			{
+				using (var session = config.BuildSessionFactory().OpenSession())
+				{
+					var versionString =
+						session.CreateSQLQuery("SELECT \"Version\" FROM \"VersionInfo\" order by \"Version\" desc limit 1;").UniqueResult();
+					version = Int32.Parse(versionString.ToString());
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Не удалось проверить версию БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Log.ErrorException("Тест версии бд провален", ex);
+				Application.Current.Shutdown();
+				_appShutdown = true;
+			}
+
+			return version;
+		}
+
+		private int GetCurrentMigrationVersion()
+		{
+			return Migrations.LastMigrationVersion.Version;
+		}
+
+		private void CheckMigrationVersion()
+		{
+			var currentMigrationVersion = GetCurrentMigrationVersion();
+			var bdMigrationVersion = GetBdMigrationVersion();
+			if (currentMigrationVersion < bdMigrationVersion)
+			{
+				var message =
+					String.Format(
+						"Программа устарела и не может работать с новой версией базы данных. Программа может работать с БД версией {0}, настоящая версия БД: {1}. Необходимо обновить программу. Скачать новую версию прямо сейчас?",
+						currentMigrationVersion, bdMigrationVersion);
+				Log.Info(message);
+
+				if (MessageBox.Show(message, "Программа устарела", MessageBoxButton.OKCancel, MessageBoxImage.Information) ==
+				    MessageBoxResult.OK)
+				{
+					Log.Info("Установка обновления");
+					Process.Start(ConfigurationManager.AppSettings["UpdateUrl"]);
+				}
 				Application.Current.Shutdown();
 				_appShutdown = true;
 			}

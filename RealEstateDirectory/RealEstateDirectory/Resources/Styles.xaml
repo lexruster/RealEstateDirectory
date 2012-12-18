@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:l="clr-namespace:RealEstateDirectory.Services">
+                    xmlns:l="clr-namespace:RealEstateDirectory.Services"
+                    xmlns:Behaviors="clr-namespace:RealEstateDirectory.Behaviors">
 
     <Style x:Key="DictionaryWindow" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="ThreeDBorderWindow"></Setter>
@@ -70,7 +71,7 @@
         <Setter Property="AlternationCount" Value="2"></Setter>
     </Style>
     
-    <l:BoolToVisible x:Key="BoolToVisibleConverter" />
+    <Behaviors:BoolToVisible x:Key="BoolToVisibleConverter" />
 </ResourceDictionary>
     
     

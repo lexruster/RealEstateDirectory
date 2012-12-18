@@ -13,7 +13,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 		
 		public override string DictionaryName
 		{
-			get { return "Тип потолка"; }
+			get { return "Высота этажа"; }
 		}
 
         #endregion

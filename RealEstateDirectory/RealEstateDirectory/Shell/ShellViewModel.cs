@@ -40,12 +40,11 @@ namespace RealEstateDirectory.Shell
 	[NotifyForAll]
 	public class ShellViewModel : NotificationObject
 	{
-		private DispatcherTimer _timer;
-
-		public ShellViewModel(IViewsService viewsService, IServiceLocator serviceLocator)
+		public ShellViewModel(IViewsService viewsService, IServiceLocator serviceLocator, IUpdateService updateService)
 		{
 			_ViewsService = viewsService;
 			_ServiceLocator = serviceLocator;
+			_UpdateService = updateService;
 
 			ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
 			RealtorAgencyDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<RealtorAgencyDictionaryViewModel>());
@@ -66,7 +65,7 @@ namespace RealEstateDirectory.Shell
 			DestinationDictionaryCommand = new DelegateCommand(() => _ViewsService.OpenView<DestinationDictionaryViewModel>());
 			
 			AboutCommand = new DelegateCommand(() => _ViewsService.OpenAboutDialog());
-			CheckUpdatesCommand = new DelegateCommand(() => CheckUpdates(true));
+			CheckUpdatesCommand = new DelegateCommand(() => _UpdateService.CheckUpdates(true));
 			ConfigCommand = new DelegateCommand(() => _ViewsService.OpenConfigDialog());
 			ExportToWordCommand = new DelegateCommand(ExportToWord);
 
@@ -76,16 +75,14 @@ namespace RealEstateDirectory.Shell
 			HousesDataContext = _ServiceLocator.GetInstance<HouseListViewModel>();
 			ResidenceDataContext = _ServiceLocator.GetInstance<ResidenceListViewModel>();
 
-			_timer = new DispatcherTimer();
-			_timer.Tick += timerTick;
-			_timer.Interval = new TimeSpan(0, 0, 5);
-			_timer.Start();
+			_UpdateService.StartPeriodicCheck();
 		}
 
 		#region Infrastructure
 
 		private readonly IViewsService _ViewsService;
 		private readonly IServiceLocator _ServiceLocator;
+		private readonly IUpdateService _UpdateService;
 
 		#endregion
 
@@ -132,64 +129,5 @@ namespace RealEstateDirectory.Shell
 
 			_wordService.ExportToWord(obj);
 		}
-
-		#region проверка обновлений
-
-		private void timerTick(object sender, EventArgs e)
-		{
-			_timer.Stop();
-			var thread = new Thread(CheckUpdatesOnTimer);
-			thread.Start();
-		}
-
-		public void CheckUpdatesOnTimer()
-		{
-			CheckUpdates(false);
-		}
-
-		public void CheckUpdates(bool showSucces)
-		{
-			var messageService = _ServiceLocator.GetInstance<IMessageService>();
-			try
-			{
-				var webRequest = new HTTP();
-				var remoteVersion =
-					Version.Parse(webRequest.ReadFromServer(ConfigurationManager.AppSettings["GetVersionUrl"], 10000));
-				var localVersion = Assembly.GetExecutingAssembly().GetName().Version;
-
-				if (remoteVersion.CompareTo(localVersion) > 0)
-				{
-					var message =
-						String.Format(
-							"Вышла новая версия ПО. Ваша версия {0}, новая версия {1}. Рекомендуется обновиться. Скачать новую версию прямо сейчас?",
-							localVersion, remoteVersion);
-					if (messageService.ShowMessage(message, "Новая версия", image: MessageBoxImage.Information,
-					                               buttons: MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-					{
-						Process.Start(ConfigurationManager.AppSettings["UpdateUrl"]);
-					}
-				}
-				else
-				{
-					if (showSucces)
-					{
-						messageService.ShowMessage("Вы используете самую последнюю версию.", "Программа обновлена",
-						                           image: MessageBoxImage.Information);
-					}
-				}
-			}
-			catch (Exception)
-			{
-				if (showSucces)
-				{
-					messageService.ShowMessage("Ошибка определения наличия обновлений.", "Ошибка", image: MessageBoxImage.Error);
-				}
-			}
-
-			_timer.Interval = new TimeSpan(0, 30, 0);
-			_timer.Start();
-		}
-
-		#endregion
 	}
 }

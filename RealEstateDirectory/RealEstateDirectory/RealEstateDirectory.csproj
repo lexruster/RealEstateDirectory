@@ -108,6 +108,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\BoolToVisible.cs" />
     <Compile Include="Behaviors\DataGridBoundSelectedItemsBehavior.cs" />
     <Compile Include="Dictionaries\ConditionDictionary\ConditionDictionaryView.xaml.cs">
       <DependentUpon>ConditionDictionaryView.xaml</DependentUpon>
@@ -251,8 +252,9 @@
     <Compile Include="Misc\RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\BoolToVisible.cs" />
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
+    <Compile Include="Services\UpdateService.cs" />
+    <Compile Include="Services\IUpdateService.cs" />
     <Compile Include="Services\Export\DataGridExportService.cs" />
     <Compile Include="Services\Export\ExcelService.cs" />
     <Compile Include="Services\Export\IDataGridExportService.cs" />
