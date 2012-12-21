@@ -119,7 +119,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 		protected override Domain.Entities.Residence CreateNewModel()
 		{
 			var residence = new Domain.Entities.Residence();
-			SetResidenceValues(residence);
+			UpdateConcreteModelFromValues(residence);
 			SetRealEstateValues(residence);
 
 			return residence;
@@ -127,7 +127,7 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 
 		protected override void UpdateValuesFromConcreteModel()
 		{
-			TotalSquare = DbEntity.TotalSquare.HasValue ? DbEntity.TotalSquare.Value.ToString("0:0.#") : String.Empty;
+			TotalSquare = DbEntity.TotalSquare.HasValue ? DbEntity.TotalSquare.Value.ToString("0.#") : String.Empty;
 			TotalFloor = DbEntity.TotalFloor.HasValue ? DbEntity.TotalFloor.Value.ToString() : String.Empty;
 			Floor = DbEntity.Floor.HasValue ? DbEntity.Floor.Value.ToString() : String.Empty;
 			Material.MoveCurrentTo(DbEntity.Material);

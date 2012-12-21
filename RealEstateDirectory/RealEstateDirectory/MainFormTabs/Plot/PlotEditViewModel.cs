@@ -94,7 +94,7 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 
 		protected override void UpdateValuesFromConcreteModel()
 		{
-			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0:0.#") : String.Empty;
+			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0.#") : String.Empty;
 		}
 
 		protected override void UpdateConcreteModelFromValues(Domain.Entities.Plot plot)

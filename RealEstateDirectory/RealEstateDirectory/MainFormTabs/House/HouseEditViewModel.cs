@@ -125,8 +125,8 @@ namespace RealEstateDirectory.MainFormTabs.House
 
 		protected override void UpdateValuesFromConcreteModel()
 		{
-			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0:0.#") : String.Empty;
-			HouseSquare = DbEntity.HouseSquare.HasValue ? DbEntity.HouseSquare.Value.ToString("0:0.#") : String.Empty;
+			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0.#") : String.Empty;
+			HouseSquare = DbEntity.HouseSquare.HasValue ? DbEntity.HouseSquare.Value.ToString("0.#") : String.Empty;
 			TotalFloor = DbEntity.TotalFloor.HasValue ? DbEntity.TotalFloor.Value.ToString() : String.Empty;
 			HasBathhouse = DbEntity.HasBathhouse;
 			HasGarage = DbEntity.HasGarage;

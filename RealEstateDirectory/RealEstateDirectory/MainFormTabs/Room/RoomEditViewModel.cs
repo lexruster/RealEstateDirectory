@@ -38,7 +38,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
         #endregion
 
-        #region Infrastructure
+        #region Инфраструктура
 
         private readonly IViewsService _ViewsService;
         private readonly ITerraceService _TerraceService;
@@ -48,23 +48,44 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
         #endregion
 
-        #region Свойства  INotifi
+        #region Сущность
 
-        public decimal? TotalSquare { get; set; }
-        public int? TotalRoomCount { get; set; }
-        public int? TotalFloor { get; set; }
-        public ListCollectionView Terrace { get; set; }
-        public int? RoomCount { get; set; }
-        public ListCollectionView Material { get; set; }
-        public ListCollectionView Layout { get; set; }
-        public ListCollectionView FloorLevel { get; set; }
-        public int? Floor { get; set; }
+		#region Свойства
+
+	    public ListCollectionView Terrace { get; set; }
+	    public ListCollectionView Material { get; set; }
+	    public ListCollectionView Layout { get; set; }
+	    public ListCollectionView FloorLevel { get; set; }
+
+	    public string TotalSquare { get; set; }
+
+		[NotifyProperty(AlsoNotifyFor = new [] { "RoomCount" })]
+	    public string TotalRoomCount { get; set; }
+
+		[NotifyProperty(AlsoNotifyFor = new[] { "TotalRoomCount" })]
+		public string RoomCount { get; set; }
+
+		[NotifyProperty(AlsoNotifyFor = new[] { "Floor" })]
+		public string TotalFloor { get; set; }
+
+		[NotifyProperty(AlsoNotifyFor = new[] { "TotalFloor" })]
+		public string Floor { get; set; }
+
+		#endregion
 
         #endregion
 
-        #region Свойства
+		#region Валидация
 
-        #endregion
+		public override string this[string propertyName]
+		{
+			get
+			{
+				return base[propertyName];
+			}
+		}
+
+		#endregion
 
         #region Перегрузки
 

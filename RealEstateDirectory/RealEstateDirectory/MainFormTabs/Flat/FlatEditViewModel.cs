@@ -185,9 +185,9 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 
 		protected override void UpdateValuesFromConcreteModel()
 		{
-			TotalSquare = DbEntity.TotalSquare.HasValue ? DbEntity.TotalSquare.Value.ToString("0:0.#") : String.Empty;
-			KitchenSquare = DbEntity.KitchenSquare.HasValue ? DbEntity.KitchenSquare.Value.ToString("0:0.#") : String.Empty;
-			ResidentialSquare = DbEntity.ResidentialSquare.HasValue ? DbEntity.ResidentialSquare.Value.ToString("0:0.#") : String.Empty;
+			TotalSquare = DbEntity.TotalSquare.HasValue ? DbEntity.TotalSquare.Value.ToString("0.#") : String.Empty;
+			KitchenSquare = DbEntity.KitchenSquare.HasValue ? DbEntity.KitchenSquare.Value.ToString("0.#") : String.Empty;
+			ResidentialSquare = DbEntity.ResidentialSquare.HasValue ? DbEntity.ResidentialSquare.Value.ToString("0.#") : String.Empty;
 			TotalRoomCount = DbEntity.TotalRoomCount.HasValue ? DbEntity.TotalRoomCount.Value.ToString() : String.Empty;
 			TotalFloor = DbEntity.TotalFloor.HasValue ? DbEntity.TotalFloor.Value.ToString() : String.Empty;
 			Floor = DbEntity.Floor.HasValue ? DbEntity.Floor.Value.ToString() : String.Empty;
