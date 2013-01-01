@@ -164,7 +164,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		protected void UpdateModelFromValues()
 		{
 			SetRealEstateValues(DbEntity);
-			UpdateConcreteModelFromValues();
+			UpdateConcreteModelFromValues(DbEntity);
 		}
 
 		public void LoadViewModel(T entity)
@@ -253,7 +253,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		protected bool CanOk()
 		{
-            return IsValid();
+            return !String.IsNullOrEmpty(Error);
 		}
 
 		protected bool CanCancel()
