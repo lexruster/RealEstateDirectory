@@ -106,10 +106,6 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 
 		#endregion
 
-		#region Свойства
-
-		#endregion
-
 		#region Перегрузки
 
 		protected override void InitCollection()

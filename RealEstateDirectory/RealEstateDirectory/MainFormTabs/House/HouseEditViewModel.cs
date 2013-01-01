@@ -22,8 +22,8 @@ namespace RealEstateDirectory.MainFormTabs.House
 			IDistrictService districtService, IViewsService viewsService,
 			IRealtorService realtorService, IOwnershipService ownershipService,
 			IDealVariantService dealVariantService, IWaterSupplyService waterSupplyService,
-			ISewageService sewageService, IMaterialService materialService)
-			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService)
+			ISewageService sewageService, IMaterialService materialService, IConditionService conditionalService)
+			: base(service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionalService)
 		{
 			_ViewsService = viewsService;
 			_WaterSupplyService = waterSupplyService;

@@ -203,9 +203,9 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 			flat.TotalSquare = String.IsNullOrWhiteSpace(TotalSquare) ? null : new decimal?(Decimal.Parse(TotalSquare));
 			flat.KitchenSquare = String.IsNullOrWhiteSpace(KitchenSquare) ? null : new decimal?(Decimal.Parse(KitchenSquare));
 			flat.ResidentialSquare = String.IsNullOrWhiteSpace(ResidentialSquare) ? null : new decimal?(Decimal.Parse(ResidentialSquare));
-			flat.TotalRoomCount = String.IsNullOrWhiteSpace(TotalSquare) ? null : new int?(Int32.Parse(TotalRoomCount));
-			flat.TotalFloor = String.IsNullOrWhiteSpace(TotalSquare) ? null : new int?(Int32.Parse(TotalFloor));
-			flat.Floor = String.IsNullOrWhiteSpace(TotalSquare) ? null : new int?(Int32.Parse(Floor));
+			flat.TotalRoomCount = String.IsNullOrWhiteSpace(TotalRoomCount) ? null : new int?(Int32.Parse(TotalRoomCount));
+			flat.TotalFloor = String.IsNullOrWhiteSpace(TotalFloor) ? null : new int?(Int32.Parse(TotalFloor));
+			flat.Floor = String.IsNullOrWhiteSpace(Floor) ? null : new int?(Int32.Parse(Floor));
 			flat.Terrace = ResolveDictionary<Terrace>(Terrace);
 			flat.Material = ResolveDictionary<Material>(Material);
 			flat.Layout = ResolveDictionary<Layout>(Layout);
