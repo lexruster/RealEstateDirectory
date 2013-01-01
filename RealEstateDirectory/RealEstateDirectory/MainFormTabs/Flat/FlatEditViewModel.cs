@@ -86,30 +86,19 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 				if (baseResult != null)
 					return baseResult;
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !String.IsNullOrWhiteSpace(TotalSquare))
-				{
-					decimal totalSquare;
-					if (!Decimal.TryParse(TotalSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out totalSquare))
-						return "Общая площадь введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !IsValidAndPositiveDecimal(TotalSquare))
+					return "Общая площадь введена некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => KitchenSquare) && !String.IsNullOrWhiteSpace(KitchenSquare))
-				{
-					decimal kitchenSquare;
-					if (!Decimal.TryParse(KitchenSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out kitchenSquare))
-						return "Площадь кухни введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => KitchenSquare) && !IsValidAndPositiveDecimal(KitchenSquare))
+					return "Площадь кухни введена некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => ResidentialSquare) && !String.IsNullOrWhiteSpace(ResidentialSquare))
-				{
-					decimal residentialSquare;
-					if (!Decimal.TryParse(ResidentialSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out residentialSquare))
-						return "Жилая площадь введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => ResidentialSquare) && !IsValidAndPositiveDecimal(ResidentialSquare))
+					return "Жилая площадь введена некорректно";
 
 				if ((propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare)
 					|| propertyName == PropertySupport.ExtractPropertyName(() => KitchenSquare)
 					|| propertyName == PropertySupport.ExtractPropertyName(() => ResidentialSquare))
+					&& IsValidAndPositiveDecimal(TotalSquare) && IsValidAndPositiveDecimal(KitchenSquare) && IsValidAndPositiveDecimal(ResidentialSquare)
 					&& !String.IsNullOrWhiteSpace(TotalSquare) && !String.IsNullOrWhiteSpace(KitchenSquare) && !String.IsNullOrWhiteSpace(ResidentialSquare))
 				{
 					var totalSquare = Decimal.Parse(TotalSquare);
@@ -119,35 +108,24 @@ namespace RealEstateDirectory.MainFormTabs.Flat
 						return "Общая площадь не может быть меньше суммы жилой и площади кухни";
 				}
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount) && !String.IsNullOrWhiteSpace(TotalRoomCount))
-				{
-					int totalRoomCount;
-					if (!Int32.TryParse(TotalRoomCount, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out totalRoomCount))
-						return "Количество комнат введено некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount) && !IsValidAndPositiveInt(TotalRoomCount))
+					return "Количество комнат введено некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !String.IsNullOrWhiteSpace(TotalFloor))
-				{
-					int totalFloor;
-					if (!Int32.TryParse(TotalFloor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out totalFloor))
-						return "Количество этажей введено некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !IsValidAndPositiveInt(TotalFloor))
+					return "Количество этажей введено некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor) && !String.IsNullOrWhiteSpace(Floor))
-				{
-					int floor;
-					if (!Int32.TryParse(Floor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out floor))
-						return "Этаж введен некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor) && !IsValidAndPositiveInt(Floor))
+					return "Этаж введен некорректно";
 
 				if ((propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor)
 					|| propertyName == PropertySupport.ExtractPropertyName(() => Floor))
+					&& IsValidAndPositiveInt(TotalFloor) && IsValidAndPositiveInt(Floor)
 					&& !String.IsNullOrWhiteSpace(TotalFloor) && !String.IsNullOrWhiteSpace(Floor))
 				{
 					var totalFloor = Int32.Parse(TotalFloor);
 					var floor = Int32.Parse(Floor);
 					if (floor > totalFloor)
-						return "Этаж не может быть больше общего количества этажй";
+						return "Этаж не может быть больше общего количества этажей";
 				}
 
 				return null;

@@ -62,35 +62,24 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 				if (baseResult != null)
 					return baseResult;
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !String.IsNullOrWhiteSpace(TotalSquare))
-				{
-					decimal totalSquare;
-					if (!Decimal.TryParse(TotalSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out totalSquare))
-						return "Общая площадь введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !IsValidAndPositiveDecimal(TotalSquare))
+					return "Общая площадь введена некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !String.IsNullOrWhiteSpace(TotalFloor))
-				{
-					int totalFloor;
-					if (!Int32.TryParse(TotalFloor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out totalFloor))
-						return "Количество этажей введено некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !IsValidAndPositiveInt(TotalFloor))
+					return "Количество этажей введено некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor) && !String.IsNullOrWhiteSpace(Floor))
-				{
-					int floor;
-					if (!Int32.TryParse(Floor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out floor))
-						return "Этаж введен некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor) && !IsValidAndPositiveInt(Floor))
+					return "Этаж введен некорректно";
 
 				if ((propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor)
 					|| propertyName == PropertySupport.ExtractPropertyName(() => Floor))
+					&& IsValidAndPositiveInt(TotalFloor) && IsValidAndPositiveInt(Floor)
 					&& !String.IsNullOrWhiteSpace(TotalFloor) && !String.IsNullOrWhiteSpace(Floor))
 				{
 					var totalFloor = Int32.Parse(TotalFloor);
 					var floor = Int32.Parse(Floor);
 					if (floor > totalFloor)
-						return "Этаж не может быть больше общего количества этажй";
+						return "Этаж не может быть больше общего количества этажей";
 				}
 
 				return null;

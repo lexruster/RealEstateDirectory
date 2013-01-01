@@ -69,26 +69,14 @@ namespace RealEstateDirectory.MainFormTabs.House
 				if (baseResult != null)
 					return baseResult;
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare) && !String.IsNullOrWhiteSpace(PlotSquare))
-				{
-					decimal plotSquare;
-					if (!Decimal.TryParse(PlotSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out plotSquare))
-						return "Площадь участка введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare) && !IsValidAndPositiveDecimal(PlotSquare))
+					return "Площадь участка введена некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => HouseSquare) && !String.IsNullOrWhiteSpace(HouseSquare))
-				{
-					decimal houseSquare;
-					if (!Decimal.TryParse(HouseSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out houseSquare))
-						return "Площадь дома введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => HouseSquare) && !IsValidAndPositiveDecimal(HouseSquare))
+					return "Площадь дома введена некорректно";
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !String.IsNullOrWhiteSpace(TotalFloor))
-				{
-					int totalFloor;
-					if (!Int32.TryParse(TotalFloor, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out totalFloor))
-						return "Количество этажей введено некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !IsValidAndPositiveInt(TotalFloor))
+					return "Количество этажей введено некорректно";
 
 				return null;
 			}

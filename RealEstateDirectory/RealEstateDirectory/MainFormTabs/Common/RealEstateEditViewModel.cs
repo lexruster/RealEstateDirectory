@@ -33,7 +33,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public RealEstateEditViewModel(IRealEstateService<T> service, IMessageService messageService,
 		                               IDistrictService districtService, IRealtorService realtorService,
-									   IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService)
+		                               IOwnershipService ownershipService, IDealVariantService dealVariantService, IConditionService conditionService)
 		{
 			_RealEstateService = service;
 			_MessageService = messageService;
@@ -42,10 +42,10 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			_OwnershipService = ownershipService;
 			_DealVariantService = dealVariantService;
 			_ConditionService = conditionService;
-            PropertyChanged += (sender, args) =>
-            {
-                OkCommand.RaiseCanExecuteChanged();
-            };
+			PropertyChanged += (sender, args) =>
+				{
+					OkCommand.RaiseCanExecuteChanged();
+				};
 
 			OkCommand = new DelegateCommand(() =>
 				{
@@ -103,9 +103,9 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public string Description { get; set; }
 		public DateTime CreateDate { get; set; }
 
-        //Костыли для валидации
-        public District CurrentDistrict { get; set; }
-        public Realtor CurrentRealtor { get; set; }
+		//Костыли для валидации
+		public District CurrentDistrict { get; set; }
+		public Realtor CurrentRealtor { get; set; }
 
 		#endregion
 
@@ -132,19 +132,19 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		public virtual void BeginEdit(T room)
 		{
 			District = new ListCollectionView(_DistrictService.GetAll().ToList());
-            Street = new ListCollectionView((new[] { NullStreet }).ToList());
+			Street = new ListCollectionView((new[] {NullStreet}).ToList());
 			Realtor = new ListCollectionView(_RealtorService.GetAll().ToList());
 			Ownership = new ListCollectionView((new[] {NullOwnership}).Concat(_OwnershipService.GetAll()).ToList());
 			DealVariant = new ListCollectionView((new[] {NullDealVariant}).Concat(_DealVariantService.GetAll()).ToList());
-			Condition = new ListCollectionView((new[] { NullCondition }).Concat(_ConditionService.GetAll()).ToList());
+			Condition = new ListCollectionView((new[] {NullCondition}).Concat(_ConditionService.GetAll()).ToList());
 			InitCollection();
 
 			DbEntity = room;
 			UpdateValuesFromModel();
 
 			District.CurrentChanged += (sender, args) => UpdateStreet();
-      
-		    OkCommand.RaiseCanExecuteChanged();
+
+			OkCommand.RaiseCanExecuteChanged();
 			OpenDialog();
 		}
 
@@ -253,7 +253,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		protected bool CanOk()
 		{
-            return !String.IsNullOrEmpty(Error);
+			return !String.IsNullOrEmpty(Error);
 		}
 
 		protected bool CanCancel()
@@ -269,41 +269,49 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		{
 			get
 			{
-				if (propertyName == PropertySupport.ExtractPropertyName(() => Price) && !String.IsNullOrWhiteSpace(Price))
-				{
-					decimal price;
-					if (!Decimal.TryParse(Price, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out price))
-						return "Цена указана некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Price) && !IsValidAndPositiveDecimal(Price))
+					return "Цена указана некорректно";
 
 				if (propertyName == PropertySupport.ExtractPropertyName(() => CurrentRealtor) && CurrentRealtor == null)
-                        return "Риэлтор должен быть указан";
+					return "Риэлтор должен быть указан";
 
 				if (propertyName == PropertySupport.ExtractPropertyName(() => CurrentDistrict) && CurrentDistrict == null)
-                        return "Район должен быть указан";
+					return "Район должен быть указан";
 
 				return null;
 			}
 		}
 
+		protected bool IsValidAndPositiveDecimal(string val)
+		{
+			decimal tmp;
+			return String.IsNullOrWhiteSpace(val) || Decimal.TryParse(val, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out tmp);
+		}
+
+		protected bool IsValidAndPositiveInt(string val)
+		{
+			int tmp;
+			return String.IsNullOrWhiteSpace(val) || Int32.TryParse(val, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out tmp);
+		}
+
 		protected virtual IEnumerable<string> ValidatableProperties
-        {
+		{
 			get
-                {
+			{
 				yield return PropertySupport.ExtractPropertyName(() => Price);
 				yield return PropertySupport.ExtractPropertyName(() => CurrentRealtor);
 				yield return PropertySupport.ExtractPropertyName(() => CurrentDistrict);
-                }
-            }
+			}
+		}
 
 		public virtual string Error
-        {
+		{
 			get
-            {
+			{
 				var validateResult = String.Join(Environment.NewLine, ValidatableProperties.Select(propertyName => this[propertyName]).Where(propertyError => propertyError != null));
 
-                if(!String.IsNullOrEmpty(validateResult))
-                    return validateResult;
+				if (!String.IsNullOrEmpty(validateResult))
+					return validateResult;
 
 				var entity = CreateNewModel();
 				var validation = _RealEstateService.IsValid(entity, _Id);

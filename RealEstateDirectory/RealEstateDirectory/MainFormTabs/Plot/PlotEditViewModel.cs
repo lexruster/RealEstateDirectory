@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Data;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
-using RealEstateDirectory.Domain.Entities.Dictionaries;
-using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.Services;
 
@@ -57,12 +49,8 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 				if (baseResult != null)
 					return baseResult;
 
-				if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare) && !String.IsNullOrWhiteSpace(PlotSquare))
-				{
-					decimal plotSquare;
-					if (!Decimal.TryParse(PlotSquare, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, NumberFormatInfo.CurrentInfo, out plotSquare))
-						return "Площадь участка введена некорректно";
-				}
+				if (propertyName == PropertySupport.ExtractPropertyName(() => PlotSquare) && !IsValidAndPositiveDecimal(PlotSquare))
+					return "Площадь участка введена некорректно";
 
 				return null;
 			}
