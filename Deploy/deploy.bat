@@ -11,6 +11,8 @@ cd ..\
 
 xCOPY RealEstateDirectory\RealEstateDirectory\bin\Release Deploy\Bin /y /E /EXCLUDE:Deploy\Misc\restriction
 COPY RealEstateDirectory\RealEstateDirectory\bin\Release\hibernate.cfg.xml Deploy\Bin\hibernate.cfg.xml 
+COPY RealEstateDirectory\RealEstateDirectory\bin\Release\app.manifest Deploy\Bin\app.manifest 
+
 COPY RealEstateDirectory\RealEstateDirectory\bin\Release\RealEstateDirectory.exe.config Deploy\Bin\RealEstateDirectory.exe.config
 
 
