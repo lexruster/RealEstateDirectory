@@ -290,10 +290,8 @@ namespace RealEstateDirectory
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Не удалось проверить версию БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-				Log.ErrorException("Тест версии бд провален", ex);
-				Application.Current.Shutdown();
-				_appShutdown = true;
+				MessageBox.Show("Не удалось проверить версию БД, попробуем развернуть БД.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+				Log.ErrorException("Не удалось проверить версию БД, попробуем развернуть БД. Тест версии бд провален, считаем версию как 0", ex);
 			}
 
 			return version;
