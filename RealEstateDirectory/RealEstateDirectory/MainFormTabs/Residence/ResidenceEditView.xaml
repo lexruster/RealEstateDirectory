@@ -33,7 +33,7 @@
 				<GroupBox Header ="Параметры" Grid.Column="1" Grid.Row="0" Margin="3">
 					<StackPanel >
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Общая площадь"/>
-						<TextBox  Style="{StaticResource ValidationTemplateStyle}" Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue ='', StringFormat='{}{0:0.#}'}" />
+						<TextBox  Style="{StaticResource ValidationTemplateStyle}" Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
 
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Этаж"/>
 						<StackPanel Orientation="Horizontal">

@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
 using RealEstateDirectory.Domain.Entities.Dictionaries;
-using RealEstateDirectory.Domain.Entities;
 using RealEstateDirectory.MainFormTabs.Common;
 using RealEstateDirectory.Services;
 
@@ -38,7 +35,7 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
         #endregion
 
-        #region Infrastructure
+        #region Инфраструктура
 
         private readonly IViewsService _ViewsService;
         private readonly ITerraceService _TerraceService;
@@ -48,129 +45,135 @@ namespace RealEstateDirectory.MainFormTabs.Room
 
         #endregion
 
-        #region Свойства  INotifi
+        #region Сущность
 
-        public decimal? TotalSquare { get; set; }
-        public int? TotalRoomCount { get; set; }
-        public int? TotalFloor { get; set; }
-        public ListCollectionView Terrace { get; set; }
-        public int? RoomCount { get; set; }
-        public ListCollectionView Material { get; set; }
-        public ListCollectionView Layout { get; set; }
-        public ListCollectionView FloorLevel { get; set; }
-        public int? Floor { get; set; }
+		#region Свойства
 
-        #endregion
+	    public ListCollectionView Terrace { get; set; }
+	    public ListCollectionView Material { get; set; }
+	    public ListCollectionView Layout { get; set; }
+	    public ListCollectionView FloorLevel { get; set; }
 
-        #region Свойства
+	    public string TotalSquare { get; set; }
 
-        #endregion
+		[NotifyProperty(AlsoNotifyFor = new [] { "RoomCount" })]
+	    public string TotalRoomCount { get; set; }
 
-        #region Перегрузки
+		[NotifyProperty(AlsoNotifyFor = new[] { "TotalRoomCount" })]
+		public string RoomCount { get; set; }
 
-        protected override void UpdateValuesFromConcreteModel()
-        {
-            TotalSquare = DbEntity.TotalSquare;
-            TotalRoomCount = DbEntity.TotalRoomCount;
-            TotalFloor = DbEntity.TotalFloor;
-            RoomCount = DbEntity.RoomCount;
-            Floor = DbEntity.Floor;
-            Terrace.MoveCurrentTo(DbEntity.Terrace);
-            Material.MoveCurrentTo(DbEntity.Material);
-            Layout.MoveCurrentTo(DbEntity.Layout);
-            FloorLevel.MoveCurrentTo(DbEntity.FloorLevel);
-        }
+		[NotifyProperty(AlsoNotifyFor = new[] { "Floor" })]
+		public string TotalFloor { get; set; }
 
-        protected override void UpdateConcreteModelFromValues()
-        {
-            SetRoomValues(DbEntity);
-        }
+		[NotifyProperty(AlsoNotifyFor = new[] { "TotalFloor" })]
+		public string Floor { get; set; }
 
-        protected override void CloseDialog()
+		#endregion
+
+		#region Валидация
+
+		public override string this[string propertyName]
+		{
+			get
+			{
+				var baseResult = base[propertyName];
+				if (baseResult != null)
+					return baseResult;
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare) && !IsValidAndPositiveDecimal(TotalSquare))
+					return "Общая площадь введена некорректно";
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount) && !IsValidAndPositiveInt(TotalRoomCount))
+					return "Общее количество комнат введено некорректно";
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => RoomCount) && !IsValidAndPositiveInt(RoomCount))
+					return "Количество комнат введено некорректно";
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor) && !IsValidAndPositiveInt(TotalFloor))
+					return "Количество этажей введено некорректно";
+
+				if (propertyName == PropertySupport.ExtractPropertyName(() => Floor) && !IsValidAndPositiveInt(Floor))
+					return "Этаж введен некорректно";
+
+				return null;
+			}
+		}
+
+		protected override IEnumerable<string> ValidatableProperties
+		{
+			get
+			{
+				foreach (var validatableProperty in base.ValidatableProperties)
+					yield return validatableProperty;
+
+				yield return PropertySupport.ExtractPropertyName(() => TotalSquare);
+				yield return PropertySupport.ExtractPropertyName(() => TotalRoomCount);
+				yield return PropertySupport.ExtractPropertyName(() => RoomCount);
+				yield return PropertySupport.ExtractPropertyName(() => TotalFloor);
+				yield return PropertySupport.ExtractPropertyName(() => Floor);
+			}
+		}
+
+		#endregion
+
+		#region Взаимодействие с моделью БД
+
+
+		protected override Domain.Entities.Room CreateNewModel()
+		{
+			var room = new Domain.Entities.Room();
+			UpdateConcreteModelFromValues(room);
+			SetRealEstateValues(room);
+
+			return room;
+		}
+
+	    protected override void UpdateValuesFromConcreteModel()
+	    {
+			TotalSquare = DbEntity.TotalSquare.HasValue ? DbEntity.TotalSquare.Value.ToString("0.#") : String.Empty;
+			TotalRoomCount = DbEntity.TotalRoomCount.HasValue ? DbEntity.TotalRoomCount.Value.ToString() : String.Empty;
+			TotalFloor = DbEntity.TotalFloor.HasValue ? DbEntity.TotalFloor.Value.ToString() : String.Empty;
+			RoomCount = DbEntity.RoomCount.HasValue ? DbEntity.RoomCount.Value.ToString() : String.Empty;
+			Floor = DbEntity.Floor.HasValue ? DbEntity.Floor.Value.ToString() : String.Empty;
+			Terrace.MoveCurrentTo(DbEntity.Terrace);
+		    Material.MoveCurrentTo(DbEntity.Material);
+		    Layout.MoveCurrentTo(DbEntity.Layout);
+		    FloorLevel.MoveCurrentTo(DbEntity.FloorLevel);
+	    }
+
+		protected override void UpdateConcreteModelFromValues(Domain.Entities.Room room)
+	    {
+			room.TotalSquare = String.IsNullOrWhiteSpace(TotalSquare) ? null : new decimal?(Decimal.Parse(TotalSquare));
+			room.TotalRoomCount = String.IsNullOrWhiteSpace(TotalRoomCount) ? null : new int?(Int32.Parse(TotalRoomCount));
+			room.TotalFloor = String.IsNullOrWhiteSpace(TotalFloor) ? null : new int?(Int32.Parse(TotalFloor));
+			room.RoomCount = String.IsNullOrWhiteSpace(RoomCount) ? null : new int?(Int32.Parse(RoomCount));
+			room.Floor = String.IsNullOrWhiteSpace(Floor) ? null : new int?(Int32.Parse(Floor));
+			room.Terrace = ResolveDictionary<Terrace>(Terrace);
+			room.Material = ResolveDictionary<Material>(Material);
+			room.Layout = ResolveDictionary<Layout>(Layout);
+			room.FloorLevel = ResolveDictionary<FloorLevel>(FloorLevel);
+		}
+
+	    #endregion
+
+	    #endregion
+
+	    protected override void InitCollection()
+	    {
+		    Terrace = new ListCollectionView((new[] {NullTerrace}).Concat(_TerraceService.GetAll()).ToList());
+		    Layout = new ListCollectionView((new[] {NullLayout}).Concat(_LayoutService.GetAll()).ToList());
+		    Material = new ListCollectionView((new[] {NullMaterial}).Concat(_MaterialService.GetAll()).ToList());
+		    FloorLevel = new ListCollectionView((new[] {NullFloorLevel}).Concat(_FloorLevelService.GetAll()).ToList());
+	    }
+
+	    protected override void CloseDialog()
         {
             _ViewsService.CloseRoomDialog();
         }
 
-        protected override void OpenDialog()
+	    protected override void OpenDialog()
         {
             _ViewsService.OpenRoomDialog(this);
         }
-
-        protected override Domain.Entities.Room CreateNewModel()
-        {
-            var room = new Domain.Entities.Room();
-            SetRoomValues(room);
-            SetRealEstateValues(room);
-
-            return room;
-        }
-
-        protected void SetRoomValues(Domain.Entities.Room room)
-        {
-            room.TotalSquare = TotalSquare;
-            room.TotalRoomCount = TotalRoomCount;
-            room.TotalFloor = TotalFloor;
-            room.RoomCount = RoomCount;
-            room.Floor = Floor;
-            room.Terrace = ResolveDictionary<Terrace>(Terrace);
-            room.Material = ResolveDictionary<Material>(Material);
-            room.Layout = ResolveDictionary<Layout>(Layout);
-            room.FloorLevel = ResolveDictionary<FloorLevel>(FloorLevel);
-        }
-
-        protected override string ChildDataError(string propertyName)
-        {
-            
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalSquare))
-            {
-                if (TotalSquare < 0)
-                    return "Площадь не может быть отрицательной";
-            }
-
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalRoomCount))
-            {
-                if (TotalRoomCount < 0)
-                    return "Полное число комнат не может быть отрицательным";
-                if (TotalRoomCount.HasValue && RoomCount.HasValue && RoomCount > TotalRoomCount)
-                    return "Число комнат не может быть больше общего числа комант";
-            }
-
-            if (propertyName == PropertySupport.ExtractPropertyName(() => RoomCount))
-            {
-                if (RoomCount < 0)
-                    return "Число комнат не может быть отрицательным";
-
-                if (TotalRoomCount.HasValue && RoomCount.HasValue && RoomCount > TotalRoomCount)
-                    return "Число комнат не может быть больше общего числа комант";
-            }
-
-            if (propertyName == PropertySupport.ExtractPropertyName(() => Floor))
-            {
-                if (Floor < 0)
-                    return "Этаж не может быть отрицательным";
-                if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
-                    return "Этаж не может быть больше общего числа этажей";
-            }
-
-            if (propertyName == PropertySupport.ExtractPropertyName(() => TotalFloor))
-            {
-                if (TotalFloor < 0)
-                    return "Всего этажей не может быть отрицательным";
-                if (Floor.HasValue && TotalFloor.HasValue && Floor > TotalFloor)
-                    return "Этаж не может быть больше общего числа этажей";
-            }
-
-            return null;
-        }
-
-        protected override void InitCollection()
-        {
-            Terrace = new ListCollectionView((new[] {NullTerrace}).Concat(_TerraceService.GetAll()).ToList());
-            Layout = new ListCollectionView((new[] {NullLayout}).Concat(_LayoutService.GetAll()).ToList());
-            Material = new ListCollectionView((new[] {NullMaterial}).Concat(_MaterialService.GetAll()).ToList());
-            FloorLevel = new ListCollectionView((new[] {NullFloorLevel}).Concat(_FloorLevelService.GetAll()).ToList());
-        }
-
-        #endregion
     }
 }
