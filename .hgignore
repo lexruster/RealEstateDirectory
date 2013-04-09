@@ -5,6 +5,4 @@ syntax: glob
 *.suo
 *.user
 Artefacts/FluentMigrator/*.bat
-Deploy/Obfuscated/*
-Deploy/Instal/*
-Deploy/Bin/*
+RealEstateDirectory/packages/*
