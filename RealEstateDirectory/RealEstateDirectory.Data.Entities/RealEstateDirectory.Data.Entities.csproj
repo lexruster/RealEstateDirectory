@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fody.targets" />
+    <None Include="Models.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
