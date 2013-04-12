@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory", "RealEstateDirectory\RealEstateDirectory.csproj", "{CBBE784C-B648-4BD6-AADD-2E5BB7E3428B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{415BE8FD-4079-4264-9C29-E8B7CA43ED8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{746C902C-E5D0-4340-8044-786CDC677213}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory.Data.Entities", "RealEstateDirectory.Data.Entities\RealEstateDirectory.Data.Entities.csproj", "{A6861533-CAD0-4D71-8FB7-63D50FE62E0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory.Data.Map", "RealEstateDirectory.Data.Map\RealEstateDirectory.Data.Map.csproj", "{E0263B37-AD91-46F7-9FA3-92B34809F5E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{14087A16-0D98-4B96-8C8B-962717591ABB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateDirectory.Deploy.Database", "RealEstateDirectory.Deploy.Database\RealEstateDirectory.Deploy.Database.csproj", "{7FF2A0D4-4A44-41F9-A72E-B687D32928F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBBE784C-B648-4BD6-AADD-2E5BB7E3428B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBBE784C-B648-4BD6-AADD-2E5BB7E3428B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBBE784C-B648-4BD6-AADD-2E5BB7E3428B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBBE784C-B648-4BD6-AADD-2E5BB7E3428B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6861533-CAD0-4D71-8FB7-63D50FE62E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6861533-CAD0-4D71-8FB7-63D50FE62E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6861533-CAD0-4D71-8FB7-63D50FE62E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6861533-CAD0-4D71-8FB7-63D50FE62E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0263B37-AD91-46F7-9FA3-92B34809F5E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0263B37-AD91-46F7-9FA3-92B34809F5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0263B37-AD91-46F7-9FA3-92B34809F5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0263B37-AD91-46F7-9FA3-92B34809F5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FF2A0D4-4A44-41F9-A72E-B687D32928F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF2A0D4-4A44-41F9-A72E-B687D32928F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF2A0D4-4A44-41F9-A72E-B687D32928F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF2A0D4-4A44-41F9-A72E-B687D32928F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBBE784C-B648-4BD6-AADD-2E5BB7E3428B} = {746C902C-E5D0-4340-8044-786CDC677213}
+		{A6861533-CAD0-4D71-8FB7-63D50FE62E0A} = {746C902C-E5D0-4340-8044-786CDC677213}
+		{E0263B37-AD91-46F7-9FA3-92B34809F5E0} = {746C902C-E5D0-4340-8044-786CDC677213}
+		{7FF2A0D4-4A44-41F9-A72E-B687D32928F5} = {415BE8FD-4079-4264-9C29-E8B7CA43ED8D}
+	EndGlobalSection
+EndGlobal
