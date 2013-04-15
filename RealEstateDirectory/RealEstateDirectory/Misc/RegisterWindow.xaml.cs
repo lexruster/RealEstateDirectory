@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using ActiveLock3_6NET;
 
@@ -41,7 +42,7 @@ namespace RealEstateDirectory.Misc
 
 		private void OpenFolder(object sender, RoutedEventArgs e)
 		{
-			var path = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+			var path=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory");
 			Process.Start(path);
 		}
 	}

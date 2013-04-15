@@ -10,7 +10,7 @@ namespace RealEstateDirectory.Utils
     /// </summary>
     public static class Config
     {
-		public static string path=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory\\Config.cfg");
+	    public static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory\\Config.cfg");
         public static Dictionary<string, string> Dic;
 
         /// <summary>

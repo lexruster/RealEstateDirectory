@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using ActiveLock3_6NET;
 using NLog;
@@ -52,9 +53,9 @@ namespace RealEstateDirectory
 
                 _activeLock.LockType = IActiveLock.ALLockTypes.lockFingerprint | IActiveLock.ALLockTypes.lockWindows |
                                       IActiveLock.ALLockTypes.lockBaseboardID | IActiveLock.ALLockTypes.lockMotherboard;
-                _activeLock.AutoRegisterKeyPath = Environment.CurrentDirectory + @"\RealEstateDirectory1.0.all";
+				_activeLock.AutoRegisterKeyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory\\RealEstateDirectory1.0.all");
                 _activeLock.KeyStoreType = IActiveLock.LicStoreType.alsFile;
-                var keyStorePath = Environment.CurrentDirectory + @"\lic.lic";
+				string keyStorePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory\\lic.lic");
                 _activeLock.KeyStorePath = keyStorePath;
                 _activeLock.SoftwarePassword = Convert.ToChar(99).ToString() + Convert.ToChar(111).ToString() +
                                               Convert.ToChar(111).ToString() + Convert.ToChar(108).ToString();
