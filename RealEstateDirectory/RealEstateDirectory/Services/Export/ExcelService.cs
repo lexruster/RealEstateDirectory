@@ -22,8 +22,10 @@ namespace RealEstateDirectory.Services.Export
 
 		public void ExportToExcel(DataGrid grid)
 		{
+			System.Globalization.CultureInfo oldCI = System.Threading.Thread.CurrentThread.CurrentCulture;
 			try
 			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 				var headers = _dataGridExportService.GetHeader(grid);
 				var data = _dataGridExportService.GetData(grid);
 				ExportToExcelInner(headers, data);
@@ -34,12 +36,18 @@ namespace RealEstateDirectory.Services.Export
 				_MessageService.ShowMessage(@"Не удалось экспортировать объявления в Ms Excel", @"Ошибка",
 				                            image: MessageBoxImage.Error);
 			}
+			finally
+			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = oldCI;
+			}
 		}
 
 		public void ExportToExcel(ExportObject data)
 		{
+			System.Globalization.CultureInfo oldCI = System.Threading.Thread.CurrentThread.CurrentCulture;
 			try
 			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 				ExportToExcelInner(data.Tables[0].Headers, data.Tables[0].Data);
 			}
 			catch (Exception e)
@@ -47,6 +55,10 @@ namespace RealEstateDirectory.Services.Export
 				Log.ErrorException("Не удалось экспортировать в EXCEL", e);
 				_MessageService.ShowMessage(@"Не удалось экспортировать объявления в Ms Excel", @"Ошибка",
 				                            image: MessageBoxImage.Error);
+			}
+			finally 
+			{
+				System.Threading.Thread.CurrentThread.CurrentCulture = oldCI;
 			}
 		}
 

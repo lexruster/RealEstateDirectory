@@ -86,10 +86,10 @@ namespace Misc.WordProvider
 
 		private static void SetParams(Cell cell, Header header)
 		{
-			if (header.Width > 0)
-			{
-				//cell.Width = header.Width;
-			}
+			//if (header.Width > 0)
+			//{
+			//	cell.Width = header.Width;
+			//}
 			
 			cell.MarginTop = 1;
 			cell.MarginRight = 1;

@@ -14,7 +14,7 @@ namespace Misc.ExcelProvider
 
 			for (int j = 0; j < headers.Count; j++)
 			{
-				excel.Cells[1, j + 1] = headers[j];
+				excel.Cells[1, j + 1] = headers[j].Name;
 			}
 
 			excel.Cells.NumberFormat = "@";

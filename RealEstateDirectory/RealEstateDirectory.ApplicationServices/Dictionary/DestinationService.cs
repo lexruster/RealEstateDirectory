@@ -12,7 +12,7 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
 
 		public override string DictionaryName
 		{
-			get { return "Назначение"; }
+			get { return "Вид помещения"; }
 		}
 
 		#endregion

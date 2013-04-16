@@ -56,16 +56,14 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 						{
 							new Header("Район"),
 							new Header("Адрес"),
+							new Header("Вид помещения"),
 							new Header("Этаж"),
-							new Header("Площадь"),
 							new Header("Материал"),
-							new Header("Назначение"),
-							new Header("Состояние"),
-							new Header("Вариант"),
-							new Header("Собственность"),
-							new Header("Комментарий"),
-							new Header("Риэлтор"),
-							new Header("Цена т.р."),
+							new Header("Площадь"),
+							new Header("Комментарий",500),
+							new Header("Цена т.р.", 100),
+							new Header("В.", 100),
+							new Header("Риэлтор", 100),
 						}
 				};
 
@@ -77,16 +75,14 @@ namespace RealEstateDirectory.MainFormTabs.Residence
 					{
 						GetBaseDictionaryName(residence.District),
 						residence.Address,
-						residence.FloorString,
-						residence.TotalSquareString,
-						GetBaseDictionaryName(residence.Material),
 						GetBaseDictionaryName(residence.Destination),
-						GetBaseDictionaryName(residence.Condition),
-						GetBaseDictionaryName(residence.DealVariant),
-						GetBaseDictionaryName(residence.Ownership),
+						residence.FloorString,
+						GetBaseDictionaryName(residence.Material),
+						residence.TotalSquareString,
 						residence.Description,
+						residence.PriceString,
+						residence.HasVideo ? "В" : "",
 						residence.Realtor == null ? "" : residence.Realtor.Phone,
-						residence.PriceString
 					};
 				table.Data.Add(row);
 			}

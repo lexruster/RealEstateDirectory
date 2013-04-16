@@ -261,8 +261,8 @@ namespace RealEstateDirectory
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show("Не удалось проверить актуальность БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 				Log.ErrorException("Миграции провалены", e);
+				MessageBox.Show("Не удалось проверить актуальность БД", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 				Application.Current.Shutdown();
 				_appShutdown = true;
 			}
@@ -297,9 +297,9 @@ namespace RealEstateDirectory
 			return version;
 		}
 
-		private int GetCurrentMigrationVersion()
+		private long GetCurrentMigrationVersion()
 		{
-			return Migrations.LastMigrationVersion.Version;
+			return LastMigrationVersion.Version;
 		}
 
 		private void CheckMigrationVersion()

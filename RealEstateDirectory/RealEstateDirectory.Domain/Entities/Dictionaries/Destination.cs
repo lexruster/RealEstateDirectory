@@ -3,7 +3,7 @@ using RealEstateDirectory.Infrastructure.Entities;
 namespace RealEstateDirectory.Domain.Entities.Dictionaries
 {
 	/// <summary>
-	/// Назначение
+	/// Назначение/Вид помещения
 	/// </summary>
 	public class Destination : BaseDictionary
 	{

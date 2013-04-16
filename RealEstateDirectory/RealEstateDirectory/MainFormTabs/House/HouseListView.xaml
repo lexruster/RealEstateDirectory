@@ -92,10 +92,10 @@
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Риэлтор"  />
                     <ComboBox  ItemsSource="{Binding RealtorList}" SelectedItem="{Binding FilterRealtor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
                 </StackPanel>
-                <StackPanel>
+                <!--<StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Собственность"  />
                     <ComboBox  ItemsSource="{Binding OwnershipList}" SelectedItem="{Binding FilterOwnership, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
-                </StackPanel>
+                </StackPanel>-->
                 <StackPanel>
                     <TextBlock Style="{StaticResource TextBlock}"  Text="Вариант сделки"  />
                     <ComboBox  ItemsSource="{Binding DealVariantList}" SelectedItem="{Binding FilterDealVariant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="1,5,2,2" Width="150" TextSearch.TextPath = "Name"/>
@@ -121,24 +121,26 @@
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="Район" Binding="{Binding District.Name}" Width="80"/>
                 <DataGridTextColumn  Header="Адрес" Binding="{Binding Address}"  MinWidth="100" Width="140"/>
+				<DataGridTextColumn  Header="Уровни"  Binding="{Binding TotalFloor}" Width="50"/>
                 <DataGridTextColumn  Header="Участок"  Binding="{Binding PlotSquareString}" Width="60"/>
                 <DataGridTextColumn  Header="Дом (м2)"  Binding="{Binding HouseSquareString}" Width="40"/>
-                <DataGridTextColumn  Header="Этажей"  Binding="{Binding TotalFloor}" Width="50"/>
-                <DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
+				<DataGridTextColumn  Header="Комментарий" Binding="{Binding Description}" Width="*"/>
+                
+                <!--<DataGridTextColumn  Header="Материал" Binding="{Binding Material.Name}" MinWidth="60" Width="60"/>
 				<DataGridTextColumn  Header="Состояние" Binding="{Binding Condition.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Канализация" Binding="{Binding Sewage.Name}" MinWidth="60" Width="60"/>
                 <DataGridTextColumn  Header="Водоснабжение" Binding="{Binding WaterSupply.Name}" MinWidth="60" Width="60"/>
                 <DataGridCheckBoxColumn  Header="Ванная" Binding="{Binding HasBathhouse}" Width="30"/>
                 <DataGridCheckBoxColumn  Header="Гараж" Binding="{Binding HasGarage}" Width="30"/>
-                <DataGridCheckBoxColumn  Header="Газ" Binding="{Binding HasGas}" Width="30"/>
+                <DataGridCheckBoxColumn  Header="Газ" Binding="{Binding HasGas}" Width="30"/>-->
 
                 <DataGridTextColumn  Header="Вариант" Binding="{Binding DealVariant.Name}" MinWidth="60" Width="80"/>
-                <DataGridTextColumn  Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>
-                <DataGridTextColumn  Header="Комментарий" Binding="{Binding Description}" Width="*"/>
+                <!--<DataGridTextColumn  Header="Собственность" Binding="{Binding Ownership.Name}" MinWidth="60" Width="80"/>-->
+                
 
-                <DataGridTextColumn  Header="Риэлтор" Binding="{Binding RealtorString}" Width="100" />
+                
                 <DataGridTextColumn  Header="Цена т.р." Binding="{Binding PriceString}" Width="70"/>
-                <DataGridTextColumn  Header="Дата" Binding="{Binding CreateDate,  StringFormat={}\{0:dd.MM.yyyy HH:mm\}}" Width="75"/>
+                <!--<DataGridTextColumn  Header="Дата" Binding="{Binding CreateDate,  StringFormat={}\{0:dd.MM.yyyy HH:mm\}}" Width="75"/>-->
 
                 <DataGridTemplateColumn  Header="Видео" Width="30" >
                     <DataGridTemplateColumn.CellTemplate>
@@ -151,8 +153,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn  Header="Правка" Width="60" >
+				<DataGridTextColumn  Header="Риэлтор" Binding="{Binding RealtorString}" Width="100" />
+				<DataGridTemplateColumn  Header="Правка" Width="60" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

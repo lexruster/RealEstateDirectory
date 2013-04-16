@@ -54,18 +54,14 @@ namespace RealEstateDirectory.MainFormTabs.House
 						{
 							new Header("Район"),
 							new Header("Адрес"),
-							new Header("Площадь участка"),
-							new Header("Площадь дома"),
-							new Header("Этажей"),
-							new Header("Материал"),
-							new Header("Состояние"),
-							new Header("Канализация"),
-							new Header("Вода"),
-							new Header("Вариант"),
-							new Header("Собственность"),
-							new Header("Комментарий"),
-							new Header("Риэлтор"),
-							new Header("Цена т.р."),
+							new Header("Уровни", 60),
+							new Header("Площадь участка", 80),
+							new Header("Площадь дома", 80),
+							new Header("Комментарий", 600),
+							new Header("Вариант", 100),
+							new Header("Цена т.р.", 100),
+							new Header("В.", 100),
+							new Header("Риэлтор", 100),
 						}
 				};
 
@@ -77,18 +73,14 @@ namespace RealEstateDirectory.MainFormTabs.House
 					{
 						GetBaseDictionaryName(house.District),
 						house.Address,
+						house.TotalFloor.ToString(),
 						house.PlotSquareString,
 						house.HouseSquareString,
-						house.TotalFloor.ToString(),
-						GetBaseDictionaryName(house.Material),
-						GetBaseDictionaryName(house.Condition),
-						GetBaseDictionaryName(house.Sewage),
-						GetBaseDictionaryName(house.WaterSupply),
-						GetBaseDictionaryName(house.DealVariant),
-						GetBaseDictionaryName(house.Ownership),
 						house.Description,
+						GetBaseDictionaryName(house.DealVariant),
+						house.PriceString,
+						house.HasVideo ? "В" : "",
 						house.Realtor == null ? "" : house.Realtor.Phone,
-						house.PriceString
 					};
 				table.Data.Add(row);
 			}
