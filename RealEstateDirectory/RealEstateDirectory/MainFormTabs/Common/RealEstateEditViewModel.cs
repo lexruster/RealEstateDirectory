@@ -253,7 +253,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		protected bool CanOk()
 		{
-			return !String.IsNullOrEmpty(Error);
+			return String.IsNullOrEmpty(Error);
 		}
 
 		protected bool CanCancel()
@@ -294,7 +294,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			return String.IsNullOrWhiteSpace(val) || Int32.TryParse(val, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.CurrentInfo, out tmp);
 		}
 
-		protected virtual IEnumerable<string> ValidatableProperties
+		protected virtual IEnumerable<string> ValidableProperties
 		{
 			get
 			{
@@ -308,7 +308,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 		{
 			get
 			{
-				var validateResult = String.Join(Environment.NewLine, ValidatableProperties.Select(propertyName => this[propertyName]).Where(propertyError => propertyError != null));
+				var validateResult = String.Join(Environment.NewLine, ValidableProperties.Select(propertyName => this[propertyName]).Where(propertyError => propertyError != null));
 
 				if (!String.IsNullOrEmpty(validateResult))
 					return validateResult;

@@ -56,11 +56,11 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 			}
 		}
 
-		protected override IEnumerable<string> ValidatableProperties
+		protected override IEnumerable<string> ValidableProperties
 		{
 			get
 			{
-				foreach (var validatableProperty in base.ValidatableProperties)
+				foreach (var validatableProperty in base.ValidableProperties)
 					yield return validatableProperty;
 
 				yield return PropertySupport.ExtractPropertyName(() => PlotSquare);

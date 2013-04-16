@@ -42,7 +42,7 @@ namespace RealEstateDirectory.Misc
 
 		private void OpenFolder(object sender, RoutedEventArgs e)
 		{
-			var path=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory");
+			var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealEstateDirectory");
 			Process.Start(path);
 		}
 	}
