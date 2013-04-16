@@ -28,8 +28,8 @@
                 <MenuItem Header="Варианты сделок" Command="{Binding DealVariantsDictionaryCommand}" />
 				<MenuItem Header="Вид помещения" Command="{Binding DestinationDictionaryCommand}" />
 				<MenuItem Header="Высота этажа" Command="{Binding FloorLevelDictionaryCommand}" />
-				<MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
-				<MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />
+				<!--<MenuItem Header="Водоснабжение" Command="{Binding WaterSupplyDictionaryCommand}" />
+				<MenuItem Header="Канализация" Command="{Binding SewageDictionaryCommand}" />-->
 				<MenuItem Header="Материалы" Command="{Binding MaterialDictionaryCommand}" />
 				<MenuItem Header="Планировка" Command="{Binding LayoutDictionaryCommand}" />
 				<MenuItem Header="Районы" Command="{Binding DistrictsDictionaryCommand}" />
