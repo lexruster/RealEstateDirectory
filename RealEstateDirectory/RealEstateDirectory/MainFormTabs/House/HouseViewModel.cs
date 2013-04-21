@@ -43,12 +43,6 @@ namespace RealEstateDirectory.MainFormTabs.House
             PlotSquare = DbEntity.PlotSquare;
             TotalFloor = DbEntity.TotalFloor;
             HouseSquare = DbEntity.HouseSquare;
-            WaterSupply = DbEntity.WaterSupply;
-            Sewage = DbEntity.Sewage;
-            HasBathhouse = DbEntity.HasBathhouse;
-            HasGarage = DbEntity.HasGarage;
-            HasGas = DbEntity.HasGas;
-            Material = DbEntity.Material;
         }
 
         #endregion

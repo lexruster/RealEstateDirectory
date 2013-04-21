@@ -36,10 +36,10 @@
 						<ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
 					</StackPanel>
 				</GroupBox>
-				<GroupBox Header ="Разное" Grid.Column="2" Grid.Row="0" Margin="3">
+				<GroupBox Header ="Разное" Grid.Column="2" Grid.Row="0" Margin="3" Grid.RowSpan="2">
 					<StackPanel >
 						<TextBlock Style="{StaticResource TextBlock}" Text="Комментарий" ></TextBlock>
-						<TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="120"
+						<TextBox Style="{StaticResource TextBoxMultiLineNoStretch}" MinHeight="250"
                              HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" 
                                  Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>

@@ -14,16 +14,16 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="370"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Style="{StaticResource TextBlock}" Grid.Row="0"  Padding="5" Grid.ColumnSpan="2" Text="{Binding DictionaryName}"  ></TextBlock>
-                <DataGrid Grid.Row="1" Grid.Column="0" Width="390" 
+                <DataGrid Grid.Row="1" Grid.Column="0"
                           ItemsSource="{Binding Entities}"  SelectionMode="Single" SelectionUnit="FullRow" 
                           AutoGenerateColumns="False" CanUserAddRows="False" IsEnabled="{Binding ReadOnly}"
                           SelectedItem="{Binding SelectedRealtorAgency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}"  Header="Название" Width="190" />
+                        <DataGridTextColumn Binding="{Binding Name, ValidatesOnDataErrors=True, Mode=OneWay}"  Header="Название" Width="*" />
                         <DataGridTextColumn Binding="{Binding Director, ValidatesOnDataErrors=True, Mode=OneWay}" Header="Директор" Width="*" />
                     </DataGrid.Columns>
                     <DataGrid.InputBindings >
@@ -54,15 +54,15 @@
                              Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="3" Text="Адрес:" ></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50"
-                             IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+					<TextBox Style="{StaticResource TextBoxMultiLineNoStretch}" Margin="3" Grid.Column="1" Grid.Row="3"  MinHeight="70"
+                             IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="4" Text="Контакты:" ></TextBlock>
-                    <TextBox Margin="3" Grid.Column="1" Grid.Row="4"  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50" 
+					<TextBox Style="{StaticResource TextBoxMultiLineNoStretch}" Margin="3" Grid.Column="1" Grid.Row="4" MinHeight="70" 
                              IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Contacts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Style="{StaticResource TextBlock}"  Grid.Column="0" Grid.Row="5" Text="Комментарий:" ></TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="5" Margin="3" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"
+					<TextBox Style="{StaticResource TextBoxMultiLineNoStretch}" Grid.Column="1" Grid.Row="5" Margin="3" MinHeight="200"
                              IsReadOnly="{Binding ReadOnly}"  HorizontalAlignment="Stretch" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 

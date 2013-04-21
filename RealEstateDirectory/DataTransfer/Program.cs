@@ -286,20 +286,14 @@ namespace DataTransfer
 						Description = l.vcComment,
 						District = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.District>(l.District),
 						HasVideo = l.bVideo ?? false,
-						Material = helper.ResolveHbEntity<Material>(l.WallMatherial),
 						Ownership = null,
 						Price = l.iPrice,
 						Realtor = helper.ResolveHbEntity<Realtor>(l.Rielter),
 						Street = helper.ResolveHbEntity<RealEstateDirectory.Domain.Entities.Dictionaries.Street>(l.Street),
 						TerritorialNumber = l.vcHouseNumber,
 						TotalFloor = l.iFloors,
-						HasBathhouse = false,
-						HasGarage = false,
-						HasGas = false,
 						HouseSquare = l.iHouseArea,
 						PlotSquare = l.iLandArea,
-						Sewage = null,
-						WaterSupply = null
 					};
 				hb.SaveOrUpdate(hbEntity);
 			}

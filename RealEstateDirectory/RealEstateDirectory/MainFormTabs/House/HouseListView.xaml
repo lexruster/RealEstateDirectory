@@ -112,9 +112,10 @@
         </Expander>
 
         <DataGrid Grid.Row="2" Name="DataList"  Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
-            <DataGrid.InputBindings >
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
-            </DataGrid.InputBindings>
+			<DataGrid.InputBindings>
+				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
+				<KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
+			</DataGrid.InputBindings>
 			<i:Interaction.Behaviors>
 				<Behaviors:DataGridViewBoundSelectedItemsBehavior SelectedItems="{Binding SelectedEntities}" />
 			</i:Interaction.Behaviors>

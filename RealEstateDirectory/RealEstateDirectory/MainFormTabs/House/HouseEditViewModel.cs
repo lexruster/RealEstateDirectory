@@ -92,9 +92,6 @@ namespace RealEstateDirectory.MainFormTabs.House
 				yield return PropertySupport.ExtractPropertyName(() => PlotSquare);
 				yield return PropertySupport.ExtractPropertyName(() => HouseSquare);
 				yield return PropertySupport.ExtractPropertyName(() => TotalFloor);
-				yield return PropertySupport.ExtractPropertyName(() => HasBathhouse);
-				yield return PropertySupport.ExtractPropertyName(() => HasGarage);
-				yield return PropertySupport.ExtractPropertyName(() => HasGas);
 			}
 		}
 
@@ -116,13 +113,6 @@ namespace RealEstateDirectory.MainFormTabs.House
 			PlotSquare = DbEntity.PlotSquare.HasValue ? DbEntity.PlotSquare.Value.ToString("0.#") : String.Empty;
 			HouseSquare = DbEntity.HouseSquare.HasValue ? DbEntity.HouseSquare.Value.ToString("0.#") : String.Empty;
 			TotalFloor = DbEntity.TotalFloor.HasValue ? DbEntity.TotalFloor.Value.ToString() : String.Empty;
-			HasBathhouse = DbEntity.HasBathhouse;
-			HasGarage = DbEntity.HasGarage;
-			HasGas = DbEntity.HasGas;
-
-			WaterSupply.MoveCurrentTo(DbEntity.WaterSupply);
-			Sewage.MoveCurrentTo(DbEntity.Sewage);
-			Material.MoveCurrentTo(DbEntity.Material);
 		}
 
 		protected override void UpdateConcreteModelFromValues(Domain.Entities.House house)
@@ -130,13 +120,6 @@ namespace RealEstateDirectory.MainFormTabs.House
 			house.PlotSquare = String.IsNullOrWhiteSpace(PlotSquare) ? null : new decimal?(Decimal.Parse(PlotSquare));
 			house.HouseSquare = String.IsNullOrWhiteSpace(HouseSquare) ? null : new decimal?(Decimal.Parse(HouseSquare));
 			house.TotalFloor = String.IsNullOrWhiteSpace(TotalFloor) ? null : new int?(Int32.Parse(TotalFloor));
-			house.HasBathhouse = HasBathhouse;
-			house.HasGarage = HasGarage;
-			house.HasGas = HasGas;
-
-			house.WaterSupply = ResolveDictionary<WaterSupply>(WaterSupply);
-			house.Sewage = ResolveDictionary<Sewage>(Sewage);
-			house.Material = ResolveDictionary<Material>(Material);
 		}
 
 		#endregion

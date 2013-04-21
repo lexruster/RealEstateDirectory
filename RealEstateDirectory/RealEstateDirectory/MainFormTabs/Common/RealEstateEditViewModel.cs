@@ -227,7 +227,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 
 		public void SetRealEstateValues(T entity)
 		{
-			entity.District = ResolveDictionary<District>(District);
+			entity.District = CurrentDistrict;
 			entity.Street = ResolveDictionary<Street>(Street);
 
 			entity.DealVariant = ResolveDictionary<DealVariant>(DealVariant);
@@ -236,7 +236,7 @@ namespace RealEstateDirectory.MainFormTabs.Common
 			entity.HasVideo = HasVideo;
 			entity.Ownership = ResolveDictionary<Ownership>(Ownership);
 			entity.Price = String.IsNullOrWhiteSpace(Price) ? null : new decimal?(Decimal.Parse(Price));
-			entity.Realtor = ResolveDictionary<Realtor>(Realtor);
+			entity.Realtor = CurrentRealtor;
 			entity.TerritorialNumber = TerritorialNumber;
 		}
 

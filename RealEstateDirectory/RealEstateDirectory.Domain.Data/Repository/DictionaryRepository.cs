@@ -24,12 +24,11 @@ namespace RealEstateDirectory.Domain.Data.Repository
 		public bool IsPossibleToDeleteDistrict(District entity)
 		{
 			return CurrentSession.Query<RealEstate>().Count(x => x.District == entity) == 0;
-			//&&(CurrentSession.Query<Street>().Count(x => x.District == entity) == 0);
 		}
 
 		public bool IsPossibleToDeleteWaterSupply(WaterSupply entity)
 		{
-			return CurrentSession.Query<House>().Count(x => x.WaterSupply == entity) == 0;
+			return true;
 		}
 
 		public bool IsPossibleToDeleteToiletType(ToiletType entity)
@@ -44,8 +43,7 @@ namespace RealEstateDirectory.Domain.Data.Repository
 
 		public bool IsPossibleToDeleteMaterial(Material entity)
 		{
-			return (CurrentSession.Query<Building>().Count(x => x.Material == entity) == 0) &&
-			       (CurrentSession.Query<House>().Count(x => x.Material == entity) == 0);
+			return CurrentSession.Query<Building>().Count(x => x.Material == entity) == 0;
 		}
 
 		public bool IsPossibleToDeleteDealVariant(DealVariant entity)
@@ -55,7 +53,7 @@ namespace RealEstateDirectory.Domain.Data.Repository
 
 		public bool IsPossibleToDeleteSewage(Sewage entity)
 		{
-			return CurrentSession.Query<House>().Count(x => x.Sewage == entity) == 0;
+			return true;
 		}
 
 		public bool IsPossibleToDeleteRealtor(Realtor entity)

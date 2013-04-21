@@ -40,6 +40,17 @@
         <Setter Property="Margin" Value="3"></Setter>
     </Style>
 
+	<Style x:Key="TextBoxMultiLineNoStretch" TargetType="{x:Type TextBox}">
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+		<Setter Property="ScrollViewer.CanContentScroll" Value="True"></Setter>
+		<Setter Property="MaxHeight" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=MinHeight}"></Setter>
+
+		<Setter Property="TextWrapping" Value="Wrap"></Setter>
+		<Setter Property="AcceptsReturn" Value="True"></Setter>
+		<Setter Property="ScrollViewer.CanContentScroll" Value="True"></Setter>
+		<Setter Property="ScrollViewer.CanContentScroll" Value="True"></Setter>
+	</Style>
+
     <Style x:Key="ValidateTextBox" TargetType="TextBox">
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
@@ -69,9 +80,8 @@
         <Setter Property="IsReadOnly" Value="True"></Setter>
         <Setter Property="AlternatingRowBackground" Value="#E7E7EB"></Setter>
         <Setter Property="AlternationCount" Value="2"></Setter>
-    </Style>
-    
-    <Behaviors:BoolToVisible x:Key="BoolToVisibleConverter" />
+	</Style>
+	<Behaviors:BoolToVisible x:Key="BoolToVisibleConverter" />
 </ResourceDictionary>
     
     

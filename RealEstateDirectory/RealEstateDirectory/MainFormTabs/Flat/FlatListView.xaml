@@ -122,13 +122,14 @@
 			</WrapPanel>
 		</Expander>
 
-		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}"
+		<DataGrid Grid.Row="2" Name="DataList" Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" 
 				  SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
 			<Interactivity:Interaction.Behaviors>
 				<Behaviors:DataGridViewBoundSelectedItemsBehavior SelectedItems="{Binding SelectedEntities}" />
 			</Interactivity:Interaction.Behaviors>
 			<DataGrid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
+				<KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
 			</DataGrid.InputBindings>
 			<DataGrid.Columns>
 				<DataGridTextColumn  Header="Комнат" Binding="{Binding TotalRoomCount}" MinWidth="30" Width="30"/>

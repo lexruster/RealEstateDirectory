@@ -76,7 +76,7 @@
 				<GroupBox Header ="Разное" Grid.Column="0" Grid.Row="1" Margin="3" Grid.ColumnSpan="2">
 					<StackPanel>
 						<TextBlock Style="{StaticResource TextBlock}" Text="Комментарий" ></TextBlock>
-						<TextBox TextWrapping="Wrap" AcceptsReturn="True" MinHeight="160"
+						<TextBox Style="{StaticResource TextBoxMultiLineNoStretch}" MinHeight="160"
                              HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" 
                                  Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</StackPanel>

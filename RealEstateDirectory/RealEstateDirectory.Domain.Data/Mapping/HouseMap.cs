@@ -21,12 +21,6 @@ namespace RealEstateDirectory.Domain.Data.Mapping
 					m.Precision(19);
 					m.Scale(5);
 				});
-			ManyToOne(x => x.WaterSupply);
-			ManyToOne(x => x.Sewage);
-			Property(x => x.HasBathhouse, m => m.NotNullable(true));
-			Property(x => x.HasGarage, m => m.NotNullable(true));
-			Property(x => x.HasGas, m => m.NotNullable(true));
-			ManyToOne(x => x.Material);
 		}
 	}
 }
