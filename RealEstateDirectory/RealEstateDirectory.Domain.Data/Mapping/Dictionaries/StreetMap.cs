@@ -13,7 +13,6 @@ namespace RealEstateDirectory.Domain.Data.Mapping.Dictionaries
             {
                 m.NotNullable(true);
                 m.Length(2000);
-                m.Unique(true);
             });
             ManyToOne(x => x.District, r =>
                                            {

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using RealEstateDirectory.AbstractApplicationServices.Common;
 using RealEstateDirectory.AbstractApplicationServices.Dictionary;
@@ -48,17 +49,18 @@ namespace RealEstateDirectory.ApplicationServices.Dictionary
             if (entity.District==null)
             {
                 result.FailValidation("Нужно указать район.");
+	            return result;
             }
-            
-            if (!IsNameUniquenessInner(entity, id))
-            {
-                result.FailValidation(String.Format("Элемент справочника \"{0}\" со значением \"{1}\" уже существует.",
-                                                    DictionaryName, entity.Name));
-            }
+
+			if (entity.District.Streets.Any(x => x.Name.ToLower() == entity.Name.ToLower()))
+			{
+				result.FailValidation(String.Format("У района \"{0}\" уже есть улица с названием \"{1}\".",
+													entity.District.Name, entity.Name));
+			}
 
             return result;
         }
-
+		
 		public override void Save(Street entity)
 		{
 			using (var transaction = PersistenceContext.CurrentSession.BeginTransaction())
