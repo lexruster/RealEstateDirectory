@@ -40,6 +40,13 @@
         <Setter Property="Margin" Value="3"></Setter>
     </Style>
 
+	<Style x:Key="ComboBoxDictionary" TargetType="{x:Type ComboBox}">
+		<Setter Property="TextSearch.TextPath" Value="Name"></Setter>
+		<Setter Property="IsEditable" Value="True"></Setter>
+	</Style>
+
+	
+
 	<Style x:Key="TextBoxMultiLineNoStretch" TargetType="{x:Type TextBox}">
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
 		<Setter Property="ScrollViewer.CanContentScroll" Value="True"></Setter>

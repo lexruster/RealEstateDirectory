@@ -22,9 +22,9 @@
 						<TextBlock Style="{StaticResource TextBlock}" Text="Район"  />
 						<ComboBox  Style="{StaticResource ValidationTemplateComboStyle}"
                                    SelectedItem="{Binding CurrentDistrict, Mode=OneWayToSource, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                   ItemsSource="{Binding District}" TextSearch.TextPath = "Name"/>
+                                   ItemsSource="{Binding District}" />
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Улица" />
-						<ComboBox ItemsSource="{Binding Street, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox Style="{StaticResource ComboBoxDictionary}"  ItemsSource="{Binding Street, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Номер дома" />
 						<TextBox Text="{Binding TerritorialNumber, ValidatesOnDataErrors=True,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 						
@@ -34,7 +34,7 @@
 				<GroupBox Header ="Параметры" Grid.Column="1" Grid.Row="0" Margin="3">
 					<StackPanel >
 						<TextBlock Style="{StaticResource TextBlock}" Text="Вид помещения"  />
-						<ComboBox ItemsSource="{Binding Destination, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox Style="{StaticResource ComboBoxDictionary}"  ItemsSource="{Binding Destination, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Этаж"/>
 						<StackPanel Orientation="Horizontal">
 							<TextBox  Style="{StaticResource ValidationTemplateStyle}" Width="60" Margin="0,0,10,0" Text="{Binding Floor, Mode=TwoWay, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
@@ -42,7 +42,7 @@
 							<TextBox  Style="{StaticResource ValidationTemplateStyle}" Width="60" Text="{Binding TotalFloor, Mode=TwoWay, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
 						</StackPanel>
 						<TextBlock Style="{StaticResource TextBlock}" Text="Материал"  />
-						<ComboBox ItemsSource="{Binding Material, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox Style="{StaticResource ComboBoxDictionary}"  ItemsSource="{Binding Material, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Общая площадь"/>
 						<TextBox  Style="{StaticResource ValidationTemplateStyle}" Text="{Binding TotalSquare, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" />
 
@@ -64,11 +64,11 @@
 				<GroupBox Header ="Параметры продажи" Grid.Column="0" Grid.Row="1" Margin="3">
 					<StackPanel>
 						<!--<TextBlock Style="{StaticResource TextBlock}" Text="Вариант сделки"  />
-						<ComboBox ItemsSource="{Binding DealVariant, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>-->
+						<ComboBox ItemsSource="{Binding DealVariant, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />-->
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Цена"/>
 						<TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue ='', StringFormat='{}{0:#,0.###}'}" />
 						<TextBlock Style="{StaticResource TextBlock}" Text="Риэлтор"  />
-						<ComboBox  Style="{StaticResource ValidationTemplateComboStyle}" TextSearch.TextPath = "Name" 
+						<ComboBox  Style="{StaticResource ValidationTemplateComboStyle}"  
                                    SelectedItem="{Binding CurrentRealtor, Mode=OneWayToSource, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                                    ItemsSource="{Binding Realtor}" />
 						
@@ -77,7 +77,7 @@
 				<GroupBox Header ="Остальное" Grid.Column="1" Grid.Row="1" Margin="3">
 					<StackPanel>
 						<!--<TextBlock Style="{StaticResource TextBlock}" Text="Собственность"  />
-						<ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>-->
+						<ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />-->
 						<CheckBox Style="{StaticResource CheckBox}" Content="Видео" IsChecked="{Binding HasVideo, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Добавлено" />
 						<TextBox Text="{Binding CreateDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}\{0:dd.MM.yyyy HH:mm\}}" 

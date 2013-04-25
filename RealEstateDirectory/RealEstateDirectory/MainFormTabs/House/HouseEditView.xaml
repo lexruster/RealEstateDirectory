@@ -21,9 +21,9 @@
                         <TextBlock Style="{StaticResource TextBlock}" Text="Район"  />
                         <ComboBox  Style="{StaticResource ValidationTemplateComboStyle}"
                                    SelectedItem="{Binding CurrentDistrict, Mode=OneWayToSource, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                                   ItemsSource="{Binding District}" TextSearch.TextPath = "Name"/>
+                                   ItemsSource="{Binding District}" />
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Улица" />
-                        <ComboBox ItemsSource="{Binding Street, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox Style="{StaticResource ComboBoxDictionary}"  ItemsSource="{Binding Street, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Style="{StaticResource TextBlock}"  Text="Номер дома" />
                         <TextBox Text="{Binding TerritorialNumber, ValidatesOnDataErrors=True,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
@@ -56,13 +56,13 @@
 				<!--<GroupBox Header ="Параметры" Grid.Column="2" Grid.Row="1" Margin="3">
 					<StackPanel>
 						<TextBlock Style="{StaticResource TextBlock}" Text="Материал"  />
-						<ComboBox ItemsSource="{Binding Material, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox ItemsSource="{Binding Material, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}" Text="Состояние"  />
-						<ComboBox ItemsSource="{Binding Condition, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox ItemsSource="{Binding Condition, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}" Text="Канализация"  />
-						<ComboBox ItemsSource="{Binding Sewage, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox ItemsSource="{Binding Sewage, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}" Text="Водоснабжение"  />
-						<ComboBox ItemsSource="{Binding WaterSupply, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox ItemsSource="{Binding WaterSupply, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 						<StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch">
                         <CheckBox Style="{StaticResource CheckBox}" Content="Гараж" IsChecked="{Binding HasGarage, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <CheckBox Style="{StaticResource CheckBox}" Content="Ванная" IsChecked="{Binding HasBathhouse, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -85,15 +85,15 @@
                     <StackPanel>
 
                         <!--<TextBlock Style="{StaticResource TextBlock}" Text="Собственность"  />
-                        <ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>-->
+                        <ComboBox ItemsSource="{Binding Ownership, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />-->
                         <TextBlock Style="{StaticResource TextBlock}" Text="Вариант сделки"  />
-                        <ComboBox ItemsSource="{Binding DealVariant, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextSearch.TextPath = "Name"/>
+						<ComboBox Style="{StaticResource ComboBoxDictionary}"  ItemsSource="{Binding DealVariant, Mode=TwoWay,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Цена"/>
 						<TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue ='', StringFormat='{}{0:#,0.###}'}" />
 						<CheckBox Style="{StaticResource CheckBox}" Content="Видео" IsChecked="{Binding HasVideo, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 						<TextBlock Style="{StaticResource TextBlock}" Text="Риэлтор"  />
-						<ComboBox  Style="{StaticResource ValidationTemplateComboStyle}" TextSearch.TextPath = "Name" 
+						<ComboBox  Style="{StaticResource ValidationTemplateComboStyle}"  
                                    SelectedItem="{Binding CurrentRealtor, Mode=OneWayToSource, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
                                    ItemsSource="{Binding Realtor}" />
 						<TextBlock Style="{StaticResource TextBlock}"  Text="Добавлено" />
