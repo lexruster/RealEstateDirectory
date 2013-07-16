@@ -26,6 +26,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition MaxHeight="40" Height="40" />
 			<RowDefinition Height="Auto" MaxHeight="200"/>
+            <RowDefinition Height="Auto" MaxHeight="200"/>
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
@@ -72,8 +73,27 @@
 				</StackPanel>
 			</Button>
 		</StackPanel>
+        <Expander Header="AVITO" Grid.Row="1" HorizontalAlignment="Stretch">
+            <WrapPanel>
+                <TextBlock Style="{StaticResource TextBlock}"  Text="Варинат выгрузки (1-6)"  />
+                <TextBox Text="{Binding AvitoVariant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,TargetNullValue =''}" Margin="1,5,2,2" Width="50"/>
+                <CheckBox Style="{StaticResource CheckBox}" Content="Очистить старые данные" IsChecked="{Binding AvitoClear, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-		<Expander Header="Фильтр" Grid.Row="1" HorizontalAlignment="Stretch">
+                <Button Margin="5" Width="150" ToolTip="Отправка на AVITO выбранных" Command="{Binding ExportToAvitoSelectedCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10,0,0,0">AVITO (выбранные)</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Margin="5" Width="100" ToolTip="Нажмите, чтобы увидеть сформированный файл" Command="{Binding AvitoOpenFileCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10,0,0,0">Найти файл</TextBlock>
+                    </StackPanel>
+                </Button>
+
+            </WrapPanel>
+        </Expander>
+        <Expander Header="Фильтр" Grid.Row="2" HorizontalAlignment="Stretch">
 			<WrapPanel>
 				<StackPanel>
 					<Button Margin="2" Width="100" Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Left"  />
@@ -110,7 +130,7 @@
 			</WrapPanel>
 		</Expander>
 
-		<DataGrid Grid.Row="2" Name="DataList"  Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
+		<DataGrid Grid.Row="3" Name="DataList"  Style="{StaticResource MainGrid}" ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding CurrentEntity, Mode=OneWayToSource}">
 			<DataGrid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ChangeCommand}"/>
 				<KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
@@ -160,7 +180,7 @@
 				</DataGridTemplateColumn>
 			</DataGrid.Columns>
 		</DataGrid>
-		<TextBlock Grid.Row="3" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
+		<TextBlock Grid.Row="4" VerticalAlignment="Bottom" Text="{Binding EntityCountString}"/>
 	</Grid>
 </UserControl>
 

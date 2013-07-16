@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
+using Misc.AvitoProvider;
 using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
@@ -83,5 +84,22 @@ namespace RealEstateDirectory.MainFormTabs.Plot
 
 			return table;
 		}
+
+	    public override AdsAD GetAd(RealEstateViewModel<Domain.Entities.Plot> item)
+	    {
+            var estate = item as PlotViewModel;
+            var ad = new AdsAD
+            {
+                LandArea = estate.PlotSquare ?? 0,
+                LandAreaSpecified = true,
+
+                Category = Avito.Plot,
+
+            };
+
+            SetCommon(ad, estate);
+
+            return ad;
+	    }
 	}
 }

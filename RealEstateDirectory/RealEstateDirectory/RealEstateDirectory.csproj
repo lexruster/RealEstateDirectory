@@ -433,7 +433,9 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +444,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Misc.AvitoProvider\Misc.AvitoProvider.csproj">
+      <Project>{d2cf4d82-7ae1-4612-b217-9f78301c6020}</Project>
+      <Name>Misc.AvitoProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Misc.ExcelProvider\Misc.ExcelProvider.csproj">
       <Project>{0296a2cb-4b46-4b93-971a-04161617223d}</Project>
       <Name>Misc.ExcelProvider</Name>

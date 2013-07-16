@@ -20,45 +20,55 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
-public partial class Ads {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+public partial class Ads
+{
+
     private AdsAD[] adField;
-    
+
     private string targetField;
-    
+
     private byte formatVersionField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Ad")]
-    public AdsAD[] Ad {
-        get {
+    public AdsAD[] Ad
+    {
+        get
+        {
             return this.adField;
         }
-        set {
+        set
+        {
             this.adField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string target {
-        get {
+    public string target
+    {
+        get
+        {
             return this.targetField;
         }
-        set {
+        set
+        {
             this.targetField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte formatVersion {
-        get {
+    public byte formatVersion
+    {
+        get
+        {
             return this.formatVersionField;
         }
-        set {
+        set
+        {
             this.formatVersionField = value;
         }
     }
@@ -69,413 +79,513 @@ public partial class Ads {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class AdsAD {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class AdsAD
+{
+
     private string idField;
-    
+
     private string categoryField;
-    
+
     private string marketTypeField;
-    
+
     private string operationTypeField;
-    
+
     private string objectTypeField;
-    
+
     private System.DateTime dateBeginField;
-    
+
     private bool dateBeginFieldSpecified;
-    
+
     private System.DateTime dateEndField;
-    
+
     private bool dateEndFieldSpecified;
-    
+
     private string regionField;
-    
+
     private int saleRoomsField;
-    
+
     private bool saleRoomsFieldSpecified;
-    
+
     private string cityField;
-    
+
     private string localityField;
-    
+
     private string streetField;
-    
+
     private int roomsField;
-    
+
     private bool roomsFieldSpecified;
-    
+
     private decimal squareField;
-    
+
     private bool squareFieldSpecified;
-    
+
     private int floorField;
-    
+
     private bool floorFieldSpecified;
-    
+
     private int floorsField;
-    
+
     private bool floorsFieldSpecified;
-    
+
     private string houseTypeField;
-    
+
     private string wallsTypeField;
-    
+
     private decimal landAreaField;
-    
+
     private bool landAreaFieldSpecified;
-    
+
     private string descriptionField;
-    
+
     private string contactPhoneField;
-    
+
     private decimal priceField;
-    
+
     private bool priceFieldSpecified;
-    
+
     private AdsADImage[] imagesField;
-    
+
     private string adStatusField;
-    
+
     /// <remarks/>
-    public string Id {
-        get {
+    public string Id
+    {
+        get
+        {
             return this.idField;
         }
-        set {
+        set
+        {
             this.idField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string Category {
-        get {
+    public string Category
+    {
+        get
+        {
             return this.categoryField;
         }
-        set {
+        set
+        {
             this.categoryField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string MarketType {
-        get {
+    public string MarketType
+    {
+        get
+        {
             return this.marketTypeField;
         }
-        set {
+        set
+        {
             this.marketTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string OperationType {
-        get {
+    public string OperationType
+    {
+        get
+        {
             return this.operationTypeField;
         }
-        set {
+        set
+        {
             this.operationTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string ObjectType {
-        get {
+    public string ObjectType
+    {
+        get
+        {
             return this.objectTypeField;
         }
-        set {
+        set
+        {
             this.objectTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
-    public System.DateTime DateBegin {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+    public System.DateTime DateBegin
+    {
+        get
+        {
             return this.dateBeginField;
         }
-        set {
+        set
+        {
             this.dateBeginField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool DateBeginSpecified {
-        get {
+    public bool DateBeginSpecified
+    {
+        get
+        {
             return this.dateBeginFieldSpecified;
         }
-        set {
+        set
+        {
             this.dateBeginFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
-    public System.DateTime DateEnd {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+    public System.DateTime DateEnd
+    {
+        get
+        {
             return this.dateEndField;
         }
-        set {
+        set
+        {
             this.dateEndField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool DateEndSpecified {
-        get {
+    public bool DateEndSpecified
+    {
+        get
+        {
             return this.dateEndFieldSpecified;
         }
-        set {
+        set
+        {
             this.dateEndFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public string Region {
-        get {
+    public string Region
+    {
+        get
+        {
             return this.regionField;
         }
-        set {
+        set
+        {
             this.regionField = value;
         }
     }
-    
+
     /// <remarks/>
-    public int SaleRooms {
-        get {
+    public int SaleRooms
+    {
+        get
+        {
             return this.saleRoomsField;
         }
-        set {
+        set
+        {
             this.saleRoomsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SaleRoomsSpecified {
-        get {
+    public bool SaleRoomsSpecified
+    {
+        get
+        {
             return this.saleRoomsFieldSpecified;
         }
-        set {
+        set
+        {
             this.saleRoomsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public string City {
-        get {
+    public string City
+    {
+        get
+        {
             return this.cityField;
         }
-        set {
+        set
+        {
             this.cityField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string Locality {
-        get {
+    public string Locality
+    {
+        get
+        {
             return this.localityField;
         }
-        set {
+        set
+        {
             this.localityField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string Street {
-        get {
+    public string Street
+    {
+        get
+        {
             return this.streetField;
         }
-        set {
+        set
+        {
             this.streetField = value;
         }
     }
-    
+
     /// <remarks/>
-    public int Rooms {
-        get {
+    public int Rooms
+    {
+        get
+        {
             return this.roomsField;
         }
-        set {
+        set
+        {
             this.roomsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool RoomsSpecified {
-        get {
+    public bool RoomsSpecified
+    {
+        get
+        {
             return this.roomsFieldSpecified;
         }
-        set {
+        set
+        {
             this.roomsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal Square {
-        get {
+    public decimal Square
+    {
+        get
+        {
             return this.squareField;
         }
-        set {
+        set
+        {
             this.squareField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool SquareSpecified {
-        get {
+    public bool SquareSpecified
+    {
+        get
+        {
             return this.squareFieldSpecified;
         }
-        set {
+        set
+        {
             this.squareFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public int Floor {
-        get {
+    public int Floor
+    {
+        get
+        {
             return this.floorField;
         }
-        set {
+        set
+        {
             this.floorField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool FloorSpecified {
-        get {
+    public bool FloorSpecified
+    {
+        get
+        {
             return this.floorFieldSpecified;
         }
-        set {
+        set
+        {
             this.floorFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public int Floors {
-        get {
+    public int Floors
+    {
+        get
+        {
             return this.floorsField;
         }
-        set {
+        set
+        {
             this.floorsField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool FloorsSpecified {
-        get {
+    public bool FloorsSpecified
+    {
+        get
+        {
             return this.floorsFieldSpecified;
         }
-        set {
+        set
+        {
             this.floorsFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public string HouseType {
-        get {
+    public string HouseType
+    {
+        get
+        {
             return this.houseTypeField;
         }
-        set {
+        set
+        {
             this.houseTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string WallsType {
-        get {
+    public string WallsType
+    {
+        get
+        {
             return this.wallsTypeField;
         }
-        set {
+        set
+        {
             this.wallsTypeField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal LandArea {
-        get {
+    public decimal LandArea
+    {
+        get
+        {
             return this.landAreaField;
         }
-        set {
+        set
+        {
             this.landAreaField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool LandAreaSpecified {
-        get {
+    public bool LandAreaSpecified
+    {
+        get
+        {
             return this.landAreaFieldSpecified;
         }
-        set {
+        set
+        {
             this.landAreaFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    public string Description {
-        get {
+    public string Description
+    {
+        get
+        {
             return this.descriptionField;
         }
-        set {
+        set
+        {
             this.descriptionField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string ContactPhone {
-        get {
+    public string ContactPhone
+    {
+        get
+        {
             return this.contactPhoneField;
         }
-        set {
+        set
+        {
             this.contactPhoneField = value;
         }
     }
-    
+
     /// <remarks/>
-    public decimal Price {
-        get {
+    public decimal Price
+    {
+        get
+        {
             return this.priceField;
         }
-        set {
+        set
+        {
             this.priceField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool PriceSpecified {
-        get {
+    public bool PriceSpecified
+    {
+        get
+        {
             return this.priceFieldSpecified;
         }
-        set {
+        set
+        {
             this.priceFieldSpecified = value;
         }
     }
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Image", IsNullable=false)]
-    public AdsADImage[] Images {
-        get {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Image", IsNullable = false)]
+    public AdsADImage[] Images
+    {
+        get
+        {
             return this.imagesField;
         }
-        set {
+        set
+        {
             this.imagesField = value;
         }
     }
-    
+
     /// <remarks/>
-    public string AdStatus {
-        get {
+    public string AdStatus
+    {
+        get
+        {
             return this.adStatusField;
         }
-        set {
+        set
+        {
             this.adStatusField = value;
         }
     }
@@ -486,18 +596,22 @@ public partial class AdsAD {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class AdsADImage {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class AdsADImage
+{
+
     private string nameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }

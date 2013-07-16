@@ -52,13 +52,19 @@ namespace AvitoTester.Code
                     ContactPhone = "+7 984 541 84 45",
                     Description = "Лучшая комната " + i,
                     Floor = 1,
+                    FloorSpecified = true,
                     Floors = 2,
                     HouseType = "Кирпичный",
                     Id = "1_" + i,
                     OperationType = "Продам",
                     SaleRooms = 2,
                     Rooms = 3,
-                    Square = 14,
+                    Square = 14.0M,
+
+                    MarketType = "MarketType",
+                    Region = "Вологодская область",
+                    Street = "адрес",
+                    Price = 57,
 
                 };
 

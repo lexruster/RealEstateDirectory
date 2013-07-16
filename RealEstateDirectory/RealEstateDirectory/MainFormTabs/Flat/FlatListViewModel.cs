@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
+using Misc.AvitoProvider;
 using Misc.Miscellaneous;
 using NotifyPropertyWeaver;
 using RealEstateDirectory.AbstractApplicationServices;
@@ -13,106 +14,133 @@ using RealEstateDirectory.Services.Export;
 
 namespace RealEstateDirectory.MainFormTabs.Flat
 {
-	[NotifyForAll]
-	public class FlatListViewModel : RealEstateListViewModel<Domain.Entities.Flat>
-	{
-		public FlatListViewModel(IFlatService service, IMessageService messageService,
-		                         IDistrictService districtService, IRealtorService realtorService,
-		                         IOwnershipService ownershipService, IDealVariantService dealVariantService,
-		                         IConditionService conditionService,
-		                         IExcelService excelService, IWordService wordService,
-		                         IServiceLocator serviceLocator)
-			: base(
-				service, messageService, districtService, realtorService, ownershipService, dealVariantService, conditionService,
-				excelService,
-				wordService, serviceLocator)
-		{
-		}
+    [NotifyForAll]
+    public class FlatListViewModel : RealEstateListViewModel<Domain.Entities.Flat>
+    {
+        public FlatListViewModel(IFlatService service, IMessageService messageService,
+                                 IDistrictService districtService, IRealtorService realtorService,
+                                 IOwnershipService ownershipService, IDealVariantService dealVariantService,
+                                 IConditionService conditionService,
+                                 IExcelService excelService, IWordService wordService,
+                                 IServiceLocator serviceLocator)
+            : base(
+                service, messageService, districtService, realtorService, ownershipService, dealVariantService,
+                conditionService,
+                excelService,
+                wordService, serviceLocator)
+        {
+        }
 
-		public int? TotalRoomCount { get; set; }
-		protected override RealEstateViewModel<Domain.Entities.Flat> GetViewEntityViewModel()
-		{
-			return _ServiceLocator.GetInstance<FlatViewModel>();
-		}
+        public int? TotalRoomCount { get; set; }
 
-		protected override RealEstateEditViewModel<Domain.Entities.Flat> GetEditEntityViewModel()
-		{
-			return _ServiceLocator.GetInstance<FlatEditViewModel>();
-		}
+        protected override RealEstateViewModel<Domain.Entities.Flat> GetViewEntityViewModel()
+        {
+            return _ServiceLocator.GetInstance<FlatViewModel>();
+        }
 
-		protected override IEnumerable<Domain.Entities.Flat> UpdateChildFilterData(IEnumerable<Domain.Entities.Flat> entities)
-		{
-			entities = TotalRoomCount.HasValue
-				           ? entities.Where(room => room.TotalRoomCount == TotalRoomCount.Value)
-				           : entities;
+        protected override RealEstateEditViewModel<Domain.Entities.Flat> GetEditEntityViewModel()
+        {
+            return _ServiceLocator.GetInstance<FlatEditViewModel>();
+        }
 
-			if (FilterTerrace != null && !Equals(FilterTerrace, _AllTerrace))
-			{
-				entities = entities.Where(room => room.Terrace != null && room.Terrace.Name.ToLower() != "Нет".ToLower());
-			}
+        protected override IEnumerable<Domain.Entities.Flat> UpdateChildFilterData(
+            IEnumerable<Domain.Entities.Flat> entities)
+        {
+            entities = TotalRoomCount.HasValue
+                           ? entities.Where(room => room.TotalRoomCount == TotalRoomCount.Value)
+                           : entities;
 
-			return entities;
-		}
+            if (FilterTerrace != null && !Equals(FilterTerrace, _AllTerrace))
+            {
+                entities = entities.Where(room => room.Terrace != null && room.Terrace.Name.ToLower() != "Нет".ToLower());
+            }
 
-		protected override void LoadChildFiltersData()
-		{
-			TotalRoomCount = null;
-		}
+            return entities;
+        }
 
-		public override ExportTable GetExportedTable(ExportMode mode)
-		{
-			var table = new ExportTable("Квартиры")
-				{
-					Headers = new List<Header>
-						{
-							new Header("К", 30),
-							new Header("Район", 60),
-							new Header("Адрес", 100),
-							new Header("Этаж", 150),
-							new Header("В/Н", 200),
-							new Header("План.", 300),
-							new Header("Площадь", 400),
-							new Header("Мат.", 500),
-							new Header("Балк.", 700),
-							new Header("Сан.узел", 100),
-							new Header("Сост.", 100),
-							new Header("Комментарий", 500),
-							new Header("Вариант", 100),
-							new Header("Цена т.р.", 100),
-							new Header("В.", 100),
-							new Header("Риэлтор", 100),
-						}
-				};
+        protected override void LoadChildFiltersData()
+        {
+            TotalRoomCount = null;
+        }
 
-			var collection = GetCollectionForExport(mode);
-			
-			foreach (var item in collection)
-			{
-				var flat = item as FlatViewModel;
-				var row = new List<string>
-					{
-						flat.TotalRoomCount.ToString(),
-						GetBaseDictionaryName(flat.District),
-						flat.Address,
-						flat.FloorString,
-						GetBaseDictionaryName(flat.FloorLevel),
-						GetBaseDictionaryName(flat.Layout),
-						flat.SquareString,
-						GetBaseDictionaryName(flat.Material),
-						GetBaseDictionaryName(flat.Terrace),
-						GetBaseDictionaryName(flat.ToiletType),
-						GetBaseDictionaryName(flat.Condition),
-						flat.Description,
-						GetBaseDictionaryName(flat.DealVariant),
-						flat.PriceString,
-						flat.HasVideo ? "В" : "",
-						flat.Realtor == null ? "" : flat.Realtor.Phone
+        public override ExportTable GetExportedTable(ExportMode mode)
+        {
+            var table = new ExportTable("Квартиры")
+                {
+                    Headers = new List<Header>
+                        {
+                            new Header("К", 30),
+                            new Header("Район", 60),
+                            new Header("Адрес", 100),
+                            new Header("Этаж", 150),
+                            new Header("В/Н", 200),
+                            new Header("План.", 300),
+                            new Header("Площадь", 400),
+                            new Header("Мат.", 500),
+                            new Header("Балк.", 700),
+                            new Header("Сан.узел", 100),
+                            new Header("Сост.", 100),
+                            new Header("Комментарий", 500),
+                            new Header("Вариант", 100),
+                            new Header("Цена т.р.", 100),
+                            new Header("В.", 100),
+                            new Header("Риэлтор", 100),
+                        }
+                };
 
-					};
-				table.Data.Add(row);
-			}
+            var collection = GetCollectionForExport(mode);
 
-			return table;
-		}
-	}
+            foreach (var item in collection)
+            {
+                var flat = item as FlatViewModel;
+                var row = new List<string>
+                    {
+                        flat.TotalRoomCount.ToString(),
+                        GetBaseDictionaryName(flat.District),
+                        flat.Address,
+                        flat.FloorString,
+                        GetBaseDictionaryName(flat.FloorLevel),
+                        GetBaseDictionaryName(flat.Layout),
+                        flat.SquareString,
+                        GetBaseDictionaryName(flat.Material),
+                        GetBaseDictionaryName(flat.Terrace),
+                        GetBaseDictionaryName(flat.ToiletType),
+                        GetBaseDictionaryName(flat.Condition),
+                        flat.Description,
+                        GetBaseDictionaryName(flat.DealVariant),
+                        flat.PriceString,
+                        flat.HasVideo ? "В" : "",
+                        flat.Realtor == null ? "" : flat.Realtor.Phone
+
+                    };
+                table.Data.Add(row);
+            }
+
+            return table;
+        }
+
+        public override AdsAD GetAd(RealEstateViewModel<Domain.Entities.Flat> item)
+        {
+            var estate = item as FlatViewModel;
+            var ad = new AdsAD
+                {
+                    Square = estate.TotalSquare ?? 0,
+                    SquareSpecified = true,
+                    Floor = (byte) estate.Floor,
+                    FloorSpecified = true,
+                    Floors = (byte) estate.TotalFloor,
+                    FloorsSpecified = true,
+                    Rooms = (byte) estate.TotalRoomCount,
+                    RoomsSpecified = true,
+                    
+                    Category = Avito.Flat,
+                    MarketType = Avito.Old,
+
+                };
+
+            SetCommon(ad, estate);
+
+            return ad;
+        }
+    }
 }
