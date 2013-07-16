@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<Ads target="Avito.ru" formatVersion="1">
+  <Ad>
+    <Id>14</Id>
+    <Category>Комнаты</Category>
+    <OperationType>Сдам</OperationType>
+    <ObjectType>Дом</ObjectType>
+    <DateBegin>2012-05-01</DateBegin>
+    <DateEnd>2012-05-07</DateEnd>
+    <Region>Ленинградская область</Region>
+    <SaleRooms>2</SaleRooms>
+    <City>Сертолово</City>
+    <Locality>Юкки</Locality>
+    <Street>Яблоневая</Street>
+    <Rooms>3</Rooms>
+    <Square>20</Square>
+    <Floor>3</Floor>
+    <Floors>5</Floors>
+    <HouseType>Кирпичный</HouseType>
+    <WallsType>Кирпич</WallsType>
+    <LandArea>3.8</LandArea>
+    <Description>Сдаётся комната в отличной 3-х комнатной квартире с хорошим ремонтом 56.6кв.м в микрорайоне Чёрная речка города Сертолово. Крупнопанельный дом (коттедж), ст\пак., комнаты изолированные, санузел раздельный в кафеле, застеклённый балкон. Чистая парадная с большими лестничными проёмами. Большая прихожая.</Description>
+    <ContactPhone>8 (911) 123-44-55</ContactPhone>
+    <Price>10000</Price>
+    <Images>
+      <Image name="Сертолово1.jpg"></Image>
+      <Image name="Сертолово2.jpg"></Image>
+      <Image name="Сертолово3.jpg"></Image>
+      <Image name="Сертолово4.jpg"></Image>
+    </Images>
+    <AdStatus>Free</AdStatus>
+  </Ad>
+  <Ad>
+    <Id>14</Id>
+    <Category>Комнаты</Category>
+    <OperationType>Сдам</OperationType>
+    <ObjectType>Дом</ObjectType>
+    <DateBegin>2012-05-01</DateBegin>
+    <DateEnd>2012-05-07</DateEnd>
+    <Region>Ленинградская область</Region>
+    <SaleRooms>2</SaleRooms>
+    <City>Сертолово</City>
+    <Locality>Юкки</Locality>
+    <Street>Яблоневая</Street>
+    <Rooms>3</Rooms>
+    <Square>20</Square>
+    <Floor>3</Floor>
+    <Floors>5</Floors>
+    <HouseType>Кирпичный</HouseType>
+    <WallsType>Кирпич</WallsType>
+    <LandArea>3.8</LandArea>
+    <Description>Сдаётся комната в отличной 3-х комнатной квартире с хорошим ремонтом 56.6кв.м в микрорайоне Чёрная речка города Сертолово. Крупнопанельный дом (коттедж), ст\пак., комнаты изолированные, санузел раздельный в кафеле, застеклённый балкон. Чистая парадная с большими лестничными проёмами. Большая прихожая.</Description>
+    <ContactPhone>8 (911) 123-44-55</ContactPhone>
+    <Price>10000</Price>
+    <Images>
+      <Image name="Сертолово1.jpg"></Image>
+      <Image name="Сертолово2.jpg"></Image>
+      <Image name="Сертолово3.jpg"></Image>
+      <Image name="Сертолово4.jpg"></Image>
+    </Images>
+    <AdStatus>Free</AdStatus>
+  </Ad>
+</Ads>

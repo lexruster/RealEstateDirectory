@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Ads" >
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" name="Ad">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="Id" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Category" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="OperationType" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="ObjectType" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="DateBegin" type="xs:date" />
+              <xs:element minOccurs="0" maxOccurs="1" name="DateEnd" type="xs:date" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Region" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="SaleRooms" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" maxOccurs="1" name="City" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Locality" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Street" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Rooms" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Square" type="xs:decimal" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Floor" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Floors" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" maxOccurs="1" name="HouseType" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="WallsType" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="LandArea" type="xs:decimal" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="ContactPhone" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Price" type="xs:unsignedShort" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Images">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Image">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="AdStatus" type="xs:string" />
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="target" type="xs:string" use="required" />
+      <xs:attribute name="formatVersion" type="xs:unsignedByte" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

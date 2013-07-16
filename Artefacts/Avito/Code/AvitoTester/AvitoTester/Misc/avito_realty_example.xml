@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<Ads target="Avito.ru" formatVersion="1">
+	<Ad>
+		<Id>14</Id>
+		<Category>Комнаты</Category>
+		<OperationType>Сдам</OperationType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-07</DateEnd>
+		<Region>Ленинградская область</Region>
+		<City>Сертолово</City>
+		<Street>ул. Молодцова</Street>
+		<SaleRooms>1</SaleRooms>
+		<Rooms>3</Rooms>
+		<Square>20</Square>
+		<Floor>2</Floor>
+		<Floors>2</Floors>
+		<HouseType>Панельный</HouseType>
+		<Description>Сдаётся комната в отличной 3-х комнатной квартире с хорошим ремонтом 56.6кв.м в микрорайоне Чёрная речка города Сертолово. Крупнопанельный дом (коттедж), ст\пак., комнаты изолированные, санузел раздельный в кафеле, застеклённый балкон. Чистая парадная с большими лестничными проёмами. Большая прихожая.</Description>
+		<ContactPhone>8 (911) 123-44-55</ContactPhone>
+		<Price>10000</Price>
+		<Images>
+			<Image name="Сертолово1.jpg"></Image>
+			<Image name="Сертолово2.jpg"></Image>
+			<Image name="Сертолово3.jpg"></Image>
+			<Image name="Сертолово4.jpg"></Image>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>К137</Id>
+		<Category>Комнаты</Category>
+		<OperationType>Продам</OperationType>
+		<!-- DateBegin и DateEnd не указаны - объявление будет показано в течение 30 дней, начиная со дня приёма -->
+		<Region>Санкт-Петербург</Region>
+		<Subway>Парк Победы</Subway>
+		<SaleRooms>2</SaleRooms>
+		<Rooms>3</Rooms>
+		<Floor>3</Floor>
+		<Floors>5</Floors>
+		<HouseType>Кирпичный</HouseType>
+		<Square>25.5</Square>
+		<Description>Продаются 2 комнаты в 3-комнатной кв. Дом - кирпичная хрущевка, вход со двора, окна на зеленый двор, сделан ремонт, есть телефон, пол - паркет, с/у - раздельный, ванна отдельная. Светлая комната, квадратная. 1 сосед - молодой человек, квартира чистая, стеклопакеты. Зеленый двор, школа и детский сад рядом. торг</Description>
+		<ContactPhone>293 45 45</ContactPhone>
+		<Price>2400000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"></Image>
+			<Image url="http://img.industry-soft.ru/8F81612B-5742-4492-9CF3-ECF9DCBA0172.jpg"></Image>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"></Image>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>5412</Id>
+		<Category>Квартиры</Category>
+		<OperationType>Сдам</OperationType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Ленинградская область</Region>
+		<City>Левашово</City>		
+		<Locality>Юкки</Locality>
+		<Street>Яблоневая</Street>
+		<Rooms>2</Rooms>
+		<Square>50</Square>
+		<Floor>1</Floor>
+		<Floors>2</Floors>
+		<HouseType>Панельный</HouseType>
+		<LeaseType>Долгосрочная</LeaseType>
+		<Description>Крупно-панельный дом (г.п. 2007); вход с улицы, окна на улицу и во двор, с/у - совмещенный, 2-х комн. квартира. Дом находится в живописном месте, пруд с форелью, лес, ягоды, грибы, удобная транспортное сообщение с СПб, вся инфраструктура, хороший подъезд круглый год.</Description>
+		<ContactPhone>921-25-55</ContactPhone>
+		<Price>20000</Price>
+		<Images>
+			<Image name="a1.jpg"/>
+			<Image name="a2.jpg"/>
+			<Image name="a3.jpg"/>
+			<Image name="a4.jpg"/>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>5308</Id>
+		<Category>Квартиры</Category>
+		<OperationType>Продам</OperationType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Санкт-Петербург</Region>
+		<Street>Энгельса просп 93</Street>
+		<Subway>Удельная</Subway>
+		<Rooms>3</Rooms>
+		<Square>161.7</Square>
+		<MarketType>Вторичка</MarketType>
+		<Description>Элитный жилой комплекс «Живой родник». Неподалеку находятся Поклонная гора, Сосновский лесопарк и Суздальские озера. Квартира с удобной, современной планировкой, удовлетворяет всем требованиям комфорта и качества. Очень светлая кухня-СТОЛОВАЯ 32,3 кв.м за счет трех окон с видом на водоем во дворе. Спальня правильной планировки с двумя окнами с видом на парк Сосновка. Согласно планировки в квартире 3 (три) ГАРДЕРОБНЫЕ, 2 с/у и просторная ГОСТИНАЯ с кабинетом 54 кв.м. В комплексе есть подземные гаражи. Закрытая охраняемая территория комплекса с видеонаблюдением, в середине которого расположено чистое озеро. В подъезде консьерж. На территории комплекса расположена бесплатная охраняемая парковка. В собственности квартира более 3-х лет. Документы готовы к прямой продаже. Комплекс «Живой Родник» построен в одном из экологически чистых районов Санкт-Петербурга – у подножия Поклонной горы, рядом со станциями метро «Удельная» и «Озерки».</Description>
+		<ContactPhone>+7 (905) 207-04-90</ContactPhone>
+		<Price>13800000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"/>
+			<Image url="http://img.industry-soft.ru/8F81612B-5742-4492-9CF3-ECF9DCBA0172.jpg"/>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"/>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>30154</Id>
+		<Category>Дома, дачи, коттеджи</Category>
+		<OperationType>Сдам</OperationType>
+		<ObjectType>Дом</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Ленинградская область</Region>
+		<City>Сестрорецк</City>
+		<Locality>п.Александровское</Locality>
+		<Street>Тарховская</Street>
+		<Square>90</Square>
+		<LandArea>3.8</LandArea>
+		<DistanceToCity>20</DistanceToCity>
+		<WallsType>Кирпич</WallsType>
+		<LeaseType>Долгосрочная</LeaseType>
+		<Description>Курортный район. до ж/д станции Александровская 5 минут пешком. До Разлива 10 минут пешком. Красивая природа, тихо. Двухэтажный дом 60кв. м, два входа. В доме, на первом этаже: кухня 13кв. м, холл 11кв. м, спальня 15кв. м, открытая веранда. На втором этаже: спальня 14кв. м, терраса. Мебель сборная 95-2000-ых годов. Плита - газ (баллон). Участок 3,8 сотки, квадратный, разработан .На участке плодовые деревья, ягодные кусты, парник, площадка для автомобиля.</Description>
+		<ContactPhone>985-34-12</ContactPhone>
+		<Price>52000.00</Price>
+		<Images>
+			<Image name="IMG_0224.JPG"/>
+			<Image name="IMG_0301.JPG"/>
+			<Image name="IMG_0455.JPG"/>
+			<Image name="IMG_0502.JPG"/>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>30176</Id>
+		<Category>Дома, дачи, коттеджи</Category>
+		<OperationType>Продам</OperationType>
+		<ObjectType>Коттедж</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Ленинградская область</Region>
+		<City>Пушкин</City>
+		<Street>Восточная</Street>
+		<Square>280</Square>
+		<LandArea>12</LandArea>
+		<DistanceToCity>25</DistanceToCity>
+		<WallsType>Брус</WallsType>
+		<Description>Продается двухэтажный коттедж с мансардой в Пушкинском районе города. Поселок активно развивается, до метро Московская 15 мин транспортом. Дом общей площадью 280 кв. м. на участке 12 соток, расчитан на две семьи. Выполнен по Шведской технологии с применением экологически чистых, теплосберегающих материалов, подготовлен под отделку, симметричная планировка. Городская прописка. ПРЯМАЯ ПРОДАЖА</Description>
+		<ContactPhone>+7 (911) 247-04-11</ContactPhone>
+		<Price>6650000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"/>
+			<Image url="http://img.industry-soft.ru/8F81612B-5742-4492-9CF3-ECF9DCBA0172.jpg"/>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"/>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>УЧ135-10</Id>
+		<Category>Земельные участки</Category>		
+		<OperationType>Продам</OperationType>
+		<ObjectType>Поселений (ИЖС)</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Ленинградская область</Region>
+		<City>Приозерск</City>
+		<Locality>пос. Сосново</Locality>
+		<LandArea>10</LandArea>
+		<DistanceToCity>80</DistanceToCity>
+		<Description>Участок в поселке с развитой инфраструктурой. ИЖС. Подведено электричество (15 кВт). В 300 метрах озеро, лес. Пляж в 1.5 км. Хорошее транспортное сообщение с С-Пб. Тихое экологически чистое место. Рядом горнолыжный курорт «ИГОРА». Возможен торг!</Description>
+		<ContactPhone>(81379)37835</ContactPhone>
+		<Price>950000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"/>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"/>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>УЧ137-15</Id>
+		<Category>Земельные участки</Category>
+		<OperationType>Продам</OperationType>
+		<ObjectType>Поселений (ИЖС)</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Санкт-Петербург</Region>
+		<Subway>Ладожская</Subway>
+		<Locality>Янино-2</Locality>
+		<LandArea>15</LandArea>
+		<DistanceToCity>10</DistanceToCity>
+		<Description>Земельный участок ИЖС Всеволожский р-н, Янино-2, 12 сот, подъезд-асфальт. Подключено (оплачено) 9квт эл-ва. Городской водопровод (есть ТУ), газ (есть ТУ), телефон - все по границе участка. Собственность. 20 мин до Пл. Восстания на а/м. Торг.</Description>
+		<ContactPhone>+7 (911) 247-04-11</ContactPhone>
+		<Price>3400000</Price>
+		<Images>
+			<Image name="1.JPG"/>
+			<Image name="2.JPG"/>
+			<Image name="4.JPG"/>
+			<Image name="10.JPG"/>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>51</Id>
+		<Category>Гаражи и стоянки</Category>
+		<OperationType>Сдам</OperationType>
+		<ObjectType>Гараж</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Санкт-Петербург</Region>
+		<Subway>Парк Победы</Subway>
+		<Street>Витебский 16</Street>
+		<Square>20</Square>
+		<Description>Сдам бетонный гараж.
+Отделка вагонкой, вентиляция, 220в, открытый стеллаж, хорошая охрана, на подъездах везде ровный асфальт, зимой регулярная уборка снега.
+Состояние гаража - отличное.</Description>
+		<ContactPhone>8 911 521-89-14</ContactPhone>
+		<Price>2000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"/>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"/>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>17</Id>
+		<Category>Гаражи и стоянки</Category>
+		<OperationType>Продам</OperationType>
+		<ObjectType>Гараж</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Ленинградская область</Region>
+		<City>Гатчина</City>
+		<Locality>Малое Верево</Locality>
+		<Square>18</Square>
+		<Description>Продам металический гараж, удобное расположение,сухой,обшит,пол деревянный,торг уместен</Description>
+		<ContactPhone>+7(812)476 44 77</ContactPhone>
+		<Price>70000</Price>
+		<Images>
+			<Image name="1.JPG"/>
+			<Image name="2.JPG"/>
+			<Image name="3.JPG"/>
+			<Image name="4.JPG"/>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>38</Id>
+		<Category>Недвижимость за рубежом</Category>
+		<OperationType>Продам</OperationType>
+		<ObjectType>Квартира, апартаменты</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Country>Болгария</Country>
+		<Locality>Приморско</Locality>		
+		<Region>Москва</Region>
+		<Subway>Сокол</Subway>
+		<Rooms>1</Rooms>
+		<Square>40</Square>
+		<Description>В собственности с 2010г,акт 16, с мебелью ,кухонным уголком,балкон,окна на улицу, 300 м до пляжа(2 пляжа северный и южный). Комплекс состоит из двух зданий, имеются также бассейн, ресторан, фитнес, массаж, румсервис, бар, детская площадка и бассейн, места отдыха, магазины, панорамный балкон, настольный теннис, велосипеды, автостоянка и ряд развлекательных удобств располагаются на территории общей площадью в 2500 кв.м.</Description>
+		<ContactPhone>+7 (495) 389-89-14</ContactPhone>
+		<Price>990000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"/>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"/>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>19</Id>
+		<Category>Недвижимость за рубежом</Category>
+		<OperationType>Сдам</OperationType>
+		<ObjectType>Квартира, апартаменты</ObjectType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Country>Хорватия</Country>
+		<Region>Москва</Region>		
+		<Rooms>3</Rooms>
+		<Square>47</Square>
+		<Description>Апартаменты в аренду в 100 м от пляжа в красивом месте.
+-спальня с двуспальной кроватью; 
+-ванная комната с душевой кабиной; 
+-кухня с гостиной и столовой (в гостиной раскладной диван); 
+-терраса с видом на море; 
+-спутниковое телевидение; 
+-интернет; 
+-телефон; 
+-кондиционер.
+msk@rentcroatia.ru</Description>
+		<ContactPhone>980 44 77</ContactPhone>
+		<Price>2100</Price>
+		<Images>
+			<Image name="03.JPG"/>
+			<Image name="07.JPG"/>
+			<Image name="11.JPG"/>
+			<Image name="24.JPG"/>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>26</Id>
+		<Category>Коммерческая недвижимость</Category>
+		<ObjectType>Склад</ObjectType>
+		<OperationType>Сдам</OperationType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Московская область</Region>
+		<City>Жуковский</City>
+		<Square>700</Square>
+		<Description>Сдаётся складское помещение 700 м2 в Жуковском. Потолки - 12 м, стеллажи, 5 автоматич. откатных ворот, охрана, видеонаблюдение,пожарная сигнализация, полный комплекс услуг (отв. хранение, сортировка, погрузочно-разгрузочн. работы, транспорт. компания.). Офисные помещения. Интернет, МГТС.</Description>
+		<ContactPhone>8-921-655-23-03</ContactPhone>
+		<Price>294000</Price>
+		<Images>
+			<Image url="http://img.industry-soft.ru/591F0E40-2238-48DB-8F7B-4A4F3A0F2BA1.jpg"/>
+			<Image url="http://img.industry-soft.ru/95B5B3DA-2FCC-4126-9CD0-BA0B1A000313.jpg"/>
+		</Images>
+		<AdStatus>Free</AdStatus>
+	</Ad>
+	<Ad>
+		<Id>48</Id>
+		<Category>Коммерческая недвижимость</Category>
+		<ObjectType>Магазин</ObjectType>
+		<OperationType>Продам</OperationType>
+		<DateBegin>2012-05-01</DateBegin>
+		<DateEnd>2012-05-14</DateEnd>
+		<Region>Москва</Region>
+		<Subway>Алтуфьево</Subway>
+		<Square>80</Square>
+		<Street>9-я Северная линия</Street>
+		<Description>Продам помещение в новом районе "Северный" под размещение торговли (продовольственный и непродовольственный магазин) в Москве на ул. 9-я Северная линия.  Дом 2007 года постройки. Помещение расположено на 1-м этаже 17-ти этажного панельного дома. Высота потолков 2,65 м, площадь 79,9 кв.м. Имеется 2 входа.</Description>
+		<ContactPhone>8 (926) 601-18-81</ContactPhone>
+		<Price>900000</Price>
+		<Images>
+			<Image name="1.JPG"/>
+			<Image name="2.JPG"/>
+			<Image name="4.JPG"/>
+			<Image name="10.JPG"/>
+		</Images>
+		<AdStatus>Premium</AdStatus>
+	</Ad>
+</Ads>
