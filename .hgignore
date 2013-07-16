@@ -8,3 +8,4 @@ Artefacts/FluentMigrator/*.bat
 Deploy/Obfuscated/*
 Deploy/Instal/*
 Deploy/Bin/*
+Deploy/BackUp/*.backup
