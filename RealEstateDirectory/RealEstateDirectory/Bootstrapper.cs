@@ -103,14 +103,6 @@ namespace RealEstateDirectory
 			}
 		}
 
-		public override void Run(bool runWithDefaultConfiguration)
-		{
-#if DEBUG
-			HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-#endif
-			base.Run(runWithDefaultConfiguration);
-		}
-
 		#endregion
 
 		#region Регистрации
