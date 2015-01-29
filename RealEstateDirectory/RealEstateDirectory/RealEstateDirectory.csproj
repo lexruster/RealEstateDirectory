@@ -56,9 +56,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="Activelock3_6NET">
-      <HintPath>..\..\Dependencies\Alugen\Activelock3_6NET.dll</HintPath>
-    </Reference>
     <Reference Include="FluentMigrator">
       <HintPath>..\packages\FluentMigrator.1.4.0.0\lib\40\FluentMigrator.dll</HintPath>
       <Private>True</Private>
@@ -274,9 +271,6 @@
       <DependentUpon>RoomListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainFormTabs\Room\RoomListViewModel.cs" />
-    <Compile Include="Misc\RegisterWindow.xaml.cs">
-      <DependentUpon>RegisterWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\CollectionChangingEventArgs.cs" />
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="Services\IUpdateService.cs" />
@@ -413,10 +407,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Misc\RegisterWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\DataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -519,9 +509,6 @@
     <Resource Include="Resources\Img\EXCEL.png" />
     <SplashScreen Include="Resources\Img\favicon.png" />
     <Resource Include="favicon.ico" />
-    <Content Include="ALCrypto3NET.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
